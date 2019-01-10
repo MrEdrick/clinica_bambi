@@ -1,0 +1,45 @@
+import 'dart:html';
+import 'package:angular/angular.dart';
+import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_input/material_input.dart';
+import 'dart:js' as js;
+
+@Component(
+  selector: 'email-fale-conosco-app',
+  templateUrl: 'email_fale_conosco_component.html',
+  directives: const [
+    coreDirectives,
+    AutoFocusDirective,
+    MaterialIconComponent,
+    MaterialButtonComponent,
+    MaterialIconComponent,
+    MaterialInputComponent,
+    materialInputDirectives,
+  ],
+  providers: const [materialProviders],
+  styleUrls: const [
+    'email_fale_conosco_component.scss.css',
+    'package:angular_components/app_layout/layout.scss.css'
+  ],
+)
+
+class EmailFaleConoscoComponent {
+  bool multiline = true;
+
+  String email = '';
+  String subject = '';
+  String mensage = '';
+
+  void clickClose() {
+    querySelector('email-fale-conosco-app').style.display = 'none';
+    querySelector('#wh-widget-send-button').style.display = 'block';
+  }
+
+
+  void clickSend() {
+    js.context.callMethod('sendEmail', [email, subject, mensage]);
+  }
+
+}

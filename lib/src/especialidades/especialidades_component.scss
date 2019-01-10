@@ -1,0 +1,130 @@
+:host {
+    flex: 1;
+    min-height: 620px;
+    padding: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    background-color: #FFFFFF;
+}
+
+.title {
+    margin-top: 2.5%;
+    margin-bottom: 1.25%;
+    padding-left: 1.25%;
+    width: 100%;
+    position: relative;
+    font-weight: 700;
+    text-align: left;
+    font-size: 2em;
+    color: #616161;
+    display: inline-block;
+}
+
+.lista-especialidades {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1% 1%;
+}
+
+.especialidade {
+    min-width: 290px;
+    height: 180px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    padding: 0.5%;    
+    margin: 1%;
+    border-radius: 5px;
+}
+
+#especialidade-invisible {
+    display: none;
+}
+
+.titulo-especialidade {
+    flex: 1;
+    font-size: 1.3em;
+    color: #DB3813;
+    text-align: center;
+    font-weight: 600;
+    padding-top: 1%;
+    margin-bottom: 1%;
+}
+
+.texto-especialidade {
+    font-family: 'Montserrat';
+    flex: 4;
+    color: #616161;
+    text-align: left;
+    font-weight: 700;
+    font-size: 1em;
+    padding: 0% 5%;
+}
+  
+@media screen and (min-width: 769px) {
+    .lista-especialidades {
+        padding: 1.5%;
+    }    
+    .especialidade {
+        margin: 1%;
+    }
+
+    .title {
+        margin: 0.5%;
+        //font-size: 4.0vw;
+    }
+
+    .titulo-especialidade {
+        //font-size: 2.5vw;
+    }
+
+    .texto-especialidade {
+        //font-size: 2vw;
+    }
+
+    
+    #especialidade-invisible {
+        display: flex;
+        visibility: hidden;
+    }
+
+}
+
+@media screen and (min-width: 1000px) {
+   
+    .titulo-especialidade {
+        //font-size: 1.5vw;
+    }
+
+    .texto-especialidade {
+        //font-size: 1.5vw;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+   
+    .especialidade {
+        margin: 1%;
+    }
+
+    .title {
+        margin: 0.5%;
+        //font-size: 3.0vw;
+    }
+
+    .titulo-especialidade {
+        //font-size: 1.3vw;
+    }
+
+    .texto-especialidade {
+        //font-size: 1.3vw;
+    }
+}

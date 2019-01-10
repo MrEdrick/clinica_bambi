@@ -1,0 +1,6 @@
+<div class="container-dentista-turno-quantidade-consulta">
+    <span class="turno">
+        {{turno}}
+    </span>
+    <material-input class="edit-input" id="quantidade-por-turno" label="Quantidade..." [ngModel]="quantidadePorTurno" (inputKeyPress)="quantidadePorTurno = $event"></material-input>
+</div>

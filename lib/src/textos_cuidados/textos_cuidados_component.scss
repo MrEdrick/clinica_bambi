@@ -1,0 +1,63 @@
+:host {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    padding-top: 50px;
+    color: #00b0ff; 
+    background-color: #ffffff;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+:host::-webkit-scrollbar {
+    display: none;
+}
+
+.container-cuidado {
+    position: relative;
+    padding: 2%;
+}
+
+.title {
+    position: relative;
+    font-size: 1.6em;
+    color: #DB3813;
+    text-align: center;
+    font-weight: 600;
+    padding-top: 1%;
+    margin-bottom: 1%;
+    padding: 2%;
+}
+
+.text {
+    font-family: 'Montserrat';
+    position: relative;
+    font-weight: 600;
+    text-align: left;
+    font-size: 1.2em;
+    color: #616161;
+    padding: 2%;
+    padding-bottom: 15%;
+}
+
+@media screen and (min-width: 769px) {
+    :host {
+        flex-flow: row;
+        flex-wrap: wrap;
+    }
+
+    .container-cuidado {
+        flex: 1;
+    }
+
+    .title {
+        flex: 1;
+    }
+    
+    .text {
+        flex: 1;
+    }
+    
+}

@@ -1,0 +1,322 @@
+@import 'package:angular_components/css/material/shadow';
+
+:host {
+    flex: 1;
+    min-height: 420px;
+    padding: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+}
+
+.contact {
+    display: none;
+}
+
+.a-clinica-container-head {
+    flex: 0;
+    position: absolute;
+    top: -48px;
+    right: 0;
+    width: 65%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: row; 
+    justify-content: flex-end;
+    z-index: 300;
+}
+  
+.contact-head { 
+    flex: 1;
+    //margin: 0 1%;
+    display: flex;
+    min-height: 48px;
+    min-width: 48px;
+    max-height: 48px;
+    max-width: 48px;
+}
+
+.contact-icon-head {
+    flex: 1;
+    text-align: center;
+    color: #00b0ff;
+    font-size: 1.2rem;
+}
+
+i {
+    position: relative;
+    top: 25%;
+    font-size: 1.2em;
+}
+
+.wellcome {
+    position: relative;
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+    font-size: 2rem;
+    color: #DB3813;
+    margin-top: 5%;
+    margin-bottom: 3%;
+}
+
+.sub-wellcome {
+    font-family: 'Montserrat';
+    color: #616161;
+    font-weight: 700;
+    text-align: left;
+    font-size: 1.5rem;
+    padding: 4% 2%;
+}
+
+.alert {
+    margin-top: 2%;
+    color: #DB3813 !important;
+    text-align: left;
+}
+
+@media screen and (min-width: 700px) {
+    /*.wellcome {
+        font-size: 7vh;
+    }
+    
+    .sub-wellcome {
+        font-size: 4.5vh;
+    }*/
+    
+}
+
+@media screen and (min-width: 769px) {
+    :host {
+        min-height: 620px;
+    }
+
+    .a-clinica-container-head {
+        display: none;
+    }
+
+    .contact-head {
+        display: none;
+    }
+    
+    .contact-icon-head {
+        display: none;
+    }
+
+    .a-clinica-container {
+        flex: 10;
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-flow: row; 
+        z-index: 101;
+    }
+    
+    .a-clinica-text {
+        flex: 1;
+        font-size: 12px;
+        font-weight: 600;
+        color: #616161;
+    }
+
+    .text {
+        position: relative;
+        width: 80%;
+        height: 80%;
+        margin: 2.5% auto;
+    }
+
+    .wellcome {
+        position: relative;
+        width: 100%;
+        letter-spacing: -.1rem;
+        font-weight: 600;
+        text-align: center;
+        //font-size: 4vw;
+        color: #DB3813;
+        margin-bottom: 1%;
+    }
+
+    .sub-wellcome {
+        font-family: 'Montserrat';
+        color: #616161;
+        font-weight: 700;
+        text-align: left;
+        font-size: 1.75rem;
+        line-height: 2rem;
+        padding: 2.5% 5%;
+    }
+
+    .alert {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .a-clinica-img {
+        flex: 1;
+    }
+
+    .img {
+        border: 1px 1px 0 1px rgba(0, 0, 0, 0.14) solid; 
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        position: relative;
+        width: 80%;
+        height: 90%;
+        border-radius: 1px;
+        margin: 5% auto;
+    }
+
+    .a-clinica-container-footer {
+        flex: 0;
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-flow: row; 
+    }
+      
+    .contact {
+        @include shadow-elevation(2);   
+        flex: 1;
+        margin: 2% 0.15%;
+        display: flex;
+        padding: 10px 1px 10px 1px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        transition: all 0.5s linear;
+        width: 24.70058565153734%;
+        border-radius: 5px;
+        height: 67px; 
+    }
+
+    .contact:hover {
+        cursor: pointer;
+        background-color:rgba(#0288D1, 0.14);
+        @include shadow-elevation(8);   
+    }
+
+    .click-alert {
+        top: -1%;
+        left: 0%;
+        right: 0%;
+        visibility:hidden;
+        font-size: 12px;
+        color: #616161;
+        text-align: center;
+        position: absolute;
+        font-weight: 700;
+        transition: all 0.5s linear;
+        opacity: 0;
+    }
+
+    .contact:hover .click-alert{
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .contact-icon {
+        flex: 1;
+        text-align: center;
+        color: #00b0ff;
+    }
+
+    i {
+        position: relative;
+        top: 50%;
+        margin-top: -3vw;
+        font-size: 2rem;
+    }
+
+    .contact-text {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: table;
+        text-align: left;
+        flex: 2;
+        font-weight: 700;
+        //font-size: 1.5vw;
+        color: #00B0FF;
+        padding: 0px 0px 5px 5px;
+    }
+
+    #email-text {
+        padding-top: 13px    
+    }
+
+    .span-text {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .lista-especialidades {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        padding: 2%;
+    }
+
+    .contact-credit-card {
+        color: #DB3813 !important;
+    }
+    
+    .contact-credit-card:hover {
+        cursor: pointer;
+        background-color: rgba(#DB3813, 0.14);
+        @include shadow-elevation(8);   
+    }
+
+    .credit-card {
+        color: #DB3813 !important;
+        border-color: #DB3813 !important;
+    }
+ 
+    email-fale-conosco-app {
+        transition: all 0.5s linear;
+    }
+
+    telefone-fale-conosco-app {
+        transition: all 0.5s linear
+    }
+
+    map-app {
+        transition: all 0.5s linear
+    }
+    
+}
+
+@media screen and (min-width: 1000px) {
+    i {
+        position: relative;
+       // font-size: 4vw;
+        top: 50%;
+        //margin-top: -2vw;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .contact {
+        margin: 1%;
+        width: 24.70058565153734%;
+        height: 67px; 
+    }
+
+    .contact-text {
+        //font-size: 1.2vw;
+    }
+
+    #email-text {
+        padding-top: 0px;    
+    }
+
+    .contact-icon {
+        border-right: #00b0ff 2px solid;
+    }
+}

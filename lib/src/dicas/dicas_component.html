@@ -1,0 +1,84 @@
+<div class="dicas-container">
+    <div class="container-left">
+        <div class="title-left">Nossas dicas para sua saúde.</div>
+        <div class="sub-title">
+            Nós da clínica Bambi nos preocupamos muito com nossos pacientes. Por isso reservamos este espaço para
+            algumas dicas, artigos
+            e passo-a-passos importantíssimos para sua sáude.
+        </div>
+        <br>
+        <div class="sub-title">
+            Leia todos e garanta um sorriso maravilhoso para você e sua família!
+        </div>
+
+        <div class="icon-decorator icon-decorator-large" id="decorator-tooth" style="filter: opacity(60%)">
+            <i class="fas fa-tooth"></i>
+        </div>
+        <div class="icon-decorator icon-decorator-large" id="decorator-lightbulb" style="filter: opacity(60%)">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="icon-decorator icon-decorator-large" id="decorator-heartbeat" style="filter: opacity(60%)">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="icon-decorator icon-decorator-large" id="decorator-file" style="filter: opacity(60%)">
+            <i class="fas fa-file"></i>
+        </div>
+
+
+        <div class="icon-decorator icon-decorator-large" id="decorator-tooth-1" style="filter: opacity(60%)">
+            <i class="fas fa-tooth"></i>
+        </div>
+        <div class="icon-decorator icon-decorator-large" id="decorator-lightbulb-1" style="filter: opacity(60%)">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="icon-decorator icon-decorator-large" id="decorator-heartbeat-1" style="filter: opacity(60%)">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="icon-decorator icon-decorator-large" id="decorator-file-1" style="filter: opacity(60%)">
+            <i class="fas fa-file"></i>
+        </div>
+    </div>
+
+    <div class="container-rigth">
+        <div class="content" id="dicas-content" (click)="clickDicas()">
+            <div id="title-decorator-dicas" style="display: block">
+                <div class="title-rigth-front title-decorator-lightbulb">
+                    <i class="fas fa-lightbulb"></i> <span>DICAS</span>
+                </div>
+            </div>
+
+            <textos-dicas-app id="textos-container-dicas" style="display: none"></textos-dicas-app>
+        </div>
+        <div class="content" id="artigos-content" (click)="clickArtigos()">
+            <div id="title-decorator-artigos" style="display: block">
+                <div class="title-rigth-front title-decorator-file-medical">
+                    <i class="fas fa-file"></i> <span>ARTIGOS</span>
+                </div>
+            </div>
+
+            <textos-artigos-app id="textos-container-artigos" style="display: none"></textos-artigos-app>
+        </div>
+        <div class="content" id="cuidados-content" (click)="clickCuidados()">
+            <div id="title-decorator-cuidados" style="display: block">
+                <div class="title-rigth-front title-decorator-shoe-prints">
+                    <i class="fas fa-tooth"></i> <span>CUIDADOS</span>
+                </div>
+            </div>
+
+            <textos-cuidados-app id="textos-container-cuidados" style="display: none"></textos-cuidados-app>
+        </div>
+        <div class="content" id="saude-content" (click)="clickSaude()">
+            <div id="title-decorator-saude" style="display: block">
+                <div class="title-rigth-front title-decorator-shoe-prints">
+                    <i class="fas fa-heartbeat"></i> <span>SAÚDE</span>
+                </div>
+            </div>
+
+            <textos-saude-app id="textos-container-saude" style="display: none"></textos-saude-app>
+        </div>
+    </div>
+</div>
+
+<material-button class="button-close" id="button-close" (click)="clickClose()">
+    <i class="material-icons">close</i>
+</material-button>

@@ -1,0 +1,22 @@
+<div class="container-configuration-dentista-turno">
+    <div class="container-cadastro">
+        <div class="titulo">
+            Configuração consulta
+        </div>
+
+        <div class="list-dentistas" *ngFor="let dentista of listDentists; let i=index; let last = last">
+            <dentista-turno-quantidade-app id="agendamento-list-card-app-{{i}}" [index]="i">
+            </dentista-turno-quantidade-app>
+        </div>
+    </div>
+
+    <material-button class="button-close" (click)="onClose()">
+        <material-icon icon="close"></material-icon>
+    </material-button>
+
+    <div class="button-container">
+        <material-button raised class="button-save" (click)="onAssertsSave()">
+            GRAVAR
+        </material-button>
+    </div>
+</div>

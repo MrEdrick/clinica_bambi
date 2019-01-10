@@ -1,0 +1,22 @@
+<div class="email-fale-conosco-container">
+    <div class="title-container">
+        Envie para nós sua mensagem aqui!
+    </div>
+    <div class="material-input-container">
+        <material-input id="email-cc" type="email" label="e-mail" autoFocus floatingLabel [ngModel]="email" (inputKeyPress)="email = $event"></material-input>
+
+        <material-input id="email-subject" label="assunto" floatingLabel [ngModel]="subject" (inputKeyPress)="subject = $event"></material-input>
+
+        <material-input id="email-message" label="Escreva aqui sua mensagem..." multiline="multiline" rows="18" [ngModel]="mensage" (inputKeyPress)="mensage = $event"></material-input>
+    </div>
+
+    <material-button class="button-close" (click)="clickClose()">
+        <material-icon icon="close"></material-icon>
+    </material-button>
+
+    <div class="button-container">
+        <material-button raised id="button-send-email" class="button-send" (click)="clickSend()">
+            ENVIAR
+        </material-button>
+    </div>
+</div>

@@ -1,0 +1,283 @@
+@import 'package:angular_components/css/material/shadow';
+
+:host {
+    flex: 1;
+    min-height: 80%;
+    flex-wrap: wrap;
+    flex-flow: column;
+    color: #FFFFFF;
+}
+
+.dicas-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+}
+
+.container-left {
+    flex: 1;
+    background-color: #0288D1;
+    height: 100%;  
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.title-left {
+    margin-top: 2%;
+    padding-left: 0.5%;
+    width: 100%;
+    position: relative;
+    font-weight: 700;
+    text-align: center;
+    font-size: 2em;
+    color: #FFFFFF;
+    display: inline-block;
+    margin-bottom: 3%;
+}
+
+.sub-title {
+    font-family: 'Montserrat';
+    margin: 1%;
+    padding-left: 0.5%;
+    color: #FFFFFF;
+    font-weight: 500;
+    text-align: left;
+    font-size: 1.5em;
+
+}
+
+.container-rigth {
+    flex: 1;
+    height: 100%;
+    background-color: #0288D1;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.icon-decorator-large {
+    position: absolute;
+    font-size: 2em;
+    color:  #ffffff;
+}
+
+.content {
+    @include shadow-elevation(2);
+    float: left;        
+    width: 98%;
+    height: 100px;
+    background-color: #ffffff;
+    position: relative;
+    transition: all 0.5s linear;
+    border-radius: 5px;
+    z-index: 0;
+    margin: 0% 1% 1% 1%;
+}
+
+.title-rigth-front {
+    font-family: 'Montserrat';
+    width: 100%;
+    top: 50%;
+    height: 50%;
+    margin-top: -0.6em;
+    position: absolute;
+    font-weight: 500;
+    text-align: center;
+    font-size: 1.80em;
+    color: #0288D1;
+    z-index: 1;
+    transition: all 0.5s linear;
+}
+
+.artigos-content {
+    flex: 1;
+}
+
+#button-close {
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 38px;
+    position: fixed;
+    background-color: #fff!important;
+    color: #616161;
+    padding-top: 10px;
+    text-align: center;
+    display: none;
+}
+
+.icon-decorator {
+    display: none;
+}
+
+.button-close i:hover {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 700px) {
+
+    /*.title-left {
+        font-size: 5vh;
+    }
+    
+    .sub-title {
+        font-size: 4vh;
+    
+    }
+
+    .title-rigth-front { 
+        font-size: 5vh;
+    }*/
+}
+
+@media screen and (min-width: 1100px) {
+    .dicas-container {
+        height: 640px;
+    }
+    
+    .dicas-container {
+        flex-flow: row;
+    }
+
+    .container-left {
+        padding: 0%;
+    }
+    
+    .container-rigth {
+        padding: 0%;
+    }
+
+    .title-left {
+        margin-top: 19%;
+        //font-size: 2.5vw;
+    }
+
+    .sub-title {
+        //font-size: 2.0vw;
+        padding-left: 5%;
+    }
+
+    .title-rigth-front {
+        //font-size: 2vw;
+    }
+
+    .content {
+        margin: 0% !important;
+    }
+
+    .icon-decorator-large {
+        //font-size: 4vw;
+    }
+
+    #decorator-tooth {
+        top: 2.5%;
+        left: 4%;
+    }
+
+    #decorator-lightbulb {
+        top: 10%;
+        left: 17%;
+    }
+
+    #decorator-heartbeat-1 {
+        top: 2.5%;
+        left: 30%;
+    }
+
+    #decorator-file {
+        top: 10%;
+        left: 43%;
+    }
+
+    #decorator-file-1 {
+        bottom: 2.5%;
+        left: 4%;
+    }
+
+    #decorator-heartbeat {
+        bottom: 10%;
+        left: 17%;
+    }
+
+    #decorator-tooth-1 {
+        bottom: 2.5%;
+        left: 30%;
+    }
+
+    #decorator-lightbulb-1 {
+        bottom: 10%;
+        left: 43%;
+    }
+
+    .content {
+        filter: brightness(1);
+        @include shadow-elevation(2);        
+        width: 23%;
+        height: 48%;
+        background-color: #ffffff;
+        position: absolute;
+        transition: all 0.5s linear;
+        border-radius: 5px;
+        z-index: 0;
+        float: none; 
+    }
+
+    .content:hover {
+        @include shadow-elevation(8);           
+        cursor: pointer;
+        filter: brightness(1.1);
+        width: 24%;
+        height: 49%;
+    }
+
+    .content:hover .title-rigth-front {
+        font-size: 2vw !important;
+    } 
+
+    .icon-decorator {
+        display: block;
+    }
+
+    #dicas-content:hover {
+        left: 51.0%;
+        top: 0.5%;
+    }
+
+    #artigos-content:hover {
+        left: 75.0%;
+        top: 0.5%;
+    }
+
+    #cuidados-content:hover {
+        left: 51.0%;
+        top: 50.5%;
+    }
+
+    #saude-content:hover {
+        left: 75.0%;
+        top: 50.5%;
+    }
+
+    #dicas-content {
+        left: 52%;
+        top: 1%;
+    }
+
+    #artigos-content {
+        left: 76%;
+        top: 1%;
+    }
+
+    #cuidados-content {
+        left: 52%;
+        top: 51%;
+    }
+
+    #saude-content {
+        left: 76%;
+        top: 51%;
+    }
+
+}

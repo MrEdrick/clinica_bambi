@@ -1,0 +1,20 @@
+<div class="telefone-fale-conosco-container">
+    <div class="title-container">
+        Gostaria que estrassemos em contato com você?
+    </div>
+    <div class="material-input-container">
+        <material-input id="telephone" label="Informe seu número aqui..." autoFocus floatingLabel [ngModel]="telephone" (inputKeyPress)="telephone = $event"></material-input>
+
+        <material-input id="mensage" label="Escreva aqui sua mensagem..." floatingLabel [ngModel]="mensage" (inputKeyPress)="mensage = $event"></material-input>
+    </div>
+
+    <material-button class="button-close" (click)="clickClose()">
+        <material-icon icon="close"></material-icon>
+    </material-button>
+
+    <div class="button-container">
+        <material-button raised class="button-send" (click)="clickSend()">
+            ENVIAR
+        </material-button>
+    </div>
+</div>
