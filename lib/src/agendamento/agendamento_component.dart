@@ -1,19 +1,16 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/material_datepicker/calendar.dart';
-import 'package:angular_components/material_datepicker/material_calendar_picker.dart';
-import 'package:angular_components/material_datepicker/material_time_picker.dart';
 import 'package:angular_components/material_datepicker/module.dart';
-import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
+import 'package:angular_components/material_input/material_input.dart';
 
 @Component(
   selector: 'agendamento-app',
   templateUrl: 'agendamento_component.html',
   directives: const [
-    coreDirectives,  
-    MaterialCalendarPickerComponent,
-    MaterialTimePickerComponent],
+    coreDirectives,
+    materialInputDirectives,
+    MaterialButtonComponent],
   providers: const [materialProviders, windowBindings, datepickerBindings],
   styleUrls: const [
     'agendamento_component.scss.css',
@@ -22,13 +19,13 @@ import 'package:angular_components/utils/browser/window/module.dart';
 )
 class AgendamentoComponent {
   String email = '';
-  String subject = '';
-  String tel = '';
+  String password = '';
+    String error;
 
-  DateTime time = DateTime.now();
-
-  static Date date(int days) => Date.today().add(days: days);
-
-  CalendarState plainModel =
-      CalendarState.selected([CalendarSelection('range', date(-4), date(4))]);
+  void onGetInside() async {
+    //error = await new AuthApp().registerUser(email, password);
+    if (error == '') {
+    } else {
+    }
+  }
 }

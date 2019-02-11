@@ -1,23 +1,20 @@
 <div class="agendamento-container">
     <div class="invitation">Agende sua consulta aqui!</div>
 
-    <div class="calendar-container">
-        <material-calendar-picker class="calendar" [state]="plainModel">
-        </material-calendar-picker>
+    <material-input type="email" id="email" label="E-mail" autoFocus floatingLabel [ngModel]="email"
+        (inputKeyPress)="email = $event">
+    </material-input>
 
-        <div style="height: 100px; width: 250px; display: inline-block">
-            <material-time-picker [(time)]="time"
-                                  [required]="true">
-            </material-time-picker>
-          </div>
-    </div>
+    <material-input id="password" label="Password" type="password" floatingLabel [ngModel]="password"
+        (inputKeyPress)="password = $event" (keyup.enter)="onGetInside()">
+    </material-input>
 
-    <div class="material-input-container">
-        <material-input id="email" label="e-mail" autoFocus floatingLabel [ngModel]="email" (inputKeyPress)="email = $event"></material-input>
+    <material-button (trigger)="onGetInside()">
+        Entrar
+    </material-button>
 
-        <material-input id="tel" label="tel" autoFocus floatingLabel [ngModel]="tel" (inputKeyPress)="tel = $event"></material-input>
-
-        <material-input id="subject" label="assunto" floatingLabel [ngModel]="subject" (inputKeyPress)="subject = $event"></material-input>
-    </div>
-
+    <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-auto-logout-link="false"
+        data-use-continue-as="false"></div>
+        
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
 </div>
