@@ -1,0 +1,29 @@
+<div class="login-auto-agendamento-container">
+    <div class="invitation">Agende sua consulta aqui!</div>
+    <div class="sub-invitation">Faça o login pelo melhor meio abaixo e agende sua consulta.</div>
+
+    <div class="login-container">
+        <material-input type="email" id="email" label="E-mail" autoFocus floatingLabel [ngModel]="email"
+            (inputKeyPress)="email = $event">
+        </material-input>
+
+        <material-input id="password" label="Password" type="password" floatingLabel [ngModel]="password"
+            (inputKeyPress)="password = $event" (keyup.enter)="onGetInside()">
+        </material-input>
+
+        <material-button (trigger)="onGetInside()">
+            Entrar
+        </material-button>
+
+        <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-auto-logout-link="false"
+            data-use-continue-as="false"></div>
+
+        <div id="g-login-button">
+            <span class="g-signin" data-scope="openid"
+                data-clientid="1046590420458-2np6jdjoe971kt16t8nuk2e58knvt3fj.apps.googleusercontent.com"
+                data-redirecturi="catalog" data-accesstype="offline" data-cookiepolicy="single_host_origin"
+                data-approvalprompt="force" data-onsuccess="onSignIn">
+            </span>
+        </div>
+    </div>
+</div>
