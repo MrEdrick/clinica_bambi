@@ -31,20 +31,20 @@ import '../agendamento/agreement/agreement.dart';
 import '../agendamento/agreement/agreement_service.dart';
 import '../agendamento/agreement/agreement_selection_options.dart';
 
-import 'package:firebase/firebase.dart' as fb;
-import '../firebase/firestore.dart';
-
 import '../agendamento/consulta/consulta_service.dart';
 
 import '../agendamento/usuario/usuario_service.dart';
 
+import 'package:firebase/firebase.dart' as fb;
+import '../firebase/firestore.dart';
+
 @Component(
-    selector: 'agendamento-edit-app',
+    selector: 'auto_agendamento-edit-app',
     styleUrls: const [
-      'agendamento_edit_component.scss.css',
+      'auto_agendamento_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'agendamento_edit_component.html',
+    templateUrl: 'auto_agendamento_edit_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -68,7 +68,7 @@ import '../agendamento/usuario/usuario_service.dart';
       ClassProvider(DentistService),
       ClassProvider(AgreementService)
     ])
-class AgendamentoEditComponent implements OnInit {
+class AutoAgendamentoEditComponent implements OnInit {
   ConsultaService _consultaService;
 
   ConsultaService get consultaService => _consultaService;
@@ -263,7 +263,7 @@ class AgendamentoEditComponent implements OnInit {
           ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
           : null;
 
-  AgendamentoEditComponent(
+  AutoAgendamentoEditComponent(
       this._dentistService, this._shiftService, this._agreementService);
 
   Future<void> _getListDentist() async {
