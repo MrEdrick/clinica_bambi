@@ -17,22 +17,22 @@ import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:firebase/firebase.dart' as fb;
 import 'agendamento_list_card_component.dart';
-import 'usuario/usuario.dart';
-import 'usuario/usuario_service.dart';
+import '../agendamento/usuario/usuario.dart';
+import '../agendamento/usuario/usuario_service.dart';
 import '../route_paths.dart' as paths;
 import 'package:intl/intl.dart';
 
-import 'shift/shift.dart';
-import 'shift/shift_service.dart';
-import 'shift/shift_selection_options.dart';
+import '../agendamento/shift/shift.dart';
+import '../agendamento/shift/shift_service.dart';
+import '../agendamento/shift/shift_selection_options.dart';
 
-import 'dentist/dentist.dart';
-import 'dentist/dentist_service.dart';
-import 'dentist/dentist_selection_options.dart';
+import '../agendamento/dentist/dentist.dart';
+import '../agendamento/dentist/dentist_service.dart';
+import '../agendamento/dentist/dentist_selection_options.dart';
 
 import 'agendamento_edit_component.dart';
 
-import 'consulta/consulta_service.dart';
+import '../agendamento/consulta/consulta_service.dart';
 
 @Component(
   selector: 'deshboard-agendamento-app',

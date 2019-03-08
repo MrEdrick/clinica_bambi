@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase/firebase.dart' as fb;
-import '../deshboard_agendamento/usuario/usuario.dart';
-import '../deshboard_agendamento/usuario/usuario_service.dart';
+import '../agendamento/usuario/usuario.dart';
+import '../agendamento/usuario/usuario_service.dart';
 
 class AuthApp {
   final fb.Auth auth;

@@ -4,8 +4,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import 'consulta/consulta.dart';
-import 'consulta/consulta_service.dart';
+import '../agendamento/consulta/consulta.dart';
+import '../agendamento/consulta/consulta_service.dart';
 import 'agendamento_edit_component.dart';
 
 @Component(

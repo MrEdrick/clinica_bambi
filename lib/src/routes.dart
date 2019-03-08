@@ -24,6 +24,11 @@ class Routes {
     component: deshboard_agendamento_template.DeshboardAgendamentoComponentNgFactory,
   );
 
+  static final _autoAgendamento = new RouteDefinition(
+    routePath: paths.auto_agendamento_edit,
+    component: auto_agendamento_edit_template.AutoAgendamentoComponentNgFactory,
+  );
+
   static final _not_found_component = new RouteDefinition(
     routePath: paths.not_found,
     component: not_found_template.NotFoundComponentNgFactory,
@@ -33,11 +38,13 @@ class Routes {
   final deshboard = _deshboard;
   final not_found = _not_found_component;
   final deshboardAgendamento = _deshboardAgendamento;
+  final autoAgendamento = _autoAgendamento;
 
   final List<RouteDefinition> all = [
     _login,
     _deshboard,
     _deshboardAgendamento,
+    _autoAgendamento,
     _not_found_component,
     new RouteDefinition.redirect(
       path: '',
