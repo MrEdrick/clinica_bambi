@@ -25,24 +25,35 @@ import '../route_paths.dart' as paths;
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class LoginAutoAgendamentoComponent {
+class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   String email = '';
   String password = '';
   String error;
   bool showNotSuccessfullyLogin = false;
 
+  final Router _router;
+
+  @override
+  Future<void> onActivate(_, RouterState current) async {
+
+  }
+  
+  LoginAutoAgendamentoComponent(
+    this._router
+  );
+
   void onGetInside() async {
     //error = await new AuthApp().registerUser(email, password);
     error = '';
     if (error == '') {
-      goDeshboardAgendamento();
+      goAutoAgendamento();
     } else {
       showNotSuccessfullyLogin = true;
     }
   }
 
-  Future<NavigationResult>  goDeshboardAgendamento() => _router.navigate(
-    paths.deshboard_agendamento.toUrl()
+  Future<NavigationResult>  goAutoAgendamento() => _router.navigate(
+    paths.auto_agendamento_edit.toUrl()
   );
   
   void onDismissNotSuccessfullyLogin() {
