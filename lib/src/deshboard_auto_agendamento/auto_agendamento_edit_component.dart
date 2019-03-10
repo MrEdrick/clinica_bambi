@@ -18,6 +18,9 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
+import 'package:angular_router/angular_router.dart';
+
+import '../route_paths.dart' as paths;
 
 import '../agendamento/dentist/dentist.dart';
 import '../agendamento/dentist/dentist_service.dart';
@@ -39,7 +42,7 @@ import 'package:firebase/firebase.dart' as fb;
 import '../firebase/firestore.dart';
 
 @Component(
-    selector: 'auto_agendamento-edit-app',
+    selector: 'auto-agendamento-edit-app',
     styleUrls: const [
       'auto_agendamento_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -48,6 +51,7 @@ import '../firebase/firestore.dart';
     directives: const [
       coreDirectives,
       formDirectives,
+      RouterOutlet,
       AutoFocusDirective,
       MaterialIconComponent,
       MaterialButtonComponent,
@@ -69,6 +73,8 @@ import '../firebase/firestore.dart';
       ClassProvider(AgreementService)
     ])
 class AutoAgendamentoEditComponent implements OnInit {
+  final Router _router;
+
   ConsultaService _consultaService;
 
   ConsultaService get consultaService => _consultaService;
@@ -264,7 +270,7 @@ class AutoAgendamentoEditComponent implements OnInit {
           : null;
 
   AutoAgendamentoEditComponent(
-      this._dentistService, this._shiftService, this._agreementService);
+      this._dentistService, this._shiftService, this._agreementService, this._router);
 
   Future<void> _getListDentist() async {
     _listDentist = await _dentistService.getAllDentistAcives();
@@ -279,6 +285,10 @@ class AutoAgendamentoEditComponent implements OnInit {
       _listAgreement = await _agreementService.getAllAgreementAcives();
     }
   }
+
+  Future<NavigationResult>  goAutoHome() => _router.navigate(
+    paths.deshboard.toUrl()
+  );
 
   void onEdit() {
     consultaService = new ConsultaService();
@@ -330,7 +340,7 @@ class AutoAgendamentoEditComponent implements OnInit {
     email = '';
     telefone = '';
 
-    querySelector('#agendamento-edit-app').style.display = 'none';
+    goAutoHome();
   }
 
   bool asserts() {

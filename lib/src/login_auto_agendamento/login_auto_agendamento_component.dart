@@ -53,7 +53,7 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   }
 
   Future<NavigationResult>  goAutoAgendamento() => _router.navigate(
-    paths.auto_agendamento_edit.toUrl()
+    paths.deshboard_auto_agendamento.toUrl()
   );
   
   void onDismissNotSuccessfullyLogin() {

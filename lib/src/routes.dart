@@ -5,7 +5,7 @@ import 'route_paths.dart' as paths;
 import 'login/login_component.template.dart' as login_template;
 import 'deshboard/deshboard_component.template.dart' as deshboard_template;
 import 'deshboard_agendamento/deshboard_agendamento_component.template.dart' as deshboard_agendamento_template;
-import 'deshboard_auto_agendamento/auto_agendamento_edit_component.template.dart' as auto_agendamento_edit_template;
+import 'deshboard_auto_agendamento/deshboard_auto_agendamento_component.template.dart' as deshboard_auto_agendamento_component_template;
 import 'not_found_component.template.dart' as not_found_template;
 
 @Injectable()
@@ -25,9 +25,9 @@ class Routes {
     component: deshboard_agendamento_template.DeshboardAgendamentoComponentNgFactory,
   );
 
-  static final _autoAgendamento = new RouteDefinition(
-    routePath: paths.auto_agendamento_edit,
-    component: auto_agendamento_edit_template.AutoAgendamentoEditComponentNgFactory,
+  static final _deshboardAutoAgendamento = new RouteDefinition(
+    routePath: paths.deshboard_auto_agendamento,
+    component: deshboard_auto_agendamento_component_template.DeshboardAutoAgendamentoComponentNgFactory,
   );
 
   static final _not_found_component = new RouteDefinition(
@@ -39,13 +39,13 @@ class Routes {
   final deshboard = _deshboard;
   final not_found = _not_found_component;
   final deshboardAgendamento = _deshboardAgendamento;
-  final autoAgendamento = _autoAgendamento;
+  final deshboardAutoAgendamento = _deshboardAutoAgendamento;
 
   final List<RouteDefinition> all = [
     _login,
     _deshboard,
     _deshboardAgendamento,
-    _autoAgendamento,
+    _deshboardAutoAgendamento,
     _not_found_component,
     new RouteDefinition.redirect(
       path: '',
