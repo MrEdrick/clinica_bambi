@@ -192,6 +192,10 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
     _listDentist = await _dentistService.getAllDentistAcives();
   }
 
+  Future<NavigationResult>  goAutoHome() => _router.navigate(
+    paths.deshboard.toUrl()
+  );
+
   DeshboardAutoAgendamentoComponent(this._router, this._dentistService, this._shiftService);
 
   @override
@@ -256,7 +260,7 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
   void onAdd() {
     consultaService.consulta = null;
     querySelector('#editAgendamento').click();
-    querySelector('#aut-agendamento-edit-app').style.display = 'block';
+    querySelector('#auto-agendamento-edit-app').style.display = 'block';
   }
 
   void onClear() {
@@ -276,4 +280,9 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
     querySelector('#total-result-filter-text').setAttribute('value', '0');
     querySelector('#total-result-filter-text').setInnerHtml('0');
   }
+
+  void onClose() {
+    goAutoHome();
+  }
+
 }

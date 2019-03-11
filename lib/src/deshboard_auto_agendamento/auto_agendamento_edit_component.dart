@@ -286,10 +286,6 @@ class AutoAgendamentoEditComponent implements OnInit {
     }
   }
 
-  Future<NavigationResult>  goAutoHome() => _router.navigate(
-    paths.deshboard.toUrl()
-  );
-
   void onEdit() {
     consultaService = new ConsultaService();
 
@@ -340,7 +336,7 @@ class AutoAgendamentoEditComponent implements OnInit {
     email = '';
     telefone = '';
 
-    goAutoHome();
+    querySelector('#auto-agendamento-edit-app').style.display = 'none';
   }
 
   bool asserts() {

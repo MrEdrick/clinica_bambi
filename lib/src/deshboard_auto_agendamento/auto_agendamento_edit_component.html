@@ -7,6 +7,10 @@
             Agendamento
         </div>
 
+        <div class="sub-titulo">
+            Paciente: {{paciente}}
+        </div>
+
         <material-datepicker id="date" class="lista-date" [(date)]="dataConsulta" [required]="true">
         </material-datepicker>
 
@@ -22,7 +26,7 @@
             [selection]="singleSelectModelAgreement" [options]="agreementOptions" [itemRenderer]="itemRendererAgreement">
         </material-dropdown-select>
 
-        <material-input class="edit-input" id="paciente" label="Paciente..." [ngModel]="paciente" (inputKeyPress)="paciente = $event"></material-input>
+        <!--material-input class="edit-input" id="paciente" label="Paciente..." [ngModel]="paciente" (inputKeyPress)="paciente = $event"></material-input-->
 
         <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email" (inputKeyPress)="email = $event"></material-input>
 

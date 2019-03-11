@@ -6,9 +6,18 @@
             </material-button>
 
             <span class="material-header-title">
-                Clínica Bambi: auto-atendimento
+                Clínica Bambi
             </span>
+
             <div class="material-spacer"></div>
+
+            <material-button raised (click)="onAdd" id="addAgendamento" class="white">
+                AGENDAR
+            </material-button>
+
+            <material-button class="button-close" (click)="onClose()">
+                <material-icon icon="close"></material-icon>
+            </material-button>
         </div>
     </header>
     <div class="container-deshboard-agendamento">
@@ -47,7 +56,8 @@
                     Dentista:
                 </span>
                 <material-dropdown-select id="dentista" class="lista-dentistas" [buttonText]="singleSelectDentistLabel"
-                    [selection]="singleSelectModelDentist" [options]="dentistOptions" [itemRenderer]="itemRendererDentist">
+                    [selection]="singleSelectModelDentist" [options]="dentistOptions"
+                    [itemRenderer]="itemRendererDentist">
                 </material-dropdown-select>
             </div>
 
@@ -97,7 +107,7 @@
                 <span class="total-result-filter-title">
                     Total de consultas:
                 </span>
-                <span class="total-result-filter-text" id="total-result-filter-text"> 
+                <span class="total-result-filter-text" id="total-result-filter-text">
                 </span>
             </div>
         </div>
@@ -109,12 +119,7 @@
             </div>
         </div>
     </div>
-
-    <material-fab raised (click)="onAdd" id="addAgendamento">
-        <material-icon icon="add"></material-icon>
-    </material-fab>
-
 </div>
 <!--[consulta]="consultaService.consulta  style="display: none" "-->
-<auto-agendamento-edit-app style="display: none" id="agendamento-edit-app">
+<auto-agendamento-edit-app style="display: none" id="auto-agendamento-edit-app">
 </auto-agendamento-edit-app>

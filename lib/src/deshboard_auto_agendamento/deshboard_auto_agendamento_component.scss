@@ -161,13 +161,12 @@ i {
 }
 
 
-material-fab {
-  position: fixed;
-  color: #ffffff;
-  background: #00B0FF;
-  right: 5px;
-  bottom: 10px;
+#addAgendamento {
+  position: relative;
+  background-color: #ffffff;
+  color: #616161;
   z-index: 999;
+  float: left;
 }
 
 ::ng-deep .label-text {
@@ -236,6 +235,17 @@ material-dropdown-select {
   font-weight: 500;
   color: #616161;
 }
+
+.button-close {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background-color: #00B0FF !important;
+  color: #ffffff;
+  transition: all 0.5s linear;
+  float: left;
+}
+
 
 @media screen and (min-width: 769px) {
   .container-deshboard-agendament {
