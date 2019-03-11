@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
@@ -7,6 +8,7 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/auto_dismiss/auto_dismiss.dart';
 import '../route_paths.dart' as paths;
+import 'cadastro_login_auto_agendamento_component.dart';
 
 @Component(
   selector: 'login-auto-agendamento-app',
@@ -18,7 +20,8 @@ import '../route_paths.dart' as paths;
     MaterialButtonComponent,
     MaterialDialogComponent,
     ModalComponent,
-    AutoDismissDirective
+    AutoDismissDirective,
+    CadastroLoginAutoAgendamentoComponent
     ],
   styleUrls: const [
     'login_auto_agendamento_component.scss.css',
@@ -50,6 +53,10 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
     } else {
       showNotSuccessfullyLogin = true;
     }
+  }
+
+  void onSingUp() async {
+    querySelector('#cadastro-login-auto-agendamento-app').style.display = 'block';
   }
 
   Future<NavigationResult>  goAutoAgendamento() => _router.navigate(
