@@ -3,11 +3,11 @@
     <div class="sub-invitation">Faça o login pelo melhor meio abaixo e agende sua consulta.</div>
 
     <div class="login-container">
-        <material-input type="email" id="email" label="E-mail" autoFocus floatingLabel [ngModel]="email"
+        <material-input class="login-auto-agendamento" type="email" id="email" label="E-mail" autoFocus floatingLabel [ngModel]="email"
             (inputKeyPress)="email = $event">
         </material-input>
 
-        <material-input id="password" label="Password" type="password" floatingLabel [ngModel]="password"
+        <material-input class="login-auto-agendamento" id="password" label="Password" type="password" floatingLabel [ngModel]="password"
             (inputKeyPress)="password = $event" (keyup.enter)="onGetInside()">
         </material-input>
 
@@ -15,13 +15,13 @@
             Entrar
         </material-button>
 
-        <div class="fb-login-button" data-size="large" data-button-type="continue_with" data-auto-logout-link="false"
-            data-use-continue-as="false"></div>
+        <!--div class="fb-login-button" data-size="large" data-button-type="continue_with" data-auto-logout-link="false"
+            data-use-continue-as="false"></div-->
 
         <material-button (trigger)="onSingUp()">
             Cadastrar
         </material-button>
     </div>
 </div>
-<cadastro-login-auto-agendamento-app style="display: none" id="auto-agendamento-edit-app">
+<cadastro-login-auto-agendamento-app style="display: none" id="cadastro-login-auto-agendamento-app">
 </cadastro-login-auto-agendamento-app>
