@@ -55,7 +55,7 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
     }
   }
 
-  void onSingUp() async {
+  void onSingUp() {
     querySelector('#cadastro-login-auto-agendamento-app').style.display = 'block';
   }
 
