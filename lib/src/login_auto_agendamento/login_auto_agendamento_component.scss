@@ -46,30 +46,33 @@ material-input, material-button {
     padding-bottom: 0% !important;
 }
 
-.login-auto-agendamento-container material-input .label-text {
+.login-auto-agendamento-container ::ng-deep material-input .label-text {
     color: #ffffff !important;
 }
 
-.login-auto-agendamento-container .label-text {
+.login-auto-agendamento-container ::ng-deep .label-text {
     color: #ffffff !important;
 }
 
-.login-auto-agendamento-container .focused.label-text {
+.login-auto-agendamento-container :ng-deep .focused-underline, .cursor {
+    background-color: #ffffff !important;
+}
+
+.login-auto-agendamento-container ::ng-deep .disabled-underline {
     color: #ffffff !important;
 }
 
-.login-auto-agendamento-container .focused-underline, .cursor {
-    background-color: #FFFFFF !important;
-}
-
-.login-auto-agendamento-container .disabled-underline {
-    color: #ffffff !important;
-}
-
-.login-auto-agendamento-container .unfocused-underline {
-    color: #ffffff;
+.login-auto-agendamento-container ::ng-deep .unfocused-underline {
     background: #ffffff !important;
     border-bottom-color: #ffffff !important;
+}
+
+.login-auto-agendamento-container ::ng-deep .focused.label-text {
+    color: #ffffff !important;
+}
+
+.login-auto-agendamento-container::ng-deep  .focused.label-text {
+    color: #ffffff !important;
 }
 
 .login-auto-agendamento {

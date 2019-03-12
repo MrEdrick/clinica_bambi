@@ -16,6 +16,27 @@
   background: rgba(#000000, 0.30);
 }
 
+.container-add-patient-account ::ng-deep material-input .label-text {
+  color: #616161 !important;
+}
+
+.container-add-patient-account ::ng-deep .focused.label-text {
+  color: #616161 !important;
+}
+
+.container-add-patient-account ::ng-deep .focused-underline, .cursor {
+  background-color: #616161 !important;
+}
+
+.container-add-patient-account ::ng-deep .disabled-underline {
+  color: #616161 !important;
+}
+
+.container-add-patient-account ::ng-deep .unfocused-underline {
+  background: #616161 !important;
+  border-bottom-color: #616161 !important;
+}
+
 .container-add-consulta {
   position: relative;
   width: 100%;

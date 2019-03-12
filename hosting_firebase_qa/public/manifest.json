@@ -1,0 +1,10 @@
+{
+  "name": "incline",
+  "short_name": "incline",
+  "start_url": "/index.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0288D1",
+  "description":"Agência digital para hotéis"
+}

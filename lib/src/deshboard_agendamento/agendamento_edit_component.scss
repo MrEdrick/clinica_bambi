@@ -83,24 +83,24 @@ material-datepicker {
   color: #616161;
 }
 
-::ng-deep material-datepicker .main-content {
+.container-add-consulta ::ng-deep material-datepicker .main-content {
   margin: 1% 0 3% 0%;
   display: inline !important;
 }
 
-::ng-deep material-datepicker .button {
+.container-add-consulta ::ng-deep material-datepicker .button {
   border-bottom: 1px solid #00B0FF !important
 }
 
-::ng-deep material-dropdown-select .button {
+.container-add-consulta ::ng-deep material-dropdown-select .button {
   border-bottom: 1px solid #00B0FF !important;
 }
 
-::ng-deep .label-text {
+.container-add-consulta ::ng-deep .label-text {
   color: #616161;
 }
 
-::ng-deep material-input .label-text {
+.container-add-consulta ::ng-deep material-input .label-text {
   color: #616161 !important;
 }
 

@@ -50,19 +50,23 @@ material-input {
     width: 100%;
 }
 
-::ng-deep .label-text {
+.email-fale-conosco-container ::ng-deep .label-text {
   color: #616161 !important;
 }
-::ng-deep .focused.label-text {
+
+.email-fale-conosco-container ::ng-deep .focused.label-text {
   color: #616161 !important;
 }
-::ng-deep .focused-underline, .cursor {
+
+.email-fale-conosco-container ::ng-deep .focused-underline, .cursor {
   background-color: #616161 !important;
 }
-::ng-deep .disabled-underline {
+
+.email-fale-conosco-container ::ng-deep .disabled-underline {
   color: #616161 !important;
 }
-::ng-deep .unfocused-underline {
+
+.email-fale-conosco-container ::ng-deep .unfocused-underline {
   background: #616161 !important;
   border-bottom-color: #616161 !important;
 }

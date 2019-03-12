@@ -40,23 +40,23 @@ material-input, material-button {
   padding-bottom: 0% !important;
 }
 
-::ng-deep .label-text {
+.div-login ::ng-deep .label-text {
   color: #00B0FF !important;
 }
 
-::ng-deep .focused.label-text {
+.div-login ::ng-deep .focused.label-text {
   color: #00B0FF !important;
 }
 
-::ng-deep .focused-underline, .cursor {
+.div-login ::ng-deep .focused-underline, .cursor {
   background-color: #00B0FF !important;
 }
 
-::ng-deep .disabled-underline {
+.div-login ::ng-deep .disabled-underline {
   color: #00B0FF !important;
 }
 
-::ng-deep .unfocused-underline {
+.div-login ::ng-deep .unfocused-underline {
   background: #00B0FF !important;
   border-bottom-color: #00B0FF !important;
 }

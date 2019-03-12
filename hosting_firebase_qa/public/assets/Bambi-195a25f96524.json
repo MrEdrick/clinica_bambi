@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bambi-210400",
+  "private_key_id": "195a25f965245240f42cde1feb41be4316f76626",
+  "private_key": "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC5UjrW3S6XPL5z\nXhzjKsC2fqe0L3PSH9D5A4oHzjLwf1prOWdDcvnsv0/ALwe8aCKcEr77H8GyRCIF\nI/HrifxvRGGFGEBkIw5ifS3Iyx7rsx8GRRp2S7Eob6NR2RPvCnsWUi6PsLdgkzb5\n/sef2qqUsZTr0SmaFSHcGm/tsx4yjOEdXXQMuMG6W1rc8YU3c8MkiiyUF3mx2iVv\nexk1iF4wsbC5sddH0NPJIK97VnSa3J0Nqf/k7gZcs+vrsfRGyGH+voA6m2lmCiWd\nnuCIuPzJ/jLJeVMnx9ZRsG8oXg4qaMWOddWAX1N8k9l/c/27Aqt9MOCTRpf0/jJu\n2n151FP5AgMBAAECggEASRNiTUihbxSOWuqxBGje3fd6hMQzbReLrS2Wl7ZZAtmN\nG3viuseTQqY7ueIxsDr17so7kcW3eOaB7bn7UrAyIOP7emKSPYpPSUnoLGXgFvwm\nTzAfm6cEQBgpdARf5mIhIC+e2Z1K6iOSyaiMKf4tRn3x5b0wJOiRVfv8x+PaE/8q\ncaF/VdjAbNtJOp/N0zlULubGCfqcQvkZoDdz9o07RDz/4iB5nhrWouyW4ehiHOYi\n+aYjAiaAITjPXK2sjNd7IcAnpFXg/vIrLn+Ks/oSNNkmcQzZdzDUnAgF41X1fBEK\nwzzH57Ub7cKwjoF30DOqzpxFYEHq1M5ZBCpiZ6qxWwKBgQDjoqtryddK52vzcAsp\nv/QO4LcZe0uHhPTOZJJYaWI7AqGTtZInYzB6jWW76KMv+6Rj8BKDx1TXsZZVGId/\n0nnV8M0Azzqk1G/rHNu5i/w8waWt1DFlU5vaKr4DuytOBmrgvt/FBcGzvmiA+AJ5\nHjYqu6tNbBKLvPr9QH8a+hWuswKBgQDQacf/4JIzxyoge7ldL2uKhKGMoMwAx/uv\n9Qph/EvDSJvbvj9Cs5xxckLvbWajg+ah2wazIvUfojShS7k12OOEJun4WVk8YrH1\nHRWUWJ0/KMAQy+ZpoC5sglrRB89oi4uq4wRGIsSJ/DmtSMWX6bhrCfRx2SytOfUS\nyq1czW2IowKBgQCCEIIt1mgjLlOqBsz6D+mdTpyP/LjNOBTAkQplZeFwojI8ObTG\nuJAMlhoY4fXMBtaJG7UYgp5hl+Czwo45ZMOkkDAyVDXH1HIWPqj1PZzkAiluRx3q\nLXmRkHZ9n0ZBEL2kqKsm4gEpeJQxjIOtPKvqgsyAMk3udg5bAa0eduJIrQKBgQC6\nc5hYw4kox2pZyzZnNpBISSXaENTRchgqL9fNF5CUMbY2HfqsatFv8OAPIVmsuckw\nTimtQ332ggABuSQGF3Zb+RBifVTHICjC9/UhVTHAmm1R2YjWQFan/urOjOUyS311\nMUnWkS4xoDPdYfhcUt0I7cwBumAszWgCGs6D8simbwKBgQC7eVWw0Zxad4NxTP7D\n5qH76ajHW4KgGJhDX4cFqThUd5LDLIGwlbE9PaUClff3UdwDwZXMhtuaovZg2m7M\nRslEHycAwIEsXi56Xr2c4fOsZuytPrSzoqjPmT9gnF5RIDWnJADbUM2U+KxrZf+W\nYoWZa1KcgslUYjIh/7WVVs+8yQ==",
+  "client_email": "bambi-210400@appspot.gserviceaccount.com",
+  "client_id": "110496689379119575091",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bambi-210400%40appspot.gserviceaccount.com"
+}
