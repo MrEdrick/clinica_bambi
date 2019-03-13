@@ -15,7 +15,6 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import 'package:firebase/firebase.dart' as fb;
 import 'auto_agendamento_list_card_component.dart';
 import '../agendamento/usuario/usuario.dart';
 import '../agendamento/usuario/usuario_service.dart';

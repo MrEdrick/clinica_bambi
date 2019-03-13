@@ -5,6 +5,7 @@ import '../agendamento/usuario/usuario_service.dart';
 
 class AuthApp {
   final fb.Auth auth;
+  static fb.UserCredential userCredential;
 
   AuthApp() : this.auth = fb.auth();
 
@@ -18,6 +19,18 @@ class AuthApp {
         new fb.ActionCodeSettings(url: "https://bambi-210400.firebaseapp.com"));
     } catch (e) {
     }
+  }
+
+  Future<String> login(String email, String password) async {
+    try {
+      await auth.setPersistence('session');
+      userCredential = await auth.signInWithEmailAndPassword(email, password);
+      new UsuarioService().usuario = new Usuario(userCredential.user.uid, userCredential.user.displayName, userCredential.user.email);
+      return '';
+    } catch (e) {
+      return e.toString();
+    }
+
   }
 
   Future<String> registerUser(String email, String password) async {
