@@ -14,8 +14,8 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_router/angular_router.dart';
 import 'package:encrypt/encrypt.dart';
 
+import '../agendamento/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
-import '../firebase/firestore.dart';
 
 @Component(
     selector: 'cadastro-login-auto-agendamento-app',
@@ -52,6 +52,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
   bool showAssertMessageSavePassordNotMatched = false;
+  bool showAssertMessageSaveEmailExists = false;
 
   String nome = '';
   String email = '';
@@ -143,12 +144,13 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   }
 
   void onDismissNotSuccessfullySave() {
-    showSuccessfullySave = false;
+    showNotSuccessfullySave = false;
   }
 
   void onDismissAssertMessage() {
     showAssertMessageSave = false;
     showAssertMessageSavePassordNotMatched = false;
+    showAssertMessageSaveEmailExists = false;
   }
 
   void onAssertsSave() {
@@ -163,6 +165,11 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
     if (password != consfirmacaoPassword) {
       showAssertMessageSavePassordNotMatched = true;
       return;      
+    }
+
+    if (new PatientAccountDAO().emailExists(email)) {
+      showAssertMessageSaveEmailExists = true;
+      return;  
     }
 
     onSave();
@@ -184,15 +191,11 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
       "password": RSAKeyParser().parse(password),
       "userId": fb.auth().currentUser.uid
     };
-
-    FireStoreApp _fireStoreApp = new FireStoreApp('patientsAccount');
-
-    if (await _fireStoreApp.addItem(datas)) {
+        
+    if (await new PatientAccountDAO().save(datas) == '') {
       showSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     } else {
       showNotSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     }
   }
 

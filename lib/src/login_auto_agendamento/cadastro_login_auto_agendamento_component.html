@@ -40,7 +40,7 @@
             <h1>Opps...</h1>
         </div>
 
-        <p>A consulta foi não foi salva, houve algum problema</p>
+        <p>Este cadastro não foi salvo, houve algum problema. Tente novamente por favor.</p>
 
     </material-dialog>
 </modal>
@@ -93,7 +93,6 @@
 
     </material-dialog>
 </modal>
-
 <modal [(visible)]="showAssertMessageSavePassordNotMatched">
     <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSavePassordNotMatched"
         (dismiss)="onDismissAssertMessage">
@@ -104,6 +103,19 @@
         </div>
 
         <p>As senhas não combinam, confirme elas por favor.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSaveEmailExists">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveEmailExists"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Então...</h1>
+        </div>
+
+        <p>Este e-mail já foi cadastrado. Tente a opção 'Esqueci a senha', por favor.</p>
 
     </material-dialog>
 </modal>
