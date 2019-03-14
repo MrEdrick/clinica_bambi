@@ -46,7 +46,7 @@ class LoginComponent extends Object implements OnActivate {
   }
   
   void onGetInside() async {
-    error = await new AuthApp().registerUser(email, password);
+    error = await new AuthApp().login(email, password);
     if (error == '') {
       goDeshboardAgendamento();
     } else {
