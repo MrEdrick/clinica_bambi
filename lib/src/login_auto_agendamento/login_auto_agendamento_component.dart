@@ -11,6 +11,8 @@ import '../firebase/firestore.dart';
 import '../firebase/auth.dart';
 import '../route_paths.dart' as paths;
 import 'cadastro_login_auto_agendamento_component.dart';
+import '../agendamento/patient_account/patient_account.dart';
+import 'package:encrypt/encrypt.dart';
 
 @Component(
   selector: 'login-auto-agendamento-app',
@@ -38,8 +40,11 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   String password = '';
   String error;
   bool showNotSuccessfullyLogin = false;
+  bool showLoginNotFinded = false;
 
   AuthApp authApp;
+
+  PatientAccount patientAccount;
 
   final Router _router;
 
@@ -55,22 +60,34 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   void onGetInside() async {
     error = await new AuthApp().login(emailAdm, passwordAdm);
     if (error == '') {
-      goAutoAgendamento();
+      patientAccount = loginPatientAccount();
+      if (patientAccount == null) {
+        showLoginNotFinded = true;
+      } else {
+        goAutoAgendamento();
+      }
     } else {
       showNotSuccessfullyLogin = true;
     }
   }
 
-  String loginPatientAccount() {
+  PatientAccount loginPatientAccount() {
     FireStoreApp fireStoreApp = new FireStoreApp('patientAccount');
 
     fireStoreApp.ref
-        .where('email', '==', email)
-        .where('password', '==', password)
-        .get()
-        .then((querySnapshot) {
-
-        });
+      .where('email', '==', email)
+      .where('password', '==', RSAKeyParser().parse(password))
+      .get()
+      .then((querySnapshot) {
+        if (querySnapshot.size == 0) {
+          return null;
+        } else {
+          return new PatientAccount(querySnapshot.docs[0].data()["id"].toString(), 
+                                    querySnapshot.docs[0].data()["email"].toString(), 
+                                    querySnapshot.docs[0].data()["name"].toString(),
+                                    querySnapshot.docs[0].data()["password"].toString());
+        }    
+      });
   } 
 
   void onSingUp() {
@@ -84,4 +101,9 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   void onDismissNotSuccessfullyLogin() {
     showNotSuccessfullyLogin = false;
   }
+
+  void onDismissLoginNotFinded() {
+    showLoginNotFinded = false;
+  }
+  
 }

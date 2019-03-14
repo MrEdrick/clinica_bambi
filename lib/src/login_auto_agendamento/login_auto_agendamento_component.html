@@ -1,6 +1,6 @@
 <div class="login-auto-agendamento-container">
     <div class="invitation">Agende sua consulta aqui!</div>
-    <div class="sub-invitation">Faça o login pelo melhor meio abaixo e agende sua consulta.</div>
+    <div class="sub-invitation">Faça o login abaixo e agende sua consulta.</div>
 
     <div class="login-container">
         <material-input class="login-auto-agendamento" type="email" id="email" label="E-mail" autoFocus floatingLabel [ngModel]="email"
@@ -25,3 +25,27 @@
 </div>
 <cadastro-login-auto-agendamento-app style="display: none" id="cadastro-login-auto-agendamento-app">
 </cadastro-login-auto-agendamento-app>
+<modal [(visible)]="showNotSuccessfullyLogin">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullyLogin"
+      (dismiss)="onDismissNotSuccessfullyLogin">
+  
+      <div header>
+        <h1>Opa!</h1>
+      </div>
+  
+      <p>Não deu para fazer o login, tenta novamente por favor.</p>
+  
+    </material-dialog>
+  </modal>
+  <modal [(visible)]="showLoginNotFinded">
+    <material-dialog info class="info-dialog" [autoDismissable]="showLoginNotFinded"
+      (dismiss)="onDismissLoginNotFinded">
+  
+      <div header>
+        <h1>Opa!</h1>
+      </div>
+  
+      <p>Estas informações não foram localizadas, tente novamente por favor.</p>
+  
+    </material-dialog>
+  </modal>

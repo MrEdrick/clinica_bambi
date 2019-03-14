@@ -93,3 +93,17 @@
 
     </material-dialog>
 </modal>
+
+<modal [(visible)]="showAssertMessageSavePassordNotMatched">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSavePassordNotMatched"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Quase lá...</h1>
+        </div>
+
+        <p>As senhas não combinam, confirme elas por favor.</p>
+
+    </material-dialog>
+</modal>

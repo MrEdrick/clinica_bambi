@@ -12,7 +12,7 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_router/angular_router.dart';
-
+import 'package:encrypt/encrypt.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 import '../firebase/firestore.dart';
@@ -51,6 +51,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   bool useOptionGroup = false;
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
+  bool showAssertMessageSavePassordNotMatched = false;
 
   String nome = '';
   String email = '';
@@ -147,15 +148,21 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
 
   void onDismissAssertMessage() {
     showAssertMessageSave = false;
+    showAssertMessageSavePassordNotMatched = false;
   }
 
   void onAssertsSave() {
     if ((nome == '') || (telefone == '') || (email == '') ||
-        (password == '') || (password != consfirmacaoPassword) ||
+        (password == '') ||
         (consfirmacaoPassword == '')) {
 
       showAssertMessageSave = true;
       return;
+    }
+
+    if (password != consfirmacaoPassword) {
+      showAssertMessageSavePassordNotMatched = true;
+      return;      
     }
 
     onSave();
@@ -174,7 +181,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
       "name": nome,
       "email": email,
       "tel": telefone,
-      "password": password,
+      "password": RSAKeyParser().parse(password),
       "userId": fb.auth().currentUser.uid
     };
 
