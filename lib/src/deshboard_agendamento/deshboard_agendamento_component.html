@@ -111,7 +111,7 @@
         </div>
         <div id="container-list-agendamentos" class="container-list-agendamentos">
             <div class="list-day-agendamentos" *ngFor="let date of listDates; let i=index; let last = last">
-                <agendamento-list-card-app id="agendamento-list-card-app-{{i}}" [index]="i" [usuario]="usuario"
+                <agendamento-list-card-app id="agendamento-list-card-app-{{i}}" [index]="i" [user]="user"
                     [dataConsulta]="date" [dentistId]="dentistId" [shiftId]="shiftId" [patientName]="patientName">
                 </agendamento-list-card-app>
             </div>

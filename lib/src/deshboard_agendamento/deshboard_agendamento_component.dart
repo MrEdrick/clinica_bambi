@@ -17,8 +17,8 @@ import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:firebase/firebase.dart' as fb;
 import 'agendamento_list_card_component.dart';
-import '../agendamento/usuario/usuario.dart';
-import '../agendamento/usuario/usuario_service.dart';
+import '../agendamento/user/user.dart';
+import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 import 'package:intl/intl.dart';
 
@@ -72,7 +72,7 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
   ConsultaService get consultaService => _consultaService;
   set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
 
-  Usuario usuario;
+  User user;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -197,8 +197,8 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
   @override
   void onActivate(_, RouterState current) async {
     try {
-      if (new UsuarioService().usuario != null) {
-        usuario = new Usuario(fb.auth().currentUser.uid,
+      if (new UserService().user != null) {
+        user = new User(fb.auth().currentUser.uid,
                               fb.auth().currentUser.displayName, 
                               fb.auth().currentUser.email);
 
@@ -212,7 +212,7 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
   }
 
   void ngOnInit() { 
-    if (new UsuarioService().usuario == null)
+    if (new UserService().user == null)
       return;
       
     _getListDentist();

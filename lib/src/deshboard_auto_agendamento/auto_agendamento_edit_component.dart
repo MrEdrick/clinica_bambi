@@ -36,7 +36,7 @@ import '../agendamento/agreement/agreement_selection_options.dart';
 
 import '../agendamento/consulta/consulta_service.dart';
 
-import '../agendamento/usuario/usuario_service.dart';
+import '../agendamento/user/user_service.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 import '../firebase/firestore.dart';
@@ -310,7 +310,7 @@ class AutoAgendamentoEditComponent implements OnInit {
   }
 
   void ngOnInit() {
-    if (new UsuarioService().usuario  == null)
+    if (new UserService().user  == null)
       return;
 
     onEdit();    

@@ -12,11 +12,11 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'auto_agendamento_card_component.dart';
 import '../firebase/firestore.dart';
 import '../agendamento/consulta/consulta.dart';
-import '../agendamento/usuario/usuario.dart';
+import '../agendamento/user/user.dart';
 import '../agendamento/dentist/dentist_service.dart';
 import '../agendamento/shift/shift_service.dart';
 import '../agendamento/agreement/agreement_service.dart';
-import '../agendamento/usuario/usuario_service.dart';
+import '../agendamento/user/user_service.dart';
 
 @Component(
     selector: 'auto-agendamento-list-card-app',
@@ -42,13 +42,13 @@ import '../agendamento/usuario/usuario_service.dart';
 class AutoAgendamentoListCardComponent implements OnInit {
   final List<Consulta> listConsultas = new List<Consulta>();
 
-  Usuario _usuario;
+  User _user;
 
   AutoAgendamentoListCardComponent();
 
-  Usuario get usuario => _usuario;
+  User get user => _user;
   @Input()
-  set usuario(Usuario usuario) => _usuario = usuario;
+  set user(User user) => _user = user;
 
   @Input()
   Date dataConsulta;
@@ -72,7 +72,7 @@ class AutoAgendamentoListCardComponent implements OnInit {
   int deleteIndex = -1;
 
   void ngOnInit() {
-    if (new UsuarioService().usuario == null) 
+    if (new UserService().user == null) 
       return;
 
     selectItensFireBase();
@@ -210,7 +210,7 @@ class AutoAgendamentoListCardComponent implements OnInit {
       docSnapshot["patient"],
       docSnapshot["email"],
       docSnapshot["tel"],
-      usuario.id,
+      user.id,
       await new ShiftService().getShiftById(docSnapshot["shiftId"], docSnapshot["hourId"]),
       await new DentistService().getDentistById(docSnapshot["dentistId"]),
       await new AgreementService().getAgreementById(docSnapshot["agreementId"]),

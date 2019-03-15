@@ -16,8 +16,8 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'auto_agendamento_list_card_component.dart';
-import '../agendamento/usuario/usuario.dart';
-import '../agendamento/usuario/usuario_service.dart';
+import '../agendamento/user/user.dart';
+import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 import 'package:intl/intl.dart';
 
@@ -71,7 +71,7 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
   ConsultaService get consultaService => _consultaService;
   set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
 
-  Usuario usuario;
+  User user;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -199,23 +199,10 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
 
   @override
   void onActivate(_, RouterState current) async {
-    /*try {
-      if (new UsuarioService().usuario != null) {
-        usuario = new Usuario(fb.auth().currentUser.uid,
-                              fb.auth().currentUser.displayName, 
-                              fb.auth().currentUser.email);
-
-        onFilter();
-      } else {
-        _router.navigate(paths.login.toUrl());
-      }
-    } catch (e) {
-      _router.navigate(paths.login.toUrl());
-    }*/
   }
 
   void ngOnInit() { 
-    if (new UsuarioService().usuario == null)
+    if (new UserService().user == null)
       return;
       
     _getListDentist();

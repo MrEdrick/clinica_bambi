@@ -36,7 +36,7 @@ import '../firebase/firestore.dart';
 
 import '../agendamento/consulta/consulta_service.dart';
 
-import '../agendamento/usuario/usuario_service.dart';
+import '../agendamento/user/user_service.dart';
 
 @Component(
     selector: 'agendamento-edit-app',
@@ -304,7 +304,7 @@ class AgendamentoEditComponent implements OnInit {
   }
 
   void ngOnInit() {
-    if (new UsuarioService().usuario  == null)
+    if (new UserService().user  == null)
       return;
 
     onEdit();    

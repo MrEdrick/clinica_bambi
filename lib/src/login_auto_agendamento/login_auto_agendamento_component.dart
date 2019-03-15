@@ -11,7 +11,6 @@ import '../route_paths.dart' as paths;
 import 'cadastro_login_auto_agendamento_component.dart';
 import '../agendamento/patient_account/patient_account.dart';
 import '../agendamento/patient_account/patient_account_dao.dart';
-import '../firebase/auth.dart';
 
 @Component(
   selector: 'login-auto-agendamento-app',
@@ -32,16 +31,11 @@ import '../firebase/auth.dart';
   ],
 )
 class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
-  final emailAdm = 'clinicaodontologicabambi@gmail.com';
-  final passwordAdm = 'clinicaodontologicabambiadm2019_';
-
   String email = '';
   String password = '';
   String error;
   bool showNotSuccessfullyLogin = false;
   bool showLoginNotFinded = false;
-
-  AuthApp authApp;
 
   PatientAccount patientAccount;
 
@@ -57,9 +51,9 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   );
 
   void onGetInside() async {
-    error = await new AuthApp().login(emailAdm, passwordAdm);
+    
     if (error == '') {
-      patientAccount = new PatientAccountDAO().getPatiantAccount(email, password);
+      patientAccount = await new PatientAccountDAO().getPatiantAccount(email, password);
       if (patientAccount == null) {
         showLoginNotFinded = true;
       } else {

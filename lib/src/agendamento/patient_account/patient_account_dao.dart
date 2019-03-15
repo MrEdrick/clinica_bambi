@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import '../user/user_dao.dart';
+import '../user/user_constants.dart';
 import '../../firebase/firestore.dart';
 import 'package:encrypt/encrypt.dart';
 import '../../agendamento/patient_account/patient_account.dart';
@@ -8,6 +10,7 @@ class PatientAccountDAO {
   PatientAccountDAO();
 
   Future<String> save(Map<String, dynamic> datas) async {
+    await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp _fireStoreApp = new FireStoreApp('patientsAccount');
 
     if (await _fireStoreApp.addItem(datas)) {
@@ -19,7 +22,8 @@ class PatientAccountDAO {
     }
   }
 
-  PatientAccount getPatiantAccount(String email, String password) {
+  Future<PatientAccount> getPatiantAccount(String email, String password) async {
+    await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp fireStoreApp = new FireStoreApp('patientAccount');
 
     fireStoreApp.ref
@@ -39,7 +43,8 @@ class PatientAccountDAO {
     });
   }
 
-  bool emailExists(String email) {
+  Future<bool> emailExists(String email) async {
+    await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp fireStoreApp = new FireStoreApp('patientAccount');
 
     fireStoreApp.ref

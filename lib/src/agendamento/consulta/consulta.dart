@@ -13,14 +13,14 @@ class Consulta {
   String _email;
   String _telefone;
   String _dataConsultaAgendamento;
-  String _idUsuario;
+  String _idUser;
   Shift _shift;
   Dentist _dentist;
   Agreement _agreement;
 
   Consulta( this._id, this._dataConsultaAgendamento, 
             this._hourId, this._minuteId, this._shiftId, this._dentistId, 
-            this._paciente, this._email, this._telefone, this._idUsuario,
+            this._paciente, this._email, this._telefone, this._idUser,
             this._shift, this._dentist, this._agreement);
 
   String get id => _id;
@@ -82,8 +82,8 @@ class Consulta {
   String get telefone => _telefone;
   set telefone(String telefone) => _telefone = telefone;
 
-  String get idUsuario => _idUsuario;
-  set idUsuario(String idUsuario) => _idUsuario = idUsuario;
+  String get idUser => _idUser;
+  set idUser(String idUser) => _idUser = idUser;
 
   Shift get shift => _shift;
   set shift(Shift shift) => _shift = shift;

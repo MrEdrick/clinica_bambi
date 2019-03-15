@@ -153,7 +153,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
     showAssertMessageSaveEmailExists = false;
   }
 
-  void onAssertsSave() {
+  void onAssertsSave() async {
     if ((nome == '') || (telefone == '') || (email == '') ||
         (password == '') ||
         (consfirmacaoPassword == '')) {
@@ -167,7 +167,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
       return;      
     }
 
-    if (new PatientAccountDAO().emailExists(email)) {
+    if (await new PatientAccountDAO().emailExists(email)) {
       showAssertMessageSaveEmailExists = true;
       return;  
     }
