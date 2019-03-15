@@ -3,8 +3,8 @@
         <div class="titulo">
             Cadastre-se aqui...
         </div>
-        <material-input class="edit-input" type="nome" id="nome" label="Nome..." [ngModel]="nome"
-            (inputKeyPress)="nome = $event"></material-input>
+        <material-input class="edit-input" type="text" id="nome" label="Nome..." [ngModel]="name"
+            (inputKeyPress)="name = $event"></material-input>
 
         <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email"
             (inputKeyPress)="email = $event"></material-input>
@@ -16,9 +16,11 @@
         <material-input class="edit-input password" type="password" label="Senha..." [ngModel]="password"
             (inputKeyPress)="password = $event"></material-input>
 
-        <material-input class="edit-input password" type="password" label="Confirme a senha..." [ngModel]="consfirmacaoPassword"
-            (inputKeyPress)="consfirmacaoPassword = $event"></material-input>
+        <material-input class="edit-input password" type="password" label="Confirme a senha..."
+            [ngModel]="consfirmacaoPassword" (inputKeyPress)="consfirmacaoPassword = $event"></material-input>
 
+        <material-input class="edit-input" type="text" id="confirmation-code" label="Código de confirmação..." [ngModel]="confirmationCode"
+            (inputKeyPress)="confirmationCode = $event" style="display:none"></material-input>
     </div>
 
     <material-button class="button-close" (click)="onClose()">
@@ -27,7 +29,7 @@
 
     <div class="button-container">
         <material-button raised class="button-save" (click)="onAssertsSave()">
-            GRAVAR AGENDAMENTO
+            {{buttonSaveDescription}}
         </material-button>
     </div>
 </div>

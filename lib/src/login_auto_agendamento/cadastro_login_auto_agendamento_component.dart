@@ -13,6 +13,7 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:encrypt/encrypt.dart';
+import 'dart:js' as js;
 
 import '../agendamento/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
@@ -54,11 +55,14 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   bool showAssertMessageSavePassordNotMatched = false;
   bool showAssertMessageSaveEmailExists = false;
 
-  String nome = '';
+  String name = '';
   String email = '';
   String _telefone = '';
   String password = '';
   String consfirmacaoPassword = '';
+  String confirmationCode = '';
+
+  String buttonSaveDescription = 'VERIFICAR E-MAIL';
 
   int maxLength = 14;
 
@@ -125,7 +129,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   String get telefone => _telefone;
 
   void onClose() {
-    nome = '';
+    name = '';
     email = '';
     _telefone = '';
     password = '';
@@ -154,7 +158,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   }
 
   void onAssertsSave() async {
-    if ((nome == '') || (telefone == '') || (email == '') ||
+    if ((name == '') || (telefone == '') || (email == '') ||
         (password == '') ||
         (consfirmacaoPassword == '')) {
 
@@ -181,11 +185,17 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
 
   void onSave() async {   
     showAssertMessageAlert = false;
+    print(RSAKeyParser().parse(password).toString());
+    if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
+      js.context.callMethod('sendEmail', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + RSAKeyParser().parse(password).toString()]);
+      buttonSaveDescription = 'CONFIRMAR';
+      return;
+    }
 
     datas = new Map<String, dynamic>();
 
     datas = {
-      "name": nome,
+      "name": name,
       "email": email,
       "tel": telefone,
       "password": RSAKeyParser().parse(password),
