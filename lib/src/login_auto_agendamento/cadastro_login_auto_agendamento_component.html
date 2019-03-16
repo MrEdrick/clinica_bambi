@@ -17,10 +17,11 @@
             (inputKeyPress)="password = $event"></material-input>
 
         <material-input class="edit-input password" type="password" label="Confirme a senha..."
-            [ngModel]="consfirmacaoPassword" (inputKeyPress)="consfirmacaoPassword = $event"></material-input>
+            [ngModel]="confirmationPassword" (inputKeyPress)="confirmationPassword = $event"></material-input>
 
-        <material-input class="edit-input" type="text" id="confirmation-code" label="Código de confirmação..." [ngModel]="confirmationCode"
-            (inputKeyPress)="confirmationCode = $event" style="display:none"></material-input>
+        <material-input class="edit-input" type="text" id="confirmation-code" label="Código de confirmação..."
+            [ngModel]="confirmationCode" (inputKeyPress)="confirmationCode = $event" style="display:none">
+        </material-input>
     </div>
 
     <material-button class="button-close" (click)="onClose()">
@@ -118,6 +119,32 @@
         </div>
 
         <p>Este e-mail já foi cadastrado. Tente a opção 'Esqueci a senha', por favor.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSaveConfirmationCodeEmpty">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveConfirmationCodeEmpty"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Dá uma olhada...</h1>
+        </div>
+
+        <p>O código de confirmação não foi preenchido ainda.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSaveConfirmationCodeNotMatched">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveConfirmationCodeNotMatched"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Então...</h1>
+        </div>
+
+        <p>O código de confirmação não confere, dá uma olhada e tente novamente por favor.</p>
 
     </material-dialog>
 </modal>

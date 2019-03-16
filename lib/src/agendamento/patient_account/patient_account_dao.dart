@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import '../user/user_dao.dart';
 import '../user/user_constants.dart';
 import '../../firebase/firestore.dart';
-import 'package:encrypt/encrypt.dart';
+import 'package:crypto/crypto.dart';
 import '../../agendamento/patient_account/patient_account.dart';
 
 class PatientAccountDAO {
@@ -28,7 +29,7 @@ class PatientAccountDAO {
 
     fireStoreApp.ref
         .where('email', '==', email)
-        .where('password', '==', RSAKeyParser().parse(password))
+        .where('password', '==', sha1.convert(utf8.encode(password)))
         .get()
         .then((querySnapshot) {
       if (querySnapshot.size == 0) {

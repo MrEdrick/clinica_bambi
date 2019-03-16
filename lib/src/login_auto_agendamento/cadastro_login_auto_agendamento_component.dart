@@ -1,4 +1,6 @@
 import 'dart:html';
+import 'dart:convert';
+import 'dart:js' as js;
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -12,8 +14,7 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:encrypt/encrypt.dart';
-import 'dart:js' as js;
+import 'package:crypto/crypto.dart';
 
 import '../agendamento/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
@@ -54,12 +55,14 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   bool showAssertMessageAlert = false;
   bool showAssertMessageSavePassordNotMatched = false;
   bool showAssertMessageSaveEmailExists = false;
+  bool showAssertMessageSaveConfirmationCodeEmpty = false;
+  bool showAssertMessageSaveConfirmationCodeNotMatched = false;
 
   String name = '';
   String email = '';
   String _telefone = '';
   String password = '';
-  String consfirmacaoPassword = '';
+  String confirmationPassword = '';
   String confirmationCode = '';
 
   String buttonSaveDescription = 'VERIFICAR E-MAIL';
@@ -133,7 +136,8 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
     email = '';
     _telefone = '';
     password = '';
-    consfirmacaoPassword = '';
+    confirmationPassword = '';
+    confirmationCode = '';
 
     querySelector('#cadastro-login-auto-agendamento-app').style.display = 'none';
   }
@@ -160,13 +164,13 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   void onAssertsSave() async {
     if ((name == '') || (telefone == '') || (email == '') ||
         (password == '') ||
-        (consfirmacaoPassword == '')) {
+        (confirmationPassword == '')) {
 
       showAssertMessageSave = true;
       return;
     }
 
-    if (password != consfirmacaoPassword) {
+    if (password != confirmationPassword) {
       showAssertMessageSavePassordNotMatched = true;
       return;      
     }
@@ -185,11 +189,21 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
 
   void onSave() async {   
     showAssertMessageAlert = false;
-    print(RSAKeyParser().parse(password).toString());
     if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
-      js.context.callMethod('sendEmail', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + RSAKeyParser().parse(password).toString()]);
+      js.context.callMethod('sendEmail', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString()]);
       buttonSaveDescription = 'CONFIRMAR';
+      querySelector('#confirmation-code').style.display = 'block';
       return;
+    } 
+
+    if (confirmationCode != '') {
+      showAssertMessageSaveConfirmationCodeEmpty = true;
+      return;      
+    }
+
+    if (confirmationCode != sha1.convert(utf8.encode(email)).toString()) {
+      showAssertMessageSaveConfirmationCodeNotMatched = true;
+      return;      
     }
 
     datas = new Map<String, dynamic>();
@@ -198,7 +212,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
       "name": name,
       "email": email,
       "tel": telefone,
-      "password": RSAKeyParser().parse(password),
+      "password": sha1.convert(utf8.encode(password)),
       "userId": fb.auth().currentUser.uid
     };
         
