@@ -190,7 +190,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
     if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
-      js.context.callMethod('sendEmail', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString()]);
+      js.context.callMethod('sendEmailPatientAccountconfirmation', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString()]);
       buttonSaveDescription = 'CONFIRMAR';
       querySelector('#confirmation-code').style.display = 'block';
       return;
