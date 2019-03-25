@@ -4564,7 +4564,7 @@ P.mG(r)}else throw k}L.O2("pt_BR","/dates/").ag(0,new F.B7(),[D.aB,Q.bP])
 return P.a9(null,t)}})
 return P.aa($async$mF,t)},
 B7:function B7(){}},D={wo:function wo(a,b){var _=this
-_.a=_.y1=_.x2=_.x1=_.ry=_.rx=_.r2=_.r1=_.k4=_.k3=_.k2=_.k1=_.id=_.go=_.fy=_.fx=_.fr=_.dy=_.dx=_.db=_.cy=_.cx=_.ch=_.Q=_.z=_.y=_.x=_.r=null
+_.a=_.x1=_.ry=_.rx=_.r2=_.r1=_.k4=_.k3=_.k2=_.k1=_.id=_.go=_.fy=_.fx=_.fr=_.dy=_.dx=_.db=_.cy=_.cx=_.ch=_.Q=_.z=_.y=_.x=_.r=null
 _.b=a
 _.c=b
 _.f=_.e=_.d=null},fL:function fL(a,b,c,d,e,f,g,h,i,j,k,l,m){var _=this
@@ -13003,7 +13003,7 @@ if(u!=null)u.q()},
 $ai:function(){return[T.ft]}}
 F.iU.prototype={}
 D.wo.prototype={
-w:function(){var u,t,s,r
+w:function(){var u,t,s,r,q
 u=this.ad(this.e)
 t=document
 s=S.f(t,u)
@@ -13119,15 +13119,8 @@ this.x1=s
 s.className="logo"
 s.setAttribute("style","background-image: url('assets/logos/planos/sulamerica+plano+saude+clinica+bambi+dentista.png')")
 this.h(this.x1)
-s=S.f(t,this.y)
-this.x2=s
-s.className="convenio-logo"
-this.h(s)
-s=S.f(t,this.x2)
-this.y1=s
-s.className="logo"
-s.setAttribute("style","background-image: url('assets/logos/planos/prima+vida+plano+saude+clinica+bambi+dentista.jpg')")
-this.h(this.y1)
+q=t.createTextNode(" ")
+this.y.appendChild(q)
 this.Y(C.c,null)
 return},
 $ai:function(){return[F.iU]}}
