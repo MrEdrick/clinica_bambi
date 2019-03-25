@@ -47,7 +47,7 @@
           "0e149b68-5f44-4642-8bb0-62dde5b9e127")
       })
   }
-
+  //r2d2paradoxo1914
   function sendEmailPatientAccountconfirmation(email, subject, message) {
     Email.send("clinicaodontologicabambi@gmail.com",
                email,
@@ -81,25 +81,5 @@
 <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
 <script src="https://smtpjs.com/v2/smtp.js"></script>
-
-<div id="fb-root"></div>
-<script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2&appId=2592459504313881&autoLogAppEvents=1';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-
-<script  async defer src="https://apis.google.com/js/client:platform.js?onload=start" gapi_processed="true"></script>
-<script>
-  function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
-</script>
 
 </html>
