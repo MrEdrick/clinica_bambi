@@ -25,7 +25,7 @@ class AuthApp {
     try {
       await auth.setPersistence('session');
       userCredential = await auth.signInWithEmailAndPassword(email, password);
-      new UserService().user = new User(userCredential.user.uid, userCredential.user.displayName, userCredential.user.email);
+      new UsuarioService().usuario = new Usuario(userCredential.user.uid, userCredential.user.displayName, userCredential.user.email);
       return '';
     } catch (e) {
       return e.toString();
