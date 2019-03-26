@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'email.dart';
 import 'emailSender.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
+import 'package:googleapis/gmail/v1.dart';
 
 class EmailSenderService {
   final Email _email;
@@ -10,10 +10,16 @@ class EmailSenderService {
 
   Email get email => _email;
 
-  EmailSender emailSenderGmail() {
-    final smtpServer = gmail(email.senderEmail, email.senderPassword);
+  EmailSender emailSenderGmail() async {
+    await googleSignIn.signIn().then((data) {
+      data.authHeaders.then((result) {
+        var header = {'Authorization': result['Authorization'], 'X-Goog-AuthUser': result['X-Goog-AuthUser']};
+        //testingEmail(data.email, header);
+      });                          
+    });
+    //final smtpServer = gmail(email.senderEmail, email.senderPassword);
 
-    final message = new Message()
+    /*final message = new Message()
       ..from = new Address(email.senderEmail, email.senderName)
       ..recipients.add(email.receiver)
       ..ccRecipients.addAll([''])
@@ -21,6 +27,6 @@ class EmailSenderService {
       ..subject = email.subject
       ..text = email.content;
 
-    return new EmailSender(email, smtpServer, message, null);
+    return new EmailSender(email, smtpServer, message, null);*/
   }
 }

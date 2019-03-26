@@ -19,6 +19,11 @@ import 'package:crypto/crypto.dart';
 import '../agendamento/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
 
+import '../email/email.dart';
+import '../email/email_constants.dart';
+import '../email/emailSender.dart';
+import '../email/emailSenderService.dart';
+
 @Component(
     selector: 'cadastro-login-auto-agendamento-app',
     styleUrls: const [
@@ -70,6 +75,8 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   int maxLength = 14;
 
   Map<String, dynamic> datas;
+
+  EmailSenderService emailSenderService;
 
   set telefone(String value) {
     _telefone = '';
@@ -190,7 +197,16 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
     if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
-      js.context.callMethod('sendEmailPatientAccountconfirmation', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString()]);
+      //js.context.callMethod('sendEmailPatientAccountconfirmation', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString()]);
+      emailSenderService = new EmailSenderService(
+        new Email(CLIENT_NAME, CLIENT_EMAIL, CLIENT_PASSWORD, 
+                  email, 'Verificação de e-mail', 
+                  'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString(), 
+                  null, null)
+      );
+      
+      emailSenderService.emailSenderGmail().sendEmail();
+      
       buttonSaveDescription = 'CONFIRMAR';
       querySelector('#confirmation-code').style.display = 'block';
       return;
