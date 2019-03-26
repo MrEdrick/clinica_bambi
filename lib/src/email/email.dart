@@ -1,4 +1,5 @@
 class Email {
+  String _senderName;
   String _senderEmail;
   String _senderPassword;
   String _receiver;
@@ -7,8 +8,11 @@ class Email {
   String _contentType;
   String _mime;
 
-  Email( this._senderEmail, this._senderPassword, this._receiver, this._subject, 
-         this._content, this._contentType, this._mime);
+  Email( this._senderName, this._senderEmail, this._senderPassword, this._receiver, 
+         this._subject, this._content, this._contentType, this._mime);
+
+  String get senderName => _senderName;
+  set senderName(String senderName) => _senderName = senderName;
 
   String get senderEmail => _senderEmail;
   set senderEmail(String senderEmail) => _senderEmail = senderEmail;
