@@ -205,7 +205,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
                   null, null)
       );
       
-      emailSenderService.emailSenderGmail().sendEmail();
+      emailSenderService.emailSenderGmail();//
       
       buttonSaveDescription = 'CONFIRMAR';
       querySelector('#confirmation-code').style.display = 'block';

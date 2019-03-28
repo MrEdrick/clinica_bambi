@@ -23,6 +23,7 @@ dependencies:
   google_maps: ">=3.0.0 <4.0.0"
   crypto: ^2.0.6
   googleapis: ^0.53.0
+  mailer: ^2.2.1
 
 
 dev_dependencies:
