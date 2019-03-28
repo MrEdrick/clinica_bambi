@@ -4,12 +4,12 @@ class Email {
   String _senderPassword;
   String _receiver;
   String _subject;
-  String _content;
+  String _message;
   String _contentType;
   String _mime;
 
   Email( this._senderName, this._senderEmail, this._senderPassword, this._receiver, 
-         this._subject, this._content, this._contentType, this._mime);
+         this._subject, this._message, this._contentType, this._mime);
 
   String get senderName => _senderName;
   set senderName(String senderName) => _senderName = senderName;
@@ -26,8 +26,8 @@ class Email {
   String get subject => _subject;
   set subject(String subject) => _subject = subject;
 
-  String get content => _content;
-  set content(String content) => _content = content;
+  String get message => _message;
+  set message(String message) => _message = message;
 
   String get contentType => _contentType;
   set contentType(String contentType) => _contentType = contentType;

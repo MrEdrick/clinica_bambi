@@ -11,22 +11,20 @@ class EmailSenderService {
   Email get email => _email;
 
   EmailSender emailSenderGmail() async {
+    String url = 'https://www.googleapis.com/gmail/v1/users/' + email.receiver + '/messages/send';
+
+    GoogleSignIn googleSignIn = new GoogleSignIn(
+      scopes: <String>[
+        'https://www.googleapis.com/auth/gmail.send'
+      ],
+    );
+
     await googleSignIn.signIn().then((data) {
       data.authHeaders.then((result) {
-        var header = {'Authorization': result['Authorization'], 'X-Goog-AuthUser': result['X-Goog-AuthUser']};
-        //testingEmail(data.email, header);
+        Map header = {'Authorization': result['Authorization'], 'X-Goog-AuthUser': result['X-Goog-AuthUser'],
+                      'Accept': 'application/json', 'Content-type': 'application/json'};
+        return new EmailSender(header, url, email);
       });                          
     });
-    //final smtpServer = gmail(email.senderEmail, email.senderPassword);
-
-    /*final message = new Message()
-      ..from = new Address(email.senderEmail, email.senderName)
-      ..recipients.add(email.receiver)
-      ..ccRecipients.addAll([''])
-      ..bccRecipients.add(null)
-      ..subject = email.subject
-      ..text = email.content;
-
-    return new EmailSender(email, smtpServer, message, null);*/
   }
 }
