@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'email.dart';
-import 'package:http/http.dart' as http;
 
 class EmailSender {
   Map _header;
@@ -18,7 +18,7 @@ class EmailSender {
   Email get email => _email;
   set email(Email email) => _email = email;
 
-  Future<http.Response> sendEmail() async {
+  Future<Response> sendEmail() async {
     Client httpLocal;
     url = "https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/mz8uki4o3l/resources/dh84j1o5ge/sendEmail";
     String content = '''
