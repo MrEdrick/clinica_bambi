@@ -2,6 +2,8 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:ClinicaBambi/app_component.template.dart' as ng;
 import 'package:intl/date_symbol_data_http_request.dart';
+import 'package:http/browser_client.dart';
+import 'package:http/http.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 import 'assets/assets.dart';
@@ -9,9 +11,10 @@ import 'assets/assets.dart';
 import 'main.template.dart' as self;
 
 const useHashLS = false;
-@GenerateInjector(
+@GenerateInjector([
   routerProvidersHash, // You can use routerProviders in production
-)
+  ClassProvider(Client, useClass: BrowserClient)
+])
 final InjectorFactory injector = self.injector$Injector;
 
 void main() async {

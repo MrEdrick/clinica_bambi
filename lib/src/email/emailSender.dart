@@ -7,7 +7,7 @@ class EmailSender {
   String _url;
   Email _email;
 
-  EmailSender(this._header, this._url, this._email); 
+  EmailSender(this._header, this._url, this._email);
 
   Map get header => _header;
   set header(Map header) => _header = header;
@@ -19,22 +19,19 @@ class EmailSender {
   set email(Email email) => _email = email;
 
   Future<http.Response> sendEmail() async {
-    String content =  '''
-      Content-Type: txt/html; charset="utf-8"
-      MIME-Version: 1.0
-      Content-Transfer-Enconding: 7bit
-      to: ${email.receiver}
-      from: ${email.senderEmail}
-      subject: ${email.subject}
-      ${email.message}
+    Client httpLocal;
+    url = "https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/mz8uki4o3l/resources/dh84j1o5ge/sendEmail";
+    String content = '''
+      {
+  "subject": "Teste de e-mail",
+  "message": "Esta é a mensage de teste de e-mail pela API",
+  "toAddresses": "clinicaodontologicabambi@gmail.com",
+  "source": "clinicaodontologicabambi@gmail.com"
+}
                       ''';
 
-    String body = json.encode({'raw': base64Encode(utf8.encode(content))});
+    String body = json.encode(content);
 
-    return await http.post(
-      url,
-      headers: header,
-      body: body
-    );
+    return await httpLocal.post(url, headers: {'Content-Type': 'application/json'}, body: body);
   }
 }
