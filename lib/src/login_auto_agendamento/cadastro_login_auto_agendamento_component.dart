@@ -24,6 +24,7 @@ import '../email/email_constants.dart';
 import '../email/emailSender.dart';
 import '../email/emailSenderService.dart';
 
+
 @Component(
     selector: 'cadastro-login-auto-agendamento-app',
     styleUrls: const [
@@ -49,7 +50,7 @@ import '../email/emailSenderService.dart';
       AutoDismissDirective,
     ],
     providers: [
-      windowBindings,
+      windowBindings
     ])
 class CadastroLoginAutoAgendamentoComponent implements OnInit {
   bool showSuccessfullySave = false;

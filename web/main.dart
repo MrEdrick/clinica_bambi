@@ -12,9 +12,9 @@ import 'main.template.dart' as self;
 
 const useHashLS = false;
 
-@GenerateInjector([
+@GenerateInjector(const [
   routerProvidersHash, 
-  ClassProvider(Client, useClass: BrowserClient)]
+  const ClassProvider(Client, useClass: BrowserClient)]
 )
 
 final InjectorFactory injector = self.injector$Injector;
