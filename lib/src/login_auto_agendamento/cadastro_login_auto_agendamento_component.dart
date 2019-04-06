@@ -168,6 +168,8 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
     showAssertMessageSave = false;
     showAssertMessageSavePassordNotMatched = false;
     showAssertMessageSaveEmailExists = false;
+    showAssertMessageSaveConfirmationCodeEmpty = false;
+    showAssertMessageSaveConfirmationCodeNotMatched = false;
   }
 
   void onAssertsSave() async {
@@ -207,18 +209,19 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
       ).emailSenderAmazon();
 
       response = await emailSenderHTTP.sendEmail();
-      
-      buttonSaveDescription = 'CONFIRMAR';
-      querySelector('#confirmation-code').style.display = 'block';
+      if (response.statusCode == 200) {
+        buttonSaveDescription = 'CONFIRMAR';
+        querySelector('#confirmation-code').style.display = 'block';
+      }
       return;
     } 
 
-    if (confirmationCode != '') {
+    if (confirmationCode == '') {
       showAssertMessageSaveConfirmationCodeEmpty = true;
       return;      
     }
 
-    if (confirmationCode != sha1.convert(utf8.encode(email)).toString()) {
+    if (confirmationCode.trim() != sha1.convert(utf8.encode(email)).toString()) {
       showAssertMessageSaveConfirmationCodeNotMatched = true;
       return;      
     }
