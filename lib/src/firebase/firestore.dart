@@ -28,7 +28,7 @@ class FireStoreApp {
   Future<bool> addItem(Map<String, dynamic> datas) async {
     try {
       fb.firestore().enableNetwork();
-      await ref.add(datas);
+      await this._ref.add(datas);
       return true;
     } catch (e) {
       print("Error ao escrever documento, $e");
@@ -41,7 +41,7 @@ class FireStoreApp {
   void deleteItem(String id) async {
     try {
       fb.firestore().enableNetwork();
-      await this.ref.doc(id).delete();
+      await this._ref.doc(id).delete();
     } catch (e) {
       print("Erro ao deletar, $e");
     } finally {
@@ -61,7 +61,7 @@ class FireStoreApp {
 
     try {
       fb.firestore().enableNetwork();
-      await this.ref.doc(id).update(data: values);
+      await this._ref.doc(id).update(data: values);
       return true;
     } catch (e) {
       print("Erro ao atualizar, $e");

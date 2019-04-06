@@ -4,7 +4,6 @@ import 'dart:convert';
 import '../user/user_dao.dart';
 import '../user/user_constants.dart';
 import '../../firebase/firestore.dart';
-import 'package:crypto/crypto.dart';
 import '../../agendamento/patient_account/patient_account.dart';
 
 class PatientAccountDAO {
@@ -25,11 +24,11 @@ class PatientAccountDAO {
 
   Future<PatientAccount> getPatiantAccount(String email, String password) async {
     await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
-    FireStoreApp fireStoreApp = new FireStoreApp('patientAccount');
+    FireStoreApp _fireStoreApp = new FireStoreApp('patientAccount');
 
-    fireStoreApp.ref
+    _fireStoreApp.ref
         .where('email', '==', email)
-        .where('password', '==', sha1.convert(utf8.encode(password)))
+        .where('password', '==', password)
         .get()
         .then((querySnapshot) {
       if (querySnapshot.size == 0) {
@@ -46,9 +45,9 @@ class PatientAccountDAO {
 
   Future<bool> emailExists(String email) async {
     await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
-    FireStoreApp fireStoreApp = new FireStoreApp('patientAccount');
+    FireStoreApp _fireStoreApp = new FireStoreApp('patientAccount');
 
-    fireStoreApp.ref
+    _fireStoreApp.ref
         .where('email', '==', email)
         .get()
         .then((querySnapshot) {

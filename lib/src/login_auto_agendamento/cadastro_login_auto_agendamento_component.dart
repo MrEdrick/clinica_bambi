@@ -129,7 +129,8 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
         (event.keyCode == KeyCode.RIGHT) ||
-        (event.keyCode == KeyCode.LEFT)) {
+        (event.keyCode == KeyCode.LEFT) ||
+        (event.keyCode == KeyCode.TAB)) {
       return;
     }
 
@@ -232,7 +233,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
       "name": name,
       "email": email,
       "tel": telefone,
-      "password": sha1.convert(utf8.encode(password)),
+      "password": sha1.convert(utf8.encode(password)).toString(),
       "userId": fb.auth().currentUser.uid
     };
         
