@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'dart:convert';
-import 'dart:js' as js;
+import 'package:http/http.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -21,8 +21,8 @@ import 'package:firebase/firebase.dart' as fb;
 
 import '../email/email.dart';
 import '../email/email_constants.dart';
-import '../email/emailSender.dart';
 import '../email/emailSenderService.dart';
+import '../email/emailSenderHTTP.dart';
 
 
 @Component(
@@ -77,7 +77,8 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
 
   Map<String, dynamic> datas;
 
-  EmailSenderService emailSenderService;
+  Response response;
+  EmailSenderHTTP emailSenderHTTP;
 
   set telefone(String value) {
     _telefone = '';
@@ -198,15 +199,14 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
     if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
-      //js.context.callMethod('sendEmailPatientAccountconfirmation', [email, 'Verificação de e-mail', 'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString()]);
-      emailSenderService = new EmailSenderService(
+      emailSenderHTTP = await new EmailSenderService(
         new Email(CLIENT_NAME, CLIENT_EMAIL, CLIENT_PASSWORD, 
                   email, 'Verificação de e-mail', 
                   'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString(), 
                   null, null)
-      );
-      
-      emailSenderService.emailSenderGmail();//
+      ).emailSenderAmazon();
+
+      response = await emailSenderHTTP.sendEmail();
       
       buttonSaveDescription = 'CONFIRMAR';
       querySelector('#confirmation-code').style.display = 'block';

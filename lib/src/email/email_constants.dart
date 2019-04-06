@@ -3,4 +3,4 @@ final CLIENT_NAME = 'Clínica Bambi';
 final CLIENT_EMAIL = 'clinicaodontologicabambi@gmail.com';
 final CLIENT_PASSWORD = 'r2d2paradoxo1914';
 final SECRET_KEY = 'FGbFtyutVnik0OVSSy44kpqt';
-final SCOPES = ['https://mail.google.com/', 'https://www.googleapis.com/auth/gmail.send', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/gmail.labels'];
+final AMAZON_API_ENDPONT_SEND_EMAIL = 'https://mz8uki4o3l.execute-api.us-east-1.amazonaws.com/default/sendEmail';
