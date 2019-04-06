@@ -4,7 +4,6 @@ class PatientAccount {
   String _name;
   String _password;
 
-
   PatientAccount( this._id, this._email, this._name, this._password);
 
   String get id => _id;

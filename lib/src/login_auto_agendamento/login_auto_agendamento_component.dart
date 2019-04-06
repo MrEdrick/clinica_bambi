@@ -54,13 +54,14 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   );
 
   void onGetInside() async {
-    print(sha1.convert(utf8.encode(password)).toString());
-    patientAccount = await new PatientAccountDAO().getPatiantAccount(email, sha1.convert(utf8.encode(password)).toString());
+    PatientAccountDAO patientAccountDAO = new PatientAccountDAO();
+    PatientAccount patientAccount = await patientAccountDAO.getPatiantAccount(email.trim(), 
+                                        sha1.convert(utf8.encode(password)).toString().trim());
     if (patientAccount == null) {
       showLoginNotFinded = true;
     } else {
       goAutoAgendamento();
-    }
+    }  
   }
 
   void onSingUp() {
