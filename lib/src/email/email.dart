@@ -1,24 +1,16 @@
 class Email {
-  String _senderName;
-  String _senderEmail;
-  String _senderPassword;
+  String _sender;
   String _receiver;
   String _subject;
   String _message;
   String _contentType;
   String _mime;
 
-  Email( this._senderName, this._senderEmail, this._senderPassword, this._receiver, 
+  Email( this._sender, this._receiver, 
          this._subject, this._message, this._contentType, this._mime);
 
-  String get senderName => _senderName;
-  set senderName(String senderName) => _senderName = senderName;
-
-  String get senderEmail => _senderEmail;
-  set senderEmail(String senderEmail) => _senderEmail = senderEmail;
-
-  String get senderPassword => _senderPassword;
-  set senderPassword(String senderPassword) => _senderPassword = senderPassword;
+  String get sender => _sender;
+  set sender(String sender) => _sender = sender;
 
   String get receiver => _receiver;
   set receiver(String receiver) => _receiver = receiver;

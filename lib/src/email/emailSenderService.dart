@@ -16,6 +16,6 @@ class EmailSenderService {
                                {"subject" : email.subject,
                                 "message" : email.message,
                                 "toAddresses" : email.receiver,
-                                "source" : email.senderEmail});
+                                "source" : email.sender});
   }
 }

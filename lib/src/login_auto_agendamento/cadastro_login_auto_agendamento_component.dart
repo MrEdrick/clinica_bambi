@@ -203,7 +203,7 @@ class CadastroLoginAutoAgendamentoComponent implements OnInit {
     showAssertMessageAlert = false;
     if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
       emailSenderHTTP = await new EmailSenderService(
-        new Email(CLIENT_NAME, CLIENT_EMAIL, CLIENT_PASSWORD, 
+        new Email(CLINIC_EMAIL, 
                   email, 'Verificação de e-mail', 
                   'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString(), 
                   null, null)

@@ -27,38 +27,6 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFS2PU-ZB49FMtTHEkAQhgTmPLVoelNdQ">
 </script>
 
-<script type="text/javascript">
-  function sendEmail(email_cc, subject, message) {
-    Email.send("clinicaodontologicabambi@gmail.com",
-      "clinicaodontologicabambi@gmail.com",
-      'Fale conosco: ' + subject + ' - Enviado por: ' + email_cc,
-      ' Esta mensagem foi enviada por: ' + email_cc + "\r\n" + message,
-      "smtp.elasticemail.com",
-      "clinicaodontologicabambi@gmail.com",
-      "0e149b68-5f44-4642-8bb0-62dde5b9e127",
-      function done(message) {
-        Email.send(
-          "clinicaodontologicabambi@gmail.com",
-          email_cc,
-          'Fale conosco: ' + subject,
-          ' Olá, recebemos seu e-mail. Esta é apenas uma mensagem automática, por favor não responda.' + "\r\n" + message,
-          "smtp.elasticemail.com",
-          "clinicaodontologicabambi@gmail.com",
-          "0e149b68-5f44-4642-8bb0-62dde5b9e127")
-      })
-  }
-  //r2d2paradoxo1914
-  function sendEmailPatientAccountconfirmation(email, subject, message) {
-    Email.send("clinicaodontologicabambi@gmail.com",
-               email,
-              'Não responda: ' + subject + ' - Enviado por: clinicaodontologicabambi@gmail.com',
-              message,
-              "smtp.elasticemail.com",
-              "clinicaodontologicabambi@gmail.com",
-              "0e149b68-5f44-4642-8bb0-62dde5b9e127")
-  }
-</script>
-
 <script defer src="main.dart.js"></script>
 
 <!-- WhatsHelp.io widget -->
