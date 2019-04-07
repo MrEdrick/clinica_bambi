@@ -1,0 +1,1 @@
+final PROCEDURE_COLLECTION = 'procedure';
