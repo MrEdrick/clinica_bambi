@@ -16,6 +16,7 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_router/angular_router.dart';
 import 'package:crypto/crypto.dart';
 
+import '../agendamento/patient_account/patient_account.dart';
 import '../agendamento/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
 
@@ -24,14 +25,13 @@ import '../email/email_constants.dart';
 import '../email/emailSenderService.dart';
 import '../email/emailSenderHTTP.dart';
 
-
 @Component(
-    selector: 'cadastro-login-auto-agendamento-app',
+    selector: 'recover-password-login-auto-agendamento-app',
     styleUrls: const [
-      'cadastro_login_auto_agendamento_component.scss.css',
+      'recover_password_login_auto_agendamento_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'cadastro_login_auto_agendamento_component.html',
+    templateUrl: 'recover_password_login_auto_agendamento_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -52,7 +52,7 @@ import '../email/emailSenderHTTP.dart';
     providers: [
       windowBindings
     ])
-class CadastroLoginAutoAgendamentoComponent {
+class RecoverPasswordLoginAutoAgendamentoComponent {
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
   bool useItemRenderer = false;
@@ -60,13 +60,11 @@ class CadastroLoginAutoAgendamentoComponent {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
   bool showAssertMessageSavePassordNotMatched = false;
-  bool showAssertMessageSaveEmailExists = false;
+  bool showAssertMessageSaveEmailNotExists = false;
   bool showAssertMessageSaveConfirmationCodeEmpty = false;
   bool showAssertMessageSaveConfirmationCodeNotMatched = false;
 
-  String name = '';
   String email = '';
-  String _telefone = '';
   String password = '';
   String confirmationPassword = '';
   String confirmationCode = '';
@@ -79,77 +77,15 @@ class CadastroLoginAutoAgendamentoComponent {
 
   Response response;
   EmailSenderHTTP emailSenderHTTP;
-
-  set telefone(String value) {
-    _telefone = '';
-
-    if (value.length == 0) {
-      return;
-    }
-
-    String valueLocal = '';
-
-    for (var i = 0; i < value.length; i++) {
-      if (int.tryParse(value.substring(i, i + 1)) != null) {
-        valueLocal = valueLocal + value.substring(i, i + 1);
-      }
-    }
-
-    if (valueLocal.length >= 14) {
-      _telefone = '(' +
-          valueLocal.substring(0, 2) +
-          ')' +
-          valueLocal.substring(2, 6) +
-          '-' +
-          valueLocal.substring(6, 13);
-      return;
-    }
-
-    if (valueLocal.length >= 7) {
-      _telefone = '(' +
-          valueLocal.substring(0, 2) +
-          ')' +
-          valueLocal.substring(2, 6) +
-          '-' +
-          valueLocal.substring(6);
-      return;
-    }
-
-    if (valueLocal.length > 2) {
-      _telefone =
-          '(' + valueLocal.substring(0, 2) + ')' + valueLocal.substring(2);
-      return;
-    }
-
-    if (valueLocal.length > 0) {
-      _telefone = '(' + _telefone + valueLocal.substring(0);
-    }
-  }
-
-  onKeydownTelephone(event) {
-    if ((event.keyCode == KeyCode.BACKSPACE) ||
-        (event.keyCode == KeyCode.RIGHT) ||
-        (event.keyCode == KeyCode.LEFT) ||
-        (event.keyCode == KeyCode.TAB)) {
-      return;
-    }
-
-    if ((int.tryParse(event.key) == null) || (telefone.length > 13)) {
-      event.preventDefault();
-    }
-  }
-
-  String get telefone => _telefone;
+  PatientAccount patientAccount;
 
   void onClose() {
-    name = '';
     email = '';
-    _telefone = '';
     password = '';
     confirmationPassword = '';
     confirmationCode = '';
 
-    querySelector('#cadastro-login-auto-agendamento-app').style.display = 'none';
+    querySelector('#recover-password-login-auto-agendamento-app').style.display = 'none';
   }
 
   bool asserts() {
@@ -168,13 +104,13 @@ class CadastroLoginAutoAgendamentoComponent {
   void onDismissAssertMessage() {
     showAssertMessageSave = false;
     showAssertMessageSavePassordNotMatched = false;
-    showAssertMessageSaveEmailExists = false;
+    showAssertMessageSaveEmailNotExists = false;
     showAssertMessageSaveConfirmationCodeEmpty = false;
     showAssertMessageSaveConfirmationCodeNotMatched = false;
   }
 
   void onAssertsSave() async {
-    if ((name == '') || (telefone == '') || (email == '') ||
+    if ((email == '') ||
         (password == '') ||
         (confirmationPassword == '')) {
 
@@ -187,8 +123,10 @@ class CadastroLoginAutoAgendamentoComponent {
       return;      
     }
 
-    if ((await new PatientAccountDAO().emailExists(email)) != null) {
-      showAssertMessageSaveEmailExists = true;
+    patientAccount = await new PatientAccountDAO().emailExists(email);
+
+    if (patientAccount == null) {
+      showAssertMessageSaveEmailNotExists = true;
       return;  
     }
 
@@ -205,7 +143,7 @@ class CadastroLoginAutoAgendamentoComponent {
       emailSenderHTTP = await new EmailSenderService(
         new Email(CLINIC_EMAIL, 
                   email, 'Verificação de e-mail', 
-                  'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString(), 
+                  'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(patientAccount.password)).toString(), 
                   null, null)
       ).emailSenderAmazon();
 
@@ -222,7 +160,7 @@ class CadastroLoginAutoAgendamentoComponent {
       return;      
     }
 
-    if (confirmationCode.trim() != sha1.convert(utf8.encode(email)).toString()) {
+    if (confirmationCode.trim() != sha1.convert(utf8.encode(patientAccount.password)).toString()) {
       showAssertMessageSaveConfirmationCodeNotMatched = true;
       return;      
     }
@@ -230,18 +168,15 @@ class CadastroLoginAutoAgendamentoComponent {
     datas = new Map<String, dynamic>();
 
     datas = {
-      "name": name,
       "email": email,
-      "tel": telefone,
       "password": sha1.convert(utf8.encode(password)).toString(),
       "userId": fb.auth().currentUser.uid
     };
         
-    if (await new PatientAccountDAO().save(datas) == '') {
+    if (await new PatientAccountDAO().update(patientAccount.id, datas) == '') {
       showSuccessfullySave = true;
     } else {
       showNotSuccessfullySave = true;
     }
   }
-
 }

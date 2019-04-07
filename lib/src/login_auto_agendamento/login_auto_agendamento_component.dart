@@ -68,6 +68,10 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
     querySelector('#cadastro-login-auto-agendamento-app').style.display = 'block';
   }
 
+  void onForgotePassword() {
+
+  }
+
   Future<NavigationResult>  goAutoAgendamento() => _router.navigate(
     paths.deshboard_auto_agendamento.toUrl()
   );

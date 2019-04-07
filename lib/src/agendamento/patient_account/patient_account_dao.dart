@@ -22,6 +22,19 @@ class PatientAccountDAO {
     }
   }
 
+  Future<String> update(String id, Map<String, dynamic> datas) async {
+    await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
+    FireStoreApp _fireStoreApp = new FireStoreApp(PATIENT_ACCOUNT_COLLECTION);
+
+    if (await _fireStoreApp.updateItem(id, datas)) {
+      _fireStoreApp.FireStoreOffLine();
+      return '';
+    } else {
+      _fireStoreApp.FireStoreOffLine();
+      return 'Error';
+    }
+  }
+
   Future<PatientAccount> getPatiantAccount(String email, String password) async {
     await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp _fireStoreApp = new FireStoreApp(PATIENT_ACCOUNT_COLLECTION);
@@ -46,15 +59,26 @@ class PatientAccountDAO {
     return _patientAccount;
   }
 
-  Future<bool> emailExists(String email) async {
+  Future<PatientAccount> emailExists(String email) async {
     await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp _fireStoreApp = new FireStoreApp(PATIENT_ACCOUNT_COLLECTION);
+    PatientAccount _patientAccount;
 
     await _fireStoreApp.ref
         .where('email', '==', email)
         .get()
         .then((querySnapshot) {
-        return querySnapshot.size > 0;
+          if (querySnapshot.size > 0) {
+            _patientAccount = new PatientAccount(
+                querySnapshot.docs[0].data()["id"].toString(),
+                querySnapshot.docs[0].data()["email"].toString(),
+                querySnapshot.docs[0].data()["name"].toString(),
+                querySnapshot.docs[0].data()["password"].toString());
+          } else {
+            _patientAccount = null;
+          }
     });
+
+    return _patientAccount;
   }
 }
