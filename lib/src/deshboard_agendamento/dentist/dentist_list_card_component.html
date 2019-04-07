@@ -6,9 +6,6 @@
                 style="margin: 5px">
             <dentist-card-app id="{{dentist.id}}" [dentist]="dentist">
             </dentist-card-app>
-
-            <material-toggle [checked]="state" (checked)="state ? dentist.state = 'A' : dentist.state = 'I'">
-            </material-toggle>
         </div>
     </div>
 </div>

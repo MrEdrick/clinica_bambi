@@ -4,6 +4,7 @@ import '../../firebase/firestore.dart';
 
 class DentistService {
   static List<Dentist> _list;
+  static Dentist _dentist;
 
   Future<List<Dentist>> getAllDentistAcives() async {
     if (_list != null) {
@@ -42,5 +43,8 @@ class DentistService {
 
      return null;
   }
+
+  Dentist get dentist => _dentist;
+  set dentist(Dentist dentist) => _dentist = dentist;
 
 }

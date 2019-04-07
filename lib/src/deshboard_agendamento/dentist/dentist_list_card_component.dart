@@ -43,8 +43,6 @@ import '../../agendamento/user/user_service.dart';
       MaterialToggleComponent
     ])
 class DentistListCardComponent implements OnInit {
-  bool state = true;
-
   final List<Dentist> listDentist = new List<Dentist>();
 
   User _user;

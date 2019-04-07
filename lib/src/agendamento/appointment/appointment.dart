@@ -3,7 +3,7 @@ import '../dentist/dentist.dart';
 import '../agreement/agreement.dart';
 import 'package:intl/intl.dart';
 
-class Consulta {
+class Appointment {
   String _id;
   String _shiftId;
   String _hourId;
@@ -18,7 +18,7 @@ class Consulta {
   Dentist _dentist;
   Agreement _agreement;
 
-  Consulta( this._id, this._dataConsultaAgendamento, 
+  Appointment( this._id, this._dataConsultaAgendamento, 
             this._hourId, this._minuteId, this._shiftId, this._dentistId, 
             this._paciente, this._email, this._telefone, this._idUser,
             this._shift, this._dentist, this._agreement);
