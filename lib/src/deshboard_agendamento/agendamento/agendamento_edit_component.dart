@@ -19,24 +19,24 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
 
-import '../agendamento/dentist/dentist.dart';
-import '../agendamento/dentist/dentist_service.dart';
-import '../agendamento/dentist/dentist_selection_options.dart';
+import '../../agendamento/dentist/dentist.dart';
+import '../../agendamento/dentist/dentist_service.dart';
+import '../../agendamento/dentist/dentist_selection_options.dart';
 
-import '../agendamento/shift/shift.dart';
-import '../agendamento/shift/shift_service.dart';
-import '../agendamento/shift/shift_selection_options.dart';
+import '../../agendamento/shift/shift.dart';
+import '../../agendamento/shift/shift_service.dart';
+import '../../agendamento/shift/shift_selection_options.dart';
 
-import '../agendamento/agreement/agreement.dart';
-import '../agendamento/agreement/agreement_service.dart';
-import '../agendamento/agreement/agreement_selection_options.dart';
+import '../../agendamento/agreement/agreement.dart';
+import '../../agendamento/agreement/agreement_service.dart';
+import '../../agendamento/agreement/agreement_selection_options.dart';
 
 import 'package:firebase/firebase.dart' as fb;
-import '../firebase/firestore.dart';
+import '../../firebase/firestore.dart';
 
-import '../agendamento/consulta/consulta_service.dart';
+import '../../agendamento/consulta/consulta_service.dart';
 
-import '../agendamento/user/user_service.dart';
+import '../../agendamento/user/user_service.dart';
 
 @Component(
     selector: 'agendamento-edit-app',

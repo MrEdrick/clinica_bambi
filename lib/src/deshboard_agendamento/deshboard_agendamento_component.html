@@ -1,7 +1,5 @@
-<material-drawer temporary #drawer="drawer" [class.custom-width]="true"
-    id="drawer"
-    [attr.overlay]="true">
-    <div *deferredContent>
+<material-drawer temporary #drawer="drawer" id="deshboard-menu" [attr.overlay]="overlay ? '' : null">
+    <div>
         <material-button class="material-drawer-button" icon>
             <material-icon icon="calendar_today"></material-icon>
         </material-button>

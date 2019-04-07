@@ -29,13 +29,13 @@ class DentistService {
     return _list;
   }
 
-  Future<Dentist> getDentistById(String dentistId) async {
+  Future<Dentist> getDentistById(String id) async {
     if (_list == null) {
       await getAllDentistAcives();
     }
 
     for (var i = 0; i < _list.length; i++) {
-      if (_list[i].dentistId == dentistId) {
+      if (_list[i].id == id) {
         return _list[i];
       }
     };

@@ -18,7 +18,7 @@ import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:firebase/firebase.dart' as fb;
-import 'agendamento_list_card_component.dart';
+import 'agendamento/agendamento_list_card_component.dart';
 import '../agendamento/user/user.dart';
 import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
@@ -32,7 +32,7 @@ import '../agendamento/dentist/dentist.dart';
 import '../agendamento/dentist/dentist_service.dart';
 import '../agendamento/dentist/dentist_selection_options.dart';
 
-import 'agendamento_edit_component.dart';
+import 'agendamento/agendamento_edit_component.dart';
 
 import '../agendamento/consulta/consulta_service.dart';
 
@@ -80,6 +80,7 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
+  bool overlay = true;
 
   final Router _router;
 

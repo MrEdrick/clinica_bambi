@@ -1,0 +1,14 @@
+<div class="list-day">
+    <div class="total-result-by-day">
+        <div    class="container-card" 
+                id="container-card"
+                *ngFor="let dentist of listDentist; let i=index; let last = last"
+                style="margin: 5px">
+            <dentist-card-app id="{{dentist.id}}" [dentist]="dentist">
+            </dentist-card-app>
+
+            <material-toggle [checked]="state" (checked)="state ? dentist.state = 'A' : dentist.state = 'I'">
+            </material-toggle>
+        </div>
+    </div>
+</div>

@@ -4,27 +4,27 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../agendamento/consulta/consulta.dart';
-import '../agendamento/consulta/consulta_service.dart';
+import '../../agendamento/consulta/consulta.dart';
+import '../../agendamento/consulta/consulta_service.dart';
 import 'agendamento_edit_component.dart';
 
 @Component(
-    selector: 'agendamento-card-app',
+    selector: 'dentist-card-app',
     styleUrls: const [
-      'agendamento_card_component.scss.css',
+      'dentist_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'agendamento_card_component.html',
+    templateUrl: 'dentist_card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      AgendamentoEditComponent,
+      DentistEditComponent,
       ModalComponent,
     ])
 
-class AgendamentoCardComponent {
+class DentistCardComponent {
   Consulta _consulta;
   ConsultaService consultaService;
 
