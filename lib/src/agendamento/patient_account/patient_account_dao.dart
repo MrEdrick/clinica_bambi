@@ -49,7 +49,7 @@ class PatientAccountDAO {
         _patientAccount = null;
       } else {
          _patientAccount = new PatientAccount(
-            querySnapshot.docs[0].data()["id"].toString(),
+            querySnapshot.docs[0].id.toString(),
             querySnapshot.docs[0].data()["email"].toString(),
             querySnapshot.docs[0].data()["name"].toString(),
             querySnapshot.docs[0].data()["password"].toString());
@@ -70,7 +70,7 @@ class PatientAccountDAO {
         .then((querySnapshot) {
           if (querySnapshot.size > 0) {
             _patientAccount = new PatientAccount(
-                querySnapshot.docs[0].data()["id"].toString(),
+                querySnapshot.docs[0].id.toString(),
                 querySnapshot.docs[0].data()["email"].toString(),
                 querySnapshot.docs[0].data()["name"].toString(),
                 querySnapshot.docs[0].data()["password"].toString());

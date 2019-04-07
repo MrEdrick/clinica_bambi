@@ -53,6 +53,9 @@ import '../email/emailSenderHTTP.dart';
       windowBindings
     ])
 class CadastroLoginAutoAgendamentoComponent {
+  static final BUTTON_SAVE_VERIFY_DESCRIPTION = 'VERIFICAR E-MAIL';
+  static final BUTTON_SAVE_CONFIRM_DESCRIPTION = 'CONFIRMAR';
+
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
   bool useItemRenderer = false;
@@ -71,7 +74,7 @@ class CadastroLoginAutoAgendamentoComponent {
   String confirmationPassword = '';
   String confirmationCode = '';
 
-  String buttonSaveDescription = 'VERIFICAR E-MAIL';
+  String buttonSaveDescription = BUTTON_SAVE_VERIFY_DESCRIPTION;
 
   int maxLength = 14;
 
@@ -148,7 +151,9 @@ class CadastroLoginAutoAgendamentoComponent {
     password = '';
     confirmationPassword = '';
     confirmationCode = '';
+    buttonSaveDescription = BUTTON_SAVE_VERIFY_DESCRIPTION;
 
+    querySelector('#confirmation-code').style.display = 'none';
     querySelector('#cadastro-login-auto-agendamento-app').style.display = 'none';
   }
 
@@ -201,7 +206,7 @@ class CadastroLoginAutoAgendamentoComponent {
 
   void onSave() async {   
     showAssertMessageAlert = false;
-    if (buttonSaveDescription == 'VERIFICAR E-MAIL') {
+    if (buttonSaveDescription == BUTTON_SAVE_VERIFY_DESCRIPTION) {
       emailSenderHTTP = await new EmailSenderService(
         new Email(CLINIC_EMAIL, 
                   email, 'Verificação de e-mail', 
@@ -211,7 +216,7 @@ class CadastroLoginAutoAgendamentoComponent {
 
       response = await emailSenderHTTP.sendEmail();
       if (response.statusCode == 200) {
-        buttonSaveDescription = 'CONFIRMAR';
+        buttonSaveDescription = BUTTON_SAVE_CONFIRM_DESCRIPTION;
         querySelector('#confirmation-code').style.display = 'block';
       }
       return;
