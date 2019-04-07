@@ -13,6 +13,7 @@ import 'package:crypto/crypto.dart';
 import '../route_paths.dart' as paths;
 
 import 'cadastro_login_auto_agendamento_component.dart';
+import 'recover_password_login_auto_agendamento_component.dart';
 import '../agendamento/patient_account/patient_account.dart';
 import '../agendamento/patient_account/patient_account_dao.dart';
 
@@ -27,7 +28,8 @@ import '../agendamento/patient_account/patient_account_dao.dart';
     MaterialDialogComponent,
     ModalComponent,
     AutoDismissDirective,
-    CadastroLoginAutoAgendamentoComponent
+    CadastroLoginAutoAgendamentoComponent,
+    RecoverPasswordLoginAutoAgendamentoComponent
     ],
   styleUrls: const [
     'login_auto_agendamento_component.scss.css',
@@ -69,7 +71,7 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   }
 
   void onForgotePassword() {
-
+    querySelector('#recover-password-login-auto-agendamento-app').style.display = 'block';
   }
 
   Future<NavigationResult>  goAutoAgendamento() => _router.navigate(

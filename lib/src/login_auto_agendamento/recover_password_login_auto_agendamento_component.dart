@@ -150,7 +150,7 @@ class RecoverPasswordLoginAutoAgendamentoComponent {
       response = await emailSenderHTTP.sendEmail();
       if (response.statusCode == 200) {
         buttonSaveDescription = 'CONFIRMAR';
-        querySelector('#confirmation-code').style.display = 'block';
+        querySelector('#confirmation-code-recover-password').style.display = 'block';
       }
       return;
     } 

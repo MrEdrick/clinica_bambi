@@ -58,6 +58,10 @@ class FireStoreApp {
     }
 
     datas.forEach(interateMapentry);
+    
+    print(id);
+    print(datas);
+    print(values);
 
     try {
       fb.firestore().enableNetwork();
