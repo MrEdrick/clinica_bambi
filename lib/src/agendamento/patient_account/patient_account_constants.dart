@@ -1,1 +1,1 @@
-final PATIENT_ACCOUNT_COLLECTION = 'patientsAccount';
+final PATIENT_ACCOUNT_COLLECTION = 'patientAccount';

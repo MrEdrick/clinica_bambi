@@ -210,7 +210,7 @@ class CadastroLoginAutoAgendamentoComponent {
       emailSenderHTTP = await new EmailSenderService(
         new Email(CLINIC_EMAIL, 
                   email, 'Verificação de e-mail', 
-                  'Este é o código que você deve utilizar para a confirmação:' + sha1.convert(utf8.encode(email)).toString(), 
+                  'Este é o código que você deve utilizar para a confirmação: ' + sha1.convert(utf8.encode(email)).toString(), 
                   null, null)
       ).emailSenderAmazon();
 

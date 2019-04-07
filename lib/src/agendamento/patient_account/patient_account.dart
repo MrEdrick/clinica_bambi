@@ -10,7 +10,7 @@ class PatientAccount {
   set id(String id) => _id = id;
 
   String get name => _name;
-  set turno(String name) => _name = name;
+  set name(String name) => _name = name;
 
   String get email => _email;
   set email(String email) => _email = email;
