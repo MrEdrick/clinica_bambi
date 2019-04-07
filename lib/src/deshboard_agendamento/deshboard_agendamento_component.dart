@@ -15,6 +15,8 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
+import 'package:angular_components/app_layout/material_persistent_drawer.dart';
+import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:firebase/firebase.dart' as fb;
 import 'agendamento_list_card_component.dart';
 import '../agendamento/user/user.dart';
@@ -51,7 +53,9 @@ import '../agendamento/consulta/consulta_service.dart';
     MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
     AgendamentoListCardComponent,
-    AgendamentoEditComponent
+    AgendamentoEditComponent,
+    MaterialPersistentDrawerDirective,
+    MaterialTemporaryDrawerComponent,
   ],
   providers: const [
     materialProviders,

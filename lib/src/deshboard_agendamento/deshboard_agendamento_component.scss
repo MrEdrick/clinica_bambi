@@ -17,6 +17,10 @@
   display: none;
 }
 
+#drawer {
+  z-index: 200 !important;
+}
+
 header {
   position: fixed;
   margin: 0% !important;
