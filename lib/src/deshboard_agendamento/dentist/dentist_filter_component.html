@@ -1,0 +1,79 @@
+
+<div class="material-content">
+    <div class="container-deshboard-agendamento">
+        <div class="container-filter">
+            <div class="container-filter-title">
+                <material-icon icon="filter_list"></material-icon>
+            </div>
+
+            <div class="container-filter-title">
+                <span class="filter-title">
+                    Turno:
+                </span>
+                <material-dropdown-select id="turno" class="lista-turno" [buttonText]="singleSelectShiftLabel"
+                    [selection]="singleSelectModelShift" [options]="shiftOptions" [itemRenderer]="itemRendererShift">
+                </material-dropdown-select>
+            </div>
+
+            <div class="container-filter-title">
+                <span class="filter-title">
+                    Dentista:
+                </span>
+                <material-dropdown-select id="dentista" class="lista-dentistas" [buttonText]="singleSelectDentistLabel"
+                    [selection]="singleSelectModelDentist" [options]="dentistOptions"
+                    [itemRenderer]="itemRendererDentist">
+                </material-dropdown-select>
+            </div>
+
+            <material-button id="bt-limpar" (trigger)="onClear()">
+                Limpar
+            </material-button>
+
+            <material-button id="bt-filter" (trigger)="onFilter()">
+                Filtrar
+            </material-button>
+        </div>
+        <div class="total-result-filter">
+
+            <div class="total-result-filtered">
+                <span class="total-result-filter-title">
+                    Turno da filtragem:
+                </span>
+                <span class="total-result-filter-text">
+                    {{turnoDescription}}
+                </span>
+            </div>
+
+            <div class="total-result-filtered">
+                <span class="total-result-filter-title">
+                    Dentista da filtragem:
+                </span>
+                <span class="total-result-filter-text">
+                    {{dentistName}}
+                </span>
+            </div>
+
+            <div class="total-result-filtered">
+                <span class="total-result-filter-title">
+                    Total de consultas:
+                </span>
+                <span class="total-result-filter-text" id="total-result-filter-text">
+                </span>
+            </div>
+        </div>
+        <div id="container-list-dentists" class="container-list-dentists">
+            <div class="list-day-dentists" *ngFor="let date of listDentists; let i=index; let last = last">
+                <dentist-list-card-app id="dentist-list-card-app-{{i}}" [index]="i" [user]="user"
+                    [dentistId]="dentistId" [shiftId]="shiftId">
+                </dentist-list-card-app>
+            </div>
+        </div>
+    </div>
+
+    <material-fab raised (click)="onAdd" id="addDentist">
+        <material-icon icon="add"></material-icon>
+    </material-fab>
+
+</div>
+<dentist-edit-app style="display: none" id="dentist-edit-app">
+</dentist-edit-app>
