@@ -20,12 +20,12 @@ import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
-    selector: 'dentist-list-card-app',
+    selector: 'procedure-list-card-app',
     styleUrls: const [
-      'dentist_list_card_component.scss.css',
+      'procedure_list_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'dentist_list_card_component.html',
+    templateUrl: 'procedure_list_card_component.html',
     directives: const [
       NgFor,
       coreDirectives,
@@ -110,7 +110,7 @@ class ProcedureListCardComponent implements OnInit {
                 null) {
               totalResult = 0;
             } else {
-              totalResult = int.parse(querySelector('#dentist-total-result-filter-text')
+              totalResult = int.parse(querySelector('#procedure-total-result-filter-text')
                   .getAttribute('value')
                   .toString());
             }

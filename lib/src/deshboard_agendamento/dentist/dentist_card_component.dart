@@ -4,9 +4,9 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../agendamento/consulta/consulta.dart';
-import '../../agendamento/consulta/consulta_service.dart';
-import 'agendamento_edit_component.dart';
+import '../../agendamento/dentist/dentist.dart';
+import '../../agendamento/dentist/dentist_service.dart';
+import 'dentist_edit_component.dart';
 
 @Component(
     selector: 'dentist-card-app',
@@ -25,21 +25,21 @@ import 'agendamento_edit_component.dart';
     ])
 
 class DentistCardComponent {
-  Consulta _consulta;
-  ConsultaService consultaService;
+  Dentist _dentist;
+  DentistService dentistService;
 
   bool showEditAgendamentoEditApp = false;
 
-  Consulta get consulta => _consulta;
+  Dentist get dentist => _dentist;
   @Input()
-  set consulta(Consulta consulta) => _consulta = consulta; 
+  set dentist(Dentist dentist) => _dentist = dentist; 
 
-  AgendamentoCardComponent();
+  DentistCardComponent();
 
   void onEdit() {
-    consultaService = new ConsultaService();
-    consultaService.consulta = consulta;
-    querySelector('#editAgendamento').click();
-    querySelector('#agendamento-edit-app').style.display = 'block';
+    dentistService = new DentistService();
+    dentistService.dentist = dentist;
+    querySelector('#editDentist').click();
+    querySelector('#dentist-edit-app').style.display = 'block';
   }
 }

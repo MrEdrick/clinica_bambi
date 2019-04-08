@@ -4,42 +4,42 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../agendamento/consulta/consulta.dart';
-import '../../agendamento/consulta/consulta_service.dart';
-import 'agendamento_edit_component.dart';
+import '../../agendamento/procedure/procedure.dart';
+import '../../agendamento/procedure/procedure_service.dart';
+import 'procedure_edit_component.dart';
 
 @Component(
-    selector: 'dentist-card-app',
+    selector: 'procedure-card-app',
     styleUrls: const [
-      'dentist_card_component.scss.css',
+      'procedure_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'dentist_card_component.html',
+    templateUrl: 'procedure_card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      DentistEditComponent,
+      ProcedureEditComponent,
       ModalComponent,
     ])
 
-class DentistCardComponent {
-  Consulta _consulta;
-  ConsultaService consultaService;
+class ProcedureCardComponent {
+  Procedure _procedure;
+  ProcedureService procedureService;
 
   bool showEditAgendamentoEditApp = false;
 
-  Consulta get consulta => _consulta;
+  Procedure get procedure => _procedure;
   @Input()
-  set consulta(Consulta consulta) => _consulta = consulta; 
+  set procedure(Procedure procedure) => _procedure = procedure; 
 
-  AgendamentoCardComponent();
+  ProcedureCardComponent();
 
   void onEdit() {
-    consultaService = new ConsultaService();
-    consultaService.consulta = consulta;
-    querySelector('#editAgendamento').click();
-    querySelector('#agendamento-edit-app').style.display = 'block';
+    procedureService = new ProcedureService();
+    procedureService.procedure = procedure;
+    querySelector('#editProcedure').click();
+    querySelector('#procedure-edit-app').style.display = 'block';
   }
 }
