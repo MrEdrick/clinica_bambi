@@ -47,7 +47,8 @@ class ProcedureDAO {
           if (querySnapshot.size > 0) {
             _procedure = new Procedure(
                 querySnapshot.docs[0].id.toString(),
-                querySnapshot.docs[0].data()["description"].toString());
+                querySnapshot.docs[0].data()["description"].toString(),
+                querySnapshot.docs[0].data()["state"].toString());
           } else {
             _procedure = null;
           }
