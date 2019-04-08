@@ -1,0 +1,106 @@
+@import 'package:angular_components/css/material/shadow';
+
+:host {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 100 !important;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+:host::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+header {
+  position: fixed;
+  margin: 0% !important;
+  padding: 0% !important;
+}
+
+.container-deshboard-agendamento {
+  top: 0;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+}
+
+.material-content {
+  width: 100%;
+}
+
+.controls {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.material-header {
+  position: fixed !important;
+  background: rgba(#00B0FF, 1);
+  color: #ffffff;
+  z-index: 200 !important;
+}
+
+.group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
+  border-top: 0px !important;
+  margin-top: 7px !important;
+  padding-top: 8px !important;
+}
+
+.material-header, .material-header-row {
+  flex: 0 0 48px;
+  padding-left: 5px;
+  padding-right: 5px;
+  max-height: 48px !important;
+  min-height: 48px !important;
+  height: 48px !important;  color: #ffffff;
+}
+
+.material-header * {
+  background: rgba(#00B0FF, 1);
+}
+
+.material-header-title {
+  width: 50%;
+  font-size: 3vh;
+  display: inline-table; 
+}
+
+i {
+  position: absolute;
+  left: 1%;
+  top: 78px;
+}
+
+::ng-deep .material-header .material-header-row{
+  margin: 0 !important;
+}
+
+material-fab {
+  position: fixed;
+  color: #ffffff;
+  background: #00B0FF;
+  right: 5px;
+  bottom: 10px;
+  z-index: 999;
+}
+
+@media screen and (min-width: 769px) {
+  .material-header-title {
+    font-size: 2vw;
+  }
+
+}
+
+@media screen and (min-width: 1100px) {
+  
+}

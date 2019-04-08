@@ -18,28 +18,28 @@ import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:firebase/firebase.dart' as fb;
-import 'agendamento/agendamento_list_card_component.dart';
-import '../agendamento/user/user.dart';
-import '../agendamento/user/user_service.dart';
-import '../route_paths.dart' as paths;
+import '../agendamento/agendamento_list_card_component.dart';
+import '../../agendamento/user/user.dart';
+import '../../agendamento/user/user_service.dart';
+import '../../route_paths.dart' as paths;
 import 'package:intl/intl.dart';
 
-import '../agendamento/shift/shift.dart';
-import '../agendamento/shift/shift_service.dart';
-import '../agendamento/shift/shift_selection_options.dart';
+import '../../agendamento/shift/shift.dart';
+import '../../agendamento/shift/shift_service.dart';
+import '../../agendamento/shift/shift_selection_options.dart';
 
-import '../agendamento/dentist/dentist.dart';
-import '../agendamento/dentist/dentistUI.dart';
-import '../agendamento/dentist/dentist_service.dart';
-import '../agendamento/dentist/dentist_selection_options.dart';
+import '../../agendamento/dentist/dentist.dart';
+import '../../agendamento/dentist/dentistUI.dart';
+import '../../agendamento/dentist/dentist_service.dart';
+import '../../agendamento/dentist/dentist_selection_options.dart';
 
-import 'agendamento/agendamento_edit_component.dart';
+import '../agendamento/agendamento_edit_component.dart';
 
-import '../agendamento/consulta/consulta_service.dart';
+import '../../agendamento/consulta/consulta_service.dart';
 
 @Component(
-  selector: 'deshboard-agendamento-app',
-  templateUrl: 'deshboard_agendamento_component.html',
+  selector: 'agendamento-filter-app',
+  templateUrl: 'agendamento_filter_component.html',
   directives: const [
     coreDirectives,
     materialInputDirectives,
@@ -67,11 +67,11 @@ import '../agendamento/consulta/consulta_service.dart';
     ClassProvider(ShiftService)
   ],
   styleUrls: const [
-    'deshboard_agendamento_component.scss.css',
+    'agendamento_filter_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class DeshboardAgendamentoComponent implements OnActivate, OnInit {
+class AgendamentoFilterComponent implements OnActivate, OnInit {
   ConsultaService _consultaService = new ConsultaService();
 
   ConsultaService get consultaService => _consultaService;
@@ -197,7 +197,7 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
     _listDentist = await _dentistService.getAllDentistAcives();
   }
 
-  DeshboardAgendamentoComponent(this._router, this._dentistService, this._shiftService);
+  AgendamentoFilterComponent(this._router, this._dentistService, this._shiftService);
 
   @override
   void onActivate(_, RouterState current) async {
