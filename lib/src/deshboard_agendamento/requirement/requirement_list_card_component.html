@@ -1,0 +1,11 @@
+<div class="list-day">
+    <div class="total-result-by-day">
+        <div    class="container-card" 
+                id="container-card"
+                *ngFor="let requirement of listRequirement; let i=index; let last = last"
+                style="margin: 5px">
+            <dentist-card-app id="{{requirement.id}}" [procedure]="requirement">
+            </dentist-card-app>
+        </div>
+    </div>
+</div>

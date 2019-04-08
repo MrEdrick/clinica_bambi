@@ -4,8 +4,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../agendamento/appointment/appointment.dart';
-import '../agendamento/appointment/appointment_service.dart';
+import '../agendamento/consulta/consulta.dart';
+import '../agendamento/consulta/consulta_service.dart';
 import 'auto_agendamento_edit_component.dart';
 
 @Component(
@@ -25,20 +25,20 @@ import 'auto_agendamento_edit_component.dart';
     ])
 
 class AutoAgendamentoCardComponent {
-  Appointment _appointment;
-  Appointment appointmentService;
+  Consulta _consulta;
+  Consulta consultaService;
 
   bool showEditAgendamentoEditApp = false;
 
-  Appointment get appointment => _appointment;
+  Consulta get consulta => _consulta;
   @Input()
-  set appointment(Appointment appointment) => _appointment = appointment; 
+  set consulta(Consulta consulta) => _consulta = consulta; 
 
   AutoAgendamentoCardComponent();
 
   void onEdit() {
-    appointmentService = new AppointmentService();
-    appointmentService.appointment = appointment;
+    consultaService = new ConsultaService();
+    consultaService.consulta = consulta;
     querySelector('#editAgendamento').click();
     querySelector('#auto-agendamento-edit-app').style.display = 'block';
   }

@@ -34,7 +34,7 @@ import '../agendamento/dentist/dentist_selection_options.dart';
 
 import 'agendamento/agendamento_edit_component.dart';
 
-import '../agendamento/appointment/appointment_service.dart';
+import '../agendamento/consulta/consulta_service.dart';
 
 @Component(
   selector: 'deshboard-agendamento-app',
@@ -71,10 +71,10 @@ import '../agendamento/appointment/appointment_service.dart';
   ],
 )
 class DeshboardAgendamentoComponent implements OnActivate, OnInit {
-  AppointmentService _appointmentService = new AppointmentService();
+  ConsultaService _consultaService = new ConsultaService();
 
-  AppointmentService get appointmentService => _appointmentService;
-  set appointmentService(AppointmentService consultaService) => _appointmentService = appointmentService;
+  ConsultaService get consultaService => _consultaService;
+  set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
 
   User user;
   
@@ -259,7 +259,7 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
   }
 
   void onAdd() {
-    appointmentService.appointment = null;
+    consultaService.consulta = null;
     querySelector('#editAgendamento').click();
     querySelector('#agendamento-edit-app').style.display = 'block';
   }
