@@ -20,6 +20,7 @@ import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
 
 import '../../agendamento/dentist/dentist.dart';
+import '../../agendamento/dentist/dentistUI.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/dentist/dentist_selection_options.dart';
 
@@ -151,7 +152,7 @@ class AgendamentoEditComponent implements OnInit {
 
   String get telefone => _telefone;
 
-  static ItemRenderer<Dentist> _displayNameRenderer =
+  static ItemRenderer<DentistUI> _displayNameRenderer =
       (HasUIDisplayName item) => item.uiDisplayName;
 
   List<Dentist> _listDentist;
@@ -160,7 +161,7 @@ class AgendamentoEditComponent implements OnInit {
   static ItemRenderer<Dentist> _itemRendererDentist =
       newCachingItemRenderer<Dentist>((dentista) => "${dentista.name}");
 
-  ItemRenderer<Dentist> get itemRendererDentist =>
+  ItemRenderer<DentistUI> get itemRendererDentist =>
       useItemRenderer ? _itemRendererDentist : _displayNameRenderer;
 
   DentistSelectionOptions<Dentist> dentistListOptions;
@@ -175,7 +176,7 @@ class AgendamentoEditComponent implements OnInit {
     return dentistListOptions;
   }
 
-  final SelectionModel<Dentist> singleSelectModelDentist =
+  final SelectionModel<DentistUI> singleSelectModelDentist =
       SelectionModel.single();
 
   String get singleSelectDentistLabel =>
@@ -296,7 +297,9 @@ class AgendamentoEditComponent implements OnInit {
       telefone = consultaService.consulta.telefone;
 
       singleSelectModelShift.select(consultaService.consulta.shift);
-      singleSelectModelDentist.select(consultaService.consulta.dentist);
+      singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
+                                                    consultaService.consulta.dentist.name,
+                                                    consultaService.consulta.dentist.state));
       singleSelectModelAgreement.select(consultaService.consulta.agreement);
     } else {
       dataConsulta = new Date.today();
@@ -388,7 +391,7 @@ class AgendamentoEditComponent implements OnInit {
       "shiftId": singleSelectModelShift.selectedValues.first.shiftId,
       "agreementId": singleSelectModelAgreement.selectedValues.first.agreementId,
       "dentistId": singleSelectModelDentist
-          .selectedValues.first.dentistId, //querySelector('#dentista').text
+          .selectedValues.first.id, //querySelector('#dentista').text
       "patient": paciente,
       "email": email,
       "tel": telefone,
