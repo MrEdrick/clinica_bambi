@@ -29,6 +29,7 @@ import '../agendamento/shift/shift_service.dart';
 import '../agendamento/shift/shift_selection_options.dart';
 
 import '../agendamento/dentist/dentist.dart';
+import '../agendamento/dentist/dentistUI.dart';
 import '../agendamento/dentist/dentist_service.dart';
 import '../agendamento/dentist/dentist_selection_options.dart';
 
@@ -150,19 +151,18 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
     _listShift = await _shiftService.getAllShiftAcives();
   }
   //----
-
-  static ItemRenderer<Dentist> _displayNameRenderer =
-      (HasUIDisplayName item) => item.uiDisplayName;
-
   List<Dentist> _listDentist;
   final DentistService _dentistService;
+
+  static ItemRenderer<Shift> _displayNameRendererDentist =
+    (HasUIDisplayName item) => item.uiDisplayName;
 
   static ItemRenderer<Dentist> _itemRendererDentist =
       newCachingItemRenderer<Dentist>(
           (dentista) => "${dentista.name}");
 
-  ItemRenderer<Dentist> get itemRendererDentist =>
-      useItemRenderer ? _itemRendererDentist : _displayNameRenderer;
+  ItemRenderer<DentistUI> get itemRendererDentist =>
+      useItemRenderer ? _itemRendererDentist : _displayNameRendererDentist;
 
   DentistSelectionOptions<Dentist> dentistListOptions;
 
@@ -176,7 +176,7 @@ class DeshboardAgendamentoComponent implements OnActivate, OnInit {
     return dentistListOptions;
   }
 
-  final SelectionModel<Dentist> singleSelectModelDentist =
+  final SelectionModel<DentistUI> singleSelectModelDentist =
       SelectionModel.single();
 
   String get singleSelectDentistLabel => singleSelectModelDentist.selectedValues.length > 0
