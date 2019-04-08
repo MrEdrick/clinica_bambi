@@ -18,11 +18,9 @@ import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:firebase/firebase.dart' as fb;
-import '../agendamento/agendamento_list_card_component.dart';
 import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 import '../../route_paths.dart' as paths;
-import 'package:intl/intl.dart';
 
 import '../../agendamento/shift/shift.dart';
 import '../../agendamento/shift/shift_service.dart';
@@ -33,7 +31,8 @@ import '../../agendamento/dentist/dentistUI.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/dentist/dentist_selection_options.dart';
 
-import '../agendamento/agendamento_edit_component.dart';
+import 'dentist_list_card_component.dart';
+import 'dentist_edit_component.dart';
 
 @Component(
   selector: 'dentist-filter-app',
@@ -51,8 +50,8 @@ import '../agendamento/agendamento_edit_component.dart';
     MaterialDropdownSelectComponent,
     MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
-    AgendamentoListCardComponent,
-    AgendamentoEditComponent,
+    DentistListCardComponent,
+    DentistEditComponent,
     MaterialPersistentDrawerDirective,
     MaterialTemporaryDrawerComponent,
   ],
@@ -71,10 +70,10 @@ import '../agendamento/agendamento_edit_component.dart';
 )
 class DentistFilterComponent implements OnActivate, OnInit {
   
-  DentistService _dentistServiceList;
+  List<Dentist> _dentistList;
   
-  DentistService get dentistServiceList => _dentistServiceList;
-  set dentistServiceList(DentistService dentistServiceLisat) => _dentistServiceList = dentistServiceList;
+  List<Dentist> get dentistList => _dentistList;
+  set dentistList(List<Dentist> dentistLisat) => _dentistList = dentistList;
 
   User user;
   
@@ -236,7 +235,7 @@ class DentistFilterComponent implements OnActivate, OnInit {
   }
 
   void onAdd() {
-    dentistServiceList.dentist = null;
+    _dentistService.dentist = null;
     querySelector('#editDentist').click();
     querySelector('#dentist-edit-app').style.display = 'block';
   }

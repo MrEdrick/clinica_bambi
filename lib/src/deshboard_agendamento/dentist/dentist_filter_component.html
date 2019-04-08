@@ -62,9 +62,9 @@
             </div>
         </div>
         <div id="container-list-dentists" class="container-list-dentists">
-            <div class="list-day-dentists" *ngFor="let date of listDentists; let i=index; let last = last">
+            <div class="list-day-dentists" *ngFor="let dentist of dentistList; let i=index; let last = last">
                 <dentist-list-card-app id="dentist-list-card-app-{{i}}" [index]="i" [user]="user"
-                    [dentistId]="dentistId" [shiftId]="shiftId">
+                    [dentistId]="dentistId">
                 </dentist-list-card-app>
             </div>
         </div>
