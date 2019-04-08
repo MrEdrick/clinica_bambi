@@ -26,7 +26,7 @@ import 'auto_agendamento_edit_component.dart';
 
 class AutoAgendamentoCardComponent {
   Consulta _consulta;
-  Consulta consultaService;
+  ConsultaService consultaService;
 
   bool showEditAgendamentoEditApp = false;
 
