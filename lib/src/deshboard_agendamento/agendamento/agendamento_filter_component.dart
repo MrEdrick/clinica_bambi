@@ -202,9 +202,10 @@ class AgendamentoFilterComponent implements OnInit {
   void ngOnInit() { 
     if (user == null)
       return;
-      
+
     _getListDentist();
     _getListShift();
+    onFilter();
   }
 
   void onFilter() {

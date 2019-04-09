@@ -85,7 +85,6 @@ class DeshboardComponent implements OnActivate, OnInit {
       return;
       
   }
-
 }
 
 /*        user = new User(fb.auth().currentUser.uid,

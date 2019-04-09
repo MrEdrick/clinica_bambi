@@ -31059,10 +31059,10 @@ s=this.b
 if(t)s.bO(0,u)
 else s.f_(a)}}
 X.i2.prototype={
-i:function(a,b){return b==="en_US"?this.b:this.qM()},
+i:function(a,b){return b==="pt_BR"?this.b:this.qM()},
 Ck:function(a,b,c,d,e,f){return a},
 iY:function(a,b,c,d,e){return this.Ck(a,b,c,d,e,null)},
-aF:function(a,b){return b==="en_US"?!0:this.qM()},
+aF:function(a,b){return b==="pt_BR"?!0:this.qM()},
 qM:function(){throw H.d(X.D2("Locale data has not been initialized, call "+this.a+"."))}}
 X.t3.prototype={
 t:function(a){return"LocaleDataException: "+this.a}}
