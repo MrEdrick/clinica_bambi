@@ -1,15 +1,11 @@
 @import 'package:angular_components/css/material/shadow';
 
-.container-deshboard-agendamento {
+#container-filter-dentist {
   top: 0;
   position: relative;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
-}
-
-.material-content {
-  width: 100%;
 }
 
 .controls {

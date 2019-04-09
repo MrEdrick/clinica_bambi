@@ -1,15 +1,11 @@
 @import 'package:angular_components/css/material/shadow';
 
-.container-deshboard-agendamento {
+#container-filter-procedure {
   top: 0;
   position: relative;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
-}
-
-.material-content {
-  width: 100%;
 }
 
 .controls {
@@ -115,19 +111,11 @@ i {
   font-weight: 600;
 }
 
-.container-list-agendamentos {
+.container-list-procedures {
   position: relative;
   display: inline-block;
   width: 100%;
   top: 162px;
-}
-
-.list-day-agendamentos {
-  display: inline-block;
-  position: relative;
-  background-color: #ffffff;
-  width: 100%;
-  z-index: 1 !important;
 }
 
 
@@ -146,18 +134,6 @@ material-fab {
 
 .container-deshboard-agendamento ::ng-deep #wh-widget-send-button {
   display: none !important;
-}
-
-material-datepicker {
-  margin: 1% 1%;
-  position: relative;
-  color: #616161;
-}
-
-material-dropdown-select {
-  margin: 1% 1%;
-  position: relative;
-  color: #616161;
 }
 
 .filter-input {
