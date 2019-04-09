@@ -67,6 +67,9 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   final Router _router;
 
+  @ViewChild(AgendamentoFilterComponent)
+  AgendamentoFilterComponent agendamentoFilterComponent;
+
   DeshboardComponent(this._router): userService = new UserService();
 
   @override
@@ -74,6 +77,8 @@ class DeshboardComponent implements OnActivate, OnInit {
     try {
       if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
+      } else {
+        agendamentoFilterComponent.onFilter();
       }
     } catch (e) {
       _router.navigate(paths.login.toUrl());
@@ -86,7 +91,3 @@ class DeshboardComponent implements OnActivate, OnInit {
       
   }
 }
-
-/*        user = new User(fb.auth().currentUser.uid,
-                              fb.auth().currentUser.displayName, 
-                              fb.auth().currentUser.email); */

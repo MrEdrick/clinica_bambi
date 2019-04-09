@@ -101,7 +101,6 @@ class AgendamentoListCardComponent implements OnInit {
         .get()
         .then((querySnapshot) {
           totalResultByDay = 0;
-
           querySnapshot.forEach((doc) {
             Map map = new Map.from(doc.data());
             map['documentPath'] = doc.id;
@@ -178,19 +177,19 @@ class AgendamentoListCardComponent implements OnInit {
 
             int totalResult;
 
-            if (querySelector('#total-result-filter-text').getAttribute('value') ==
+            if (querySelector('#agendamento-result-filter-text').getAttribute('value') ==
                 null) {
               totalResult = 0;
             } else {
-              totalResult = int.parse(querySelector('#total-result-filter-text')
+              totalResult = int.parse(querySelector('#agendamento-result-filter-text')
                   .getAttribute('value')
                   .toString());
             }
 
             totalResult = totalResult + totalResultByDay;
-            querySelector('#total-result-filter-text')
+            querySelector('#agendamento-result-filter-text')
                 .setAttribute('value', totalResult?.toString());
-            querySelector('#total-result-filter-text')
+            querySelector('#agendamento-result-filter-text')
                 .setInnerHtml(totalResult?.toString());
 
             listConsultas.clear();
