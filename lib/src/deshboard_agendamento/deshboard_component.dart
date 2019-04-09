@@ -59,7 +59,7 @@ import 'requirement/requirement_filter_component.dart';
   ],
 )
 class DeshboardComponent implements OnActivate, OnInit {
-  User user;
+  final UserService userService;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -67,16 +67,12 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   final Router _router;
 
-  DeshboardComponent(this._router);
+  DeshboardComponent(this._router): userService = new UserService();
 
   @override
   void onActivate(_, RouterState current) async {
     try {
-      if (new UserService().user != null) {
-        user = new User(fb.auth().currentUser.uid,
-                              fb.auth().currentUser.displayName, 
-                              fb.auth().currentUser.email);
-      } else {
+      if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
       }
     } catch (e) {
@@ -91,3 +87,7 @@ class DeshboardComponent implements OnActivate, OnInit {
   }
 
 }
+
+/*        user = new User(fb.auth().currentUser.uid,
+                              fb.auth().currentUser.displayName, 
+                              fb.auth().currentUser.email); */

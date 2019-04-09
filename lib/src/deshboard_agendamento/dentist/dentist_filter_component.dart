@@ -67,7 +67,12 @@ class DentistFilterComponent implements OnActivate, OnInit {
   List<Dentist> get dentistList => _dentistList;
   set dentistList(List<Dentist> dentistLisat) => _dentistList = dentistList;
 
-  User user;
+
+  User _user;
+  
+  User get user => _user;
+  @Input()
+  set user(User user) => _user = user;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;

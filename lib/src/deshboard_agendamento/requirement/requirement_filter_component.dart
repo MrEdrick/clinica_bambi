@@ -46,7 +46,11 @@ class RequirementFilterComponent {
   List<Requirement> get requirementList => _requirementList;
   set requirementList(List<Requirement> requirementList) => _requirementList = requirementList;
 
-  User user;
+  User _user;
+  
+  User get user => _user;
+  @Input()
+  set user(User user) => _user = user;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;

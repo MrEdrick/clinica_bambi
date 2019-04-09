@@ -17,11 +17,9 @@ import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
-import 'package:firebase/firebase.dart' as fb;
 import '../agendamento/agendamento_list_card_component.dart';
 import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
-import '../../route_paths.dart' as paths;
 import 'package:intl/intl.dart';
 
 import '../../agendamento/shift/shift.dart';
@@ -77,7 +75,11 @@ class AgendamentoFilterComponent implements OnInit {
   ConsultaService get consultaService => _consultaService;
   set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
 
-  User user;
+  User _user;
+  
+  User get user => _user;
+  @Input()
+  set user(User user) => _user = user;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -198,7 +200,7 @@ class AgendamentoFilterComponent implements OnInit {
   AgendamentoFilterComponent(this._dentistService, this._shiftService);
 
   void ngOnInit() { 
-    if (new UserService().user == null)
+    if (user == null)
       return;
       
     _getListDentist();

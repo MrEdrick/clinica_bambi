@@ -51,7 +51,11 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   List<Procedure> get procedureList => _procedureList;
   set procedureList(List<Procedure> procedureLisat) => _procedureList = procedureList;
 
-  User user;
+  User _user;
+  
+  User get user => _user;
+  @Input()
+  set user(User user) => _user = user;
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -105,7 +109,7 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   void onClear() {
     description = '';
-    
+
     querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
     querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
   }
