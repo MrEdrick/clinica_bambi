@@ -35,7 +35,7 @@
         <div id="container-list-procedures" class="container-list-procedures">
             <div class="list-day-procedures" *ngFor="let procedure of procedureList; let i=index; let last = last">
                 <procedure-list-card-app id="procedure-list-card-app-{{i}}" [index]="i" [user]="user"
-                    [procedureId]="procedureId">
+                    [description]="description">
                 </procedure-list-card-app>
             </div>
         </div>

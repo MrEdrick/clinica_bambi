@@ -7,10 +7,10 @@
             Dados para o cadastro
         </div>
 
-        <material-toggle [checked]="state" (checked)="state ? requirement.state = 'A' : requirement.state = 'I'">
+        <material-toggle [(checked)]="state">
         </material-toggle>
 
-        <material-input class="edit-input" id="requirement" label="requirement..." [ngModel]="requirement" (inputKeyPress)="requirement = $event"></material-input>
+        <material-input class="edit-input" id="requirement" label="Requisito..." [ngModel]="description" (inputKeyPress)="description = $event"></material-input>
     </div>
 
     <material-button class="button-close" (click)="onClose()">

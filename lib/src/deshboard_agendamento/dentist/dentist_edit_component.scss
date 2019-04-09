@@ -57,26 +57,12 @@ material-dropdown-select {
   color: #616161 
 }
 
-#date {
-  width: 10%;
-  margin-bottom: 3%;
-  margin-left: 1% !important;
-}
 
-#dentistas {
+#name {
   width: 50%;
   margin-bottom: 3%;
 }
 
-#convenios {
-  width: 50%;
-  margin-bottom: 3%;
-}
-
-#shift {
-  width: 20%;
-  margin-bottom: 3%;
-}
 
 material-datepicker {
   position: relative;
@@ -112,10 +98,6 @@ material-input {
 
 .edit-input, .edit-input * {
   color: #616161 !important; 
-}
-
-#telefone {
-  width: 20%;
 }
 
 .button-save {

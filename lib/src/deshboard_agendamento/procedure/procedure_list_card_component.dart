@@ -55,7 +55,7 @@ class ProcedureListCardComponent implements OnInit {
   set user(User user) => _user = user;
 
   @Input()
-  String procedureId;
+  String description;
 
   @Input()
   int index;

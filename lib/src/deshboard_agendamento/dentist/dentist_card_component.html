@@ -1,25 +1,6 @@
 <div (dblclick)="onEdit">
     <div class="head-card">
-        <div class="label-title">
-            <label>DATA DA CONSULTA</label>
-        </div>
-        <div class="label">
-            <label id="data-consulta">{{consulta.dataConsultaAgendamentoFormated}}</label>
-        </div>
 
-        <div class="label-title">
-            <label>Turno</label>
-        </div>
-        <div class="label">
-            <label id="turno">{{consulta.shift?.description}}</label>
-        </div>
-
-        <div class="label-title">
-            <label>CONVÊNIO</label>
-        </div>
-        <div class="label">
-            <label id="convenio">{{consulta.agreement?.description}}</label>
-        </div>
     </div>
 
     <div class="body-card">
@@ -27,28 +8,8 @@
             <label>DENTISTA</label>
         </div>
         <div class="label">
-            <label id="nome-dentista">{{consulta.dentist?.name}}</label>
+            <label id="nome-dentista">{{dentist.name}}</label>
         </div>
 
-        <div class="label-title">
-            <label>PACIENTE</label>
-        </div>
-        <div class="label">
-            <label id="nome-paciente">{{consulta.paciente}}</label>
-        </div>
-
-        <div class="label-title">
-            <label>E-MAIL</label>
-        </div>
-        <div class="label">
-            <label id="email">{{consulta.email}}</label>
-        </div>
-
-        <div class="label-title">
-            <label>TELEFONE</label>
-        </div>
-        <div class="label">
-            <label id="tel">{{consulta.telefone}}</label>
-        </div>
     </div>
 </div>
