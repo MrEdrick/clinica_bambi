@@ -71,7 +71,7 @@ import '../../agendamento/consulta/consulta_service.dart';
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class AgendamentoFilterComponent implements OnActivate, OnInit {
+class AgendamentoFilterComponent implements OnInit {
   ConsultaService _consultaService = new ConsultaService();
 
   ConsultaService get consultaService => _consultaService;
@@ -82,8 +82,6 @@ class AgendamentoFilterComponent implements OnActivate, OnInit {
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
-
-  final Router _router;
 
   Date dataInicial = new Date.today();
   Date dataFinal = new Date.today().add(days: 7);
@@ -197,24 +195,7 @@ class AgendamentoFilterComponent implements OnActivate, OnInit {
     _listDentist = await _dentistService.getAllDentistAcives();
   }
 
-  AgendamentoFilterComponent(this._router, this._dentistService, this._shiftService);
-
-  @override
-  void onActivate(_, RouterState current) async {
-    try {
-      if (new UserService().user != null) {
-        user = new User(fb.auth().currentUser.uid,
-                              fb.auth().currentUser.displayName, 
-                              fb.auth().currentUser.email);
-
-        onFilter();
-      } else {
-        _router.navigate(paths.login.toUrl());
-      }
-    } catch (e) {
-      _router.navigate(paths.login.toUrl());
-    }
-  }
+  AgendamentoFilterComponent(this._dentistService, this._shiftService);
 
   void ngOnInit() { 
     if (new UserService().user == null)

@@ -6,6 +6,15 @@
                 <material-icon icon="filter_list"></material-icon>
             </div>
 
+            <div class="container-filter-title">
+                <span class="filter-title">
+                    Procedimento:
+                </span>
+
+                <material-input class="filter-input" id="paciente" label="Descrição..." [ngModel]="description"
+                    (inputKeyPress)="description = $event"></material-input>
+            </div>
+
             <material-button id="bt-limpar" (trigger)="onClear()">
                 Limpar
             </material-button>

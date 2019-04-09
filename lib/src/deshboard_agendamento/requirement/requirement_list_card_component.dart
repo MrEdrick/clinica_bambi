@@ -55,7 +55,7 @@ class RequirementListCardComponent implements OnInit {
   set user(User user) => _user = user;
 
   @Input()
-  String requirementId;
+  String description;
 
   @Input()
   int index;

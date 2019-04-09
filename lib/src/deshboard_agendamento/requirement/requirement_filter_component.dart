@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -9,11 +7,9 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import 'package:firebase/firebase.dart' as fb;
 
 import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
-import '../../route_paths.dart' as paths;
 import '../../agendamento/requirement/requirement.dart';
 import 'requirement_list_card_component.dart';
 import 'requirement_edit_component.dart';
@@ -40,7 +36,7 @@ import 'requirement_edit_component.dart';
   ],
   styleUrls: const [
     'requirement_filter_component.scss.css',
-    'package:requirement_components/app_layout/layout.scss.css'
+    'package:angular_components/app_layout/layout.scss.css'
   ],
 )
 class RequirementFilterComponent {
@@ -54,6 +50,8 @@ class RequirementFilterComponent {
   
   bool useItemRenderer = false;
   bool useOptionGroup = false;
+
+  String description;
 
   final List<Date> listDates = new List<Date>();
  
@@ -81,6 +79,8 @@ class RequirementFilterComponent {
   }
 
   void onClear() {
+    description = '';
+
     querySelector('#requirement-total-result-filter-text').setAttribute('value', '0');
     querySelector('#requirement-total-result-filter-text').setInnerHtml('0');
   }

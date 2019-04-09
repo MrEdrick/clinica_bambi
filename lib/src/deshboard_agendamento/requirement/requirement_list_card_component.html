@@ -4,8 +4,8 @@
                 id="container-card"
                 *ngFor="let requirement of listRequirement; let i=index; let last = last"
                 style="margin: 5px">
-            <dentist-card-app id="{{requirement.id}}" [procedure]="requirement">
-            </dentist-card-app>
+            <requirement-card-app id="{{requirement.id}}" [requirement]="requirement">
+            </requirement-card-app>
         </div>
     </div>
 </div>

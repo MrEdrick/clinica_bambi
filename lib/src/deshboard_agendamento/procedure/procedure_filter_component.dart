@@ -59,6 +59,7 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   final Router _router;
 
+  String description;
 
   final List<Date> listDates = new List<Date>();
  
@@ -103,7 +104,8 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   }
 
   void onClear() {
-
+    description = '';
+    
     querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
     querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
   }
