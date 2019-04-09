@@ -1,0 +1,42 @@
+
+<div class="material-content">
+    <div class="container-deshboard-agendamento">
+        <div class="container-filter">
+            <div class="container-filter-title">
+                <material-icon icon="filter_list"></material-icon>
+            </div>
+
+            <material-button id="bt-limpar" (trigger)="onClear()">
+                Limpar
+            </material-button>
+
+            <material-button id="bt-filter" (trigger)="onFilter()">
+                Filtrar
+            </material-button>
+        </div>
+        <div class="total-result-filter">
+
+            <div class="total-result-filtered">
+                <span class="total-result-filter-title">
+                    Total de consultas:
+                </span>
+                <span class="total-result-filter-text" id="total-result-filter-text">
+                </span>
+            </div>
+        </div>
+        <div id="container-list-requirements" class="container-list-requirements">
+            <div class="list-day-requirements" *ngFor="let requirement of requirementList; let i=index; let last = last">
+                <requirement-list-card-app id="requirement-list-card-app-{{i}}" [index]="i" [user]="user"
+                    [requirementId]="requirementId">
+                </requirement-list-card-app>
+            </div>
+        </div>
+    </div>
+
+    <material-fab raised (click)="onAdd" id="addDentist">
+        <material-icon icon="add"></material-icon>
+    </material-fab>
+
+</div>
+<requirement-edit-app style="display: none" id="dentist-edit-app">
+</requirement-edit-app>

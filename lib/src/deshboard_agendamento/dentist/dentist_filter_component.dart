@@ -7,16 +7,12 @@ import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
-import 'package:angular_components/material_datepicker/date_range_input.dart';
-import 'package:angular_components/material_datepicker/material_datepicker.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/app_layout/material_persistent_drawer.dart';
-import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:firebase/firebase.dart' as fb;
 import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
@@ -45,15 +41,11 @@ import 'dentist_edit_component.dart';
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialToggleComponent,
-    MaterialDatepickerComponent,
-    DateRangeInputComponent,
     MaterialDropdownSelectComponent,
     MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
     DentistListCardComponent,
-    DentistEditComponent,
-    MaterialPersistentDrawerDirective,
-    MaterialTemporaryDrawerComponent,
+    DentistEditComponent
   ],
   providers: const [
     materialProviders,

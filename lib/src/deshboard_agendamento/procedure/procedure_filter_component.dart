@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
@@ -5,28 +7,20 @@ import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
-import 'package:angular_components/material_datepicker/date_range_input.dart';
-import 'package:angular_components/material_datepicker/material_datepicker.dart';
-import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import 'package:angular_components/app_layout/material_persistent_drawer.dart';
-import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:firebase/firebase.dart' as fb;
-import '../agendamento/user/user.dart';
-import '../agendamento/user/user_service.dart';
-import '../route_paths.dart' as paths;
 
-import 'agendamento/agendamento_filter_component.dart';
-import 'dentist/dentist_filter_component.dart';
-import 'procedure/procedure_filter_component.dart';
-import 'requirement/requirement_filter_component.dart';
+import '../../agendamento/user/user.dart';
+import '../../agendamento/user/user_service.dart';
+import '../../route_paths.dart' as paths;
+import '../../agendamento/procedure/procedure.dart';
+import 'procedure_list_card_component.dart';
+import 'procedure_edit_component.dart';
 
 @Component(
-  selector: 'deshboard-app',
-  templateUrl: 'deshboard_component.html',
+  selector: 'procedure-filter-app',
+  templateUrl: 'procedure_filter_component.html',
   directives: const [
     coreDirectives,
     materialInputDirectives,
@@ -35,17 +29,9 @@ import 'requirement/requirement_filter_component.dart';
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialToggleComponent,
-    MaterialDatepickerComponent,
-    DateRangeInputComponent,
-    MaterialDropdownSelectComponent,
-    MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
-    MaterialPersistentDrawerDirective,
-    MaterialTemporaryDrawerComponent,
-    AgendamentoFilterComponent,
-    DentistFilterComponent,
-    ProcedureFilterComponent,
-    RequirementFilterComponent
+    ProcedureListCardComponent,
+    ProcedureEditComponent,
   ],
   providers: const [
     materialProviders,
@@ -54,11 +40,17 @@ import 'requirement/requirement_filter_component.dart';
     popupBindings
   ],
   styleUrls: const [
-    'deshboard_component.scss.css',
+    'procedure_filter_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class DeshboardComponent implements OnActivate, OnInit {
+class ProcedureFilterComponent implements OnActivate, OnInit {
+  
+  List<Procedure> _procedureList;
+  
+  List<Procedure> get procedureList => _procedureList;
+  set procedureList(List<Procedure> procedureLisat) => _procedureList = procedureList;
+
   User user;
   
   bool useItemRenderer = false;
@@ -67,7 +59,13 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   final Router _router;
 
-  DeshboardComponent(this._router);
+
+  final List<Date> listDates = new List<Date>();
+ 
+  int totalResultFilter = 0;
+
+
+  ProcedureFilterComponent(this._router);
 
   @override
   void onActivate(_, RouterState current) async {
@@ -76,6 +74,8 @@ class DeshboardComponent implements OnActivate, OnInit {
         user = new User(fb.auth().currentUser.uid,
                               fb.auth().currentUser.displayName, 
                               fb.auth().currentUser.email);
+
+        onFilter();
       } else {
         _router.navigate(paths.login.toUrl());
       }
@@ -87,7 +87,24 @@ class DeshboardComponent implements OnActivate, OnInit {
   void ngOnInit() { 
     if (new UserService().user == null)
       return;
-      
   }
 
+  void onFilter() {   
+    querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
+    querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
+
+    listDates.clear();
+
+  }
+
+  void onAdd() {
+    querySelector('#editProcedure').click();
+    querySelector('#procedure-edit-app').style.display = 'block';
+  }
+
+  void onClear() {
+
+    querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
+    querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
+  }
 }
