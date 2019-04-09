@@ -25,6 +25,7 @@ header {
 
 .material-content {
   width: 100%;
+  z-index: 1 !important;
 }
 
 .controls {
@@ -38,6 +39,10 @@ header {
   background: rgba(#00B0FF, 1);
   color: #ffffff;
   z-index: 200 !important;
+}
+
+#deshboard-menu {
+  z-index: 2;
 }
 
 .group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
@@ -63,6 +68,13 @@ header {
   width: 50%;
   font-size: 3vh;
   display: inline-table; 
+}
+
+#material-header-title-menu {
+  font-size: 3vh;
+  display: block;
+  width: 100%;
+  text-align: center;
 }
 
 i {
@@ -92,6 +104,11 @@ material-fab {
 @media screen and (min-width: 769px) {
   .material-header-title {
     font-size: 2vw;
+  }
+
+
+  #material-header-title-menu {
+    font-size: 1.6vw;
   }
 
 }
