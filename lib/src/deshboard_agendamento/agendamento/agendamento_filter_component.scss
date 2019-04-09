@@ -25,33 +25,10 @@
   padding-top: 8px !important;
 }
 
-.material-header, .material-header-row {
-  flex: 0 0 48px;
-  padding-left: 5px;
-  padding-right: 5px;
-  max-height: 48px !important;
-  min-height: 48px !important;
-  height: 48px !important;  color: #ffffff;
-}
-
-.material-header * {
-  background: rgba(#00B0FF, 1);
-}
-
-.material-header-title {
-  width: 50%;
-  font-size: 3vh;
-  display: inline-table; 
-}
-
 i {
   position: absolute;
   left: 1%;
   top: 78px;
-}
-
-::ng-deep .material-header .material-header-row{
-  margin: 0 !important;
 }
 
 .container-filter {
@@ -64,7 +41,6 @@ i {
   display: inline-block;
   width: 100%;
   min-height: 48px;
-  z-index: 100 !important;
   background-color: #ffffff;
   border-bottom: rgba(#616161, 0.12) 2px dashed;
   padding: 1% 0.5% 0 0.5%;
@@ -99,7 +75,6 @@ i {
   background-color: #ffffff;
   width: 100%;
   min-height: 48px;
-  z-index: 50 !important;
 }
 
 .total-result-filtered {
@@ -116,7 +91,7 @@ i {
   font-weight: 600;
 }
 
-.container-list-agendamentos {
+#container-list-agendamentos {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -141,11 +116,11 @@ material-fab {
   z-index: 999;
 }
 
-.container-deshboard-agendamento ::ng-deep .label-text {
+#container-filter-agendamento ::ng-deep .label-text {
   color: #616161;
 }
 
-.container-deshboard-agendamento ::ng-deep #wh-widget-send-button {
+#container-filter-agendamento ::ng-deep #wh-widget-send-button {
   display: none !important;
 }
 
@@ -166,28 +141,28 @@ material-dropdown-select {
   color: #616161 !important;
 }
 
-.container-deshboard-agendamento ::ng-deep material-input .label-text {
+#container-filter-agendamento ::ng-deep material-input .label-text {
   color: #616161 !important;
 }
 
-.container-deshboard-agendamento ::ng-deep .focused.label-text {
+#container-filter-agendamento ::ng-deep .focused.label-text {
   color: #616161 !important;
 }
 
-.container-deshboard-agendamento ::ng-deep .focused-underline, .cursor {
+#container-filter-agendamento ::ng-deep .focused-underline, .cursor {
   background-color: #616161 !important;
 }
 
-.container-deshboard-agendamento ::ng-deep .disabled-underline {
+#container-filter-agendamento ::ng-deep .disabled-underline {
   color: #616161 !important;
 }
 
-.container-deshboard-agendamento ::ng-deep .unfocused-underline {
+#container-filter-agendamento ::ng-deep .unfocused-underline {
   background: #616161 !important;
   border-bottom-color: #616161 !important;
 }
 
-.container-deshboard-agendamento ::ng-deep material-input .input-container {
+#container-filter-agendamento ::ng-deep material-input .input-container {
   margin-top: 0 !important;
   color: #616161 !important;
 }
@@ -213,11 +188,6 @@ material-dropdown-select {
     top: 0px;
     position: unset;
   }
-
-  .material-header-title {
-    font-size: 2vw;
-  }
-
 }
 
 @media screen and (min-width: 1100px) {

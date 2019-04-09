@@ -20,33 +20,10 @@
   padding-top: 8px !important;
 }
 
-.material-header, .material-header-row {
-  flex: 0 0 48px;
-  padding-left: 5px;
-  padding-right: 5px;
-  max-height: 48px !important;
-  min-height: 48px !important;
-  height: 48px !important;  color: #ffffff;
-}
-
-.material-header * {
-  background: rgba(#00B0FF, 1);
-}
-
-.material-header-title {
-  width: 50%;
-  font-size: 3vh;
-  display: inline-table; 
-}
-
 i {
   position: absolute;
   left: 1%;
   top: 78px;
-}
-
-::ng-deep .material-header .material-header-row{
-  margin: 0 !important;
 }
 
 .container-filter {
@@ -208,11 +185,6 @@ material-dropdown-select {
     top: 0px;
     position: unset;
   }
-
-  .material-header-title {
-    font-size: 2vw;
-  }
-
 }
 
 @media screen and (min-width: 1100px) {
