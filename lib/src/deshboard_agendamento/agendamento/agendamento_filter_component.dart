@@ -205,7 +205,6 @@ class AgendamentoFilterComponent implements OnInit {
 
     _getListDentist();
     _getListShift();
-    onFilter();
   }
 
   void onFilter() {
@@ -213,8 +212,8 @@ class AgendamentoFilterComponent implements OnInit {
       dataFinal = dataInicial;
     }
     
-    querySelector('#total-result-filter-text').setAttribute('value', '0');
-    querySelector('#total-result-filter-text').setInnerHtml('0');
+    querySelector('#agendamento-result-filter-text').setAttribute('value', '0');
+    querySelector('#agendamento-result-filter-text').setInnerHtml('0');
 
     dataInicialFormatada = new DateFormat('dd/MM/yyyy').format(dataInicial.asUtcTime());
     dataFinalFormatada = new DateFormat('dd/MM/yyyy').format(dataFinal.asUtcTime());
