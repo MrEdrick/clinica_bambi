@@ -7,10 +7,10 @@
             Dados para o cadastro
         </div>
 
-        <material-toggle [checked]="state" (checked)="state ? procedure.state = 'A' : procedure.state = 'I'">
+        <material-toggle [(checked)]="state">
         </material-toggle>
 
-        <material-input class="edit-input" id="procedure" label="Procedure..." [ngModel]="procedure" (inputKeyPress)="procedure = $event"></material-input>
+        <material-input class="edit-input" id="description" label="Procedure..." [ngModel]="description" (inputKeyPress)="description = $event"></material-input>
     </div>
 
     <material-button class="button-close" (click)="onClose()">
