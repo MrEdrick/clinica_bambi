@@ -149,27 +149,27 @@ class AgendamentoFilterComponent implements OnInit {
     _listShift = await _shiftService.getAllShiftAcives();
   }
   //----
-  List<Dentist> _listDentist;
+  List<DentistUI> _listDentist;
   final DentistService _dentistService;
 
-  static ItemRenderer<Shift> _displayNameRendererDentist =
+  static ItemRenderer<DentistUI> _displayNameRendererDentist =
     (HasUIDisplayName item) => item.uiDisplayName;
 
-  static ItemRenderer<Dentist> _itemRendererDentist =
-      newCachingItemRenderer<Dentist>(
+  static ItemRenderer<DentistUI> _itemRendererDentist =
+      newCachingItemRenderer<DentistUI>(
           (dentista) => "${dentista.name}");
 
   ItemRenderer<DentistUI> get itemRendererDentist =>
       useItemRenderer ? _itemRendererDentist : _displayNameRendererDentist;
 
-  DentistSelectionOptions<Dentist> dentistListOptions;
+  DentistSelectionOptions<DentistUI> dentistListOptions;
 
-  StringSelectionOptions<Dentist> get dentistOptions {
+  StringSelectionOptions<DentistUI> get dentistOptions {
     if (_listDentist == null) {
       return null;
     }
 
-    dentistListOptions = DentistSelectionOptions<Dentist>(_listDentist);
+    dentistListOptions = DentistSelectionOptions<DentistUI>(_listDentist);
 
     return dentistListOptions;
   }
@@ -188,11 +188,11 @@ class AgendamentoFilterComponent implements OnInit {
       return null;
     }
   }
-  final SelectionModel<Dentist> multiSelectModel =
-      SelectionModel<Dentist>.multi();
+  final SelectionModel<DentistUI> multiSelectModel =
+      SelectionModel<DentistUI>.multi();
 
   Future<void> _getListDentist() async {
-    _listDentist = await _dentistService.getAllDentistAcives();
+    _listDentist =  await _dentistService.getAllDentistUIAcives();
   }
 
   AgendamentoFilterComponent(this._dentistService, this._shiftService);

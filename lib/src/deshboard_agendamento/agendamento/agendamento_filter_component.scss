@@ -1,15 +1,16 @@
 @import 'package:angular_components/css/material/shadow';
 
+:host {
+  width: 100%;
+  height: 100%;
+}
+
 .container-deshboard-agendamento {
   top: 0;
   position: relative;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
-}
-
-.material-content {
-  width: 100%;
 }
 
 .controls {

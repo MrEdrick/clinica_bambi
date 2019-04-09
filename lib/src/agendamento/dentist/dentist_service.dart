@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dentist.dart';
+import 'dentistUI.dart';
 import '../../firebase/firestore.dart';
 
 class DentistService {
@@ -28,6 +29,17 @@ class DentistService {
       });
 
     return _list;
+  }
+
+  Future<List<DentistUI>> getAllDentistUIAcives() async {
+    List<Dentist> _listDentist = await getAllDentistAcives();
+    List<DentistUI> _listDentistUI = new List<DentistUI>();
+    
+    for (Dentist _detist in _listDentist) {
+      _listDentistUI.add(new DentistUI(_detist.id, _detist.name, _detist.state));
+    }
+
+    return _listDentistUI;
   }
 
   Future<Dentist> getDentistById(String id) async {
