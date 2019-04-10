@@ -21,11 +21,13 @@ header {
   position: fixed;
   margin: 0% !important;
   padding: 0% !important;
+  z-index: 2 !important;
 }
 
 .material-content {
   width: 100%;
   z-index: 1 !important;
+  margin-bottom: 1%;
 }
 
 .controls {
@@ -42,7 +44,7 @@ header {
 }
 
 #deshboard-menu {
-  z-index: 2;
+  z-index: 3;
 }
 
 .group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
