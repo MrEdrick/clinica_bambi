@@ -18,3 +18,29 @@
         </material-button>
     </div>
 </div>
+<modal [(visible)]="showAssertMessageEmailNotSended">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageEmailNotSended"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Puxa vida...</h1>
+        </div>
+
+        <p>Parece que aconteceu algum problema ao enviar o e-mail. Tenta novamente ou liga pra gente, por favor.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageEmailSended">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageEmailSended"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Foi!</h1>
+        </div>
+
+        <p>Tudo certo, mensagem enviada com sucesso!.</p>
+
+    </material-dialog>
+</modal>
