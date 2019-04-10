@@ -44,7 +44,8 @@ header {
 }
 
 #deshboard-menu {
-  z-index: 3;
+  z-index: 4;
+  position: fixed;
 }
 
 .group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
