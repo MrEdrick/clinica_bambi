@@ -35,7 +35,7 @@ void main() async {
   } on fb.FirebaseJsNotLoadedException catch (e) {
     print(e);
   }
-  //pt_BR - en_US
+
   Intl.defaultLocale = 'pt_BR';
 
   initializeDateFormatting("pt_BR", "/dates/").then((_) => 
