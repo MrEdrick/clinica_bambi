@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:ClinicaBambi/app_component.template.dart' as ng;
 import 'package:intl/date_symbol_data_http_request.dart';
+import 'package:intl/intl.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 import 'assets/assets.dart';
