@@ -29,6 +29,8 @@ void main() async {
     print(e);
   }
 
+  Intl.defaultLocale = 'pt_BR';
+
   initializeDateFormatting("pt_BR", "/dates/").then((_) => 
     runApp(ng.AppComponentNgFactory, createInjector: injector));
   ;
