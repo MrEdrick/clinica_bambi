@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
@@ -14,8 +15,6 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
-import 'package:firebase/firebase.dart' as fb;
-import '../agendamento/user/user.dart';
 import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
@@ -89,5 +88,29 @@ class DeshboardComponent implements OnActivate, OnInit {
     if (new UserService().user == null)
       return;
       
+  }
+
+  void onClickMenuItem(String filter) {
+    ElementList listFilters = querySelectorAll(".filter-app");
+
+    for (Element filter in listFilters) {
+      filter.style.display = "none";
+    }   
+
+    switch (filter) {
+      case 'Agendamentos': 
+        querySelector("agendamento-filter-app").style.display = "block";
+        break;
+      case 'Dentistas': 
+        querySelector("dentist-filter-app").style.display = "block";
+        break;
+      case 'Procedimentos': 
+        querySelector("procedure-filter-app").style.display = "block";
+        break;
+      case 'Requisitos': 
+        querySelector("requirement-filter-app").style.display = "block";
+        break;
+    } 
+  
   }
 }

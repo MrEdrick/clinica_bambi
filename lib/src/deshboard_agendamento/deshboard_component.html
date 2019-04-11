@@ -9,25 +9,25 @@
     <div>
         <div id="container-menu-itens">
             <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon>
+                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Agendamentos')">
                     <material-icon icon="calendar_today"></material-icon>
-                    Agendamendo
+                    Agendamendos
                 </material-button>
             </div>
             <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon>
+                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Dentistas')">
                     <material-icon icon="person_outline"></material-icon>
                     Dentistas
                 </material-button>
             </div>
             <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon>
+                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Procedimentos')">
                     <material-icon icon="list_alt"></material-icon>
                     Procedimentos
                 </material-button>
             </div>
             <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon>
+                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Requisitos')">
                     <material-icon icon="check_box"></material-icon>
                     Requisitos
                 </material-button>
@@ -50,7 +50,10 @@
 <div class="material-content">
     <agendamento-filter-app style="display: block" class="filter-app" [user]="userService.user">
     </agendamento-filter-app>
-    <dentist-filter-app style="display: none" class="filter-app" [user]="userService.user"></dentist-filter-app>
-    <procedure-filter-app style="display: none" class="filter-app" [user]="userService.user"></procedure-filter-app>
-    <requirement-filter-app style="display: none" class="filter-app" [user]="userService.user"></requirement-filter-app>
+    <dentist-filter-app style="display: none" class="filter-app" [user]="userService.user">
+    </dentist-filter-app>
+    <procedure-filter-app style="display: none" class="filter-app" [user]="userService.user">
+    </procedure-filter-app>
+    <requirement-filter-app style="display: none" class="filter-app" [user]="userService.user">
+    </requirement-filter-app>
 </div>
