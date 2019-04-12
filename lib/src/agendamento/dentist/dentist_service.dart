@@ -32,10 +32,13 @@ class DentistService {
   }
 
   Future<List<DentistUI>> getAllDentistUIAcives() async {
-    List<Dentist> _listDentist = await getAllDentistAcives();
+    if (_list == null) {
+      await getAllDentistAcives();
+    }
+
     List<DentistUI> _listDentistUI = new List<DentistUI>();
     
-    for (Dentist _detist in _listDentist) {
+    for (Dentist _detist in _list) {
       _listDentistUI.add(new DentistUI(_detist.id, _detist.name, _detist.state));
     }
 
@@ -44,7 +47,6 @@ class DentistService {
 
   Future<Dentist> getDentistById(String id) async {
     if (_list == null) {
-      print("teste");
       await getAllDentistAcives();
     }
 
