@@ -51,6 +51,8 @@ class AgendamentoListCardComponent implements OnInit {
   @Input()
   set user(User user) => _user = user;
 
+  FireStoreApp fireStoreApp;
+
   @Input()
   Date dataConsulta;
 
@@ -94,9 +96,9 @@ class AgendamentoListCardComponent implements OnInit {
       }
     }
 
-    FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+    fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
 
-    _fireStoreApp.ref
+    fireStoreApp.ref
         .where('dateAppointmentScheduling', '==',
             new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()))
         .get()
@@ -108,7 +110,7 @@ class AgendamentoListCardComponent implements OnInit {
             _listDocumentSnapshot.add(map);
           });
 
-          _fireStoreApp.FireStoreOffLine();
+          fireStoreApp.FireStoreOffLine();
         }).then((result) {
             _listDocumentSnapshotTemp.clear();
 
@@ -200,11 +202,8 @@ class AgendamentoListCardComponent implements OnInit {
                 listConsultas.add(consulta);
               });
             });
-
           }
         );
-
-      _fireStoreApp.FireStoreOffLine();
   }
 
   Future<Consulta> _turnInConsulta(Map docSnapshot) async {

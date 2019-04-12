@@ -4,7 +4,7 @@
                 id="container-card"
                 *ngFor="let consulta of listConsultas; let i=index; let last = last"
                 style="margin: 5px">
-            <agendamento-card-app id="{{consulta.id}}" [consulta]="consulta">
+            <agendamento-card-app id="{{consulta.id}}" [consulta]="consulta" [fireStoreApp]="fireStoreApp">
             </agendamento-card-app>
 
             <material-button clear-size id="delete" (click)="onDelete(i)">
