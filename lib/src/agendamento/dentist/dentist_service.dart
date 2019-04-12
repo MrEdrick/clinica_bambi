@@ -39,7 +39,7 @@ class DentistService {
     List<DentistUI> _listDentistUI = new List<DentistUI>();
     
     for (Dentist _detist in _list) {
-      _listDentistUI.add(new DentistUI(_detist.id, _detist.name, _detist.state));
+      _listDentistUI.add(new DentistUI(_detist.id, _detist.name));
     }
 
     return _listDentistUI;

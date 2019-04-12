@@ -4,9 +4,8 @@ import 'dentist.dart';
 class DentistUI implements HasUIDisplayName {
   final String id;
   final String name;
-  final String state;
   
-  const DentistUI(this.id, this.name, this.state);
+  const DentistUI(this.id, this.name);
 
   @override
   String get uiDisplayName => name;

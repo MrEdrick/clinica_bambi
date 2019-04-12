@@ -298,8 +298,7 @@ class AgendamentoEditComponent implements OnInit {
 
       singleSelectModelShift.select(consultaService.consulta.shift);
       singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
-                                                    consultaService.consulta.dentist.name,
-                                                    consultaService.consulta.dentist.state));
+                                                    consultaService.consulta.dentist.name));
       singleSelectModelAgreement.select(consultaService.consulta.agreement);
     } else {
       dataConsulta = new Date.today();
