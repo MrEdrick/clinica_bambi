@@ -35,12 +35,12 @@ import '../../agendamento/agreement/agreement_selection_options.dart';
 import 'package:firebase/firebase.dart' as fb;
 import '../../firebase/firestore.dart';
 
-// import '../../agendamento/consulta/consulta_service.dart';
+import '../../agendamento/consulta/consulta_service.dart';
 
 import '../../agendamento/user/user_service.dart';
 
 @Component(
-    selector: 'agendamento-edit-app',''
+    selector: 'agendamento-edit-app',
     styleUrls: const [
       'agendamento_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
