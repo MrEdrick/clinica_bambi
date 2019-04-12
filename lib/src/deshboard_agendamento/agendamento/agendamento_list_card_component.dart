@@ -30,6 +30,7 @@ import '../../agendamento/agreement/agreement.dart';
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_list_card_component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       NgFor,
       coreDirectives,

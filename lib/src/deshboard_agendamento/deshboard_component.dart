@@ -64,6 +64,8 @@ class DeshboardComponent implements OnActivate, OnInit {
   bool useOptionGroup = false;
   bool overlay = true;
 
+  String filterApp;
+
   final Router _router;
 
   @ViewChild(AgendamentoFilterComponent)
@@ -97,6 +99,8 @@ class DeshboardComponent implements OnActivate, OnInit {
       filter.style.display = "none";
     }   
 
+    filterApp = filter;
+
     switch (filter) {
       case 'Agendamentos': 
         querySelector("agendamento-filter-app").style.display = "block";
@@ -110,7 +114,7 @@ class DeshboardComponent implements OnActivate, OnInit {
       case 'Requisitos': 
         querySelector("requirement-filter-app").style.display = "block";
         break;
-    } 
+    }
   
   }
 }

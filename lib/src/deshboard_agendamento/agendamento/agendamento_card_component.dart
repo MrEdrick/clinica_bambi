@@ -15,6 +15,7 @@ import 'agendamento_edit_component.dart';
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_card_component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
       formDirectives,
