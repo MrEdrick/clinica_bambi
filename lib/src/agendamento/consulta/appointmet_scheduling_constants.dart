@@ -1,0 +1,1 @@
+final APPOINTMENT_SCHEDULING_COLLECTION = 'appointmentsScheduling';

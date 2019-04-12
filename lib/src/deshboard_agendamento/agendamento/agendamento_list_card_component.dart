@@ -11,6 +11,7 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'agendamento_card_component.dart';
 import '../../firebase/firestore.dart';
+import '../../agendamento/consulta/appointmet_scheduling_constants.dart';
 import '../../agendamento/consulta/consulta.dart';
 import '../../agendamento/user/user.dart';
 import '../../agendamento/dentist/dentist_service.dart';
@@ -93,9 +94,9 @@ class AgendamentoListCardComponent implements OnInit {
       }
     }
 
-    FireStoreApp fireStoreApp = new FireStoreApp('appointmentsScheduling');
+    FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
 
-    fireStoreApp.ref
+    _fireStoreApp.ref
         .where('dateAppointmentScheduling', '==',
             new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()))
         .get()
@@ -107,7 +108,7 @@ class AgendamentoListCardComponent implements OnInit {
             _listDocumentSnapshot.add(map);
           });
 
-          fireStoreApp.FireStoreOffLine();
+          _fireStoreApp.FireStoreOffLine();
         }).then((result) {
             _listDocumentSnapshotTemp.clear();
 
@@ -202,6 +203,8 @@ class AgendamentoListCardComponent implements OnInit {
 
           }
         );
+
+      _fireStoreApp.FireStoreOffLine();
   }
 
   Future<Consulta> _turnInConsulta(Map docSnapshot) async {
@@ -228,8 +231,9 @@ class AgendamentoListCardComponent implements OnInit {
   }
 
   void deleteConsulta() {
-    FireStoreApp fireStoreApp = new FireStoreApp('appointmentsScheduling');
-    fireStoreApp.deleteItem(listConsultas[deleteIndex].id);
+    FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+    _fireStoreApp.deleteItem(listConsultas[deleteIndex].id);
+    _fireStoreApp.FireStoreOffLine();
     listConsultas.removeAt(deleteIndex);
     showDeteleCertification = false;
     deleteIndex = -1;
