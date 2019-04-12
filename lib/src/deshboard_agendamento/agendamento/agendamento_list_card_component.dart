@@ -19,6 +19,10 @@ import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/user/user_service.dart';
 
+import '../../agendamento/dentist/dentist.dart';
+import '../../agendamento/shift/shift.dart';
+import '../../agendamento/agreement/agreement.dart';
+
 @Component(
     selector: 'agendamento-list-card-app',
     styleUrls: const [
@@ -50,8 +54,6 @@ class AgendamentoListCardComponent implements OnInit {
   User get user => _user;
   @Input()
   set user(User user) => _user = user;
-
-  FireStoreApp fireStoreApp;
 
   @Input()
   Date dataConsulta;
@@ -96,9 +98,10 @@ class AgendamentoListCardComponent implements OnInit {
       }
     }
 
-    fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
 
-    fireStoreApp.ref
+    FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+
+    _fireStoreApp.ref
         .where('dateAppointmentScheduling', '==',
             new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()))
         .get()
@@ -110,7 +113,7 @@ class AgendamentoListCardComponent implements OnInit {
             _listDocumentSnapshot.add(map);
           });
 
-          fireStoreApp.FireStoreOffLine();
+          _fireStoreApp.FireStoreOffLine();
         }).then((result) {
             _listDocumentSnapshotTemp.clear();
 

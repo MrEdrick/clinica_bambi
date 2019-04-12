@@ -44,6 +44,7 @@ class DentistService {
 
   Future<Dentist> getDentistById(String id) async {
     if (_list == null) {
+      print("teste");
       await getAllDentistAcives();
     }
 
