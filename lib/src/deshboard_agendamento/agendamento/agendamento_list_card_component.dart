@@ -11,13 +11,15 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'agendamento_card_component.dart';
 import '../../firebase/firestore.dart';
-import '../../agendamento/consulta/appointmet_scheduling_constants.dart';
+import '../../agendamento/consulta/appointment_scheduling_constants.dart';
+import '../../agendamento/consulta/consulta_service.dart';
 import '../../agendamento/consulta/consulta.dart';
 import '../../agendamento/user/user.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/user/user_service.dart';
+
 
 import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/shift/shift.dart';
@@ -99,10 +101,9 @@ class AgendamentoListCardComponent implements OnInit {
       }
     }
 
+    //FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
 
-    FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
-
-    _fireStoreApp.ref
+    /*_fireStoreApp.ref
         .where('dateAppointmentScheduling', '==',
             new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()))
         .get()
@@ -115,7 +116,12 @@ class AgendamentoListCardComponent implements OnInit {
           });
 
           _fireStoreApp.FireStoreOffLine();
-        }).then((result) {
+        }).then((result) {*/
+        
+        totalResultByDay = 0;
+        _listDocumentSnapshot = await new ConsultaService()
+                                            .getAllAppointmentSchedulingByDateMap(dataConsulta);
+
             _listDocumentSnapshotTemp.clear();
 
             _listDocumentSnapshot.forEach((doc) {
@@ -206,8 +212,8 @@ class AgendamentoListCardComponent implements OnInit {
                 listConsultas.add(consulta);
               });
             });
-          }
-        );
+          //}
+        //);
   }
 
   Future<Consulta> _turnInConsulta(Map docSnapshot) async {
