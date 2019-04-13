@@ -36,7 +36,7 @@ import '../../agendamento/consulta/consulta_service.dart';
 @Component(
   selector: 'agendamento-filter-app',
   templateUrl: 'agendamento_filter_component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     materialInputDirectives,

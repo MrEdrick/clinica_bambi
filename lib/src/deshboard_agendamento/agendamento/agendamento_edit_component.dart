@@ -46,7 +46,7 @@ import '../../agendamento/user/user_service.dart';
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_edit_component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
       formDirectives,

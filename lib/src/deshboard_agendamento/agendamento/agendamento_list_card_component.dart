@@ -27,7 +27,7 @@ import '../../agendamento/user/user_service.dart';
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_list_card_component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       NgFor,
       coreDirectives,
@@ -189,25 +189,6 @@ class AgendamentoListCardComponent implements OnInit {
       listAppointmentSchedulingId.add(doc['documentPath']);
     });
 
-  }
-
-  Future<Consulta> _turnInConsulta(Map docSnapshot) async {
-    return new Consulta(
-      docSnapshot["documentPath"],
-      docSnapshot["dateAppointmentScheduling"],
-      docSnapshot["hourId"],
-      docSnapshot["minuteId"],
-      docSnapshot["shiftId"],
-      docSnapshot["dentistId"],
-      docSnapshot["patient"],
-      docSnapshot["email"],
-      docSnapshot["tel"],
-      user.id,
-      await new ShiftService()
-          .getShiftById(docSnapshot["shiftId"], docSnapshot["hourId"]),
-      await new DentistService().getDentistById(docSnapshot["dentistId"]),
-      await new AgreementService().getAgreementById(docSnapshot["agreementId"]),
-    );
   }
 
   void onDelete(int index) {

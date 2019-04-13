@@ -15,7 +15,7 @@ import 'agendamento_edit_component.dart';
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_card_component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
       formDirectives,
@@ -23,17 +23,18 @@ import 'agendamento_edit_component.dart';
       materialInputDirectives,
       AgendamentoEditComponent,
       ModalComponent,
-    ])
+    ],
+    providers: [ConsultaService])
 
 class AgendamentoCardComponent{
-  final Consulta _consulta;
+  final Consulta consulta;
 
   bool showEditAgendamentoEditApp = false;
 
   @Input()
   static String appointmentSchedulerId; 
 
-  AgendamentoCardComponent(): _consulta = new ConsultaService().getDentistByIdFromList(appointmentSchedulerId);
+  AgendamentoCardComponent(): consulta = new ConsultaService().getDentistByIdFromList(appointmentSchedulerId);
 
   void onEdit() {
     querySelector('#editAgendamento').click();
