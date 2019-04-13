@@ -2,9 +2,9 @@
     <div class="total-result-by-day">
         <div    class="container-card" 
                 id="container-card"
-                *ngFor="let consulta of listConsultas; let i=index; let last = last"
+                *ngFor="let appointmentSchedulingId of listAppointmentSchedulingId let i=index; let last = last"
                 style="margin: 5px">
-            <agendamento-card-app id="{{consulta.id}}" [consulta]="consulta">
+            <agendamento-card-app id="{{appointmentSchedulingId}}" [appointmentSchedulerId]="appointmentSchedulerId">
             </agendamento-card-app>
 
             <material-button clear-size id="delete" (click)="onDelete(i)">

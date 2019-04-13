@@ -36,20 +36,22 @@ class AppointmentSchedulingDAO {
     }
   }
 
-  Future<List<DocumentSnapshot>> getAllAppointmentSchedulingFilter(Map filter) async {
-    int i = 0;
-    List<DocumentSnapshot> _list;
+  Future<List<Map>> getAllAppointmentSchedulingFilter(Map filter) async {
+    List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
 
-    await fireStoreApp.ref
-        .where(filter.keys.first, '==', filter.values.first)
-        .get()
-        .then((querySnapshot) {
-      _list = querySnapshot;
-    }).then((onValue) {
-      fireStoreApp.FireStoreOffLine();
+    await (await fireStoreApp.ref
+            .where(filter.keys.first, '==', filter.values.first)
+            .get())
+        .docs
+        .forEach((doc) {
+      Map map = new Map.from(doc.data());
+      map['documentPath'] = doc.id;
+      _list.add(map);
     });
+
+    fireStoreApp.FireStoreOffLine();
 
     return _list;
   }

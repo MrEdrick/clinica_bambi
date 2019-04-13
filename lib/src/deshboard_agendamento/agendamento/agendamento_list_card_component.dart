@@ -20,11 +20,6 @@ import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/user/user_service.dart';
 
-
-import '../../agendamento/dentist/dentist.dart';
-import '../../agendamento/shift/shift.dart';
-import '../../agendamento/agreement/agreement.dart';
-
 @Component(
     selector: 'agendamento-list-card-app',
     styleUrls: const [
@@ -48,7 +43,7 @@ import '../../agendamento/agreement/agreement.dart';
       ModalComponent,
     ])
 class AgendamentoListCardComponent implements OnInit {
-  final List<Consulta> listConsultas = new List<Consulta>();
+  final List<String> listAppointmentSchedulingId = new List<String>();
 
   User _user;
 
@@ -63,7 +58,7 @@ class AgendamentoListCardComponent implements OnInit {
 
   @Input()
   String dentistId;
-  
+
   @Input()
   String shiftId;
 
@@ -80,13 +75,12 @@ class AgendamentoListCardComponent implements OnInit {
   int deleteIndex = -1;
 
   void ngOnInit() {
-    if (new UserService().user == null) 
-      return;
+    if (new UserService().user == null) return;
 
     selectItensFireBase();
   }
 
-  void selectItensFireBase() {
+  void selectItensFireBase() async {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -101,119 +95,100 @@ class AgendamentoListCardComponent implements OnInit {
       }
     }
 
-    //FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+    totalResultByDay = 0;
+    _listDocumentSnapshot = await new ConsultaService()
+        .getAllAppointmentSchedulingByDateMap(dataConsulta);
 
-    /*_fireStoreApp.ref
-        .where('dateAppointmentScheduling', '==',
-            new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()))
-        .get()
-        .then((querySnapshot) {
-          totalResultByDay = 0;
-          querySnapshot.forEach((doc) {
-            Map map = new Map.from(doc.data());
-            map['documentPath'] = doc.id;
-            _listDocumentSnapshot.add(map);
-          });
+    _listDocumentSnapshotTemp.clear();
 
-          _fireStoreApp.FireStoreOffLine();
-        }).then((result) {*/
-        
-        totalResultByDay = 0;
-        _listDocumentSnapshot = await new ConsultaService()
-                                            .getAllAppointmentSchedulingByDateMap(dataConsulta);
+    _listDocumentSnapshot.forEach((doc) {
+      if ((dentistId != null) && (dentistId != '')) {
+        if (dentistId == doc["dentistId"]) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      } else {
+        _listDocumentSnapshotTemp.add(new Map.from(doc));
+      }
+    });
 
-            _listDocumentSnapshotTemp.clear();
+    if ((dentistId != null) && (dentistId != '')) {
+      _listDocumentSnapshot.clear();
+    }
 
-            _listDocumentSnapshot.forEach((doc) {
-              if ((dentistId != null) && (dentistId != '')) {
-                if (dentistId == doc["dentistId"]) {
-                  _listDocumentSnapshotTemp.add(new Map.from(doc));
-                }
-              } else {
-                _listDocumentSnapshotTemp.add(new Map.from(doc));
-              }
-            });
+    ListsApplyFilter();
 
-            if ((dentistId != null) && (dentistId != '')) {
-              _listDocumentSnapshot.clear();
-            }            
+    if ((shiftId != null) && (shiftId != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
+          if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0') ||
+              (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO') ||
+              (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB') ||
+              (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
+            doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
+          } else {
+            doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
+          }
+        }
 
-            ListsApplyFilter();
-  
-            if ((shiftId != null) && (shiftId != '')) {
-              _listDocumentSnapshot.forEach((doc) {
-                if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
-                  if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0')
-                      || (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO')
-                      || (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB')
-                      || (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
-                      doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
-                  } else {
-                      doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
-                  }
-                }
+        if (shiftId == doc["shiftId"]) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
 
-                if (shiftId == doc["shiftId"]) {
-                  _listDocumentSnapshotTemp.add(new Map.from(doc));
-                }
-              });
-            }
+    if ((shiftId != null) && (shiftId != '')) {
+      _listDocumentSnapshot.clear();
+    }
 
-            if ((shiftId != null) && (shiftId != '')) {
-              _listDocumentSnapshot.clear();
-            }            
+    ListsApplyFilter();
 
-            ListsApplyFilter();
+    if ((patientName != null) && (patientName != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["patient"].toString().indexOf(patientName) > -1) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
 
-            if ((patientName != null) && (patientName != '')) {
-              _listDocumentSnapshot.forEach((doc) {
-                if (doc["patient"].toString().indexOf(patientName) > -1) {
-                  _listDocumentSnapshotTemp.add(new Map.from(doc));
-                }
-              });
-            }
-            
-            if ((patientName != null) && (patientName != '')) {
-              _listDocumentSnapshot.clear();
-            }            
+    if ((patientName != null) && (patientName != '')) {
+      _listDocumentSnapshot.clear();
+    }
 
-            ListsApplyFilter();
+    ListsApplyFilter();
 
-            totalResultByDay = _listDocumentSnapshot.length;
+    totalResultByDay = _listDocumentSnapshot.length;
 
-            if (totalResultByDay == 0) {
-              querySelector("#agendamento-list-card-app-" + index.toString())
-                  ?.parent
-                  ?.remove();
-              return;
-            }
+    if (totalResultByDay == 0) {
+      querySelector("#agendamento-list-card-app-" + index.toString())
+          ?.parent
+          ?.remove();
+      return;
+    }
 
-            int totalResult;
+    int totalResult;
 
-            if (querySelector('#agendamento-result-filter-text').getAttribute('value') ==
-                null) {
-              totalResult = 0;
-            } else {
-              totalResult = int.parse(querySelector('#agendamento-result-filter-text')
-                  .getAttribute('value')
-                  .toString());
-            }
+    if (querySelector('#agendamento-result-filter-text')
+            .getAttribute('value') ==
+        null) {
+      totalResult = 0;
+    } else {
+      totalResult = int.parse(querySelector('#agendamento-result-filter-text')
+          .getAttribute('value')
+          .toString());
+    }
 
-            totalResult = totalResult + totalResultByDay;
-            querySelector('#agendamento-result-filter-text')
-                .setAttribute('value', totalResult?.toString());
-            querySelector('#agendamento-result-filter-text')
-                .setInnerHtml(totalResult?.toString());
+    totalResult = totalResult + totalResultByDay;
+    querySelector('#agendamento-result-filter-text')
+        .setAttribute('value', totalResult?.toString());
+    querySelector('#agendamento-result-filter-text')
+        .setInnerHtml(totalResult?.toString());
 
-            listConsultas.clear();
+    listAppointmentSchedulingId.clear();
 
-            _listDocumentSnapshot.forEach((doc) {
-              _turnInConsulta(doc).then((consulta) {
-                listConsultas.add(consulta);
-              });
-            });
-          //}
-        //);
+    _listDocumentSnapshot.forEach((doc) async {
+      listAppointmentSchedulingId.add(doc['documentPath']);
+    });
+
   }
 
   Future<Consulta> _turnInConsulta(Map docSnapshot) async {
@@ -228,7 +203,8 @@ class AgendamentoListCardComponent implements OnInit {
       docSnapshot["email"],
       docSnapshot["tel"],
       user.id,
-      await new ShiftService().getShiftById(docSnapshot["shiftId"], docSnapshot["hourId"]),
+      await new ShiftService()
+          .getShiftById(docSnapshot["shiftId"], docSnapshot["hourId"]),
       await new DentistService().getDentistById(docSnapshot["dentistId"]),
       await new AgreementService().getAgreementById(docSnapshot["agreementId"]),
     );
@@ -240,10 +216,11 @@ class AgendamentoListCardComponent implements OnInit {
   }
 
   void deleteConsulta() {
-    FireStoreApp _fireStoreApp = new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
-    _fireStoreApp.deleteItem(listConsultas[deleteIndex].id);
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+    _fireStoreApp.deleteItem(listAppointmentSchedulingId[deleteIndex]);
     _fireStoreApp.FireStoreOffLine();
-    listConsultas.removeAt(deleteIndex);
+    listAppointmentSchedulingId.removeAt(deleteIndex);
     showDeteleCertification = false;
     deleteIndex = -1;
   }

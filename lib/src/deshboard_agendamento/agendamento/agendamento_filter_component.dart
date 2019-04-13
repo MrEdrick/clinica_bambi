@@ -19,14 +19,12 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import '../agendamento/agendamento_list_card_component.dart';
 import '../../agendamento/user/user.dart';
-import '../../agendamento/user/user_service.dart';
 import 'package:intl/intl.dart';
 
 import '../../agendamento/shift/shift.dart';
 import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/shift/shift_selection_options.dart';
 
-import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentistUI.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/dentist/dentist_selection_options.dart';
@@ -87,7 +85,7 @@ class AgendamentoFilterComponent implements OnInit {
   bool overlay = true;
 
   Date dataInicial = new Date.today();
-  Date dataFinal = new Date.today().add(days: 7);
+  Date dataFinal = new Date.today().add(days: 1);
 
   String dataInicialFormatada;
   String dataFinalFormatada;

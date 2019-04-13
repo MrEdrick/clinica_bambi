@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
 import 'appointment_scheduling_dao.dart';
 
+import '../../agendamento/shift/shift_service.dart';
+import '../../agendamento/agreement/agreement_service.dart';
+import '../../agendamento/dentist/dentist_service.dart';
+
 class ConsultaService {
   static Consulta _consulta;
   static List<Consulta> _list;
@@ -17,33 +21,29 @@ class ConsultaService {
       return _list;
     }
 
-    List<DocumentSnapshot> _listDocumentSnapshot = await new AppointmentSchedulingDAO().getAllAppointmentSchedulingFilter({
+    _listMap =
+        await new AppointmentSchedulingDAO().getAllAppointmentSchedulingFilter({
       'dateAppointmentScheduling':
           new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
     });
 
-    _listDocumentSnapshot.forEach((doc) {
-            Map map = new Map.from(doc.data());
-            map['documentPath'] = doc.id;
-            _listMap.add(map);
-            _list.add(new Consulta(
-                            doc.id,
-                            doc.data()["dateAppointmentScheduling"],
-                            doc.data()["hourId"],
-                            doc.data()["minuteId"],
-                            doc.data()["shiftId"],
-                            doc.data()["dentistId"],
-                            doc.data()["patient"],
-                            doc.data()["email"],
-                            doc.data()["tel"],
-                            doc.data()["userId"],
-                            await new ShiftService().getShiftById(doc.data()["shiftId"], doc.data()["hourId"]),
-                            await new DentistService().getDentistById(doc.data()["dentistId"]),
-                            await new AgreementService().getAgreementById(doc.data()["agreementId"]),
-                          )
-                      )
-          });
-
+    await _listMap.forEach((doc) async {
+      _list.add(new Consulta(
+        doc["documentPath"],
+        doc["dateAppointmentScheduling"],
+        doc["hourId"],
+        doc["minuteId"],
+        doc["shiftId"],
+        doc["dentistId"],
+        doc["patient"],
+        doc["email"],
+        doc["tel"],
+        doc["userId"],
+        await new ShiftService().getShiftById(doc["shiftId"], doc["hourId"]),
+        await new DentistService().getDentistById(doc["dentistId"]),
+        await new AgreementService().getAgreementById(doc["agreementId"]),
+      ));
+    });
     return _list;
   }
 
@@ -51,6 +51,19 @@ class ConsultaService {
     await getAllAppointmentSchedulingByDate(date);
 
     return _listMap;
+  }
+
+  Consulta getDentistByIdFromList(String id) {
+    if (_list != null) {
+      for (var i = 0; i < _list.length; i++) {
+        if (_list[i].id == id) {
+          _consulta = _list[i];
+          return _consulta;
+        }
+      }
+    }
+    
+    return null;
   }
 
   Future<Consulta> getDentistById(String id) async {
@@ -63,9 +76,24 @@ class ConsultaService {
       }
     }
 
-    _consulta = (await new AppointmentSchedulingDAO()
-        .getAllAppointmentSchedulingFilter({'id': id})).first;
+    Map doc = (await new AppointmentSchedulingDAO()
+            .getAllAppointmentSchedulingFilter({'id': id}))
+        .first;
 
-    return _consulta;
+    return new Consulta(
+      doc["documentPath"],
+      doc["dateAppointmentScheduling"],
+      doc["hourId"],
+      doc["minuteId"],
+      doc["shiftId"],
+      doc["dentistId"],
+      doc["patient"],
+      doc["email"],
+      doc["tel"],
+      doc["userId"],
+      await new ShiftService().getShiftById(doc["shiftId"], doc["hourId"]),
+      await new DentistService().getDentistById(doc["dentistId"]),
+      await new AgreementService().getAgreementById(doc["agreementId"]),
+    );
   }
 }
