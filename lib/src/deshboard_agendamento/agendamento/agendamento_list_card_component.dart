@@ -98,7 +98,7 @@ class AgendamentoListCardComponent implements OnInit {
     totalResultByDay = 0;
     _listDocumentSnapshot = await new ConsultaService()
         .getAllAppointmentSchedulingByDateMap(dataConsulta);
-
+    
     _listDocumentSnapshotTemp.clear();
 
     _listDocumentSnapshot.forEach((doc) {

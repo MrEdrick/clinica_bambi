@@ -26,17 +26,14 @@ import 'agendamento_edit_component.dart';
     ])
 
 class AgendamentoCardComponent{
-  static String _appointmentSchedulerId;
   final Consulta _consulta;
-  ConsultaService consultaService;
 
   bool showEditAgendamentoEditApp = false;
 
-  String get appointmentSchedulerId => _appointmentSchedulerId;
   @Input()
-  set appointmentSchedulerId(String appointmentSchedulerId) => _appointmentSchedulerId = appointmentSchedulerId; 
+  static String appointmentSchedulerId; 
 
-  AgendamentoCardComponent(): _consulta = new ConsultaService().getDentistByIdFromList(_appointmentSchedulerId);
+  AgendamentoCardComponent(): _consulta = new ConsultaService().getDentistByIdFromList(appointmentSchedulerId);
 
   void onEdit() {
     querySelector('#editAgendamento').click();
