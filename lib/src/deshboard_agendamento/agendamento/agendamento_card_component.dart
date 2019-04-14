@@ -26,7 +26,7 @@ import 'agendamento_edit_component.dart';
     ],
     providers: [ConsultaService])
 
-class AgendamentoCardComponent{
+class AgendamentoCardComponent implements OnInit{
   final Consulta consulta;
 
   bool showEditAgendamentoEditApp = false;
@@ -34,7 +34,11 @@ class AgendamentoCardComponent{
   @Input()
   static String appointmentSchedulerId; 
 
-  AgendamentoCardComponent(): consulta = new ConsultaService().getDentistByIdFromList(appointmentSchedulerId);
+  AgendamentoCardComponent(): consulta = new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
+
+  void ngOnInit() {
+    print(new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId));    
+  }
 
   void onEdit() {
     querySelector('#editAgendamento').click();

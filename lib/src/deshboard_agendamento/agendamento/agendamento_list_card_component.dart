@@ -54,7 +54,7 @@ class AgendamentoListCardComponent implements OnInit {
   set user(User user) => _user = user;
 
   @Input()
-  Date dataConsulta;
+  List<Map> scheduling;
 
   @Input()
   String dentistId;
@@ -81,9 +81,13 @@ class AgendamentoListCardComponent implements OnInit {
   }
 
   void selectItensFireBase() async {
+    if (scheduling == null) {
+      return;
+    }
+
     List<Map> _listDocumentSnapshot = new List<Map>();
 
-    List<Map> _listDocumentSnapshotTemp = new List<Map>();
+    /*List<Map> _listDocumentSnapshotTemp = new List<Map>();
 
     void ListsApplyFilter() {
       if (_listDocumentSnapshotTemp.length > 0) {
@@ -93,13 +97,12 @@ class AgendamentoListCardComponent implements OnInit {
 
         _listDocumentSnapshotTemp.clear();
       }
-    }
+    }*/
 
     totalResultByDay = 0;
-    _listDocumentSnapshot = await new ConsultaService()
-        .getAllAppointmentSchedulingByDateMap(dataConsulta);
+    _listDocumentSnapshot = scheduling;
     
-    _listDocumentSnapshotTemp.clear();
+    /*listDocumentSnapshotTemp.clear();
 
     _listDocumentSnapshot.forEach((doc) {
       if ((dentistId != null) && (dentistId != '')) {
@@ -154,7 +157,7 @@ class AgendamentoListCardComponent implements OnInit {
       _listDocumentSnapshot.clear();
     }
 
-    ListsApplyFilter();
+    ListsApplyFilter();*/
 
     totalResultByDay = _listDocumentSnapshot.length;
 

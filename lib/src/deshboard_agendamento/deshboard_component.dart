@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'package:angular/angular.dart';
+import 'package:angular/core.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
@@ -18,10 +19,11 @@ import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
-import 'agendamento/agendamento_filter_component.dart';
-import 'dentist/dentist_filter_component.dart';
-import 'procedure/procedure_filter_component.dart';
-import 'requirement/requirement_filter_component.dart';
+import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_filter_component.template.dart' as agendamento_filter;
+import 'dentist/dentist_filter_component.dart' deferred as dentist_filter;
+import 'procedure/procedure_filter_component.dart' deferred as procedure_filter;
+import 'requirement/requirement_filter_component.dart'
+    deferred as requirement_filter;
 
 @Component(
   selector: 'deshboard-app',
@@ -41,10 +43,10 @@ import 'requirement/requirement_filter_component.dart';
     MaterialFabComponent,
     MaterialPersistentDrawerDirective,
     MaterialTemporaryDrawerComponent,
-    AgendamentoFilterComponent,
-    DentistFilterComponent,
-    ProcedureFilterComponent,
-    RequirementFilterComponent
+    //AgendamentoFilterComponent,
+    //DentistFilterComponent,
+    //ProcedureFilterComponent,
+    //RequirementFilterComponent
   ],
   providers: const [
     materialProviders,
@@ -58,8 +60,11 @@ import 'requirement/requirement_filter_component.dart';
   ],
 )
 class DeshboardComponent implements OnActivate, OnInit {
+  final ComponentLoader _loader;
+  final ViewContainerRef _location;
+
   final UserService userService;
-  
+
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
@@ -68,10 +73,11 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   final Router _router;
 
-  @ViewChild(AgendamentoFilterComponent)
-  AgendamentoFilterComponent agendamentoFilterComponent;
+  //@ViewChild(AgendamentoFilterComponent)
+  //AgendamentoFilterComponent agendamentoFilterComponent;
 
-  DeshboardComponent(this._router): userService = new UserService();
+  DeshboardComponent(this._router, this._loader, this._location)
+      : userService = new UserService();
 
   @override
   void onActivate(_, RouterState current) async {
@@ -79,17 +85,19 @@ class DeshboardComponent implements OnActivate, OnInit {
       if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
       } else {
-        agendamentoFilterComponent.onFilter();
+        //await agendamentoFilterComponent.onFilter();
+        //await agendamentoFilterComponent.onLoad();
       }
     } catch (e) {
       _router.navigate(paths.login.toUrl());
     }
   }
 
-  void ngOnInit() { 
-    if (new UserService().user == null)
-      return;
-      
+  void ngOnInit() async {
+    if (new UserService().user == null) return;
+
+    //await agendamento_filter.loadLibrary();
+    _loader.loadNextToLocation(agendamento_filter.AgendamentoFilterComponentNgFactory, _location);
   }
 
   void onClickMenuItem(String filter) {
@@ -97,24 +105,23 @@ class DeshboardComponent implements OnActivate, OnInit {
 
     for (Element filter in listFilters) {
       filter.style.display = "none";
-    }   
+    }
 
     filterApp = filter;
 
     switch (filter) {
-      case 'Agendamentos': 
+      case 'Agendamentos':
         querySelector("agendamento-filter-app").style.display = "block";
         break;
-      case 'Dentistas': 
+      case 'Dentistas':
         querySelector("dentist-filter-app").style.display = "block";
         break;
-      case 'Procedimentos': 
+      case 'Procedimentos':
         querySelector("procedure-filter-app").style.display = "block";
         break;
-      case 'Requisitos': 
+      case 'Requisitos':
         querySelector("requirement-filter-app").style.display = "block";
         break;
     }
-  
   }
 }

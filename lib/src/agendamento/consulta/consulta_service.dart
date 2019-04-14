@@ -53,7 +53,12 @@ class ConsultaService {
     return _listMap;
   }
 
-  Consulta getDentistByIdFromList(String id) {
+  Future<List<Map>> getAllAppointmentSchedulingListMap(Date date) async {
+    return _listMap;
+  }
+
+
+  Consulta getAppointmentSchedulingByIdFromList(String id) {
     if (_list != null) {
       for (var i = 0; i < _list.length; i++) {
         if (_list[i].id == id) {
@@ -66,7 +71,7 @@ class ConsultaService {
     return null;
   }
 
-  Future<Consulta> getDentistById(String id) async {
+  Future<Consulta> getAppointmentSchedulingById(String id) async {
     if (_list != null) {
       for (var i = 0; i < _list.length; i++) {
         if (_list[i].id == id) {
