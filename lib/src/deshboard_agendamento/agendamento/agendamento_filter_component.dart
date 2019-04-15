@@ -227,15 +227,16 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   void onLoad() {
-    listDate.forEach((scheduling) {
-      ComponentFactory<agendamento_list.AgendamentoListCardComponent>
+    print(listDate);
+    listDate.forEach((date) {
+      /*ComponentFactory<agendamento_list.AgendamentoListCardComponent>
           agendamentoList =
           agendamento_list.AgendamentoListCardComponentNgFactory;
 
       ComponentRef agendamentoListComponent =
-          _loader.loadNextToLocation(agendamentoList, materialContainerList);
+        _loader.loadNextToLocation(agendamentoList, materialContainerList);*/
 
-      agendamentoListComponent.instance.scheduling = scheduling;
+      //agendamentoListComponent.instance.date = date;
     });
   }
 

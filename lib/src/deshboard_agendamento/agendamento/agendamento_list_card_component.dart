@@ -54,7 +54,7 @@ class AgendamentoListCardComponent implements OnInit {
   set user(User user) => _user = user;
 
   @Input()
-  List<Map> scheduling;
+  Date date;
 
   @Input()
   String dentistId;
@@ -77,17 +77,17 @@ class AgendamentoListCardComponent implements OnInit {
   void ngOnInit() {
     if (new UserService().user == null) return;
 
-    selectItensFireBase();
+    //selectItensFireBase();
   }
 
   void selectItensFireBase() async {
-    if (scheduling == null) return;
-    print(scheduling);
+    //if (scheduling == null) return;
+    //print(scheduling);
 
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     totalResultByDay = 0;
-    _listDocumentSnapshot = scheduling;
+    //_listDocumentSnapshot = scheduling;
     print("teste");
     totalResultByDay = _listDocumentSnapshot.length;
 
