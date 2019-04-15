@@ -229,14 +229,13 @@ class AgendamentoFilterComponent implements OnInit {
     print('t10');
 
     listScheduling.forEach((scheduling) {
-
       ComponentFactory<agendamento_list.AgendamentoListCardComponent>
           agendamentoList =
           agendamento_list.AgendamentoListCardComponentNgFactory;
-      
+
       ComponentRef agendamentoListComponent =
           _loader.loadNextToLocation(agendamentoList, materialContainerList);
-      
+
       agendamentoListComponent.instance.scheduling = scheduling;
     });
   }
@@ -280,7 +279,7 @@ class AgendamentoFilterComponent implements OnInit {
     return _listaDate;
   }
 
-  Future<List<Map>> onGetValues(Date dataConsulta) async {
+  /*Future<List<Map>> onGetValues(Date dataConsulta) async {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -356,16 +355,33 @@ class AgendamentoFilterComponent implements OnInit {
     ListsApplyFilter();
     print('t9');
     return _listDocumentSnapshot;
-  }
+  }*/
 
   Future<void> onFilter() async {
-    List<Date> _listDate = onPrepareFilter();
+    /*List<Date> _listDate = onPrepareFilter();
     await _listDate.forEach((date) async {
       List<Map> _scheduling = await onGetValues(date); 
       listScheduling.add(_scheduling);
+    });*/
+    List<Date> _listDate = onPrepareFilter();
+
+    await _listDate.forEach((date) async {
+      new ConsultaService()
+          .getAllAppointmentSchedulingByDateMap(date)
+          .then((onValue) {
+        new ConsultaService().getAppointmentSchedulingWithFilterFromList(
+            date.toString(), {
+          "dentistId": dentistId,
+          "shiftId": shiftId,
+          "patient": patientName
+        });
+
+        if (_listDate[_listDate.length - 1] == date) {
+          onLoad();
+        }
+      });
     });
-    
-    return ;
+    return;
   }
 
   void onAdd() {
