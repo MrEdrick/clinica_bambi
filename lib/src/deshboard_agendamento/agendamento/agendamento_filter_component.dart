@@ -95,7 +95,7 @@ class AgendamentoFilterComponent implements OnInit {
 
   Date dataInicial = new Date.today();
   Date dataFinal = new Date.today().add(days: 1);
-  List<Date> listDate; 
+  List<Date> listDate = new List<Date>(); 
 
   String dataInicialFormatada;
   String dataFinalFormatada;
@@ -227,16 +227,15 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   void onLoad() {
-    print(listDate);
     listDate.forEach((date) {
-      /*ComponentFactory<agendamento_list.AgendamentoListCardComponent>
+      ComponentFactory<agendamento_list.AgendamentoListCardComponent>
           agendamentoList =
           agendamento_list.AgendamentoListCardComponentNgFactory;
 
       ComponentRef agendamentoListComponent =
-        _loader.loadNextToLocation(agendamentoList, materialContainerList);*/
+        _loader.loadNextToLocation(agendamentoList, materialContainerList);
 
-      //agendamentoListComponent.instance.date = date;
+      agendamentoListComponent.instance.date = date;
     });
   }
 
@@ -279,10 +278,10 @@ class AgendamentoFilterComponent implements OnInit {
 
   Future<void> onFilter() async {
     listDate = onPrepareFilter();
-
+    
     new ConsultaService()
           .clearAllAppointmentSchedulingByDate();
-
+    
     await listDate.forEach((date) async {
       new ConsultaService()
           .getAllAppointmentSchedulingByDateMap(date)
@@ -295,6 +294,7 @@ class AgendamentoFilterComponent implements OnInit {
         });
 
         if (listDate.last == date) {
+          
           onLoad();
         }
       });
