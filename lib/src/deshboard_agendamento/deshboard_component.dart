@@ -43,10 +43,6 @@ import 'requirement/requirement_filter_component.dart'
     MaterialFabComponent,
     MaterialPersistentDrawerDirective,
     MaterialTemporaryDrawerComponent,
-    //AgendamentoFilterComponent,
-    //DentistFilterComponent,
-    //ProcedureFilterComponent,
-    //RequirementFilterComponent
   ],
   providers: const [
     materialProviders,
@@ -61,9 +57,10 @@ import 'requirement/requirement_filter_component.dart'
 )
 class DeshboardComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
-  final ViewContainerRef _location;
 
   final UserService userService;
+
+  final Router _router;
 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -71,12 +68,11 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   String filterApp;
 
-  final Router _router;
 
-  //@ViewChild(AgendamentoFilterComponent)
-  //AgendamentoFilterComponent agendamentoFilterComponent;
+  @ViewChild('materialContentFilter', read: ViewContainerRef)
+  ViewContainerRef materialContentFilter;
 
-  DeshboardComponent(this._router, this._loader, this._location)
+  DeshboardComponent(this._router, this._loader)//, this._location
       : userService = new UserService();
 
   @override
@@ -85,8 +81,8 @@ class DeshboardComponent implements OnActivate, OnInit {
       if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
       } else {
-        //await agendamentoFilterComponent.onFilter();
-        //await agendamentoFilterComponent.onLoad();
+        ComponentFactory<agendamento_filter.AgendamentoFilterComponent> agendamentoFilter = agendamento_filter.AgendamentoFilterComponentNgFactory;
+        _loader.loadNextToLocation(agendamentoFilter, materialContentFilter);
       }
     } catch (e) {
       _router.navigate(paths.login.toUrl());
@@ -97,7 +93,6 @@ class DeshboardComponent implements OnActivate, OnInit {
     if (new UserService().user == null) return;
 
     //await agendamento_filter.loadLibrary();
-    _loader.loadNextToLocation(agendamento_filter.AgendamentoFilterComponentNgFactory, _location);
   }
 
   void onClickMenuItem(String filter) {

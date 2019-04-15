@@ -21,7 +21,7 @@ import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
-    selector: 'agendamento-list-card-app',
+    selector: 'agendamento_list_card_component.',
     styleUrls: const [
       'agendamento_list_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -81,84 +81,14 @@ class AgendamentoListCardComponent implements OnInit {
   }
 
   void selectItensFireBase() async {
-    if (scheduling == null) {
-      return;
-    }
+    if (scheduling == null) return;
+    print(scheduling);
 
     List<Map> _listDocumentSnapshot = new List<Map>();
 
-    /*List<Map> _listDocumentSnapshotTemp = new List<Map>();
-
-    void ListsApplyFilter() {
-      if (_listDocumentSnapshotTemp.length > 0) {
-        _listDocumentSnapshotTemp.forEach((doc) {
-          _listDocumentSnapshot.add(new Map.from(doc));
-        });
-
-        _listDocumentSnapshotTemp.clear();
-      }
-    }*/
-
     totalResultByDay = 0;
     _listDocumentSnapshot = scheduling;
-    
-    /*listDocumentSnapshotTemp.clear();
-
-    _listDocumentSnapshot.forEach((doc) {
-      if ((dentistId != null) && (dentistId != '')) {
-        if (dentistId == doc["dentistId"]) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      } else {
-        _listDocumentSnapshotTemp.add(new Map.from(doc));
-      }
-    });
-
-    if ((dentistId != null) && (dentistId != '')) {
-      _listDocumentSnapshot.clear();
-    }
-
-    ListsApplyFilter();
-
-    if ((shiftId != null) && (shiftId != '')) {
-      _listDocumentSnapshot.forEach((doc) {
-        if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
-          if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0') ||
-              (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO') ||
-              (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB') ||
-              (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
-            doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
-          } else {
-            doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
-          }
-        }
-
-        if (shiftId == doc["shiftId"]) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      });
-    }
-
-    if ((shiftId != null) && (shiftId != '')) {
-      _listDocumentSnapshot.clear();
-    }
-
-    ListsApplyFilter();
-
-    if ((patientName != null) && (patientName != '')) {
-      _listDocumentSnapshot.forEach((doc) {
-        if (doc["patient"].toString().indexOf(patientName) > -1) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      });
-    }
-
-    if ((patientName != null) && (patientName != '')) {
-      _listDocumentSnapshot.clear();
-    }
-
-    ListsApplyFilter();*/
-
+    print("teste");
     totalResultByDay = _listDocumentSnapshot.length;
 
     if (totalResultByDay == 0) {

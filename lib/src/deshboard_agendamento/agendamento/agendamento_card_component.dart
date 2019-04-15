@@ -9,7 +9,7 @@ import '../../agendamento/consulta/consulta_service.dart';
 import 'agendamento_edit_component.dart';
 
 @Component(
-    selector: 'agendamento-card-app',
+    selector: 'agendamento_card_component',
     styleUrls: const [
       'agendamento_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'

@@ -19,8 +19,12 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:intl/intl.dart';
 
-import '../agendamento/agendamento_list_card_component.dart';
+//import '../agendamento/agendamento_list_card_component.dart';
+import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_list_card_component.template.dart'
+    as agendamento_list;
+
 import '../../agendamento/user/user.dart';
+import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/shift/shift.dart';
 import '../../agendamento/shift/shift_service.dart';
@@ -52,7 +56,7 @@ import '../../agendamento/consulta/consulta_service.dart';
     MaterialDropdownSelectComponent,
     MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
-    AgendamentoListCardComponent,
+    //AgendamentoListCardComponent,
     AgendamentoEditComponent,
     MaterialPersistentDrawerDirective,
     MaterialTemporaryDrawerComponent,
@@ -71,6 +75,8 @@ import '../../agendamento/consulta/consulta_service.dart';
   ],
 )
 class AgendamentoFilterComponent implements OnInit {
+  final ComponentLoader _loader;
+
   ConsultaService _consultaService = new ConsultaService();
 
   ConsultaService get consultaService => _consultaService;
@@ -102,6 +108,9 @@ class AgendamentoFilterComponent implements OnInit {
   String dentistId;
 
   String patientName;
+
+  @ViewChild('containerListAgendamento', read: ViewContainerRef)
+  ViewContainerRef materialContainerList;
 
   List<List<Map<String, dynamic>>> listScheduling =
       new List<List<Map<String, dynamic>>>();
@@ -203,22 +212,33 @@ class AgendamentoFilterComponent implements OnInit {
     _listDentist = await _dentistService.getAllDentistUIAcives();
   }
 
-  AgendamentoFilterComponent(this._dentistService, this._shiftService);
+  AgendamentoFilterComponent(
+      this._dentistService, this._shiftService, this._loader);
 
-  void ngOnInit() {
+  void ngOnInit() async {
+    user = new UserService().user;
     if (user == null) return;
 
     _getListDentist();
     _getListShift();
+
+    await onFilter();
   }
 
   void onLoad() {
-    /*listAppointmentSchedulingByDate.clear();
-    listScheduling.forEach((key, value) {
-      value.forEach((consulta) {
-        listAppointmentSchedulingByDate.add(consulta);
-      });
-    });*/
+    print('t10');
+
+    listScheduling.forEach((scheduling) {
+
+      ComponentFactory<agendamento_list.AgendamentoListCardComponent>
+          agendamentoList =
+          agendamento_list.AgendamentoListCardComponentNgFactory;
+      
+      ComponentRef agendamentoListComponent =
+          _loader.loadNextToLocation(agendamentoList, materialContainerList);
+      
+      agendamentoListComponent.instance.scheduling = scheduling;
+    });
   }
 
   List<Date> onPrepareFilter() {
@@ -274,12 +294,12 @@ class AgendamentoFilterComponent implements OnInit {
         _listDocumentSnapshotTemp.clear();
       }
     }
-
+    print('t0');
     _listDocumentSnapshot = await new ConsultaService()
         .getAllAppointmentSchedulingByDateMap(dataConsulta);
-
+    print('t1');
     _listDocumentSnapshotTemp.clear();
-
+    print('t2');
     _listDocumentSnapshot.forEach((doc) {
       if ((dentistId != null) && (dentistId != '')) {
         if (dentistId == doc["dentistId"]) {
@@ -293,9 +313,9 @@ class AgendamentoFilterComponent implements OnInit {
     if ((dentistId != null) && (dentistId != '')) {
       _listDocumentSnapshot.clear();
     }
-
+    print('t3');
     ListsApplyFilter();
-
+    print('t4');
     if ((shiftId != null) && (shiftId != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
@@ -314,13 +334,13 @@ class AgendamentoFilterComponent implements OnInit {
         }
       });
     }
-
+    print('t5');
     if ((shiftId != null) && (shiftId != '')) {
       _listDocumentSnapshot.clear();
     }
-
+    print('t6');
     ListsApplyFilter();
-
+    print('t7');
     if ((patientName != null) && (patientName != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if (doc["patient"].toString().indexOf(patientName) > -1) {
@@ -332,17 +352,20 @@ class AgendamentoFilterComponent implements OnInit {
     if ((patientName != null) && (patientName != '')) {
       _listDocumentSnapshot.clear();
     }
-
+    print('t8');
     ListsApplyFilter();
+    print('t9');
+    return _listDocumentSnapshot;
   }
 
-  void onFilter() async {
+  Future<void> onFilter() async {
     List<Date> _listDate = onPrepareFilter();
     await _listDate.forEach((date) async {
-      print(date);
-      listScheduling.add(await onGetValues(date));
-      print(listScheduling[listScheduling.length - 1]);
+      List<Map> _scheduling = await onGetValues(date); 
+      listScheduling.add(_scheduling);
     });
+    
+    return ;
   }
 
   void onAdd() {
