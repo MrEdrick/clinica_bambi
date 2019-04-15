@@ -11,58 +11,43 @@ import '../../agendamento/dentist/dentist_service.dart';
 class ConsultaService {
   static Consulta _consulta;
   static List<Consulta> _list;
-  static List<Map> _listMap;
   static Map _appointmentSchedulingByDate = new Map();
+  static Map _appointmentSchedulingByDateWithFilter = new Map();
 
   Consulta get consulta => _consulta;
   set consulta(Consulta consulta) => _consulta = consulta;
 
+  void clearAllAppointmentSchedulingByDate() {
+    _appointmentSchedulingByDate.clear();
+    _appointmentSchedulingByDateWithFilter.clear();
+  }
+
   Future<List<Consulta>> getAllAppointmentSchedulingByDate(Date date) async {
-    if (_list != null) {
+    if ((_appointmentSchedulingByDate != null) && (_appointmentSchedulingByDate.length != 0)) {
       return _list;
     }
 
-    _appointmentSchedulingByDate.clear();
-
-    _listMap =
+    await (_appointmentSchedulingByDate[date.toString()] =
         await new AppointmentSchedulingDAO().getAllAppointmentSchedulingFilter({
       'dateAppointmentScheduling':
           new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
-    });
+    }));
 
-    await _listMap.forEach((doc) async {
-      _list.add(new Consulta(
-        doc["documentPath"],
-        doc["dateAppointmentScheduling"],
-        doc["hourId"],
-        doc["minuteId"],
-        doc["shiftId"],
-        doc["dentistId"],
-        doc["patient"],
-        doc["email"],
-        doc["tel"],
-        doc["userId"],
-        await new ShiftService().getShiftById(doc["shiftId"], doc["hourId"]),
-        await new DentistService().getDentistById(doc["dentistId"]),
-        await new AgreementService().getAgreementById(doc["agreementId"]),
-      ));
-    });
     return _list;
   }
 
   Future<List<Map>> getAllAppointmentSchedulingByDateMap(Date date) async {
     await getAllAppointmentSchedulingByDate(date);
 
-    return _listMap;
+    return _appointmentSchedulingByDate[date.toString()];
   }
 
-  Future<List<Map>> getAllAppointmentSchedulingListMap(Date date) async {
-    return _listMap;
+  Future<Map> getAllAppointmentSchedulingListMap(Date date) async {
+    return _appointmentSchedulingByDate;
   }
-
 
   Consulta getAppointmentSchedulingByIdFromList(String id) {
-    if (_list != null) {
+    if ((_appointmentSchedulingByDate != null) && (_appointmentSchedulingByDate.length != 0)){
       for (var i = 0; i < _list.length; i++) {
         if (_list[i].id == id) {
           _consulta = _list[i];
@@ -70,11 +55,12 @@ class ConsultaService {
         }
       }
     }
-    
+
     return null;
   }
 
-  List<Map> getAppointmentSchedulingWithFilterFromList(String date, Map filter) {
+  List<Map> getAppointmentSchedulingWithFilterFromList(
+      String date, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -88,9 +74,8 @@ class ConsultaService {
         _listDocumentSnapshotTemp.clear();
       }
     }
-    
-    _listDocumentSnapshot = _listMap;
 
+    _listDocumentSnapshot = _appointmentSchedulingByDate[date.toString()];
 
     _listDocumentSnapshotTemp.clear();
 
@@ -110,7 +95,7 @@ class ConsultaService {
 
     ListsApplyFilter();
 
-    if ((filter["shiftId"] != null) && (filter["shiftId"]  != '')) {
+    if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
           if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0') ||
@@ -123,19 +108,19 @@ class ConsultaService {
           }
         }
 
-        if (filter["shiftId"]  == doc["shiftId"]) {
+        if (filter["shiftId"] == doc["shiftId"]) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
     }
 
-    if ((filter["shiftId"]  != null) && (filter["shiftId"]  != '')) {
+    if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.clear();
     }
 
     ListsApplyFilter();
 
-    if ((filter["patient"]  != null) && (filter["patient"] != '')) {
+    if ((filter["patient"] != null) && (filter["patient"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if (doc["patient"].toString().indexOf(filter["patient"]) > -1) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
@@ -149,13 +134,13 @@ class ConsultaService {
 
     ListsApplyFilter();
 
-    _appointmentSchedulingByDate[date] = _listDocumentSnapshot;
+    _appointmentSchedulingByDateWithFilter[date] = _listDocumentSnapshot;
 
-    return _appointmentSchedulingByDate[date];
-}
+    return _appointmentSchedulingByDateWithFilter[date];
+  }
 
   Future<Consulta> getAppointmentSchedulingById(String id) async {
-    if (_list != null) {
+    if ((_appointmentSchedulingByDate != null) && (_appointmentSchedulingByDate.length != 0)) {
       for (var i = 0; i < _list.length; i++) {
         if (_list[i].id == id) {
           _consulta = _list[i];
@@ -184,6 +169,4 @@ class ConsultaService {
       await new AgreementService().getAgreementById(doc["agreementId"]),
     );
   }
-
-
 }

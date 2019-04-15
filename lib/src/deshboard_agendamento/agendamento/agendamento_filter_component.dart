@@ -34,7 +34,7 @@ import '../../agendamento/dentist/dentistUI.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/dentist/dentist_selection_options.dart';
 
-import '../agendamento/agendamento_edit_component.dart';
+//import '../agendamento/agendamento_edit_component.dart';
 
 import '../../agendamento/consulta/consulta.dart';
 import '../../agendamento/consulta/consulta_service.dart';
@@ -57,7 +57,7 @@ import '../../agendamento/consulta/consulta_service.dart';
     MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
     //AgendamentoListCardComponent,
-    AgendamentoEditComponent,
+    //AgendamentoEditComponent,
     MaterialPersistentDrawerDirective,
     MaterialTemporaryDrawerComponent,
   ],
@@ -95,6 +95,7 @@ class AgendamentoFilterComponent implements OnInit {
 
   Date dataInicial = new Date.today();
   Date dataFinal = new Date.today().add(days: 1);
+  List<Date> listDate; 
 
   String dataInicialFormatada;
   String dataFinalFormatada;
@@ -226,9 +227,7 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   void onLoad() {
-    print('t10');
-
-    listScheduling.forEach((scheduling) {
+    listDate.forEach((scheduling) {
       ComponentFactory<agendamento_list.AgendamentoListCardComponent>
           agendamentoList =
           agendamento_list.AgendamentoListCardComponentNgFactory;
@@ -241,8 +240,6 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   List<Date> onPrepareFilter() {
-    List<Date> _listaDate = new List<Date>();
-
     if (dataFinal.isBefore(dataInicial)) {
       dataFinal = dataInicial;
     }
@@ -271,101 +268,21 @@ class AgendamentoFilterComponent implements OnInit {
     } else {
       shiftId = '';
     }
-
+  
     for (var i = 0; i <= daysDif; i++) {
-      _listaDate.add(dataInicial.add(days: i));
+      listDate.add(dataInicial.add(days: i));
     }
 
-    return _listaDate;
+    return listDate;
   }
 
-  /*Future<List<Map>> onGetValues(Date dataConsulta) async {
-    List<Map> _listDocumentSnapshot = new List<Map>();
-
-    List<Map> _listDocumentSnapshotTemp = new List<Map>();
-
-    void ListsApplyFilter() {
-      if (_listDocumentSnapshotTemp.length > 0) {
-        _listDocumentSnapshotTemp.forEach((doc) {
-          _listDocumentSnapshot.add(new Map.from(doc));
-        });
-
-        _listDocumentSnapshotTemp.clear();
-      }
-    }
-    print('t0');
-    _listDocumentSnapshot = await new ConsultaService()
-        .getAllAppointmentSchedulingByDateMap(dataConsulta);
-    print('t1');
-    _listDocumentSnapshotTemp.clear();
-    print('t2');
-    _listDocumentSnapshot.forEach((doc) {
-      if ((dentistId != null) && (dentistId != '')) {
-        if (dentistId == doc["dentistId"]) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      } else {
-        _listDocumentSnapshotTemp.add(new Map.from(doc));
-      }
-    });
-
-    if ((dentistId != null) && (dentistId != '')) {
-      _listDocumentSnapshot.clear();
-    }
-    print('t3');
-    ListsApplyFilter();
-    print('t4');
-    if ((shiftId != null) && (shiftId != '')) {
-      _listDocumentSnapshot.forEach((doc) {
-        if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
-          if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0') ||
-              (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO') ||
-              (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB') ||
-              (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
-            doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
-          } else {
-            doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
-          }
-        }
-
-        if (shiftId == doc["shiftId"]) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      });
-    }
-    print('t5');
-    if ((shiftId != null) && (shiftId != '')) {
-      _listDocumentSnapshot.clear();
-    }
-    print('t6');
-    ListsApplyFilter();
-    print('t7');
-    if ((patientName != null) && (patientName != '')) {
-      _listDocumentSnapshot.forEach((doc) {
-        if (doc["patient"].toString().indexOf(patientName) > -1) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      });
-    }
-
-    if ((patientName != null) && (patientName != '')) {
-      _listDocumentSnapshot.clear();
-    }
-    print('t8');
-    ListsApplyFilter();
-    print('t9');
-    return _listDocumentSnapshot;
-  }*/
-
   Future<void> onFilter() async {
-    /*List<Date> _listDate = onPrepareFilter();
-    await _listDate.forEach((date) async {
-      List<Map> _scheduling = await onGetValues(date); 
-      listScheduling.add(_scheduling);
-    });*/
-    List<Date> _listDate = onPrepareFilter();
+    listDate = onPrepareFilter();
 
-    await _listDate.forEach((date) async {
+    new ConsultaService()
+          .clearAllAppointmentSchedulingByDate();
+
+    await listDate.forEach((date) async {
       new ConsultaService()
           .getAllAppointmentSchedulingByDateMap(date)
           .then((onValue) {
@@ -376,7 +293,7 @@ class AgendamentoFilterComponent implements OnInit {
           "patient": patientName
         });
 
-        if (_listDate[_listDate.length - 1] == date) {
+        if (listDate.last == date) {
           onLoad();
         }
       });

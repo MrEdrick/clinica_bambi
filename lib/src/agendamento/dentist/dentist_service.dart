@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dentist.dart';
+import 'dentist_constants.dart';
 import 'dentistUI.dart';
 import '../../firebase/firestore.dart';
 
@@ -12,7 +13,7 @@ class DentistService {
       return _list;
     }
 
-    FireStoreApp fireStoreApp = new FireStoreApp('dentist');
+    FireStoreApp fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
 
     await fireStoreApp.ref
       .where('state', '==', 'A')
