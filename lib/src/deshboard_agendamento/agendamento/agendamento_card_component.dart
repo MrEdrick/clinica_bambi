@@ -21,17 +21,16 @@ import 'agendamento_edit_component.dart';
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      AgendamentoEditComponent,
+      //AgendamentoEditComponent,
       ModalComponent,
-    ],
-    providers: [ConsultaService])
+    ])//providers: [ConsultaService]
 class AgendamentoCardComponent implements OnInit {
   Consulta consulta; //final
 
   bool showEditAgendamentoEditApp = false;
 
   @Input()
-  static String appointmentSchedulerId;
+  String appointmentSchedulerId;
 
   AgendamentoCardComponent(); //: consulta = new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
 
@@ -43,7 +42,7 @@ class AgendamentoCardComponent implements OnInit {
   }
 
   void onEdit() {
-    querySelector('#editAgendamento').click();
-    querySelector('#agendamento-edit-app').style.display = 'block';
+    //querySelector('#editAgendamento').click();
+    //querySelector('#agendamento-edit-app').style.display = 'block';
   }
 }

@@ -79,7 +79,7 @@ class AgendamentoListCardComponent implements OnInit {
   int deleteIndex = -1;
 
   @ViewChild('containerCardAgendamento', read: ViewContainerRef)
-  ViewContainerRef materialContainerList;
+  ViewContainerRef materialContainerCard;
 
   void ngOnInit() {
     if (new UserService().user == null) return;
@@ -91,7 +91,7 @@ class AgendamentoListCardComponent implements OnInit {
           agendamento_card.AgendamentoCardComponentNgFactory;
 
       ComponentRef agendamentoListComponent =
-        _loader.loadNextToLocation(agendamentoCard, materialContainerList);
+        _loader.loadNextToLocation(agendamentoCard, materialContainerCard);
 
       agendamentoListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
     });
