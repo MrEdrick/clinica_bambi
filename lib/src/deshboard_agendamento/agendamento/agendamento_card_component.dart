@@ -25,24 +25,25 @@ import 'agendamento_edit_component.dart';
       ModalComponent,
     ],
     providers: [ConsultaService])
-
-class AgendamentoCardComponent implements OnInit{
-  final Consulta consulta;
+class AgendamentoCardComponent implements OnInit {
+  Consulta consulta; //final
 
   bool showEditAgendamentoEditApp = false;
 
   @Input()
-  static String appointmentSchedulerId; 
+  static String appointmentSchedulerId;
 
-  AgendamentoCardComponent(): consulta = new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
+  AgendamentoCardComponent(); //: consulta = new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
 
-  void ngOnInit() {
-    print(new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId));    
+  void ngOnInit() async {
+    ConsultaService consultaService = new ConsultaService();
+    Map map = consultaService
+        .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
+    consulta = await consultaService.turnMapInConsulta(map);
   }
 
   void onEdit() {
     querySelector('#editAgendamento').click();
     querySelector('#agendamento-edit-app').style.display = 'block';
   }
-
 }

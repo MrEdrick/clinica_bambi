@@ -19,6 +19,8 @@ import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/user/user_service.dart';
+import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_card_component.template.dart'
+    as agendamento_card;
 
 @Component(
     selector: 'agendamento_list_card_component.',
@@ -43,11 +45,13 @@ import '../../agendamento/user/user_service.dart';
       ModalComponent,
     ])
 class AgendamentoListCardComponent implements OnInit {
+  final ComponentLoader _loader;
+
   final List<String> listAppointmentSchedulingId = new List<String>();
 
   User _user;
 
-  AgendamentoListCardComponent();
+  AgendamentoListCardComponent(this._loader);
 
   User get user => _user;
   @Input()
@@ -74,21 +78,31 @@ class AgendamentoListCardComponent implements OnInit {
 
   int deleteIndex = -1;
 
+  @ViewChild('containerCardAgendamento', read: ViewContainerRef)
+  ViewContainerRef materialContainerList;
+
   void ngOnInit() {
     if (new UserService().user == null) return;
 
+    List<Map> _list = new ConsultaService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
+    _list.forEach((appointmentScheduling) {
+      ComponentFactory<agendamento_card.AgendamentoCardComponent>
+          agendamentoCard =
+          agendamento_card.AgendamentoCardComponentNgFactory;
+
+      ComponentRef agendamentoListComponent =
+        _loader.loadNextToLocation(agendamentoCard, materialContainerList);
+
+      agendamentoListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
+    });
     //selectItensFireBase();
   }
 
   void selectItensFireBase() async {
-    //if (scheduling == null) return;
-    //print(scheduling);
-
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     totalResultByDay = 0;
-    //_listDocumentSnapshot = scheduling;
-    print("teste");
+
     totalResultByDay = _listDocumentSnapshot.length;
 
     if (totalResultByDay == 0) {

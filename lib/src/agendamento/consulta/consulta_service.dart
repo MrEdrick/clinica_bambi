@@ -23,7 +23,8 @@ class ConsultaService {
   }
 
   Future<List<Consulta>> getAllAppointmentSchedulingByDate(Date date) async {
-    if ((_appointmentSchedulingByDate != null) && (_appointmentSchedulingByDate.length != 0)) {
+    if ((_appointmentSchedulingByDate != null) &&
+        (_appointmentSchedulingByDate.length != 0)) {
       return _list;
     }
 
@@ -46,14 +47,16 @@ class ConsultaService {
     return _appointmentSchedulingByDate;
   }
 
-  Consulta getAppointmentSchedulingByIdFromList(String id) {
-    if ((_appointmentSchedulingByDate != null) && (_appointmentSchedulingByDate.length != 0)){
-      for (var i = 0; i < _list.length; i++) {
-        if (_list[i].id == id) {
-          _consulta = _list[i];
-          return _consulta;
-        }
-      }
+  Map getAppointmentSchedulingByIdFromList(String id) {
+    if ((_appointmentSchedulingByDate != null) &&
+        (_appointmentSchedulingByDate.length != 0)) {
+      _appointmentSchedulingByDate.forEach((date, appointmentSchedulingList) {
+        appointmentSchedulingList.forEach((appointmentScheduling) async {
+          if (appointmentScheduling["documentPath"] == id) {
+            return appointmentScheduling;
+          }
+        });
+      });
     }
 
     return null;
@@ -139,8 +142,13 @@ class ConsultaService {
     return _appointmentSchedulingByDateWithFilter[date];
   }
 
+  List<Map> getAppointmentSchedulingFromListWithFilterByDate(String date) {
+    return _appointmentSchedulingByDateWithFilter[date];
+  }
+
   Future<Consulta> getAppointmentSchedulingById(String id) async {
-    if ((_appointmentSchedulingByDate != null) && (_appointmentSchedulingByDate.length != 0)) {
+    if ((_appointmentSchedulingByDate != null) &&
+        (_appointmentSchedulingByDate.length != 0)) {
       for (var i = 0; i < _list.length; i++) {
         if (_list[i].id == id) {
           _consulta = _list[i];
@@ -153,20 +161,23 @@ class ConsultaService {
             .getAllAppointmentSchedulingFilter({'id': id}))
         .first;
 
+    return await turnMapInConsulta(doc);
+  }
+
+  Future<Consulta> turnMapInConsulta(Map map) async {
     return new Consulta(
-      doc["documentPath"],
-      doc["dateAppointmentScheduling"],
-      doc["hourId"],
-      doc["minuteId"],
-      doc["shiftId"],
-      doc["dentistId"],
-      doc["patient"],
-      doc["email"],
-      doc["tel"],
-      doc["userId"],
-      await new ShiftService().getShiftById(doc["shiftId"], doc["hourId"]),
-      await new DentistService().getDentistById(doc["dentistId"]),
-      await new AgreementService().getAgreementById(doc["agreementId"]),
-    );
+        map["documentPath"],
+        map["dateAppointmentScheduling"],
+        map["hourId"],
+        map["minuteId"],
+        map["shiftId"],
+        map["dentistId"],
+        map["patient"],
+        map["email"],
+        map["tel"],
+        map["userId"],
+        await new ShiftService().getShiftById(map["shiftId"], map["hourId"]),
+        await new DentistService().getDentistById(map["dentistId"]),
+        await new AgreementService().getAgreementById(map["agreementId"]));
   }
 }
