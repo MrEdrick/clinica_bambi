@@ -42,7 +42,7 @@ import '../../agendamento/consulta/consulta_service.dart';
 @Component(
   selector: 'agendamento_filter_component',
   templateUrl: 'agendamento_filter_component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     materialInputDirectives,

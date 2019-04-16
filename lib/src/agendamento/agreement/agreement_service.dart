@@ -12,7 +12,7 @@ class AgreementService {
     
     FireStoreApp fireStoreApp = new FireStoreApp('agreement');
 
-    fireStoreApp.ref
+    await fireStoreApp.ref
       .where('state', '==', 'A')
       .orderBy('description', 'asc')
       .get().then((querySnapshot) {

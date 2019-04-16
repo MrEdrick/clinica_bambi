@@ -29,19 +29,18 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_c
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_list_card_component.html',
-    //changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.CheckOnce,
     directives: const [
-      NgFor,
       coreDirectives,
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
       AgendamentoCardComponent,
-      MaterialIconComponent,
-      MaterialButtonComponent,
+      //MaterialIconComponent,
+      //MaterialButtonComponent,
       MaterialInputComponent,
       materialInputDirectives,
-      MaterialDialogComponent,
+      //MaterialDialogComponent,
       ModalComponent,
     ])
 class AgendamentoListCardComponent implements OnInit {
@@ -75,8 +74,6 @@ class AgendamentoListCardComponent implements OnInit {
   int totalResultByDay;
 
   bool showDeteleCertification = false;
-
-  int deleteIndex = -1;
 
   @ViewChild('containerCardAgendamento', read: ViewContainerRef)
   ViewContainerRef materialContainerCard;
@@ -138,23 +135,4 @@ class AgendamentoListCardComponent implements OnInit {
 
   }
 
-  void onDelete(int index) {
-    deleteIndex = index;
-    showDeteleCertification = true;
-  }
-
-  void deleteConsulta() {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
-    _fireStoreApp.deleteItem(listAppointmentSchedulingId[deleteIndex]);
-    _fireStoreApp.FireStoreOffLine();
-    listAppointmentSchedulingId.removeAt(deleteIndex);
-    showDeteleCertification = false;
-    deleteIndex = -1;
-  }
-
-  void noDeleteConsulta() {
-    showDeteleCertification = false;
-    deleteIndex = -1;
-  }
 }

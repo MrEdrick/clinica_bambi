@@ -11,6 +11,7 @@ import '../../agendamento/dentist/dentist_service.dart';
 class ConsultaService {
   static Consulta _consulta;
   static List<Consulta> _list;
+  static Map _appointmentSchedulingById = new Map();
   static Map _appointmentSchedulingByDate = new Map();
   static Map _appointmentSchedulingByDateWithFilter = new Map();
 
@@ -20,6 +21,7 @@ class ConsultaService {
   void clearAllAppointmentSchedulingByDate() {
     _appointmentSchedulingByDate.clear();
     _appointmentSchedulingByDateWithFilter.clear();
+    _appointmentSchedulingById.clear();
   }
 
   Future<List<Consulta>> getAllAppointmentSchedulingByDate(Date date) async {
@@ -33,6 +35,12 @@ class ConsultaService {
       'dateAppointmentScheduling':
           new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
     }));
+
+    _appointmentSchedulingByDate[date.toString()]
+        .forEach((appointmentScheduling) {
+      _appointmentSchedulingById[appointmentScheduling["documentPath"]] =
+          appointmentScheduling;
+    });
 
     return _list;
   }
@@ -48,18 +56,7 @@ class ConsultaService {
   }
 
   Map getAppointmentSchedulingByIdFromList(String id) {
-    if ((_appointmentSchedulingByDate != null) &&
-        (_appointmentSchedulingByDate.length != 0)) {
-      _appointmentSchedulingByDate.forEach((date, appointmentSchedulingList) {
-        appointmentSchedulingList.forEach((appointmentScheduling) async {
-          if (appointmentScheduling["documentPath"] == id) {
-            return appointmentScheduling;
-          }
-        });
-      });
-    }
-
-    return null;
+    return _appointmentSchedulingById[id];
   }
 
   List<Map> getAppointmentSchedulingWithFilterFromList(
@@ -147,19 +144,15 @@ class ConsultaService {
   }
 
   Future<Consulta> getAppointmentSchedulingById(String id) async {
-    if ((_appointmentSchedulingByDate != null) &&
-        (_appointmentSchedulingByDate.length != 0)) {
-      for (var i = 0; i < _list.length; i++) {
-        if (_list[i].id == id) {
-          _consulta = _list[i];
-          return _consulta;
-        }
-      }
-    }
+    Map doc;
 
-    Map doc = (await new AppointmentSchedulingDAO()
-            .getAllAppointmentSchedulingFilter({'id': id}))
-        .first;
+    doc = _appointmentSchedulingById[id];
+
+    if (doc == null) {
+      doc = (await new AppointmentSchedulingDAO()
+              .getAllAppointmentSchedulingFilter({'id': id}))
+          .first;
+    }
 
     return await turnMapInConsulta(doc);
   }
