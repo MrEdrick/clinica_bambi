@@ -42,7 +42,7 @@ import '../../agendamento/consulta/consulta_service.dart';
 @Component(
   selector: 'agendamento_filter_component',
   templateUrl: 'agendamento_filter_component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     materialInputDirectives,
@@ -75,6 +75,7 @@ import '../../agendamento/consulta/consulta_service.dart';
   ],
 )
 class AgendamentoFilterComponent implements OnInit {
+  ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
   ConsultaService _consultaService = new ConsultaService();
@@ -214,7 +215,7 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   AgendamentoFilterComponent(
-      this._dentistService, this._shiftService, this._loader);
+      this._dentistService, this._shiftService, this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     user = new UserService().user;
@@ -237,6 +238,8 @@ class AgendamentoFilterComponent implements OnInit {
 
       agendamentoListComponent.instance.date = date;
     });
+    
+    _changeDetectorRef.markForCheck();
   }
 
   List<Date> onPrepareFilter() {

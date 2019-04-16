@@ -17,7 +17,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_c
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_list_card_component.html',
-    //changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
       formDirectives,
@@ -29,11 +29,12 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_c
       ModalComponent,
     ])
 class AgendamentoListCardComponent implements OnInit {
+  ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
   final List<String> listAppointmentSchedulingId = new List<String>();
 
-  AgendamentoListCardComponent(this._loader);
+  AgendamentoListCardComponent(this._loader, this._changeDetectorRef);
 
   @Input()
   Date date;
@@ -59,7 +60,8 @@ class AgendamentoListCardComponent implements OnInit {
 
       agendamentoListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
     });
-    //selectItensFireBase();
+    
+    _changeDetectorRef.markForCheck();
   }
 
   void selectItensFireBase() async {

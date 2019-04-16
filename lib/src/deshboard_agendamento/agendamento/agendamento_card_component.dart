@@ -29,9 +29,10 @@ import 'agendamento_edit_component.dart';
       MaterialDialogComponent,
       //AgendamentoEditComponent,
       ModalComponent,
-    ]) //providers: [ConsultaService]
+    ])
 class AgendamentoCardComponent implements OnInit {
-  Consulta consulta; //final
+  ChangeDetectorRef _changeDetectorRef; 
+  Consulta consulta;
 
   bool showEditAgendamentoEditApp = false;
   bool showDeteleCertification = false;
@@ -39,14 +40,14 @@ class AgendamentoCardComponent implements OnInit {
   @Input()
   String appointmentSchedulerId;
 
-  AgendamentoCardComponent(); //: consulta = new ConsultaService()?.getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
+  AgendamentoCardComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     ConsultaService consultaService = new ConsultaService();
     Map map = consultaService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
     consulta = await consultaService.turnMapInConsulta(map);
-    print(consulta);
+    _changeDetectorRef.markForCheck();
   }
 
   void onEdit() {
