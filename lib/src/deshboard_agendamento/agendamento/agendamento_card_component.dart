@@ -61,7 +61,8 @@ class AgendamentoCardComponent implements OnInit {
     ComponentFactory<agendamento_edit.AgendamentoEditComponent>
         agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
 
-    _loader.loadNextToLocation(agendamentoEdit, materialContainerEdit);
+    ComponentRef agendamentoEditComponent = _loader.loadNextToLocation(agendamentoEdit, materialContainerEdit);
+    agendamentoEditComponent.instance.componentRef = agendamentoEditComponent;
   }
 
   void onDelete() {

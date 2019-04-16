@@ -40,7 +40,7 @@ import '../../agendamento/consulta/consulta_service.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
-    selector: 'agendamento-edit-app',
+    selector: 'agendamento_edit_component',
     styleUrls: const [
       'agendamento_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -71,7 +71,10 @@ import '../../agendamento/user/user_service.dart';
       ClassProvider(AgreementService)
     ])
 class AgendamentoEditComponent implements OnInit {
+  final ChangeDetectorRef _changeDetectorRef; 
   ConsultaService _consultaService;
+  @Input()
+  ComponentRef componentRef;
 
   ConsultaService get consultaService => _consultaService;
   set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
@@ -266,7 +269,7 @@ class AgendamentoEditComponent implements OnInit {
           : null;
 
   AgendamentoEditComponent(
-      this._dentistService, this._shiftService, this._agreementService);
+      this._dentistService, this._shiftService, this._agreementService, this._changeDetectorRef);
 
   Future<void> _getListDentist() async {
     _listDentist = await _dentistService.getAllDentistAcives();
@@ -333,7 +336,7 @@ class AgendamentoEditComponent implements OnInit {
     email = '';
     telefone = '';
 
-    querySelector('#agendamento-edit-app').style.display = 'none';
+    componentRef.destroy();
   }
 
   bool asserts() {
