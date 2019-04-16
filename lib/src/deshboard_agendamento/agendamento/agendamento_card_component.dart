@@ -42,6 +42,9 @@ class AgendamentoCardComponent implements OnInit {
   @Input()
   String appointmentSchedulerId;
 
+  @Input()
+  ComponentRef componentRef;
+
   @ViewChild('containerEditAgendamento', read: ViewContainerRef)
   ViewContainerRef materialContainerEdit;
 
@@ -72,7 +75,7 @@ class AgendamentoCardComponent implements OnInit {
   void deleteConsulta() {
     new AppointmentSchedulingDAO().delete(appointmentSchedulerId);   
     showDeteleCertification = false;
-    OnDestroy;
+    componentRef.destroy();
   }
 
   void noDeleteConsulta() {

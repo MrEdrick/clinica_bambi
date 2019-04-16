@@ -59,6 +59,7 @@ class AgendamentoListCardComponent implements OnInit {
         _loader.loadNextToLocation(agendamentoCard, materialContainerCard);
 
       agendamentoListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
+      agendamentoListComponent.instance.componentRef = agendamentoListComponent;
     });
     
     _changeDetectorRef.markForCheck();
