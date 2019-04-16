@@ -9,7 +9,9 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 
 import '../../agendamento/consulta/consulta.dart';
 import '../../agendamento/consulta/consulta_service.dart';
-import 'agendamento_edit_component.dart';
+import '../../agendamento/consulta/appointment_scheduling_dao.dart';
+import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_edit_component.template.dart'
+    as agendamento_edit;
 
 @Component(
     selector: 'agendamento_card_component',
@@ -27,11 +29,11 @@ import 'agendamento_edit_component.dart';
       MaterialButtonComponent,
       MaterialIconComponent,
       MaterialDialogComponent,
-      //AgendamentoEditComponent,
       ModalComponent,
     ])
 class AgendamentoCardComponent implements OnInit {
-  ChangeDetectorRef _changeDetectorRef; 
+  final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
   Consulta consulta;
 
   bool showEditAgendamentoEditApp = false;
@@ -40,7 +42,11 @@ class AgendamentoCardComponent implements OnInit {
   @Input()
   String appointmentSchedulerId;
 
-  AgendamentoCardComponent(this._changeDetectorRef);
+  @ViewChild('containerEditAgendamento', read: ViewContainerRef)
+  ViewContainerRef materialContainerEdit;
+
+  AgendamentoCardComponent(
+      this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     ConsultaService consultaService = new ConsultaService();
@@ -51,8 +57,11 @@ class AgendamentoCardComponent implements OnInit {
   }
 
   void onEdit() {
-    //querySelector('#editAgendamento').click();
-    //querySelector('#agendamento-edit-app').style.display = 'block';
+    new ConsultaService().consulta = consulta;
+    ComponentFactory<agendamento_edit.AgendamentoEditComponent>
+        agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
+
+    _loader.loadNextToLocation(agendamentoEdit, materialContainerEdit);
   }
 
   void onDelete() {
@@ -60,12 +69,9 @@ class AgendamentoCardComponent implements OnInit {
   }
 
   void deleteConsulta() {
-    //FireStoreApp _fireStoreApp =
-    //    new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
-    //_fireStoreApp.deleteItem(listAppointmentSchedulingId[deleteIndex]);
-    //_fireStoreApp.FireStoreOffLine();
-    //listAppointmentSchedulingId.removeAt(deleteIndex);
+    new AppointmentSchedulingDAO().delete(appointmentSchedulerId);   
     showDeteleCertification = false;
+    OnDestroy;
   }
 
   void noDeleteConsulta() {

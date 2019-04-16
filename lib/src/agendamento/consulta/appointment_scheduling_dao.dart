@@ -36,6 +36,18 @@ class AppointmentSchedulingDAO {
     }
   }
 
+  Future<String> delete(String id) async {
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+    if (await _fireStoreApp.deleteItem(id)) {
+      _fireStoreApp.FireStoreOffLine();
+      return '';
+    } else {
+      _fireStoreApp.FireStoreOffLine();
+      return 'Error';
+    }
+  }
+
   Future<List<Map>> getAllAppointmentSchedulingFilter(Map filter) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =

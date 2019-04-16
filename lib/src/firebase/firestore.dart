@@ -38,14 +38,18 @@ class FireStoreApp {
     }
   }
 
-  void deleteItem(String id) async {
+  Future<bool> deleteItem(String id) async {
+    bool error = false;
+
     try {
       fb.firestore().enableNetwork();
       await this._ref.doc(id).delete();
     } catch (e) {
       print("Erro ao deletar, $e");
+      error = true;
     } finally {
       fb.firestore().disableNetwork();
+      return error;
     }
   }
   

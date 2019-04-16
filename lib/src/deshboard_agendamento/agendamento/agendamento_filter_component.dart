@@ -19,7 +19,6 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:intl/intl.dart';
 
-//import '../agendamento/agendamento_list_card_component.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_list_card_component.template.dart'
     as agendamento_list;
 
@@ -33,8 +32,6 @@ import '../../agendamento/shift/shift_selection_options.dart';
 import '../../agendamento/dentist/dentistUI.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/dentist/dentist_selection_options.dart';
-
-//import '../agendamento/agendamento_edit_component.dart';
 
 import '../../agendamento/consulta/consulta.dart';
 import '../../agendamento/consulta/consulta_service.dart';
@@ -56,8 +53,6 @@ import '../../agendamento/consulta/consulta_service.dart';
     MaterialDropdownSelectComponent,
     MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
-    //AgendamentoListCardComponent,
-    //AgendamentoEditComponent,
     MaterialPersistentDrawerDirective,
     MaterialTemporaryDrawerComponent,
   ],
@@ -75,7 +70,7 @@ import '../../agendamento/consulta/consulta_service.dart';
   ],
 )
 class AgendamentoFilterComponent implements OnInit {
-  ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
   ConsultaService _consultaService = new ConsultaService();

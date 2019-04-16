@@ -29,7 +29,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_c
       ModalComponent,
     ])
 class AgendamentoListCardComponent implements OnInit {
-  ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
   final List<String> listAppointmentSchedulingId = new List<String>();
