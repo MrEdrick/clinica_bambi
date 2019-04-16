@@ -1,23 +1,11 @@
 import 'dart:html';
-import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:intl/intl.dart';
-import 'package:angular_components/material_button/material_button.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
-import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'agendamento_card_component.dart';
-import '../../firebase/firestore.dart';
-import '../../agendamento/consulta/appointment_scheduling_constants.dart';
 import '../../agendamento/consulta/consulta_service.dart';
-import '../../agendamento/consulta/consulta.dart';
-import '../../agendamento/user/user.dart';
-import '../../agendamento/dentist/dentist_service.dart';
-import '../../agendamento/shift/shift_service.dart';
-import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/user/user_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_card_component.template.dart'
     as agendamento_card;
@@ -29,18 +17,15 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_c
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'agendamento_list_card_component.html',
-    changeDetection: ChangeDetectionStrategy.CheckOnce,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
       AgendamentoCardComponent,
-      //MaterialIconComponent,
-      //MaterialButtonComponent,
       MaterialInputComponent,
       materialInputDirectives,
-      //MaterialDialogComponent,
       ModalComponent,
     ])
 class AgendamentoListCardComponent implements OnInit {
@@ -48,28 +33,10 @@ class AgendamentoListCardComponent implements OnInit {
 
   final List<String> listAppointmentSchedulingId = new List<String>();
 
-  User _user;
-
   AgendamentoListCardComponent(this._loader);
-
-  User get user => _user;
-  @Input()
-  set user(User user) => _user = user;
 
   @Input()
   Date date;
-
-  @Input()
-  String dentistId;
-
-  @Input()
-  String shiftId;
-
-  @Input()
-  String patientName;
-
-  @Input()
-  int index;
 
   int totalResultByDay;
 
@@ -102,12 +69,12 @@ class AgendamentoListCardComponent implements OnInit {
 
     totalResultByDay = _listDocumentSnapshot.length;
 
-    if (totalResultByDay == 0) {
-      querySelector("#agendamento-list-card-app-" + index.toString())
-          ?.parent
-          ?.remove();
-      return;
-    }
+    //if (totalResultByDay == 0) {
+    //  querySelector("#agendamento-list-card-app-" + index.toString())
+    //      ?.parent
+    //      ?.remove();
+    //  return;
+    //}
 
     int totalResult;
 

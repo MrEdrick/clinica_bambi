@@ -26,17 +26,3 @@
   border-bottom: rgba(#616161, 0.12) 2px dashed;
 }
 
-#delete {
-  width: 40px;
-  height: 40px;
-  font-size: 1;
-  background-color: #fff !important;
-  color: #00B0FF;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-
-::ng-deep #delete > * {
-  padding: 8px !important;
-}  
