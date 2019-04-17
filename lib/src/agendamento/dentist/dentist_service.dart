@@ -7,6 +7,7 @@ import '../../firebase/firestore.dart';
 class DentistService {
   static List<Dentist> _list;
   static Dentist _dentist;
+  static List<Map> _dentistWithFilter;
 
   Future<List<Dentist>> getAllDentistAcives() async {
     if (_list != null) {
@@ -62,5 +63,41 @@ class DentistService {
 
   Dentist get dentist => _dentist;
   set dentist(Dentist dentist) => _dentist = dentist;
+
+  List<Map> getDentistWithFilterFromList(
+      String date, Map filter) {
+    List<Map> _listDocumentSnapshot = new List<Map>();
+
+    List<Map> _listDocumentSnapshotTemp = new List<Map>();
+
+    void ListsApplyFilter() {
+      if (_listDocumentSnapshotTemp.length > 0) {
+        _listDocumentSnapshotTemp.forEach((doc) {
+          _listDocumentSnapshot.add(new Map.from(doc));
+        });
+
+        _listDocumentSnapshotTemp.clear();
+      }
+    }
+
+    if ((filter["name"] != null) && (filter["name"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["name"].toString().indexOf(filter["name"]) > -1) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
+
+    if ((filter["name"] != null) && (filter["name"] != '')) {
+      _listDocumentSnapshot.clear();
+    }
+
+    ListsApplyFilter();
+
+    _dentistWithFilter = _listDocumentSnapshot;
+
+    return _dentistWithFilter;
+  }
+
 
 }

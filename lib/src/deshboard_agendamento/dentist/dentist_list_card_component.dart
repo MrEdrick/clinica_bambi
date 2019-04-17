@@ -16,8 +16,6 @@ import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentist_constants.dart';
 
 import '../../firebase/firestore.dart';
-import '../../agendamento/user/user.dart';
-import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
@@ -45,13 +43,7 @@ import '../../agendamento/user/user_service.dart';
 class DentistListCardComponent implements OnInit {
   final List<Dentist> listDentist = new List<Dentist>();
 
-  User _user;
-
   DentistListCardComponent();
-
-  User get user => _user;
-  @Input()
-  set user(User user) => _user = user;
 
   @Input()
   String dentistId;
