@@ -33,13 +33,6 @@
                 </span>
             </div>
         </div>
-        <div id="container-list-requirements" class="container-list-requirements">
-            <div class="list-day-requirements" *ngFor="let requirement of requirementList; let i=index; let last = last">
-                <requirement-list-card-app id="requirement-list-card-app-{{i}}" [index]="i" [user]="user"
-                    [description]="description">
-                </requirement-list-card-app>
-            </div>
-        </div>
     </div>
 
     <material-fab raised (click)="onAdd" id="addDentist">
@@ -47,5 +40,3 @@
     </material-fab>
 
 </div>
-<requirement-edit-app style="display: none" id="dentist-edit-app">
-</requirement-edit-app>

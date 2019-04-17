@@ -19,11 +19,14 @@ import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_filter_component.template.dart' as agendamento_filter;
-import 'dentist/dentist_filter_component.dart' deferred as dentist_filter;
-import 'procedure/procedure_filter_component.dart' deferred as procedure_filter;
-import 'requirement/requirement_filter_component.dart'
-    deferred as requirement_filter;
+import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_filter_component.template.dart'
+    as agendamento_filter;
+import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_filter_component.template.dart'
+    as dentist_filter;
+import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_filter_component.template.dart'
+    as procedure_filter;
+import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_filter_component.template.dart'
+    as requirement_filter;
 
 @Component(
   selector: 'deshboard-app',
@@ -57,6 +60,7 @@ import 'requirement/requirement_filter_component.dart'
 )
 class DeshboardComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
+  ComponentRef componentRef;
 
   final UserService userService;
 
@@ -68,11 +72,10 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   String filterApp;
 
-
   @ViewChild('materialContentFilter', read: ViewContainerRef)
   ViewContainerRef materialContentFilter;
 
-  DeshboardComponent(this._router, this._loader)//, this._location
+  DeshboardComponent(this._router, this._loader) //, this._location
       : userService = new UserService();
 
   @override
@@ -82,8 +85,7 @@ class DeshboardComponent implements OnActivate, OnInit {
         _router.navigate(paths.login.toUrl());
       } else {
         querySelector('#wh-widget-send-button').style.display = 'none';
-        ComponentFactory<agendamento_filter.AgendamentoFilterComponent> agendamentoFilter = agendamento_filter.AgendamentoFilterComponentNgFactory;
-        _loader.loadNextToLocation(agendamentoFilter, materialContentFilter);
+        loadAppointmentSchedulingFilter();
       }
     } catch (e) {
       _router.navigate(paths.login.toUrl());
@@ -94,27 +96,54 @@ class DeshboardComponent implements OnActivate, OnInit {
     if (new UserService().user == null) return;
   }
 
+  void loadAppointmentSchedulingFilter() {
+    ComponentFactory<agendamento_filter.AgendamentoFilterComponent>
+        agendamentoFilter =
+        agendamento_filter.AgendamentoFilterComponentNgFactory;
+    componentRef =
+        _loader.loadNextToLocation(agendamentoFilter, materialContentFilter);
+  }
+
+  void loadDentistFilter() {
+    ComponentFactory<dentist_filter.DentistFilterComponent>
+        dentist_Filter =
+        dentist_filter.DentistFilterComponentNgFactory;
+    componentRef =
+        _loader.loadNextToLocation(dentist_Filter, materialContentFilter);
+  }
+
+  void loadProcedureFilter() {
+    ComponentFactory<procedure_filter.ProcedureFilterComponent>
+        procedureFilter =
+        procedure_filter.ProcedureFilterComponentNgFactory;
+    componentRef =
+        _loader.loadNextToLocation(procedureFilter, materialContentFilter);
+  }
+
+  void loadRequirementFilter() {
+    ComponentFactory<requirement_filter.RequirementFilterComponent>
+        requirementFilter =
+        requirement_filter.RequirementFilterComponentNgFactory;
+    componentRef =
+        _loader.loadNextToLocation(requirementFilter, materialContentFilter);
+  }
+
+
   void onClickMenuItem(String filter) {
-    ElementList listFilters = querySelectorAll(".filter-app");
-
-    for (Element filter in listFilters) {
-      filter.style.display = "none";
-    }
-
-    filterApp = filter;
+    componentRef.destroy();
 
     switch (filter) {
       case 'Agendamentos':
-        querySelector("agendamento-filter-app").style.display = "block";
+        loadAppointmentSchedulingFilter();
         break;
       case 'Dentistas':
-        querySelector("dentist-filter-app").style.display = "block";
+        loadDentistFilter();
         break;
       case 'Procedimentos':
-        querySelector("procedure-filter-app").style.display = "block";
+        loadProcedureFilter();
         break;
       case 'Requisitos':
-        querySelector("requirement-filter-app").style.display = "block";
+        loadRequirementFilter();
         break;
     }
   }

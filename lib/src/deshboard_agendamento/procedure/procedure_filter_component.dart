@@ -19,8 +19,9 @@ import 'procedure_list_card_component.dart';
 import 'procedure_edit_component.dart';
 
 @Component(
-  selector: 'procedure-filter-app',
+  selector: 'procedure_filter_component',
   templateUrl: 'procedure_filter_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     materialInputDirectives,

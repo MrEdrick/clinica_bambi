@@ -31,18 +31,8 @@
             </span>
         </div>
     </div>
-    <div id="container-list-procedures" class="container-list-procedures">
-        <div class="list-day-procedures" *ngFor="let procedure of procedureList; let i=index; let last = last">
-            <procedure-list-card-app id="procedure-list-card-app-{{i}}" [index]="i" [user]="user"
-                [description]="description">
-            </procedure-list-card-app>
-        </div>
-    </div>
 </div>
 
 <material-fab raised (click)="onAdd" id="addProcedure">
     <material-icon icon="add"></material-icon>
 </material-fab>
-
-<procedure-edit-app style="display: none" id="procedure-edit-app">
-</procedure-edit-app>

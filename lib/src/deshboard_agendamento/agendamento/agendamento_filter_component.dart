@@ -81,12 +81,6 @@ class AgendamentoFilterComponent implements OnInit {
   set consultaService(ConsultaService consultaService) =>
       _consultaService = consultaService;
 
-  User _user;
-
-  User get user => _user;
-  @Input()
-  set user(User user) => _user = user;
-
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
@@ -218,8 +212,7 @@ class AgendamentoFilterComponent implements OnInit {
       this._dentistService, this._shiftService, this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
-    user = new UserService().user;
-    if (user == null) return;
+    if (new UserService().user == null) return;
 
     _getListDentist();
     _getListShift();

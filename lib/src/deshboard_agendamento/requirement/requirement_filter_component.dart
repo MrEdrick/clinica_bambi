@@ -15,8 +15,9 @@ import 'requirement_list_card_component.dart';
 import 'requirement_edit_component.dart';
 
 @Component(
-  selector: 'requirement-filter-app',
+  selector: 'requirement_filter_component',
   templateUrl: 'requirement_filter_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     materialInputDirectives,
