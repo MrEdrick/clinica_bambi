@@ -71,13 +71,14 @@ import '../../agendamento/user/user_service.dart';
       ClassProvider(AgreementService)
     ])
 class AgendamentoEditComponent implements OnInit {
-  final ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef;
   ConsultaService _consultaService;
   @Input()
   ComponentRef componentRef;
 
   ConsultaService get consultaService => _consultaService;
-  set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
+  set consultaService(ConsultaService consultaService) =>
+      _consultaService = consultaService;
 
   Date dataConsulta = new Date.today();
 
@@ -183,10 +184,11 @@ class AgendamentoEditComponent implements OnInit {
   final SelectionModel<DentistUI> singleSelectModelDentist =
       SelectionModel.single();
 
-  String get singleSelectDentistLabel =>
-    singleSelectModelDentist.selectedValues == null 
-    ? 'Dentista'
-    : singleSelectModelDentist.selectedValues.length > 0
+  String get singleSelectDentistLabel => singleSelectModelDentist
+              .selectedValues ==
+          null
+      ? 'Dentista'
+      : singleSelectModelDentist.selectedValues.length > 0
           ? itemRendererDentist(singleSelectModelDentist.selectedValues.first)
           : 'Dentista';
 
@@ -220,10 +222,10 @@ class AgendamentoEditComponent implements OnInit {
 
   final SelectionModel<Shift> singleSelectModelShift = SelectionModel.single();
 
-  String get singleSelectShiftLabel =>
-    singleSelectModelShift.selectedValues == null
-    ? '  '
-    : singleSelectModelShift.selectedValues.length > 0
+  String get singleSelectShiftLabel => singleSelectModelShift.selectedValues ==
+          null
+      ? '  '
+      : singleSelectModelShift.selectedValues.length > 0
           ? itemRendererShift(singleSelectModelShift.selectedValues.first)
           : 'Turno';
 
@@ -237,7 +239,8 @@ class AgendamentoEditComponent implements OnInit {
   final AgreementService _agreementService;
 
   static ItemRenderer<Agreement> _itemRendererAgreement =
-      newCachingItemRenderer<Agreement>((agreement) => "${agreement.description}");
+      newCachingItemRenderer<Agreement>(
+          (agreement) => "${agreement.description}");
 
   ItemRenderer<Agreement> get itemRendererAgreement =>
       useItemRenderer ? _itemRendererAgreement : _displayNameRenderer;
@@ -254,22 +257,24 @@ class AgendamentoEditComponent implements OnInit {
     return agreementListOptions;
   }
 
-  final SelectionModel<Agreement> singleSelectModelAgreement = SelectionModel.single();
+  final SelectionModel<Agreement> singleSelectModelAgreement =
+      SelectionModel.single();
 
   String get singleSelectAgreementLabel =>
-    singleSelectModelAgreement.selectedValues == null 
-      ? 'Convênios'
-      : singleSelectModelAgreement.selectedValues.length > 0
-            ? itemRendererAgreement(singleSelectModelAgreement.selectedValues.first)
-            : 'Convênios';
+      singleSelectModelAgreement.selectedValues == null
+          ? 'Convênios'
+          : singleSelectModelAgreement.selectedValues.length > 0
+              ? itemRendererAgreement(
+                  singleSelectModelAgreement.selectedValues.first)
+              : 'Convênios';
 
   String get singleSelectedAgreement =>
       singleSelectModelAgreement.selectedValues.isNotEmpty
           ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
           : null;
 
-  AgendamentoEditComponent(
-      this._dentistService, this._shiftService, this._agreementService, this._changeDetectorRef);
+  AgendamentoEditComponent(this._dentistService, this._shiftService,
+      this._agreementService, this._changeDetectorRef);
 
   Future<void> _getListDentist() async {
     _listDentist = await _dentistService.getAllDentistAcives();
@@ -293,27 +298,36 @@ class AgendamentoEditComponent implements OnInit {
     _getListAgreement();
 
     if (consultaService.consulta != null) {
-      dataConsulta = new Date.parse(consultaService.consulta.dataConsultaAgendamento, 
-                                    new DateFormat('yyyy-MM-dd'));
+      dataConsulta = new Date.parse(
+          consultaService.consulta.dataConsultaAgendamento,
+          new DateFormat('yyyy-MM-dd'));
 
       paciente = consultaService.consulta.paciente;
       email = consultaService.consulta.email;
       telefone = consultaService.consulta.telefone;
 
-      singleSelectModelShift.select(consultaService.consulta.shift);
-      singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
-                                                    consultaService.consulta.dentist.name));
-      singleSelectModelAgreement.select(consultaService.consulta.agreement);
+      if (consultaService.consulta.shift != null) {
+        singleSelectModelShift.select(consultaService.consulta.shift);
+      }
+
+      if (consultaService.consulta.dentist != null) {
+        singleSelectModelDentist.select(new DentistUI(
+            consultaService.consulta.dentist.id,
+            consultaService.consulta.dentist.name));
+      }
+
+      if (consultaService.consulta.agreement != null) {
+        singleSelectModelAgreement.select(consultaService.consulta.agreement);
+      }
     } else {
       dataConsulta = new Date.today();
     }
   }
 
   void ngOnInit() {
-    if (new UserService().user  == null)
-      return;
+    if (new UserService().user == null) return;
 
-    onEdit();    
+    onEdit();
   }
 
   void onClose() {
@@ -361,13 +375,12 @@ class AgendamentoEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((singleSelectModelShift.selectedValues.isEmpty)
-       || (singleSelectModelDentist.selectedValues.isEmpty)
-       || (singleSelectModelAgreement.selectedValues.isEmpty)
-       || (paciente == '')
-       || (telefone == '')
-       || (dataConsulta == null)) {
-
+    if ((singleSelectModelShift.selectedValues.isEmpty) ||
+        (singleSelectModelDentist.selectedValues.isEmpty) ||
+        (singleSelectModelAgreement.selectedValues.isEmpty) ||
+        (paciente == '') ||
+        (telefone == '') ||
+        (dataConsulta == null)) {
       showAssertMessageSave = true;
       return;
     }
@@ -381,18 +394,20 @@ class AgendamentoEditComponent implements OnInit {
   }
 
   void onNoSave() {
-    showAssertMessageAlert = false;  
+    showAssertMessageAlert = false;
   }
 
-  void onSave() async {   
+  void onSave() async {
     showAssertMessageAlert = false;
 
     datas = new Map<String, dynamic>();
 
     datas = {
-      "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
+      "dateAppointmentScheduling":
+          new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
       "shiftId": singleSelectModelShift.selectedValues.first.shiftId,
-      "agreementId": singleSelectModelAgreement.selectedValues.first.agreementId,
+      "agreementId":
+          singleSelectModelAgreement.selectedValues.first.agreementId,
       "dentistId": singleSelectModelDentist
           .selectedValues.first.id, //querySelector('#dentista').text
       "patient": paciente,

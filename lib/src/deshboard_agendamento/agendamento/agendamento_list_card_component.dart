@@ -7,6 +7,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'agendamento_card_component.dart';
 import '../../agendamento/consulta/consulta_service.dart';
 import '../../agendamento/user/user_service.dart';
+import 'package:intl/intl.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_card_component.template.dart'
     as agendamento_card;
 
@@ -39,6 +40,8 @@ class AgendamentoListCardComponent implements OnInit {
   @Input()
   Date date;
 
+  String dateFormated;
+
   int totalResultByDay;
 
   bool showDeteleCertification = false;
@@ -48,6 +51,8 @@ class AgendamentoListCardComponent implements OnInit {
 
   void ngOnInit() {
     if (new UserService().user == null) return;
+
+    dateFormated = new DateFormat('dd MMMM yyyy').format(date.asUtcTime());
 
     List<Map> _list = new ConsultaService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
     _list.forEach((appointmentScheduling) {

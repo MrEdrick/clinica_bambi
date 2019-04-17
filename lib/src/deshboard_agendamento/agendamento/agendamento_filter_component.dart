@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
@@ -112,7 +111,7 @@ class AgendamentoFilterComponent implements OnInit {
   ViewContainerRef materialContainerList;
 
   @ViewChild('containerEditAgendamento', read: ViewContainerRef)
-  ViewContainerRef materialContainerEdit;
+  ViewContainerRef materialContainerAdd;
 
   List<List<Map<String, dynamic>>> listScheduling =
       new List<List<Map<String, dynamic>>>();
@@ -310,7 +309,7 @@ class AgendamentoFilterComponent implements OnInit {
     ComponentFactory<agendamento_edit.AgendamentoEditComponent>
         agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
 
-    ComponentRef agendamentoEditComponent = _loader.loadNextToLocation(agendamentoEdit, materialContainerEdit);
+    ComponentRef agendamentoEditComponent = _loader.loadNextToLocation(agendamentoEdit, materialContainerAdd);
     agendamentoEditComponent.instance.componentRef = agendamentoEditComponent;
   }
 
