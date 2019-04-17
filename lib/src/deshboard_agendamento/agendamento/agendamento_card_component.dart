@@ -34,6 +34,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_e
 class AgendamentoCardComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
+  final ConsultaService consultaService = new ConsultaService();
   Consulta consulta;
 
   bool showEditAgendamentoEditApp = false;
@@ -52,7 +53,6 @@ class AgendamentoCardComponent implements OnInit {
       this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
-    ConsultaService consultaService = new ConsultaService();
     Map map = consultaService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
     consulta = await consultaService.turnMapInConsulta(map);
@@ -60,7 +60,7 @@ class AgendamentoCardComponent implements OnInit {
   }
 
   void onEdit() {
-    new ConsultaService().consulta = consulta;
+    consultaService.consulta = consulta;
     ComponentFactory<agendamento_edit.AgendamentoEditComponent>
         agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
 

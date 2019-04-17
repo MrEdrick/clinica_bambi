@@ -99,11 +99,6 @@
     </div>
     <div id="container-list-agendamentos" class="container-list-agendamentos">
         <div #containerListAgendamento></div>
-        <!--div class="list-day-agendamentos" *ngFor="let scheduling of listScheduling; let i=index; let last = last">
-            <agendamento-list-card-app id="agendamento-list-card-app-{{i}}" [index]="i" [user]="user"
-                [scheduling]="scheduling" [dentistId]="dentistId" [shiftId]="shiftId" [patientName]="patientName">
-            </agendamento-list-card-app>
-        </div-->
     </div>
 </div>
 
@@ -111,5 +106,4 @@
     <material-icon icon="add"></material-icon>
 </material-fab>
 
-<!--agendamento-edit-app style="display: none" id="agendamento-edit-app">
-</agendamento-edit-app-->
+<div #containerEditAgendamento></div>

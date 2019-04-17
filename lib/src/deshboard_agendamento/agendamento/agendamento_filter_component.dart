@@ -21,6 +21,8 @@ import 'package:intl/intl.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_list_card_component.template.dart'
     as agendamento_list;
+import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_edit_component.template.dart'
+    as agendamento_edit;
 
 import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
@@ -108,6 +110,9 @@ class AgendamentoFilterComponent implements OnInit {
 
   @ViewChild('containerListAgendamento', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
+
+  @ViewChild('containerEditAgendamento', read: ViewContainerRef)
+  ViewContainerRef materialContainerEdit;
 
   List<List<Map<String, dynamic>>> listScheduling =
       new List<List<Map<String, dynamic>>>();
@@ -302,8 +307,11 @@ class AgendamentoFilterComponent implements OnInit {
 
   void onAdd() {
     consultaService.consulta = null;
-    querySelector('#editAgendamento').click();
-    querySelector('#agendamento-edit-app').style.display = 'block';
+    ComponentFactory<agendamento_edit.AgendamentoEditComponent>
+        agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
+
+    ComponentRef agendamentoEditComponent = _loader.loadNextToLocation(agendamentoEdit, materialContainerEdit);
+    agendamentoEditComponent.instance.componentRef = agendamentoEditComponent;
   }
 
   void onClear() {
