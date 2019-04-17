@@ -81,6 +81,7 @@ class DeshboardComponent implements OnActivate, OnInit {
       if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
       } else {
+        querySelector('#wh-widget-send-button').style.display = 'none';
         ComponentFactory<agendamento_filter.AgendamentoFilterComponent> agendamentoFilter = agendamento_filter.AgendamentoFilterComponentNgFactory;
         _loader.loadNextToLocation(agendamentoFilter, materialContentFilter);
       }
@@ -91,8 +92,6 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
-    //await agendamento_filter.loadLibrary();
   }
 
   void onClickMenuItem(String filter) {

@@ -40,6 +40,9 @@ class AgendamentoListCardComponent implements OnInit {
   @Input()
   Date date;
 
+  @Input()
+  ComponentRef componentRef;
+
   String dateFormated;
 
   int totalResultByDay;

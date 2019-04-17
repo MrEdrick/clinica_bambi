@@ -73,6 +73,7 @@ import '../../agendamento/consulta/consulta_service.dart';
 class AgendamentoFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
+  final List<ComponentRef> listComponentRef = new List<ComponentRef>();
 
   ConsultaService _consultaService = new ConsultaService();
 
@@ -227,6 +228,7 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   void onLoad() {
+    listComponentRef.clear();
     listDate.forEach((date) {
       ComponentFactory<agendamento_list.AgendamentoListCardComponent>
           agendamentoList =
@@ -236,6 +238,8 @@ class AgendamentoFilterComponent implements OnInit {
         _loader.loadNextToLocation(agendamentoList, materialContainerList);
 
       agendamentoListComponent.instance.date = date;
+      agendamentoListComponent.instance.componentRef = agendamentoListComponent;
+      listComponentRef.add(agendamentoListComponent);
     });
     
     _changeDetectorRef.markForCheck();
@@ -270,7 +274,8 @@ class AgendamentoFilterComponent implements OnInit {
     } else {
       shiftId = '';
     }
-  
+
+    listDate.clear();
     for (var i = 0; i <= daysDif; i++) {
       listDate.add(dataInicial.add(days: i));
     }
@@ -279,6 +284,10 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   Future<void> onFilter() async {
+    listComponentRef.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
     listDate = onPrepareFilter();
     
     new ConsultaService()
