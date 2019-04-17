@@ -20,12 +20,14 @@
   position: relative;
   color: #616161;
   background-color: rgba(#616161, 0.12);
-  padding: 5px;
-  height: 20px;
+  padding-top: 20px;
+  height: 22px;
   font-weight: 600;
   width: 100%;
   z-index: 1 !important;
-  padding: 5px;
+  padding-bottom: 10px;
+  border-top: rgba(#616161, 0.12) 2px dashed;
   border-bottom: rgba(#616161, 0.12) 2px dashed;
+  text-align: center;
 }
 

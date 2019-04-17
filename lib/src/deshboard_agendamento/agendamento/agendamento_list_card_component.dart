@@ -52,7 +52,7 @@ class AgendamentoListCardComponent implements OnInit {
   void ngOnInit() {
     if (new UserService().user == null) return;
 
-    dateFormated = new DateFormat('dd MMMM yyyy').format(date.asUtcTime());
+    dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
 
     List<Map> _list = new ConsultaService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
     _list.forEach((appointmentScheduling) {
