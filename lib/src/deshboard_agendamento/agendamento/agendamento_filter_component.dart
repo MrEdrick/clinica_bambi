@@ -92,7 +92,7 @@ class AgendamentoFilterComponent implements OnInit {
   bool overlay = true;
 
   Date dataInicial = new Date.today();
-  Date dataFinal = new Date.today().add(days: 1);
+  Date dataFinal = new Date.today();
   List<Date> listDate = new List<Date>(); 
 
   String dataInicialFormatada;
