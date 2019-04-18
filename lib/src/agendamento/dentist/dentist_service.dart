@@ -7,11 +7,13 @@ class DentistService {
   static List<Dentist> _list = new List<Dentist>();
   static Dentist _dentist;
   static List<Map> _dentistList = new List<Map>();
+  static Map _dentistListById = new Map();
   static List<Map> _dentistListWithFilter = new List<Map>();
 
   void clearAllDentistList() {
     _list.clear();
     _dentistList.clear();
+    _dentistListById.clear();
     _dentistListWithFilter.clear();
   }
 
@@ -24,19 +26,20 @@ class DentistService {
     }
 
     clearAllDentistList();
-    print('t0');
+
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-    print('t1');
+
     _dentistList.forEach((dentist) {
-      _list.add(turnMapInConsulta(dentist));
+      _dentistListById[dentist["documentPath"]] = dentist;
+      _list.add(turnMapInDentist(dentist));
     });
 
     return _list;
   }
 
   Future<List<DentistUI>> getAllDentistUIAcives() async {
-    if (_list == null) {
+    if ((_dentistList == null) && (_dentistList.length == 0)) {
       await getAllDentistAcives();
     }
 
@@ -50,18 +53,17 @@ class DentistService {
   }
 
   Future<Dentist> getDentistById(String id) async {
-    if (_list == null) {
-      await getAllDentistAcives();
+    Map doc;
+
+    doc = _dentistListById[id];
+
+    if (doc == null) {
+      doc = (await new DentistDAO()
+              .getAllDentistFilter({'id': id}, {"name": "asc"}))
+          .first;
     }
 
-    for (var i = 0; i < _list.length; i++) {
-      if (_list[i].id == id) {
-        return _list[i];
-      }
-    }
-    ;
-
-    return null;
+    return turnMapInDentist(doc);
   }
 
   List<Map> getDentistListWithFilterFromList(Map filter) {
@@ -106,7 +108,7 @@ class DentistService {
     return _dentistListWithFilter;
   }
 
-  Dentist turnMapInConsulta(Map map) {
+  Dentist turnMapInDentist(Map map) {
     return new Dentist(map["documentPath"], map["name"], map["state"]);
   }
 }

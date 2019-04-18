@@ -157,7 +157,7 @@ class ConsultaService {
   }
 
   Future<Consulta> turnMapInConsulta(Map map) async {
-    return new Consulta(
+    return await (new Consulta(
         map["documentPath"],
         map["dateAppointmentScheduling"],
         map["hourId"],
@@ -170,6 +170,6 @@ class ConsultaService {
         map["userId"],
         await new ShiftService().getShiftById(map["shiftId"], map["hourId"]),
         await new DentistService().getDentistById(map["dentistId"]),
-        await new AgreementService().getAgreementById(map["agreementId"]));
+        await new AgreementService().getAgreementById(map["agreementId"])));
   }
 }
