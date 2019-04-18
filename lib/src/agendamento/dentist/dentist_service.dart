@@ -1,34 +1,36 @@
 import 'dart:async';
 import 'dentist.dart';
-import 'dentist_constants.dart';
+import 'dentist_dao.dart';
 import 'dentistUI.dart';
-import '../../firebase/firestore.dart';
 
 class DentistService {
   static List<Dentist> _list;
   static Dentist _dentist;
-  static List<Map> _dentistWithFilter;
+  static List<Map> _dentistList;
+  static List<Map> _dentistListWithFilter;
+
+  void clearAllDentistList() {
+    _list.clear();
+    _dentistList.clear();
+    _dentistListWithFilter.clear();
+  }
+
+  Dentist get dentist => _dentist;
+  set dentist(Dentist dentist) => _dentist = dentist;
 
   Future<List<Dentist>> getAllDentistAcives() async {
-    if (_list != null) {
+    if ((_dentistList != null) && (_dentistList.length != 0)) {
       return _list;
     }
 
-    FireStoreApp fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
+    clearAllDentistList();
 
-    await fireStoreApp.ref
-      .where('state', '==', 'A')
-      .orderBy('name', 'asc')
-      .get().then((querySnapshot) {
-        int i = 0;
-        _list = new List<Dentist>(querySnapshot.size);
-        querySnapshot.forEach((doc) {
-          _list[i] = new Dentist(doc.id, doc.data()["name"], doc.data()["state"]);
-          i++;
-        });
-      }).then((onValue) {
-        fireStoreApp.FireStoreOffLine();
-      });
+    await (_dentistList = await new DentistDAO()
+        .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
+
+    _dentistList.forEach((dentist) {
+      _list.add(turnMapInConsulta(dentist));
+    });
 
     return _list;
   }
@@ -39,7 +41,7 @@ class DentistService {
     }
 
     List<DentistUI> _listDentistUI = new List<DentistUI>();
-    
+
     for (Dentist _detist in _list) {
       _listDentistUI.add(new DentistUI(_detist.id, _detist.name));
     }
@@ -56,16 +58,13 @@ class DentistService {
       if (_list[i].id == id) {
         return _list[i];
       }
-    };
+    }
+    ;
 
-     return null;
+    return null;
   }
 
-  Dentist get dentist => _dentist;
-  set dentist(Dentist dentist) => _dentist = dentist;
-
-  List<Map> getDentistWithFilterFromList(
-      String date, Map filter) {
+  List<Map> getDentistListWithFilterFromList(Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -79,6 +78,10 @@ class DentistService {
         _listDocumentSnapshotTemp.clear();
       }
     }
+
+    _listDocumentSnapshot = _dentistList;
+
+    _listDocumentSnapshotTemp.clear();
 
     if ((filter["name"] != null) && (filter["name"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
@@ -94,10 +97,16 @@ class DentistService {
 
     ListsApplyFilter();
 
-    _dentistWithFilter = _listDocumentSnapshot;
+    _dentistListWithFilter = _listDocumentSnapshot;
 
-    return _dentistWithFilter;
+    return _dentistListWithFilter;
   }
 
+  List<Map> getDentistListWithFilter() {
+    return _dentistListWithFilter;
+  }
 
+  Dentist turnMapInConsulta(Map map) {
+    return new Dentist(map["documentPath"], map["name"], map["state"]);
+  }
 }

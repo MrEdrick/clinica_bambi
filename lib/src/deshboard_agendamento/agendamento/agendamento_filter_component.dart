@@ -23,7 +23,6 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_l
 import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_edit_component.template.dart'
     as agendamento_edit;
 
-import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/shift/shift.dart';
@@ -298,7 +297,6 @@ class AgendamentoFilterComponent implements OnInit {
         });
 
         if (listDate.last == date) {
-          
           onLoad();
         }
       });

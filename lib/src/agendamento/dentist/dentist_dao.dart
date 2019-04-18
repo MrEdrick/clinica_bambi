@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'appointment_scheduling_constants.dart';
+import 'dentist_constants.dart';
 import '../../firebase/firestore.dart';
 
-class AppointmentSchedulingDAO {
-  AppointmentSchedulingDAO();
+class DentistDAO {
+  DentistDAO();
 
   Future<String> save(Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(DENTIST_COLLECTION);
 
     if (await _fireStoreApp.addItem(datas)) {
       _fireStoreApp.FireStoreOffLine();
@@ -21,7 +21,7 @@ class AppointmentSchedulingDAO {
 
   Future<String> update(String id, Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(DENTIST_COLLECTION);
 
     if (await _fireStoreApp.updateItem(id, datas)) {
       _fireStoreApp.FireStoreOffLine();
@@ -34,7 +34,7 @@ class AppointmentSchedulingDAO {
 
   Future<String> delete(String id) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(DENTIST_COLLECTION);
     if (await _fireStoreApp.deleteItem(id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
@@ -44,13 +44,14 @@ class AppointmentSchedulingDAO {
     }
   }
 
-  Future<List<Map>> getAllAppointmentSchedulingFilter(Map filter) async {
+  Future<List<Map>> getAllDentistFilter(Map filter, Map orderBy) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(DENTIST_COLLECTION);
 
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
+            .orderBy(orderBy)
             .get())
         .docs
         .forEach((doc) {

@@ -17,8 +17,10 @@ import '../../route_paths.dart' as paths;
 import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 
-import 'dentist_list_card_component.dart';
-import 'dentist_edit_component.dart';
+import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_list_card_component.template.dart'
+    as dentist_list;
+import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_component.template.dart'
+    as dentist_edit;
 
 @Component(
   selector: 'dentist_filter_component',
@@ -48,12 +50,15 @@ import 'dentist_edit_component.dart';
   ],
 )
 class DentistFilterComponent implements OnActivate, OnInit {
+  final ChangeDetectorRef _changeDetectorRef;
+  final ComponentLoader _loader;
   
+  ComponentRef componentRef;
   List<Dentist> _dentistList;
-  
+
   List<Dentist> get dentistList => _dentistList;
   set dentistList(List<Dentist> dentistLisat) => _dentistList = dentistList;
-  
+
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
@@ -64,10 +69,16 @@ class DentistFilterComponent implements OnActivate, OnInit {
   String dentistId;
 
   final List<Date> listDates = new List<Date>();
- 
-  int totalResultFilter = 0;
 
-  DentistFilterComponent(this._router);
+  int totalResultFilter = 0;
+  
+  @ViewChild('containerListDentist', read: ViewContainerRef)
+  ViewContainerRef materialContainerList;
+
+  @ViewChild('containerEditDentist', read: ViewContainerRef)
+  ViewContainerRef materialContainerAdd;
+
+  DentistFilterComponent(this._router, this._changeDetectorRef, this._loader);
 
   @override
   void onActivate(_, RouterState current) async {
@@ -82,29 +93,42 @@ class DentistFilterComponent implements OnActivate, OnInit {
     }
   }
 
-  void ngOnInit() { 
-    if (new UserService().user == null)
-      return;
-      
+  void ngOnInit() {
+    if (new UserService().user == null) return;
   }
 
-  void onFilter() {   
-    querySelector('#dentist-total-result-filter-text').setAttribute('value', '0');
-    querySelector('#dentisti-total-result-filter-text').setInnerHtml('0');
+  void onFilter() async {
+    componentRef.destroy();
 
-    listDates.clear();
+    new DentistService().clearAllDentistList();
+
+    new DentistService().getAllDentistAcives().then((onValue) {
+      new DentistService()
+          .getDentistListWithFilterFromList({"name": dentistName});
+      onLoad();
+    });
   }
 
-  void onAdd() {
+  void onLoad() {
+    ComponentFactory<dentist_list.DentistListCardComponent> dentistList =
+        dentist_list.DentistListCardComponentNgFactory;
 
+    ComponentRef dentistListComponent =
+        _loader.loadNextToLocation(dentistList, materialContainerList);
+
+    dentistListComponent.instance.componentRef = dentistListComponent;
+    componentRef = dentistListComponent;
+
+    _changeDetectorRef.markForCheck();
   }
+
+  void onAdd() {}
 
   void onClear() {
-
     dentistName = '';
     dentistId = '';
 
-    //querySelector('#total-result-filter-text').setAttribute('value', '0');
-    //querySelector('#total-result-filter-text').setInnerHtml('0');
+    querySelector('#total-result-filter-text').setAttribute('value', '0');
+    querySelector('#total-result-filter-text').setInnerHtml('0');
   }
 }

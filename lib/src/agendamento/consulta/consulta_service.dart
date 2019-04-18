@@ -10,7 +10,6 @@ import '../../agendamento/dentist/dentist_service.dart';
 
 class ConsultaService {
   static Consulta _consulta;
-  static List<Consulta> _list;
   static Map _appointmentSchedulingById = new Map();
   static Map _appointmentSchedulingByDate = new Map();
   static Map _appointmentSchedulingByDateWithFilter = new Map();
@@ -24,10 +23,10 @@ class ConsultaService {
     _appointmentSchedulingById.clear();
   }
 
-  Future<List<Consulta>> getAllAppointmentSchedulingByDate(Date date) async {
+  Future<Map> getAllAppointmentSchedulingByDate(Date date) async {
     if ((_appointmentSchedulingByDate != null) &&
         (_appointmentSchedulingByDate.length != 0)) {
-      return _list;
+      return _appointmentSchedulingByDate;
     }
 
     await (_appointmentSchedulingByDate[date.toString()] =
@@ -42,7 +41,7 @@ class ConsultaService {
           appointmentScheduling;
     });
 
-    return _list;
+    return _appointmentSchedulingByDate;
   }
 
   Future<List<Map>> getAllAppointmentSchedulingByDateMap(Date date) async {
