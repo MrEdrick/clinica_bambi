@@ -50,9 +50,10 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_comp
   ],
 )
 class DentistFilterComponent implements OnActivate, OnInit {
+  final DentistService _dentistService = new DentistService();
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
-  
+
   ComponentRef componentRef;
   List<Dentist> _dentistList;
 
@@ -71,7 +72,7 @@ class DentistFilterComponent implements OnActivate, OnInit {
   final List<Date> listDates = new List<Date>();
 
   int totalResultFilter = 0;
-  
+
   @ViewChild('containerListDentist', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 
@@ -100,10 +101,10 @@ class DentistFilterComponent implements OnActivate, OnInit {
   void onFilter() async {
     componentRef.destroy();
 
-    new DentistService().clearAllDentistList();
+    _dentistService.clearAllDentistList();
 
-    new DentistService().getAllDentistAcives().then((onValue) {
-      new DentistService()
+    _dentistService.getAllDentistAcives().then((onValue) {
+      _dentistService
           .getDentistListWithFilterFromList({"name": dentistName});
       onLoad();
     });
@@ -122,7 +123,15 @@ class DentistFilterComponent implements OnActivate, OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  void onAdd() {}
+  void onAdd() {
+    _dentistService.dentist = null;
+    ComponentFactory<dentist_edit.DentistEditComponent>
+        dentistEdit = dentist_edit.DentistEditComponentNgFactory;
+
+    ComponentRef dentistEditComponent =
+        _loader.loadNextToLocation(dentistEdit, materialContainerAdd);
+    dentistEditComponent.instance.componentRef = dentistEditComponent;
+  }
 
   void onClear() {
     dentistName = '';
