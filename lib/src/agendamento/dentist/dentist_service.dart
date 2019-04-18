@@ -4,10 +4,10 @@ import 'dentist_dao.dart';
 import 'dentistUI.dart';
 
 class DentistService {
-  static List<Dentist> _list;
+  static List<Dentist> _list = new List<Dentist>();
   static Dentist _dentist;
-  static List<Map> _dentistList;
-  static List<Map> _dentistListWithFilter;
+  static List<Map> _dentistList = new List<Map>();
+  static List<Map> _dentistListWithFilter = new List<Map>();
 
   void clearAllDentistList() {
     _list.clear();
@@ -24,10 +24,10 @@ class DentistService {
     }
 
     clearAllDentistList();
-
+    print('t0');
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-
+    print('t1');
     _dentistList.forEach((dentist) {
       _list.add(turnMapInConsulta(dentist));
     });

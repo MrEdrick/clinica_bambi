@@ -51,7 +51,7 @@ class DentistDAO {
 
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
-            .orderBy(orderBy)
+            .orderBy(orderBy.keys.first, orderBy.values.first)
             .get())
         .docs
         .forEach((doc) {
