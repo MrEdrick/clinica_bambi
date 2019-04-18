@@ -3,7 +3,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 
 import '../../agendamento/dentist/dentist_service.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_row_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_row_component.template.dart'
     as dentist_row;
 
 import '../../agendamento/user/user_service.dart';
@@ -42,9 +42,9 @@ class DentistListComponent implements OnInit {
 
     List<Map> _list = new DentistService().getDentistListWithFilter();
     _list.forEach((dentist) {
-      ComponentFactory<dentist_row.DentistCardComponent>
+      ComponentFactory<dentist_row.DentistRowComponent>
           dentistRow =
-          dentist_row.DentistCardComponentNgFactory;
+          dentist_row.DentistRowComponentNgFactory;
 
       ComponentRef dentistListComponent =
         _loader.loadNextToLocation(dentistRow, materialContainerRow);
