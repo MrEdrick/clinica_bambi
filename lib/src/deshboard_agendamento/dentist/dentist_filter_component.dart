@@ -89,11 +89,13 @@ class DentistFilterComponent implements OnActivate, OnInit {
     }
   }
 
-  void ngOnInit() {
+  void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    await onFilter();
   }
 
-  void onFilter() async {
+  Future<void> onFilter() async {
     componentRef.destroy();
 
     _dentistService.clearAllDentistList();
