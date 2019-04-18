@@ -6,11 +6,11 @@ import '../../agendamento/dentist/dentist_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_row_component.template.dart'
     as dentist_row;
 
+import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
     selector: 'dentist_list_component',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
       'dentist_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -19,16 +19,18 @@ import '../../agendamento/user/user_service.dart';
     directives: const [
       coreDirectives,
       formDirectives,
-      materialInputDirectives,
+      AutoFocusDirective,
+      materialInputDirectives
     ])
 class DentistListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
-
+  final List<String> listDentistId = new List<String>();
+  
   @ViewChild('containerRowDentist', read: ViewContainerRef)
   ViewContainerRef materialContainerRow;
 
-  DentistListComponent(this._changeDetectorRef, this._loader);
+  DentistListComponent(this._loader, this._changeDetectorRef);
 
   int totalResultByDay;
 
@@ -40,6 +42,7 @@ class DentistListComponent implements OnInit {
     if (new UserService().user == null) 
       return;
 
+
     List<Map> _list = new DentistService().getDentistListWithFilter();
     _list.forEach((dentist) {
       ComponentFactory<dentist_row.DentistRowComponent>
@@ -49,11 +52,10 @@ class DentistListComponent implements OnInit {
       ComponentRef dentistListComponent =
         _loader.loadNextToLocation(dentistRow, materialContainerRow);
 
-      dentistListComponent.instance.appointmentSchedulerId = dentist["documentPath"];
+      dentistListComponent.instance.dentistId = dentist["documentPath"];
       dentistListComponent.instance.componentRef = dentistListComponent;
     });
     
     _changeDetectorRef.markForCheck();
   }
-
 }
