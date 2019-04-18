@@ -2,17 +2,11 @@
 @import 'package:angular_components/css/material/material';
 
 :host {
-  width: 100%;
-  height: 100%;
-}
-
-.head-card {
   position: relative;
-  height: 120px;
-  top: 0px;
+  width: 100%;
 }
 
-.body-card {
+.body-row {
   position: relative;
   top: 0px;
 }
@@ -34,10 +28,6 @@
 
 label {
   margin-right: 5px;
-}
-
-#data-consulta, #nome-dentista {
-  display: block;
 }
 
 .label-tag {

@@ -10,6 +10,7 @@ import '../../agendamento/user/user_service.dart';
 
 @Component(
     selector: 'dentist_list_component',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
       'dentist_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'

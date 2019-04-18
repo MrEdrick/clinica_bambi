@@ -27,6 +27,7 @@ import '../../agendamento/user/user_service.dart';
 
 @Component(
     selector: 'dentist-edit-app',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
       'dentist_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
