@@ -39,7 +39,7 @@ class DentistService {
   }
 
   Future<List<DentistUI>> getAllDentistUIAcives() async {
-    if ((_dentistList == null) && (_dentistList.length == 0)) {
+    if ((_dentistList == null) || (_dentistList.length == 0)) {
       await getAllDentistAcives();
     }
 
@@ -54,6 +54,10 @@ class DentistService {
 
   Future<Dentist> getDentistById(String id) async {
     Map doc;
+
+    if ((_dentistList == null) || (_dentistList.length == 0)) {
+      await getAllDentistAcives();
+    }
 
     doc = _dentistListById[id];
 
