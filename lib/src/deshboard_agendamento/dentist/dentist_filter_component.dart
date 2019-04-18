@@ -8,8 +8,6 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import '../../agendamento/user/user_service.dart';
 import '../../route_paths.dart' as paths;
@@ -17,7 +15,7 @@ import '../../route_paths.dart' as paths;
 import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_list_card_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_list_component.template.dart'
     as dentist_list;
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_component.template.dart'
     as dentist_edit;
@@ -29,13 +27,10 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_comp
   directives: const [
     coreDirectives,
     materialInputDirectives,
-    NgFor,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialToggleComponent,
-    MaterialDropdownSelectComponent,
-    MultiDropdownSelectValueAccessor,
     MaterialFabComponent,
   ],
   providers: const [
@@ -111,8 +106,8 @@ class DentistFilterComponent implements OnActivate, OnInit {
   }
 
   void onLoad() {
-    ComponentFactory<dentist_list.DentistListCardComponent> dentistList =
-        dentist_list.DentistListCardComponentNgFactory;
+    ComponentFactory<dentist_list.DentistListComponent> dentistList =
+        dentist_list.DentistListComponentNgFactory;
 
     ComponentRef dentistListComponent =
         _loader.loadNextToLocation(dentistList, materialContainerList);
