@@ -1,11 +1,3 @@
-<div class="list-day">
-    <div class="total-result-by-day">
-        <div    class="container-card" 
-                id="container-card"
-                *ngFor="let procedure of listProcedure; let i=index; let last = last"
-                style="margin: 5px">
-            <dentist-card-app id="{{procedure.id}}" [procedure]="procedure">
-            </dentist-card-app>
-        </div>
-    </div>
+<div id="list-procedure">
+    <div #materialContainerRow></div>
 </div>
