@@ -58,6 +58,11 @@ class ConsultaService {
     return _appointmentSchedulingById[id];
   }
 
+  int getAppointmentSchedulingLentgh(String id) {
+    return _appointmentSchedulingById.length;
+  }
+
+
   List<Map> getAppointmentSchedulingWithFilterFromList(
       String date, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();

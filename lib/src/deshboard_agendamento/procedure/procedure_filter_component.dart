@@ -58,8 +58,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   String description;
 
-  int totalResultFilter = 0;
-
   @ViewChild('containerListProcedure', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 
