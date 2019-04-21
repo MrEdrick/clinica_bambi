@@ -10,15 +10,15 @@ class DentistService {
   static Map _dentistListById = new Map();
   static List<Map> _dentistListWithFilter = new List<Map>();
 
+  Dentist get dentist => _dentist;
+  set dentist(Dentist dentist) => _dentist = dentist;
+
   void clearAllDentistList() {
     _list.clear();
     _dentistList.clear();
     _dentistListById.clear();
     _dentistListWithFilter.clear();
   }
-
-  Dentist get dentist => _dentist;
-  set dentist(Dentist dentist) => _dentist = dentist;
 
   Future<List<Dentist>> getAllDentistAcives() async {
     if ((_dentistList != null) && (_dentistList.length != 0)) {

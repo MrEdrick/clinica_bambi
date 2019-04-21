@@ -11,7 +11,14 @@ import 'package:angular_components/material_button/material_fab.dart';
 
 import '../../agendamento/user/user_service.dart';
 import '../../route_paths.dart' as paths;
+import '../../agendamento/procedure/procedure_service.dart';
 import '../../agendamento/procedure/procedure.dart';
+
+import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_list_component.template.dart'
+    as procedure_list;
+import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_edit_component.template.dart'
+    as procedure_edit;
+
 
 @Component(
   selector: 'procedure_filter_component',
@@ -38,11 +45,11 @@ import '../../agendamento/procedure/procedure.dart';
   ],
 )
 class ProcedureFilterComponent implements OnActivate, OnInit {  
-  List<Procedure> _procedureList;
-  
-  List<Procedure> get procedureList => _procedureList;
-  set procedureList(List<Procedure> procedureLisat) => _procedureList = procedureList;
-
+  ProcedureService _procedureService = new ProcedureService();
+  ComponentRef componentRef;
+  final ChangeDetectorRef _changeDetectorRef;
+  final ComponentLoader _loader;
+ 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
@@ -53,7 +60,13 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   int totalResultFilter = 0;
 
-  ProcedureFilterComponent(this._router);
+  ProcedureFilterComponent(this._router, this._loader, this._changeDetectorRef);
+
+  void ngOnInit() async {
+    if (new UserService().user == null) return;
+
+    await onFilter();
+  }
 
   @override
   void onActivate(_, RouterState current) async {
@@ -68,15 +81,39 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
     }
   }
 
-  void ngOnInit() { 
-    if (new UserService().user == null)
-      return;
+  Future<void> onFilter() async {
+    componentRef?.destroy();
+
+    _procedureService.clearAllProcedureList();
+
+    _procedureService.getAllProcedureAcives().then((onValue) {
+      _procedureService.getProcedureListWithFilterFromList({"description": description});
+
+      onLoad();
+    });
   }
 
-  void onFilter() {   
+  void onLoad() {
+    ComponentFactory<procedure_list.ProcedureListComponent> dentistList =
+        procedure_list.ProcedureListComponentNgFactory;
+
+    ComponentRef procedureListComponent =
+        _loader.loadNextToLocation(procedureList, materialContainerList);
+
+    procedureListComponent.instance.componentRef = procedureListComponent;
+    componentRef = procedureListComponent;
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onAdd() {
+    _dentistService.dentist = null;
+    ComponentFactory<dentist_edit.DentistEditComponent> dentistEdit =
+        dentist_edit.DentistEditComponentNgFactory;
+
+    ComponentRef dentistEditComponent =
+        _loader.loadNextToLocation(dentistEdit, materialContainerAdd);
+    dentistEditComponent.instance.componentRef = dentistEditComponent;
   }
 
   void onClear() {

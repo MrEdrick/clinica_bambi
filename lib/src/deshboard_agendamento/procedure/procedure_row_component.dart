@@ -13,6 +13,7 @@ import '../../agendamento/procedure/procedure_service.dart';
       'procedure_row_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'procedure_row_component.html',
     directives: const [
       coreDirectives,

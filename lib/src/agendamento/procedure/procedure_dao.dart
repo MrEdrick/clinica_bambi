@@ -56,4 +56,25 @@ class ProcedureDAO {
 
     return _procedure;
   }
+
+  Future<List<Map>> getAllProcedureFilter(Map filter, Map orderBy) async {
+    List<Map> _list = new List<Map>();
+    FireStoreApp fireStoreApp =
+        new FireStoreApp(PROCEDURE_COLLECTION);
+
+    await (await fireStoreApp.ref
+            .where(filter.keys.first, '==', filter.values.first)
+            .orderBy(orderBy.keys.first, orderBy.values.first)
+            .get())
+        .docs
+        .forEach((doc) {
+      Map map = new Map.from(doc.data());
+      map['documentPath'] = doc.id;
+      _list.add(map);
+    });
+
+    fireStoreApp.FireStoreOffLine();
+
+    return _list;
+  }
 }

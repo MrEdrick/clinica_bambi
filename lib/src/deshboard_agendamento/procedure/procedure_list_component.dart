@@ -13,10 +13,6 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'procedure_card_component.dart';
 
 import '../../agendamento/procedure/procedure.dart';
-import '../../agendamento/procedure/procedure_constants.dart';
-
-import '../../firebase/firestore.dart';
-import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
@@ -25,6 +21,7 @@ import '../../agendamento/user/user_service.dart';
       'procedure_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'procedure_list_component.html',
     directives: const [
       coreDirectives,
