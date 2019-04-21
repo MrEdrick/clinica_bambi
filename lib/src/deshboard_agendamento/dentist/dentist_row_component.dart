@@ -37,6 +37,7 @@ class DentistRowComponent implements OnInit {
 
   void ngOnInit() async {
     dentist = await dentistService.getDentistById(dentistId);
+    _changeDetectorRef.markForCheck();
   }
 
   void onEdit() {

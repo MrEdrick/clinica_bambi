@@ -93,6 +93,9 @@ i {
   color: #616161 !important;
 }
 
+#dentist {
+  width: 320px;
+}
 
 #bt-filter {
   position: relative;
@@ -108,6 +111,16 @@ i {
   margin-top: 0.50%;
   font-weight: 500;
   color: #616161;
+  float: right;
+}
+
+material-fab {
+  position: fixed;
+  color: #ffffff;
+  background: #00B0FF;
+  right: 5px;
+  bottom: 10px;
+  z-index: 999;
 }
 
 @media screen and (min-width: 769px) {
