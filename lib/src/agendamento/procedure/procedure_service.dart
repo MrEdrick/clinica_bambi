@@ -5,4 +5,9 @@ class ProcedureService {
 
   Procedure get procedure => _procedure;
   set procedure(Procedure procedure) => _procedure = procedure;
+
+  Future<Procedure> _turnInProcedure(Map map) async {
+    return new Procedure(
+        map["id"], map["description"], map["state"]);
+  }
 }

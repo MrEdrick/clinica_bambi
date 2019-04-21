@@ -15,8 +15,6 @@ import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 import '../../route_paths.dart' as paths;
 import '../../agendamento/procedure/procedure.dart';
-import 'procedure_list_card_component.dart';
-import 'procedure_edit_component.dart';
 
 @Component(
   selector: 'procedure_filter_component',
@@ -31,8 +29,6 @@ import 'procedure_edit_component.dart';
     MaterialIconComponent,
     MaterialToggleComponent,
     MaterialFabComponent,
-    ProcedureListCardComponent,
-    ProcedureEditComponent,
   ],
   providers: const [
     materialProviders,
