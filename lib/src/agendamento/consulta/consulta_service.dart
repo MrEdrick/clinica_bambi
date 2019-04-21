@@ -58,7 +58,7 @@ class ConsultaService {
     return _appointmentSchedulingById[id];
   }
 
-  int getAppointmentSchedulingLentgh(String id) {
+  int getAppointmentSchedulingLength() {
     return _appointmentSchedulingById.length;
   }
 
