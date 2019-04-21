@@ -58,8 +58,8 @@ class ConsultaService {
     return _appointmentSchedulingById[id];
   }
 
-  int getAppointmentSchedulingLength() {
-    return _appointmentSchedulingById.length;
+  Map getAppointmentScheduling() {
+    return _appointmentSchedulingById;
   }
 
 
