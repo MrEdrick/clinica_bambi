@@ -25,19 +25,20 @@ import 'dentist_edit_component.dart';
     ])
 
 class DentistRowComponent {
-  Dentist _dentist;
-  DentistService dentistService;
+  DentistService _dentistService = new DentistService();
 
   bool showEditAgendamentoEditApp = false;
 
-  Dentist get dentist => _dentist;
   @Input()
-  set dentist(Dentist dentist) => _dentist = dentist; 
+  String dentistId;
+
+  @Input()
+  ComponentRef componentRef;
 
   DentistRowComponent();
 
   void onEdit() {
-    dentistService = new DentistService();
-    dentistService.dentist = dentist;
+    //dentistService = new DentistService();
+    //dentistService.dentist = dentist;
   }
 }
