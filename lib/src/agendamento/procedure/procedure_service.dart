@@ -97,7 +97,7 @@ class ProcedureService {
   }
 
 
-  Future<Procedure> turnMapInProcedure(Map map) async {
+  Procedure turnMapInProcedure(Map map) {
     return new Procedure(
         map["id"], map["description"], map["state"]);
   }
