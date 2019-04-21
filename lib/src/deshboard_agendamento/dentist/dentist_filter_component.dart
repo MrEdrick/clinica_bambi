@@ -66,8 +66,6 @@ class DentistFilterComponent implements OnActivate, OnInit {
 
   final List<Date> listDates = new List<Date>();
 
-  int totalResultFilter = 0;
-
   @ViewChild('containerListDentist', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 

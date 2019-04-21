@@ -60,6 +60,12 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   int totalResultFilter = 0;
 
+  @ViewChild('containerListProcedure', read: ViewContainerRef)
+  ViewContainerRef materialContainerList;
+
+  @ViewChild('containerEditProcedure', read: ViewContainerRef)
+  ViewContainerRef materialContainerAdd;
+
   ProcedureFilterComponent(this._router, this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
@@ -94,7 +100,7 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   }
 
   void onLoad() {
-    ComponentFactory<procedure_list.ProcedureListComponent> dentistList =
+    ComponentFactory<procedure_list.ProcedureListComponent> procedureList =
         procedure_list.ProcedureListComponentNgFactory;
 
     ComponentRef procedureListComponent =
@@ -107,13 +113,13 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   }
 
   void onAdd() {
-    _dentistService.dentist = null;
-    ComponentFactory<dentist_edit.DentistEditComponent> dentistEdit =
-        dentist_edit.DentistEditComponentNgFactory;
+    _procedureService.procedure = null;
+    ComponentFactory<procedure_edit.ProcedureEditComponent> procedureEdit =
+        procedure_edit.ProcedureEditComponentNgFactory;
 
-    ComponentRef dentistEditComponent =
-        _loader.loadNextToLocation(dentistEdit, materialContainerAdd);
-    dentistEditComponent.instance.componentRef = dentistEditComponent;
+    ComponentRef procedureEditComponent =
+        _loader.loadNextToLocation(procedureEdit, materialContainerAdd);
+    procedureEditComponent.instance.componentRef = procedureEditComponent;
   }
 
   void onClear() {
