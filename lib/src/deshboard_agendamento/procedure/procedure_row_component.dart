@@ -29,7 +29,7 @@ class ProcedureRowComponent implements OnInit {
   ProcedureService procedureService = new ProcedureService();
 
   @Input()
-  String dentistId;
+  String procedureId;
 
   @Input()
   ComponentRef componentRef;
@@ -37,7 +37,7 @@ class ProcedureRowComponent implements OnInit {
   ProcedureRowComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
-    //procedure = await procedureService.getDentistById(dentistId);
+    procedure = await procedureService.getProcedureById(procedureId);
     _changeDetectorRef.markForCheck();
   }
 
