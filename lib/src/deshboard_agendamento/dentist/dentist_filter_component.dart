@@ -45,7 +45,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_comp
   ],
 )
 class DentistFilterComponent implements OnActivate, OnInit {
-  final DentistService _dentistService = new DentistService();
+  final DentistService dentistService = new DentistService();
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
 
@@ -94,10 +94,10 @@ class DentistFilterComponent implements OnActivate, OnInit {
   Future<void> onFilter() async {
     componentRef?.destroy();
 
-    _dentistService.clearAllDentistList();
+    dentistService.clearAllDentistList();
 
-    _dentistService.getAllDentistAcives().then((onValue) {
-      _dentistService.getDentistListWithFilterFromList({"name": dentistName});
+    dentistService.getAllDentistAcives().then((onValue) {
+      dentistService.getDentistListWithFilterFromList({"name": dentistName});
 
       onLoad();
     });
@@ -117,7 +117,7 @@ class DentistFilterComponent implements OnActivate, OnInit {
   }
 
   void onAdd() {
-    _dentistService.dentist = null;
+    dentistService.dentist = null;
     ComponentFactory<dentist_edit.DentistEditComponent> dentistEdit =
         dentist_edit.DentistEditComponentNgFactory;
 

@@ -34,10 +34,6 @@ class DentistListComponent implements OnInit {
 
   DentistListComponent(this._loader, this._changeDetectorRef);
 
-  int totalResultByDay;
-
-  bool showDeteleCertification = false;
-
   void ngOnInit() {
     if (new UserService().user == null) 
       return;
