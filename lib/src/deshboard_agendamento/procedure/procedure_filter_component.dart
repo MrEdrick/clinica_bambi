@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
@@ -23,7 +22,6 @@ import '../../agendamento/procedure/procedure.dart';
   directives: const [
     coreDirectives,
     materialInputDirectives,
-    NgFor,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
@@ -41,19 +39,12 @@ import '../../agendamento/procedure/procedure.dart';
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class ProcedureFilterComponent implements OnActivate, OnInit {
-  
+class ProcedureFilterComponent implements OnActivate, OnInit {  
   List<Procedure> _procedureList;
   
   List<Procedure> get procedureList => _procedureList;
   set procedureList(List<Procedure> procedureLisat) => _procedureList = procedureList;
 
-  User _user;
-  
-  User get user => _user;
-  @Input()
-  set user(User user) => _user = user;
-  
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
@@ -62,8 +53,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   String description;
 
-  final List<Date> listDates = new List<Date>();
- 
   int totalResultFilter = 0;
 
 
@@ -73,10 +62,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   void onActivate(_, RouterState current) async {
     try {
       if (new UserService().user != null) {
-        user = new User(fb.auth().currentUser.uid,
-                              fb.auth().currentUser.displayName, 
-                              fb.auth().currentUser.email);
-
         onFilter();
       } else {
         _router.navigate(paths.login.toUrl());
@@ -92,16 +77,9 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   }
 
   void onFilter() {   
-    querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
-    querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
-
-    listDates.clear();
-
   }
 
   void onAdd() {
-    querySelector('#editProcedure').click();
-    querySelector('#procedure-edit-app').style.display = 'block';
   }
 
   void onClear() {
