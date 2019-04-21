@@ -8,9 +8,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import 'package:firebase/firebase.dart' as fb;
 
-import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 import '../../route_paths.dart' as paths;
 import '../../agendamento/procedure/procedure.dart';
@@ -54,7 +52,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   String description;
 
   int totalResultFilter = 0;
-
 
   ProcedureFilterComponent(this._router);
 
