@@ -49,12 +49,12 @@ class DentistListComponent implements OnInit {
       ComponentFactory<dentist_row.DentistRowComponent>
           dentistRow =
           dentist_row.DentistRowComponentNgFactory;
-
-      ComponentRef dentistListComponent =
+      
+      ComponentRef dentistRowComponent =
         _loader.loadNextToLocation(dentistRow, materialContainerRow);
-      print(dentist["documentPath"]);
-      dentistListComponent.instance.dentistId = dentist["documentPath"];
-      dentistListComponent.instance.componentRef = dentistListComponent;
+      
+      dentistRowComponent.instance.dentistId = dentist["documentPath"];
+      dentistRowComponent.instance.componentRef = dentistRowComponent;
     });
     
     _changeDetectorRef.markForCheck();

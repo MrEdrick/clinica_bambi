@@ -4,7 +4,6 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
 import '../../agendamento/dentist/dentist_service.dart';
-import 'dentist_edit_component.dart';
 
 @Component(
     selector: 'dentist_row_component',
@@ -18,7 +17,6 @@ import 'dentist_edit_component.dart';
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      DentistEditComponent,
       ModalComponent,
     ])
 
