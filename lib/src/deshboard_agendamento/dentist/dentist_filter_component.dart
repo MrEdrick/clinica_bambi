@@ -79,9 +79,7 @@ class DentistFilterComponent implements OnActivate, OnInit {
   @override
   void onActivate(_, RouterState current) async {
     try {
-      if (new UserService().user != null) {
-        onFilter();
-      } else {
+      if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
       }
     } catch (e) {
@@ -96,13 +94,13 @@ class DentistFilterComponent implements OnActivate, OnInit {
   }
 
   Future<void> onFilter() async {
-    componentRef.destroy();
+    componentRef?.destroy();
 
     _dentistService.clearAllDentistList();
 
     _dentistService.getAllDentistAcives().then((onValue) {
-      _dentistService
-          .getDentistListWithFilterFromList({"name": dentistName});
+      _dentistService.getDentistListWithFilterFromList({"name": dentistName});
+
       onLoad();
     });
   }
@@ -122,8 +120,8 @@ class DentistFilterComponent implements OnActivate, OnInit {
 
   void onAdd() {
     _dentistService.dentist = null;
-    ComponentFactory<dentist_edit.DentistEditComponent>
-        dentistEdit = dentist_edit.DentistEditComponentNgFactory;
+    ComponentFactory<dentist_edit.DentistEditComponent> dentistEdit =
+        dentist_edit.DentistEditComponentNgFactory;
 
     ComponentRef dentistEditComponent =
         _loader.loadNextToLocation(dentistEdit, materialContainerAdd);

@@ -39,7 +39,5 @@ class DentistRowComponent {
   void onEdit() {
     dentistService = new DentistService();
     dentistService.dentist = dentist;
-    querySelector('#editDentist').click();
-    querySelector('#dentist-edit-app').style.display = 'block';
   }
 }

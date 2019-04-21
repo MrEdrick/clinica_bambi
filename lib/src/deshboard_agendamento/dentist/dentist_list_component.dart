@@ -27,6 +27,9 @@ class DentistListComponent implements OnInit {
   final ComponentLoader _loader;
   final List<String> listDentistId = new List<String>();
   
+  @Input()
+  ComponentRef componentRef;
+
   @ViewChild('containerRowDentist', read: ViewContainerRef)
   ViewContainerRef materialContainerRow;
 
@@ -36,14 +39,12 @@ class DentistListComponent implements OnInit {
 
   bool showDeteleCertification = false;
 
-  int deleteIndex = -1;
-
   void ngOnInit() {
     if (new UserService().user == null) 
       return;
-
-
+    
     List<Map> _list = new DentistService().getDentistListWithFilter();
+    
     _list.forEach((dentist) {
       ComponentFactory<dentist_row.DentistRowComponent>
           dentistRow =

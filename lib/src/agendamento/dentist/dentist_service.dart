@@ -26,15 +26,15 @@ class DentistService {
     }
 
     clearAllDentistList();
-
+    
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-
+    
     _dentistList.forEach((dentist) {
       _dentistListById[dentist["documentPath"]] = dentist;
       _list.add(turnMapInDentist(dentist));
     });
-
+    
     return _list;
   }
 
@@ -104,7 +104,7 @@ class DentistService {
     ListsApplyFilter();
 
     _dentistListWithFilter = _listDocumentSnapshot;
-
+    
     return _dentistListWithFilter;
   }
 
