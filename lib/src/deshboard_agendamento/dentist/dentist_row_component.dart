@@ -25,7 +25,7 @@ import 'dentist_edit_component.dart';
     ])
 
 class DentistRowComponent {
-  DentistService _dentistService = new DentistService();
+  DentistService dentistService = new DentistService();
 
   bool showEditAgendamentoEditApp = false;
 
