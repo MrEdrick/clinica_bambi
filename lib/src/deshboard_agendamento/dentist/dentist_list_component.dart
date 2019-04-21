@@ -52,7 +52,7 @@ class DentistListComponent implements OnInit {
 
       ComponentRef dentistListComponent =
         _loader.loadNextToLocation(dentistRow, materialContainerRow);
-
+      print(dentist["documentPath"]);
       dentistListComponent.instance.dentistId = dentist["documentPath"];
       dentistListComponent.instance.componentRef = dentistListComponent;
     });
