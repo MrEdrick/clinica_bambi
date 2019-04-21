@@ -6,7 +6,6 @@ import '../../agendamento/dentist/dentist_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_row_component.template.dart'
     as dentist_row;
 
-import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/user/user_service.dart';
 
 @Component(
@@ -46,6 +45,7 @@ class DentistListComponent implements OnInit {
     List<Map> _list = new DentistService().getDentistListWithFilter();
     
     _list.forEach((dentist) {
+      
       ComponentFactory<dentist_row.DentistRowComponent>
           dentistRow =
           dentist_row.DentistRowComponentNgFactory;
@@ -55,6 +55,7 @@ class DentistListComponent implements OnInit {
       
       dentistRowComponent.instance.dentistId = dentist["documentPath"];
       dentistRowComponent.instance.componentRef = dentistRowComponent;
+      
     });
     
     _changeDetectorRef.markForCheck();

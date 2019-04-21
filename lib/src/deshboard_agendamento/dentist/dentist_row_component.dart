@@ -2,7 +2,9 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
+import 'package:angular_components/material_button/material_button.dart';
 
+import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 
 @Component(
@@ -18,12 +20,12 @@ import '../../agendamento/dentist/dentist_service.dart';
       AutoFocusDirective,
       materialInputDirectives,
       ModalComponent,
+      MaterialButtonComponent,
     ])
-
-class DentistRowComponent {
+class DentistRowComponent implements OnInit {
+  final ChangeDetectorRef _changeDetectorRef;
+  Dentist dentist;
   DentistService dentistService = new DentistService();
-
-  bool showEditAgendamentoEditApp = false;
 
   @Input()
   String dentistId;
@@ -31,7 +33,11 @@ class DentistRowComponent {
   @Input()
   ComponentRef componentRef;
 
-  DentistRowComponent();
+  DentistRowComponent(this._changeDetectorRef);
+
+  void ngOnInit() async {
+    dentist = await dentistService.getDentistById(dentistId);
+  }
 
   void onEdit() {
     //dentistService = new DentistService();
