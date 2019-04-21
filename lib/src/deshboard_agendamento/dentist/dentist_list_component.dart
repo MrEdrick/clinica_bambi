@@ -29,7 +29,7 @@ class DentistListComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  @ViewChild('containerRowDentist', read: ViewContainerRef)
+  @ViewChild('materialContainerRow', read: ViewContainerRef)
   ViewContainerRef materialContainerRow;
 
   DentistListComponent(this._loader, this._changeDetectorRef);
@@ -55,7 +55,7 @@ class DentistListComponent implements OnInit {
       
       dentistRowComponent.instance.dentistId = dentist["documentPath"];
       dentistRowComponent.instance.componentRef = dentistRowComponent;
-      
+           
     });
     
     _changeDetectorRef.markForCheck();
