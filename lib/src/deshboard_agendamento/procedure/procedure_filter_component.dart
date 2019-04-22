@@ -12,13 +12,11 @@ import 'package:angular_components/material_button/material_fab.dart';
 import '../../agendamento/user/user_service.dart';
 import '../../route_paths.dart' as paths;
 import '../../agendamento/procedure/procedure_service.dart';
-import '../../agendamento/procedure/procedure.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_list_component.template.dart'
     as procedure_list;
 import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_edit_component.template.dart'
     as procedure_edit;
-
 
 @Component(
   selector: 'procedure_filter_component',
@@ -50,10 +48,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
  
-  bool useItemRenderer = false;
-  bool useOptionGroup = false;
-  bool overlay = true;
-
   final Router _router;
 
   String description;
