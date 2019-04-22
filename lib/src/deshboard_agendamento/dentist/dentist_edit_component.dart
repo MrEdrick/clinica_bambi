@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -9,9 +8,6 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
-import 'package:angular_components/material_datepicker/date_range_input.dart';
-import 'package:angular_components/material_datepicker/material_datepicker.dart';
-import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
@@ -41,8 +37,6 @@ import '../../agendamento/user/user_service.dart';
       MaterialButtonComponent,
       MaterialInputComponent,
       materialInputDirectives,
-      MaterialDatepickerComponent,
-      DateRangeInputComponent,
       MaterialDropdownSelectComponent,
       DropdownSelectValueAccessor,
       MaterialDialogComponent,
@@ -72,8 +66,6 @@ class DentistEditComponent implements OnInit {
 
   String name = '';
 
-  int maxLength = 14;
-
   Map<String, dynamic> datas;
 
   void onEdit() {
@@ -97,8 +89,6 @@ class DentistEditComponent implements OnInit {
 
     name = '';
     state = true;
-
-    querySelector('#dentist-edit-app').style.display = 'none';
   }
 
   bool asserts() {
