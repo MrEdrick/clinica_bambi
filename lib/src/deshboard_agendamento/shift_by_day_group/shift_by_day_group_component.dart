@@ -17,13 +17,13 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift/shift_checkbox_comp
     as shift_checkbox_component;
 
 @Component(
-    selector: 'shift_by_day_group_checkbox_component',
+    selector: 'shift_by_day_group_component',
     styleUrls: const [
-      'shift_by_day_group_checkbox_component.scss.css',
+      'shift_by_day_group_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'shift_by_day_group_checkbox_component.html',
+    templateUrl: 'shift_by_day_group_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -32,7 +32,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift/shift_checkbox_comp
       MaterialCheckboxComponent,
     ],
     providers: [windowBindings, datepickerBindings])
-class ShiftByDayGroupCheckboxComponent implements OnInit {
+class ShiftByDayGroupComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
@@ -45,7 +45,7 @@ class ShiftByDayGroupCheckboxComponent implements OnInit {
   @ViewChild('quantityPerShift', read: ViewContainerRef)
   ViewContainerRef materialContainerQuantityPerShit;
 
-  ShiftByDayGroupCheckboxComponent(this._changeDetectorRef, this._loader);
+  ShiftByDayGroupComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;

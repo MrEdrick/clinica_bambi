@@ -1,5 +1,3 @@
-@import 'package:angular_components/css/material/shadow';
-@import 'package:angular_components/css/material/material';
 
 :host {
   width: 99%;
@@ -12,8 +10,8 @@
 
 #container-procedure-dentist {
   border: rgba(#db3813, 0.5) 2px dashed;
-}
-
-#line-procedure-description {
-  border: rgba(#db3813, 0.5) 1px dashed;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
 }

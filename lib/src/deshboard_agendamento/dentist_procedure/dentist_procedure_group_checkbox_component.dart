@@ -8,8 +8,8 @@ import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
 import '../../agendamento/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_checkbox_component.template.dart'
-    as shift_by_day_group_checkbox_component;
+import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_component.template.dart'
+    as shift_by_day_group_component;
 
 @Component(
     selector: 'dentist_procedure_group_checkbox_component',
@@ -48,10 +48,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
     _list.forEach((day) {
       ComponentFactory<
-              shift_by_day_group_checkbox_component
-                  .ShiftByDayGroupCheckboxComponent>
-          shiftByDayGroup = shift_by_day_group_checkbox_component
-              .ShiftByDayGroupCheckboxComponentNgFactory;
+              shift_by_day_group_component
+                  .ShiftByDayGroupComponent>
+          shiftByDayGroup = shift_by_day_group_component
+              .ShiftByDayGroupComponentNgFactory;
 
       ComponentRef shiftByDayGroupComponent =
           _loader.loadNextToLocation(
