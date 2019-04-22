@@ -19,7 +19,7 @@ import '../../agendamento/user/user_service.dart';
       MaterialInputComponent,
       materialInputDirectives,
     ])
-class ShiftCheckboxComponentComponent implements OnInit {
+class ShiftCheckboxComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
 
   @Input()
@@ -28,7 +28,7 @@ class ShiftCheckboxComponentComponent implements OnInit {
   @Input()
   String dayOfWeek;
 
-  ShiftCheckboxComponentComponent(this._changeDetectorRef);
+  ShiftCheckboxComponent(this._changeDetectorRef);
 
   void ngOnInit() {
     if (new UserService().user  == null)

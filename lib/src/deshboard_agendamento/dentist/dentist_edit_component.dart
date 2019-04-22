@@ -18,6 +18,11 @@ import '../../agendamento/dentist/dentist_constants.dart';
 import '../../firebase/firestore.dart';
 
 import '../../agendamento/user/user_service.dart';
+import '../../agendamento/procedure/procedure.dart';
+import '../../agendamento/procedure/procedure_service.dart';
+
+import 'package:ClinicaBambi/src/deshboard_agendamento/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
+    as dentist_procedure_group_checkbox_component;
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_checkbox_component.template.dart'
     as shift_by_day_group_checkbox_component;
@@ -90,10 +95,24 @@ class DentistEditComponent implements OnInit {
     }
   }
 
-  void ngOnInit() {
+  void ngOnInit() async {
     if (new UserService().user == null) return;
 
     onEdit();
+
+      List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
+
+    _listProcedure.forEach((procedure) {
+        ComponentFactory<dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponent>
+            shiftComponent =
+            dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponentNgFactory;
+
+        ComponentRef shiftCheckboxComponent =
+            _loader.loadNextToLocation(
+                shiftComponent, materialContainerdentistProcedureGroupCheckbox);
+
+        shiftCheckboxComponent.instance.shift = procedure.description;
+    });
 
     List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
                   'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 
