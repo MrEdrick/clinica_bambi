@@ -1,11 +1,10 @@
 import 'package:angular_components/model/ui/display_name.dart';
 
-class Shift implements HasUIDisplayName {
+class ShiftUI implements HasUIDisplayName {
   final String id;
   final String description;
-  final String state;
   
-  const Shift(this.id, this.description, this.state);
+  const ShiftUI(this.id, this.description);
 
   @override
   String get uiDisplayName => description;
