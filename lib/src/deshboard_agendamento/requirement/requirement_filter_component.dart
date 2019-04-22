@@ -11,8 +11,6 @@ import 'package:angular_components/material_button/material_fab.dart';
 import '../../agendamento/user/user.dart';
 import '../../agendamento/user/user_service.dart';
 import '../../agendamento/requirement/requirement.dart';
-import 'requirement_list_card_component.dart';
-import 'requirement_edit_component.dart';
 
 @Component(
   selector: 'requirement_filter_component',
@@ -21,14 +19,11 @@ import 'requirement_edit_component.dart';
   directives: const [
     coreDirectives,
     materialInputDirectives,
-    NgFor,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
     MaterialToggleComponent,
     MaterialFabComponent,
-    RequirementListCardComponent,
-    RequirementEditComponent,
   ],
   providers: const [
     materialProviders,
@@ -68,13 +63,9 @@ class RequirementFilterComponent implements OnInit {
   }
 
   void onFilter() {   
-    querySelector('#requirement-total-result-filter-text').setAttribute('value', '0');
-    querySelector('#requirement-total-result-filter-text').setInnerHtml('0');
   }
 
   void onAdd() {
-    querySelector('#editRequirement').click();
-    querySelector('#requirement-edit-app').style.display = 'block';
   }
 
   void onClear() {

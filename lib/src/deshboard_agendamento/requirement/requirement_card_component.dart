@@ -14,6 +14,7 @@ import 'requirement_edit_component.dart';
       'requirement_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'requirement_card_component.html',
     directives: const [
       coreDirectives,

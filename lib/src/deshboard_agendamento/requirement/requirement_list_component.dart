@@ -25,6 +25,7 @@ import '../../agendamento/user/user_service.dart';
       'requirement_list_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'requirement_list_card_component.html',
     directives: const [
       NgFor,

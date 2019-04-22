@@ -56,4 +56,26 @@ class RequirementDAO {
 
     return _requirement;
   }
+
+  Future<List<Map>> getAllRequirementFilter(Map filter, Map orderBy) async {
+    List<Map> _list = new List<Map>();
+    FireStoreApp fireStoreApp =
+        new FireStoreApp(REQUIREMENT_COLLECTION);
+
+    await (await fireStoreApp.ref
+            .where(filter.keys.first, '==', filter.values.first)
+            .orderBy(orderBy.keys.first, orderBy.values.first)
+            .get())
+        .docs
+        .forEach((doc) {
+      Map map = new Map.from(doc.data());
+      map['documentPath'] = doc.id;
+      _list.add(map);
+    });
+
+    fireStoreApp.FireStoreOffLine();
+
+    return _list;
+  }
+
 }
