@@ -14,13 +14,13 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quanti
     as quantity_per_shift_component;
 
 @Component(
-    selector: 'quantity_per_shift_by_day_group_checkbox_component',
+    selector: 'shift_by_day_group_checkbox_component',
     styleUrls: const [
-      'quantity_per_shift_by_day_group_checkbox_component.scss.css',
+      'shift_by_day_group_checkbox_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'quantity_per_shift_by_day_group_checkbox_component.html',
+    templateUrl: 'shift_by_day_group_checkbox_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -29,7 +29,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quanti
       MaterialCheckboxComponent,
     ],
     providers: [windowBindings, datepickerBindings])
-class QuantityPerShiftByDayGroupCheckboxComponent implements OnInit {
+class ShiftByDayGroupCheckboxComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
@@ -40,7 +40,7 @@ class QuantityPerShiftByDayGroupCheckboxComponent implements OnInit {
       read: ViewContainerRef)
   ViewContainerRef materialContainerQuantityPerShit;
 
-  QuantityPerShiftByDayGroupCheckboxComponent(this._changeDetectorRef, this._loader);
+  ShiftByDayGroupCheckboxComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;

@@ -19,8 +19,8 @@ import '../../firebase/firestore.dart';
 
 import '../../agendamento/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift_by_day/quantity_per_shift_by_day_group_checkbox_component.template.dart'
-    as quantity_per_shift_by_day_group_checkbox_component;
+import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_checkbox_component.template.dart'
+    as shift_by_day_group_checkbox_component;
 
 @Component(
     selector: 'dentist_edit_component',
@@ -54,6 +54,10 @@ class DentistEditComponent implements OnInit {
   ComponentRef componentRef;
 
   DentistService _dentistService;
+
+  @ViewChild('dentistProcedureGroupCheckboxComponent',
+      read: ViewContainerRef)
+  ViewContainerRef materialContainerdentistProcedureGroupCheckbox;
 
   @ViewChild('quantityPerShiftByDayGroupCheckboxComponent',
       read: ViewContainerRef)
@@ -97,10 +101,10 @@ class DentistEditComponent implements OnInit {
 
     _list.forEach((day) {
       ComponentFactory<
-              quantity_per_shift_by_day_group_checkbox_component
-                  .QuantityPerShiftByDayGroupCheckboxComponent>
-          agendamentoCard = quantity_per_shift_by_day_group_checkbox_component
-              .QuantityPerShiftByDayGroupCheckboxComponentNgFactory;
+              shift_by_day_group_checkbox_component
+                  .ShiftByDayGroupCheckboxComponent>
+          agendamentoCard = shift_by_day_group_checkbox_component
+              .ShiftByDayGroupCheckboxComponentNgFactory;
 
       ComponentRef quantityPerShiftByDayGroupCheckboxComponentComponent =
           _loader.loadNextToLocation(
