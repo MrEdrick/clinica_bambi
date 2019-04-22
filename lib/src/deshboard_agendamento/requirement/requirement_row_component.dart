@@ -5,6 +5,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
 
 import '../../agendamento/requirement/requirement.dart';
+import '../../agendamento/requirement/requirement_dao.dart';
 import '../../agendamento/requirement/requirement_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_edit_component.template.dart'
     as requirement_edit;
@@ -35,7 +36,7 @@ class RequirementRowComponent implements OnInit {
   bool showDeteleCertification = false;
 
   @Input()
-  String procedureId;
+  String requirementId;
 
   @Input()
   ComponentRef componentRef;
@@ -43,7 +44,7 @@ class RequirementRowComponent implements OnInit {
   RequirementRowComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
-    requirement = await requirementService.getRequirementById(procedureId);
+    requirement = await requirementService.getRequirementById(requirementId);
     _changeDetectorRef.markForCheck();
   }
 
