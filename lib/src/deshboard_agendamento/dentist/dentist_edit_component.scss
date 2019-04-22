@@ -27,44 +27,33 @@
   align-content: flex-start;
   padding: 10px;
   transition: all 0.5s linear;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+}
+
+.container-edit::-webkit-scrollbar {
+  display: none;
 }
 
 .container-cadastro {
   flex: 1; 
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-.container-cadastro::-webkit-scrollbar {
-  display: none;
 }
 
 .button-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.button-close {
   width: 40px;
   min-width: 40px;
   height: 40px;
-}
-
-.button-close {
+  top: 10px;
+  right: 10px;
   background-color: #fff !important;
   color: #616161;
   transition: all 0.5s linear;
 }
 
-material-dropdown-select {
-  margin: 1%;
-  margin-top: 10px;
-  color: #616161 
-}
-
-
 #name {
-  width: 50%;
+  width: 70%;
   margin-bottom: 3%;
 }
 
@@ -125,10 +114,9 @@ material-dialog {
 @media screen and (min-width: 769px) {
   .container-edit {
     position: relative;
-    top: 50px;
     margin-left: 29%;
     width: 42%;
-    min-height: 20%;
+    height: 580px;
     background-color: rgba(#ffffff, 1);
     border-radius: 5px;
     display: flex;
