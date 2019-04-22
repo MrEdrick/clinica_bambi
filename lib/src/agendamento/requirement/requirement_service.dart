@@ -26,7 +26,7 @@ class RequirementService {
     clearAllRequirementList();
     
     await (_requirementList = await new RequirementDAO()
-        .getAllRequirementFilter({"state": "A"}, {"name": "asc"}));
+        .getAllRequirementFilter({"state": "A"}, {"description": "asc"}));
     
     _requirementList.forEach((requirement) {
       _requirementListById[requirement["documentPath"]] = requirement;
@@ -48,7 +48,7 @@ class RequirementService {
 
     if (doc == null) {
       doc = (await new RequirementDAO()
-              .getAllRequirementFilter({'id': id}, {"name": "asc"}))
+              .getAllRequirementFilter({'id': id}, {"description": "asc"}))
           .first;
     }
 
@@ -74,15 +74,15 @@ class RequirementService {
 
     _listDocumentSnapshotTemp.clear();
 
-    if ((filter["name"] != null) && (filter["name"] != '')) {
+    if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["name"].toString().indexOf(filter["name"]) > -1) {
+        if (doc["description"].toString().indexOf(filter["description"]) > -1) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
     }
 
-    if ((filter["name"] != null) && (filter["name"] != '')) {
+    if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.clear();
     }
 
@@ -98,6 +98,6 @@ class RequirementService {
   }
 
   Requirement turnMapInRequirement(Map map) {
-    return new Requirement(map["documentPath"], map["name"], map["state"]);
+    return new Requirement(map["documentPath"], map["description"], map["state"]);
   }
 }

@@ -26,7 +26,7 @@ class ProcedureService {
     clearAllProcedureList();
     
     await (_procedureList = await new ProcedureDAO()
-        .getAllProcedureFilter({"state": "A"}, {"name": "asc"}));
+        .getAllProcedureFilter({"state": "A"}, {"description": "asc"}));
     
     _procedureList.forEach((procedure) {
       _procedureListById[procedure["documentPath"]] = procedure;
@@ -47,7 +47,7 @@ class ProcedureService {
 
     if (doc == null) {
       doc = (await new ProcedureDAO()
-              .getAllProcedureFilter({'id': id}, {"name": "asc"}))
+              .getAllProcedureFilter({'id': id}, {"description": "asc"}))
           .first;
     }
 
@@ -73,15 +73,15 @@ class ProcedureService {
 
     _listDocumentSnapshotTemp.clear();
 
-    if ((filter["name"] != null) && (filter["name"] != '')) {
+    if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["name"].toString().indexOf(filter["name"]) > -1) {
+        if (doc["description"].toString().indexOf(filter["description"]) > -1) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
     }
 
-    if ((filter["name"] != null) && (filter["name"] != '')) {
+    if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.clear();
     }
 
