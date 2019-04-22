@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
+import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
 import '../../agendamento/user/user_service.dart';
 
@@ -18,6 +19,7 @@ import '../../agendamento/user/user_service.dart';
       formDirectives,
       MaterialInputComponent,
       materialInputDirectives,
+      MaterialCheckboxComponent,
     ])
 class ShiftCheckboxComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
