@@ -54,9 +54,9 @@ class ShiftByDayGroupCheckboxComponent implements OnInit {
 
     _list.forEach((shift) {
       if (shiftType == 'checkbox') {
-        ComponentFactory<quantity_per_shift_component.ShiftCheckboxComponent>
+        ComponentFactory<shift_checkbox_component.ShiftCheckboxComponent>
             shiftComponent =
-            quantity_per_shift_component.ShiftCheckboxComponentNgFactory;
+            shift_checkbox_component.ShiftCheckboxComponentNgFactory;
 
         ComponentRef shiftCheckboxComponent =
             _loader.loadNextToLocation(
