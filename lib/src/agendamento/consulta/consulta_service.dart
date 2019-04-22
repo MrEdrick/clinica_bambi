@@ -95,9 +95,8 @@ class ConsultaService {
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
@@ -120,9 +119,8 @@ class ConsultaService {
 
     if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     if ((filter["patient"] != null) && (filter["patient"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
@@ -134,9 +132,8 @@ class ConsultaService {
 
     if ((filter["patient"] != null) && (filter["patient"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     _appointmentSchedulingByDateWithFilter[date] = _listDocumentSnapshot;
 

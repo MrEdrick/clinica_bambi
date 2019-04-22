@@ -58,7 +58,7 @@ class AgendamentoListCardComponent implements OnInit {
     dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
 
     List<Map> _list = new ConsultaService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
-    print(_list);
+    
     _list.forEach((appointmentScheduling) {
       ComponentFactory<agendamento_card.AgendamentoCardComponent>
           agendamentoCard =
