@@ -29,7 +29,10 @@ class QuantityPerShiftComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
 
   @Input()
-  String shift = '';
+  String shift;
+
+  @Input()
+  String dayOfWeek;
 
   String quantity = '';
 
