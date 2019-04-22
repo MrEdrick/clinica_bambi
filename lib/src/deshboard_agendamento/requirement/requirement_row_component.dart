@@ -37,7 +37,7 @@ class RequirementRowComponent implements OnInit {
   RequirementRowComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
-    requirement = await requirementService.getProcedureById(procedureId);
+    requirement = await requirementService.getRequirementById(procedureId);
     _changeDetectorRef.markForCheck();
   }
 
