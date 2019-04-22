@@ -111,7 +111,7 @@ class DentistEditComponent implements OnInit {
             _loader.loadNextToLocation(
                 shiftComponent, materialContainerdentistProcedureGroupCheckbox);
 
-        shiftCheckboxComponent.instance.shift = procedure.description;
+        shiftCheckboxComponent.instance.procedure = procedure.description;
     });
 
     List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
