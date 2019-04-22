@@ -34,6 +34,8 @@ class QuantityPerShiftByDayGroupCheckboxComponent implements OnInit {
   void ngOnInit() {
     if (new UserService().user == null) return;
 
+    print(dayOfWeek);
+
     _changeDetectorRef.markForCheck();
   }
 }
