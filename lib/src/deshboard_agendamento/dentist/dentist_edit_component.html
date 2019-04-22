@@ -9,24 +9,51 @@
 
         <material-toggle [(checked)]="state">
         </material-toggle>
-        
-        <material-input class="edit-input" id="name" label="Dentista..." [ngModel]="name" (inputKeyPress)="name = $event"></material-input>
 
-    </div>
+        <material-input class="edit-input" id="name" label="Dentista..." [ngModel]="name"
+            (inputKeyPress)="name = $event"></material-input>
 
-    <material-button class="button-close" (click)="onClose()">
-        <material-icon icon="close"></material-icon>
-    </material-button>
+        <div class="sub-titulo">
+            Quantidade de atendimentos por dia da semana
+        </div>
+        <div class="container-amount-appointment">
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Segunda-Feira"></material-checkbox>
+            </div>
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Terça-Feira"></material-checkbox>
+            </div>
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Quarta-Feira"></material-checkbox>
+            </div>
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Quinta-Feira"></material-checkbox>
+            </div>
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Sexta-Feira"></material-checkbox>
+            </div>
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Sábado"></material-checkbox>
+            </div>
+            <div id="container-amount-appointment-by-day-of-week">
+                <material-checkbox label="Domingo"></material-checkbox>
+            </div>
+        </div>
 
-    <div class="button-container">
-        <material-button raised class="button-save" (click)="onAssertsSave()">
-            GRAVAR
+        <material-button class="button-close" (click)="onClose()">
+            <material-icon icon="close"></material-icon>
         </material-button>
+
+        <div class="button-container">
+            <material-button raised class="button-save" (click)="onAssertsSave()">
+                GRAVAR
+            </material-button>
+        </div>
     </div>
 </div>
-
 <modal [(visible)]="showNotSuccessfullySave">
-    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave" (dismiss)="onDismissNotSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave"
+        (dismiss)="onDismissNotSuccessfullySave">
 
         <div header>
             <h1>Opps...</h1>
@@ -38,7 +65,8 @@
 </modal>
 
 <modal [(visible)]="showSuccessfullySave">
-    <material-dialog info class="info-dialog" [autoDismissable]="showSuccessfullySave" (dismiss)="onDismissSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showSuccessfullySave"
+        (dismiss)="onDismissSuccessfullySave">
 
         <div header>
 
@@ -51,7 +79,8 @@
 </modal>
 
 <modal [(visible)]="showAssertMessageSave">
-    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSave" (dismiss)="onDismissAssertMessage">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSave"
+        (dismiss)="onDismissAssertMessage">
 
         <div header>
 
