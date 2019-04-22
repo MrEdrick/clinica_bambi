@@ -92,7 +92,9 @@ class DentistEditComponent implements OnInit {
 
     onEdit();
 
-    List _list = [1, 2, 3, 4, 5, 6, 7];
+    List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
+                  'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 
+                  'Sábado'];
 
     _list.forEach((day) {
       ComponentFactory<
@@ -105,8 +107,7 @@ class DentistEditComponent implements OnInit {
           _loader.loadNextToLocation(
               agendamentoCard, materialContainerDayGroupCheckbox);
 
-      quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek =
-          Date(day).weekday;
+      quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek = day;
     });
 
     _changeDetectorRef.markForCheck();
