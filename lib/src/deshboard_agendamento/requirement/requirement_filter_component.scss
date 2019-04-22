@@ -111,22 +111,6 @@ i {
   font-weight: 600;
 }
 
-.container-list-agendamentos {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  top: 162px;
-}
-
-.list-day-agendamentos {
-  display: inline-block;
-  position: relative;
-  background-color: #ffffff;
-  width: 100%;
-  z-index: 1 !important;
-}
-
-
 material-fab {
   position: fixed;
   color: #ffffff;
@@ -136,54 +120,8 @@ material-fab {
   z-index: 999;
 }
 
-.container-deshboard-agendamento ::ng-deep .label-text {
-  color: #616161;
-}
-
-.container-deshboard-agendamento ::ng-deep #wh-widget-send-button {
-  display: none !important;
-}
-
-material-datepicker {
-  margin: 1% 1%;
-  position: relative;
-  color: #616161;
-}
-
-material-dropdown-select {
-  margin: 1% 1%;
-  position: relative;
-  color: #616161;
-}
-
 .filter-input {
   padding: 0;
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep material-input .label-text {
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .focused.label-text {
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .focused-underline, .cursor {
-  background-color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .disabled-underline {
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .unfocused-underline {
-  background: #616161 !important;
-  border-bottom-color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep material-input .input-container {
-  margin-top: 0 !important;
   color: #616161 !important;
 }
 
@@ -198,17 +136,14 @@ material-dropdown-select {
 
 #bt-limpar {
   position: relative;
+  float: right;
   margin-top: 0.50%;
+  margin-right: 1%;
   font-weight: 500;
   color: #616161;
 }
 
 @media screen and (min-width: 769px) {
-  .container-deshboard-agendament {
-    top: 0px;
-    position: unset;
-  }
-
   .material-header-title {
     font-size: 2vw;
   }
@@ -218,5 +153,3 @@ material-dropdown-select {
 @media screen and (min-width: 1100px) {
   
 }
-
-//ff683f
