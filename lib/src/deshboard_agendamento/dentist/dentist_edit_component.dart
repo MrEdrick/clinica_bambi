@@ -19,8 +19,8 @@ import '../../firebase/firestore.dart';
 
 import '../../agendamento/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quantity_per_shift_input_component.template.dart'
-    as quantity_per_shift_input;
+import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift_by_day_group_checkbox/quantity_per_shift_by_day_group_checkbox_component.template.dart'
+    as quantity_per_shift_by_day_group_checkbox_component;
 
 
 @Component(
@@ -58,8 +58,8 @@ class DentistEditComponent implements OnInit {
 
   DentistService _dentistService;
 
-@ViewChild('quantityPerShiftInput', read: ViewContainerRef)
-ViewContainerRef materialContainerEdit;
+  @ViewChild('quantityPerShiftByDayGroupCheckboxComponent', read: ViewContainerRef)
+  ViewContainerRef materialContainerEdit;
 
 
   DentistService get dentistService => _dentistService;
