@@ -17,7 +17,6 @@
 }
 
 .container-edit {
-  top: 50px;
   position: relative;
   width: 100%;
   height: 100%;
@@ -117,7 +116,7 @@ material-input {
   text-align: left;
   font-weight: 500;
   padding: 10px;
-  margin-bottom: 3%;
+  margin-bottom: 0.5%;
 }
 
 material-dialog {
@@ -127,7 +126,7 @@ material-dialog {
 @media screen and (min-width: 769px) {
   .container-edit {
     position: relative;
-    top: 15%;
+    top: 50px;
     margin-left: 29%;
     width: 42%;
     min-height: 20%;
