@@ -17,8 +17,11 @@ import '../../agendamento/dentist/dentist_constants.dart';
 
 import '../../firebase/firestore.dart';
 
-
 import '../../agendamento/user/user_service.dart';
+
+import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quantity_per_shift_input_component.template.dart'
+    as quantity_per_shift_input;
+
 
 @Component(
     selector: 'dentist-edit-app',
@@ -55,6 +58,10 @@ class DentistEditComponent implements OnInit {
 
   DentistService _dentistService;
 
+@ViewChild('quantityPerShiftInput', read: ViewContainerRef)
+ViewContainerRef materialContainerEdit;
+
+
   DentistService get dentistService => _dentistService;
   set dentistService(DentistService dentistService) => _dentistService = dentistService;
 
@@ -87,6 +94,8 @@ class DentistEditComponent implements OnInit {
       return;
 
     onEdit();    
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
