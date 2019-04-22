@@ -6,6 +6,8 @@ import 'package:angular_components/material_button/material_button.dart';
 
 import '../../agendamento/requirement/requirement.dart';
 import '../../agendamento/requirement/requirement_service.dart';
+import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_edit_component.template.dart'
+    as requirement_edit;
 
 @Component(
     selector: 'requirement_row_component',
@@ -24,9 +26,13 @@ import '../../agendamento/requirement/requirement_service.dart';
       MaterialButtonComponent,
     ])
 class RequirementRowComponent implements OnInit {
+  final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
   Requirement requirement;
   RequirementService requirementService = new RequirementService();
+
+  bool showEditAgendamentoEditApp = false;
+  bool showDeteleCertification = false;
 
   @Input()
   String procedureId;
@@ -34,7 +40,7 @@ class RequirementRowComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  RequirementRowComponent(this._changeDetectorRef);
+  RequirementRowComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
     requirement = await requirementService.getRequirementById(procedureId);
@@ -42,7 +48,25 @@ class RequirementRowComponent implements OnInit {
   }
 
   void onEdit() {
-    //dentistService = new DentistService();
-    //dentistService.dentist = dentist;
+    requirementService.requirement = requirement;
+    ComponentFactory<requirement_edit.RequirementEditComponent>
+        requirementEdit = requirement_edit.RequirementEditComponentNgFactory;
+
+    ComponentRef requirementEditComponent = _loader.loadNextToLocation(requirementEdit, materialContainerEdit);
+    requirementEditComponent.instance.componentRef = requirementEditComponent;
+  }
+
+  void onDelete() {
+    showDeteleCertification = true;
+  }
+
+  void delete() {
+    new RequirementDAO().delete(requirementId);   
+    showDeteleCertification = false;
+    componentRef.destroy();
+  }
+
+  void noDelete() {
+    showDeteleCertification = false;
   }
 }

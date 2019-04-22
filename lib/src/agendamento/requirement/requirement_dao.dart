@@ -57,6 +57,18 @@ class RequirementDAO {
     return _requirement;
   }
 
+  Future<String> delete(String id) async {
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(REQUIREMENT_COLLECTION);
+    if (await _fireStoreApp.deleteItem(id)) {
+      _fireStoreApp.FireStoreOffLine();
+      return '';
+    } else {
+      _fireStoreApp.FireStoreOffLine();
+      return 'Error';
+    }
+  }
+
   Future<List<Map>> getAllRequirementFilter(Map filter, Map orderBy) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
