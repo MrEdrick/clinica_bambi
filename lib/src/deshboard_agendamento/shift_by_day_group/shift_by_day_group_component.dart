@@ -42,8 +42,8 @@ class ShiftByDayGroupComponent implements OnInit {
   @Input()
   String shiftType;
 
-  @ViewChild('quantityPerShift', read: ViewContainerRef)
-  ViewContainerRef materialContainerQuantityPerShit;
+  @ViewChild('shiftGroup', read: ViewContainerRef)
+  ViewContainerRef materialContainerShitGroup;
 
   ShiftByDayGroupComponent(this._changeDetectorRef, this._loader);
 
@@ -60,7 +60,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
         ComponentRef shiftCheckboxComponent =
             _loader.loadNextToLocation(
-                shiftComponent, materialContainerQuantityPerShit);
+                shiftComponent, materialContainerShitGroup);
 
         shiftCheckboxComponent.instance.shift = shift.description;
       } else {
@@ -70,7 +70,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
         ComponentRef quantityPerShiftInputComponent =
             _loader.loadNextToLocation(
-                shiftComponent, materialContainerQuantityPerShit);
+                shiftComponent, materialContainerShitGroup);
 
         quantityPerShiftInputComponent.instance.shift = shift.description;
       }
