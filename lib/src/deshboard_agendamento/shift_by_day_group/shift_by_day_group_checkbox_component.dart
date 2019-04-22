@@ -10,8 +10,11 @@ import '../../agendamento/shift/shift.dart';
 import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quantity_per_shift_input_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_agendamento/shift/quantity_per_shift_input_component.template.dart'
     as quantity_per_shift_component;
+
+import 'package:ClinicaBambi/src/deshboard_agendamento/shift/shift_checkbox_component.template.dart'
+    as shift_checkbox_component;
 
 @Component(
     selector: 'shift_by_day_group_checkbox_component',
@@ -36,8 +39,10 @@ class ShiftByDayGroupCheckboxComponent implements OnInit {
   @Input()
   String dayOfWeek;
 
-  @ViewChild('quantityPerShift',
-      read: ViewContainerRef)
+  @Input()
+  String shiftType;
+
+  @ViewChild('quantityPerShift', read: ViewContainerRef)
   ViewContainerRef materialContainerQuantityPerShit;
 
   ShiftByDayGroupCheckboxComponent(this._changeDetectorRef, this._loader);
@@ -46,18 +51,31 @@ class ShiftByDayGroupCheckboxComponent implements OnInit {
     if (new UserService().user == null) return;
 
     List<Shift> _list = await new ShiftService().getAllShiftAcives();
-    
+
     _list.forEach((shift) {
-      ComponentFactory<quantity_per_shift_component.QuantityPerShiftComponent>
-          quantityPerShiftComponent =
-          quantity_per_shift_component.QuantityPerShiftComponentNgFactory;
+      if (shiftType == 'checkbox') {
+        ComponentFactory<quantity_per_shift_component.ShiftCheckboxComponent>
+            shiftComponent =
+            quantity_per_shift_component.ShiftCheckboxComponentNgFactory;
 
-      ComponentRef quantityPerShiftInputComponent =
-        _loader.loadNextToLocation(quantityPerShiftComponent, materialContainerQuantityPerShit);
+        ComponentRef shiftCheckboxComponent =
+            _loader.loadNextToLocation(
+                shiftComponent, materialContainerQuantityPerShit);
 
-      quantityPerShiftInputComponent.instance.shift = shift.description;
+        shiftCheckboxComponent.instance.shift = shift.description;
+      } else {
+        ComponentFactory<quantity_per_shift_component.QuantityPerShiftComponent>
+            shiftComponent =
+            quantity_per_shift_component.QuantityPerShiftComponentNgFactory;
+
+        ComponentRef quantityPerShiftInputComponent =
+            _loader.loadNextToLocation(
+                shiftComponent, materialContainerQuantityPerShit);
+
+        quantityPerShiftInputComponent.instance.shift = shift.description;
+      }
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 }
