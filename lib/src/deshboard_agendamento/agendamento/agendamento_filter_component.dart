@@ -43,7 +43,6 @@ import '../../agendamento/consulta/consulta_service.dart';
   directives: const [
     coreDirectives,
     materialInputDirectives,
-    NgFor,
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
