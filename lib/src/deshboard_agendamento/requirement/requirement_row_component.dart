@@ -41,6 +41,9 @@ class RequirementRowComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
+  @ViewChild('containerEditProcedure', read: ViewContainerRef)
+  ViewContainerRef materialContainerEdit;
+
   RequirementRowComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
