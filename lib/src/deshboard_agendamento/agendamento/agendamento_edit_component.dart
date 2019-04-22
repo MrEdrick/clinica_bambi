@@ -405,7 +405,7 @@ class AgendamentoEditComponent implements OnInit {
     datas = {
       "dateAppointmentScheduling":
           new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
-      "shiftId": singleSelectModelShift.selectedValues.first.shiftId,
+      "shiftId": singleSelectModelShift.selectedValues.first.id,
       "agreementId":
           singleSelectModelAgreement.selectedValues.first.agreementId,
       "dentistId": singleSelectModelDentist

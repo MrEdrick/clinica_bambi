@@ -170,7 +170,7 @@ class ConsultaService {
         map["email"],
         map["tel"],
         map["userId"],
-        await new ShiftService().getShiftById(map["shiftId"], map["hourId"]),
+        await new ShiftService().getShiftById(map["shiftId"]),
         await new DentistService().getDentistById(map["dentistId"]),
         await new AgreementService().getAgreementById(map["agreementId"])));
   }

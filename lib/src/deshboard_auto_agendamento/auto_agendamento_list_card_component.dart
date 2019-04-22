@@ -211,7 +211,7 @@ class AutoAgendamentoListCardComponent implements OnInit {
       docSnapshot["email"],
       docSnapshot["tel"],
       user.id,
-      await new ShiftService().getShiftById(docSnapshot["shiftId"], docSnapshot["hourId"]),
+      await new ShiftService().getShiftById(docSnapshot["id"]),
       await new DentistService().getDentistById(docSnapshot["dentistId"]),
       await new AgreementService().getAgreementById(docSnapshot["agreementId"]),
     );
