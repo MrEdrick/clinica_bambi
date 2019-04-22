@@ -26,7 +26,7 @@ class ProcedureService {
     clearAllProcedureList();
     
     await (_procedureList = await new ProcedureDAO()
-        .getAllProcedureFilter({"description": "asc"}, {"state": "A"}));
+        .getAllProcedureFilter({"state": "A"}, {"description": "asc"}));
     
     _procedureList.forEach((procedure) {
       _procedureListById[procedure["documentPath"]] = procedure;

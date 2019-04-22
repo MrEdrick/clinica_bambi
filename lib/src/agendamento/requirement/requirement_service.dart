@@ -26,7 +26,7 @@ class RequirementService {
     clearAllRequirementList();
     
     await (_requirementList = await new RequirementDAO()
-        .getAllRequirementFilter({"description": "asc"}, {"state": "A"}));
+        .getAllRequirementFilter({"state": "A"}, {"description": "asc"}));
     
     _requirementList.forEach((requirement) {
       _requirementListById[requirement["documentPath"]] = requirement;
