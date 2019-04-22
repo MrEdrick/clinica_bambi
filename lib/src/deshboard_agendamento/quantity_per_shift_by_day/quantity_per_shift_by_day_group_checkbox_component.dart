@@ -10,7 +10,7 @@ import '../../agendamento/shift/shift.dart';
 import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quantity_per_shift_input.template.dart'
+import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift/quantity_per_shift_input_component.template.dart'
     as quantity_per_shift_component;
 
 @Component(
