@@ -232,7 +232,7 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
 
       if (singleSelectModelShift.selectedValues.isNotEmpty) {
       turnoDescription = singleSelectModelShift.selectedValues.first.description;
-      shiftId = singleSelectModelShift.selectedValues.first.shiftId;
+      shiftId = singleSelectModelShift.selectedValues.first.id;
     } else {
       shiftId = '';
     }
