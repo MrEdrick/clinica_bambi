@@ -97,7 +97,7 @@ class DentistFilterComponent implements OnActivate, OnInit {
     dentistService.clearAllDentistList();
 
     dentistService.getAllDentistAcives().then((onValue) {
-      dentistService.getDentistListWithFilterFromList({"description": description});
+      dentistService.getDentistListWithFilterFromList({"name": dentistName});
 
       onLoad();
     });
