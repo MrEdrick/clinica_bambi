@@ -20,12 +20,11 @@ import '../../firebase/firestore.dart';
 
 import '../../agendamento/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift_by_day_group_checkbox/quantity_per_shift_by_day_group_checkbox_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift_by_day/quantity_per_shift_by_day_group_checkbox_component.template.dart'
     as quantity_per_shift_by_day_group_checkbox_component;
 
-
 @Component(
-    selector: 'dentist-edit-app',
+    selector: 'dentist_edit_component',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
       'dentist_edit_component.scss.css',
@@ -47,10 +46,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/quantity_per_shift_by_day
       ModalComponent,
       AutoDismissDirective,
     ],
-    providers: [
-      windowBindings,
-      datepickerBindings
-    ])
+    providers: [windowBindings, datepickerBindings])
 class DentistEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
@@ -60,11 +56,13 @@ class DentistEditComponent implements OnInit {
 
   DentistService _dentistService;
 
-  @ViewChild('quantityPerShiftByDayGroupCheckboxComponent', read: ViewContainerRef)
+  @ViewChild('quantityPerShiftByDayGroupCheckboxComponent',
+      read: ViewContainerRef)
   ViewContainerRef materialContainerDayGroupCheckbox;
 
   DentistService get dentistService => _dentistService;
-  set dentistService(DentistService dentistService) => _dentistService = dentistService;
+  set dentistService(DentistService dentistService) =>
+      _dentistService = dentistService;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -84,31 +82,33 @@ class DentistEditComponent implements OnInit {
     dentistService = new DentistService();
 
     if (dentistService.dentist != null) {
-
       name = dentistService.dentist.name;
       state = dentistService.dentist.state == 'A';
     }
   }
 
   void ngOnInit() {
-    if (new UserService().user  == null)
-      return;
+    if (new UserService().user == null) return;
 
-    onEdit();   
+    onEdit();
 
     List _list = [1, 2, 3, 4, 5, 6, 7];
-    
+
     _list.forEach((day) {
-      ComponentFactory<quantity_per_shift_by_day_group_checkbox_component.QuantityPerShiftByDayGroupCheckboxComponentComponent>
-          agendamentoCard =
-          quantity_per_shift_by_day_group_checkbox_component.QuantityPerShiftByDayGroupCheckboxComponentComponent;
+      ComponentFactory<
+              quantity_per_shift_by_day_group_checkbox_component
+                  .QuantityPerShiftByDayGroupCheckboxComponent>
+          agendamentoCard = quantity_per_shift_by_day_group_checkbox_component
+              .QuantityPerShiftByDayGroupCheckboxComponentNgFactory;
 
       ComponentRef quantityPerShiftByDayGroupCheckboxComponentComponent =
-        _loader.loadNextToLocation(agendamentoCard, materialContainerDayGroupCheckbox);
+          _loader.loadNextToLocation(
+              agendamentoCard, materialContainerDayGroupCheckbox);
 
-      quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek = Date(day).weekday;
+      quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek =
+          Date(day).weekday;
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 
@@ -138,7 +138,6 @@ class DentistEditComponent implements OnInit {
 
   void onAssertsSave() {
     if ((name == '')) {
-
       showAssertMessageSave = true;
       return;
     }
@@ -147,18 +146,15 @@ class DentistEditComponent implements OnInit {
   }
 
   void onNoSave() {
-    showAssertMessageAlert = false;  
+    showAssertMessageAlert = false;
   }
 
-  void onSave() async {   
+  void onSave() async {
     showAssertMessageAlert = false;
 
     datas = new Map<String, dynamic>();
 
-    datas = {
-      "name": name,
-      "state": state ? 'A' : 'I'
-    };
+    datas = {"name": name, "state": state ? 'A' : 'I'};
 
     FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
 
