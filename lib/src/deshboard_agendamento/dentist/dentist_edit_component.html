@@ -1,14 +1,8 @@
-<material-fab raised (click)="onEdit" id="editAgendamento" style="display: none">
-</material-fab>
-
 <div class="container-edit">
     <div class="container-cadastro">
         <div class="titulo">
             Dados para o cadastro
         </div>
-
-        <material-toggle [(checked)]="state">
-        </material-toggle>
 
         <material-input class="edit-input" id="name" label="Dentista..." [ngModel]="name"
             (inputKeyPress)="name = $event"></material-input>

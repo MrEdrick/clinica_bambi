@@ -43,7 +43,6 @@ i {
   display: inline-block;
   width: 100%;
   min-height: 48px;
-  z-index: 100 !important;
   background-color: #ffffff;
   border-bottom: rgba(#616161, 0.12) 2px dashed;
   padding: 1% 0.5% 0 0.5%;
@@ -139,7 +138,4 @@ material-fab {
 }
 
 @media screen and (min-width: 1100px) {
-  
 }
-
-//ff683f
