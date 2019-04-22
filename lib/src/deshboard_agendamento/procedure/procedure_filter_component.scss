@@ -88,13 +88,6 @@ i {
   font-weight: 600;
 }
 
-.container-list-procedures {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  top: 162px;
-}
-
 material-fab {
   position: fixed;
   color: #ffffff;
@@ -104,42 +97,8 @@ material-fab {
   z-index: 999;
 }
 
-.container-deshboard-agendamento ::ng-deep .label-text {
-  color: #616161;
-}
-
-.container-deshboard-agendamento ::ng-deep #wh-widget-send-button {
-  display: none !important;
-}
-
 .filter-input {
   padding: 0;
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep material-input .label-text {
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .focused.label-text {
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .focused-underline, .cursor {
-  background-color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .disabled-underline {
-  color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep .unfocused-underline {
-  background: #616161 !important;
-  border-bottom-color: #616161 !important;
-}
-
-.container-deshboard-agendamento ::ng-deep material-input .input-container {
-  margin-top: 0 !important;
   color: #616161 !important;
 }
 
@@ -154,9 +113,15 @@ material-fab {
 
 #bt-limpar {
   position: relative;
+  float: right;
+  margin-right: 1%;
   margin-top: 0.50%;
   font-weight: 500;
   color: #616161;
+}
+
+#procedure {
+  width: 320px;
 }
 
 @media screen and (min-width: 769px) {
@@ -169,5 +134,3 @@ material-fab {
 @media screen and (min-width: 1100px) {
   
 }
-
-//ff683f

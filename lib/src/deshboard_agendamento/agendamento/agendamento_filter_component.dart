@@ -70,7 +70,7 @@ import '../../agendamento/consulta/consulta_service.dart';
   ],
 )
 class AgendamentoFilterComponent implements OnInit {
-  final ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
 
@@ -86,7 +86,7 @@ class AgendamentoFilterComponent implements OnInit {
 
   Date dataInicial = new Date.today();
   Date dataFinal = new Date.today();
-  List<Date> listDate = new List<Date>(); 
+  List<Date> listDate = new List<Date>();
 
   String dataInicialFormatada;
   String dataFinalFormatada;
@@ -207,8 +207,8 @@ class AgendamentoFilterComponent implements OnInit {
     _listDentist = await _dentistService.getAllDentistUIAcives();
   }
 
-  AgendamentoFilterComponent(
-      this._dentistService, this._shiftService, this._loader, this._changeDetectorRef);
+  AgendamentoFilterComponent(this._dentistService, this._shiftService,
+      this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
@@ -227,13 +227,13 @@ class AgendamentoFilterComponent implements OnInit {
           agendamento_list.AgendamentoListCardComponentNgFactory;
 
       ComponentRef agendamentoListComponent =
-        _loader.loadNextToLocation(agendamentoList, materialContainerList);
+          _loader.loadNextToLocation(agendamentoList, materialContainerList);
 
       agendamentoListComponent.instance.date = date;
       agendamentoListComponent.instance.componentRef = agendamentoListComponent;
       listComponentRef.add(agendamentoListComponent);
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 
@@ -281,10 +281,9 @@ class AgendamentoFilterComponent implements OnInit {
     });
 
     listDate = onPrepareFilter();
-    
-    new ConsultaService()
-          .clearAllAppointmentSchedulingByDate();
-    
+
+    new ConsultaService().clearAllAppointmentSchedulingByDate();
+
     await listDate.forEach((date) async {
       new ConsultaService()
           .getAllAppointmentSchedulingByDateMap(date)
@@ -298,6 +297,9 @@ class AgendamentoFilterComponent implements OnInit {
 
         if (listDate.last == date) {
           onLoad();
+
+          querySelector('#agendamento-result-filter-text')
+              .setInnerHtml(consultaService.getAppointmentScheduling().length.toString());
         }
       });
     });
@@ -309,7 +311,8 @@ class AgendamentoFilterComponent implements OnInit {
     ComponentFactory<agendamento_edit.AgendamentoEditComponent>
         agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
 
-    ComponentRef agendamentoEditComponent = _loader.loadNextToLocation(agendamentoEdit, materialContainerAdd);
+    ComponentRef agendamentoEditComponent =
+        _loader.loadNextToLocation(agendamentoEdit, materialContainerAdd);
     agendamentoEditComponent.instance.componentRef = agendamentoEditComponent;
   }
 

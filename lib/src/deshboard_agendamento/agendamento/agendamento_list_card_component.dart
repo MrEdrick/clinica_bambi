@@ -58,6 +58,7 @@ class AgendamentoListCardComponent implements OnInit {
     dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
 
     List<Map> _list = new ConsultaService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
+    print(_list);
     _list.forEach((appointmentScheduling) {
       ComponentFactory<agendamento_card.AgendamentoCardComponent>
           agendamentoCard =
@@ -72,45 +73,4 @@ class AgendamentoListCardComponent implements OnInit {
     
     _changeDetectorRef.markForCheck();
   }
-
-  void selectItensFireBase() async {
-    List<Map> _listDocumentSnapshot = new List<Map>();
-
-    totalResultByDay = 0;
-
-    totalResultByDay = _listDocumentSnapshot.length;
-
-    //if (totalResultByDay == 0) {
-    //  querySelector("#agendamento-list-card-app-" + index.toString())
-    //      ?.parent
-    //      ?.remove();
-    //  return;
-    //}
-
-    int totalResult;
-
-    if (querySelector('#agendamento-result-filter-text')
-            .getAttribute('value') ==
-        null) {
-      totalResult = 0;
-    } else {
-      totalResult = int.parse(querySelector('#agendamento-result-filter-text')
-          .getAttribute('value')
-          .toString());
-    }
-
-    totalResult = totalResult + totalResultByDay;
-    querySelector('#agendamento-result-filter-text')
-        .setAttribute('value', totalResult?.toString());
-    querySelector('#agendamento-result-filter-text')
-        .setInnerHtml(totalResult?.toString());
-
-    listAppointmentSchedulingId.clear();
-
-    _listDocumentSnapshot.forEach((doc) async {
-      listAppointmentSchedulingId.add(doc['documentPath']);
-    });
-
-  }
-
 }
