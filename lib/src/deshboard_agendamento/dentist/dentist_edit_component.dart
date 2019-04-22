@@ -24,8 +24,8 @@ import '../../agendamento/procedure/procedure_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
     as dentist_procedure_group_checkbox_component;
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_checkbox_component.template.dart'
-    as shift_by_day_group_checkbox_component;
+import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_component.template.dart'
+    as shift_by_day_group_component;
 
 @Component(
     selector: 'dentist_edit_component',
@@ -62,7 +62,7 @@ class DentistEditComponent implements OnInit {
 
   @ViewChild('dentistProcedureGroupCheckboxComponent',
       read: ViewContainerRef)
-  ViewContainerRef materialContainerdentistProcedureGroupCheckbox;
+  ViewContainerRef materialContainerdentistProcedureGroup;
 
   @ViewChild('quantityPerShiftByDayGroupCheckboxComponent',
       read: ViewContainerRef)
@@ -109,7 +109,7 @@ class DentistEditComponent implements OnInit {
 
         ComponentRef shiftCheckboxComponent =
             _loader.loadNextToLocation(
-                shiftComponent, materialContainerdentistProcedureGroupCheckbox);
+                shiftComponent, materialContainerdentistProcedureGroup);
 
         shiftCheckboxComponent.instance.procedure = procedure.description;
     });
@@ -120,10 +120,10 @@ class DentistEditComponent implements OnInit {
 
     _list.forEach((day) {
       ComponentFactory<
-              shift_by_day_group_checkbox_component
-                  .ShiftByDayGroupCheckboxComponent>
-          agendamentoCard = shift_by_day_group_checkbox_component
-              .ShiftByDayGroupCheckboxComponentNgFactory;
+              shift_by_day_group_component
+                  .ShiftByDayGroupComponent>
+          agendamentoCard = shift_by_day_group_component
+              .ShiftByDayGroupComponentNgFactory;
 
       ComponentRef quantityPerShiftByDayGroupCheckboxComponentComponent =
           _loader.loadNextToLocation(
