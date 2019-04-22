@@ -48,14 +48,15 @@ import '../../agendamento/user/user_service.dart';
       datepickerBindings
     ])
 class DentistEditComponent implements OnInit {
-  bool state = true;
+  final ChangeDetectorRef _changeDetectorRef;
+
+  @Input()
+  ComponentRef componentRef;
 
   DentistService _dentistService;
 
   DentistService get dentistService => _dentistService;
   set dentistService(DentistService dentistService) => _dentistService = dentistService;
-
-  Date dataConsulta = new Date.today();
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -65,8 +66,11 @@ class DentistEditComponent implements OnInit {
   bool showAssertMessageAlert = false;
 
   String name = '';
+  bool state;
 
   Map<String, dynamic> datas;
+
+  DentistEditComponent(this._changeDetectorRef);
 
   void onEdit() {
     dentistService = new DentistService();
@@ -86,16 +90,13 @@ class DentistEditComponent implements OnInit {
   }
 
   void onClose() {
-
     name = '';
     state = true;
+
+    componentRef.destroy();
   }
 
   bool asserts() {
-    if (dataConsulta == null) {
-      return false;
-    }
-
     return true;
   }
 
