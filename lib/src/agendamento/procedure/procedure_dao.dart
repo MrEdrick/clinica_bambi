@@ -35,6 +35,18 @@ class ProcedureDAO {
     }
   }
 
+  Future<String> delete(String id) async {
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(PROCEDURE_COLLECTION);
+    if (await _fireStoreApp.deleteItem(id)) {
+      _fireStoreApp.FireStoreOffLine();
+      return '';
+    } else {
+      _fireStoreApp.FireStoreOffLine();
+      return 'Error';
+    }
+  }
+
   Future<Procedure> procedureExists(String description) async {
     await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp _fireStoreApp = new FireStoreApp(PROCEDURE_COLLECTION);

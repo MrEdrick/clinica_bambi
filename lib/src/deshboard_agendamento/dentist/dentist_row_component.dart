@@ -63,13 +63,13 @@ class DentistRowComponent implements OnInit {
     showDeteleCertification = true;
   }
 
-  void deleteConsulta() {
+  void delete() {
     new DentistDAO().delete(dentistId);   
     showDeteleCertification = false;
     componentRef.destroy();
   }
 
-  void noDeleteConsulta() {
+  void noDelete() {
     showDeteleCertification = false;
   }
 }
