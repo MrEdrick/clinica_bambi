@@ -1,11 +1,18 @@
 @import 'package:angular_components/css/material/shadow';
 
+:host {
+  width: 100%;
+  z-index: 2 !important;
+}
+
 #container-filter-dentist {
   top: 0;
   position: relative;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
+  z-index: 2 !important;
+  margin-bottom: 1%;
 }
 
 .controls {
@@ -40,6 +47,7 @@ i {
   background-color: #ffffff;
   border-bottom: rgba(#616161, 0.12) 2px dashed;
   padding: 1% 0.5% 0 0.5%;
+  z-index: 2 !important;
 }
 
 .container-filter material-icon {
@@ -71,7 +79,7 @@ i {
   background-color: #ffffff;
   width: 100%;
   min-height: 48px;
-  z-index: 50 !important;
+  z-index: 2 !important;
 }
 
 .total-result-filtered {
