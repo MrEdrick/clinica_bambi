@@ -28,13 +28,13 @@ class DentistProcedureDAO {
     }
   }
 
-  Future<List<Map>> getAllDentistProcedureFilter(Map filter) async {
+  Future<List<Map>> getAllDentistProcedureFilter(Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
 
     await (await fireStoreApp.ref
-            .where(filter.keys.first, '==', filter.values.first)
+            .where(filter.keys.first, comparisons.first, filter.values.first)
             .get())
         .docs
         .forEach((doc) {
