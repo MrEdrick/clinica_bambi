@@ -35,7 +35,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final DentistProcedureService dentistProcedureService =
       new DentistProcedureService();
-  ComponentRef shiftByDayGroupComponent;
+  List<ComponentRef> shiftByDayGroupListComponent = new List<ComponentRef>();
 
   bool checked = false;
 
@@ -75,16 +75,20 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       'Sábado'
     ];
 
+    shiftByDayGroupListComponent.clear();
+
     _list.forEach((day) {
       ComponentFactory<shift_by_day_group_component.ShiftByDayGroupComponent>
           shiftByDayGroup =
           shift_by_day_group_component.ShiftByDayGroupComponentNgFactory;
 
-      shiftByDayGroupComponent = _loader.loadNextToLocation(
+      ComponentRef shiftByDayGroupComponent = _loader.loadNextToLocation(
           shiftByDayGroup, materialContainerDayGroup);
 
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
+
+      shiftByDayGroupListComponent.add(shiftByDayGroupComponent);
     });
 
     _changeDetectorRef.markForCheck();
@@ -98,7 +102,15 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
     if (dentistProcedureId != "") {
       if (!checked) {
-        saved = await shiftByDayGroupComponent.instance.onSave();
+        for (ComponentRef shiftByDayGroupComponent
+            in shiftByDayGroupListComponent) {
+          saved = await shiftByDayGroupComponent.instance.onSave();
+          if (!saved) {
+            break;
+          }
+        }
+        ;
+
         if (saved) {
           result[await new DentistProcedureDAO()
                   .delete(dentistProcedureService.dentistProcedure?.id) ==
@@ -109,22 +121,25 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
                 .update(dentistProcedureService.dentistProcedure?.id, datas) ==
             ""] = dentistProcedureService.dentistProcedure?.id;
 
-        if (result.keys.first) {
+        for (ComponentRef shiftByDayGroupComponent
+            in shiftByDayGroupListComponent) {
           shiftByDayGroupComponent.instance.dentistProcedureId =
               result.values.first;
-        }
 
-        saved = await shiftByDayGroupComponent.instance.onSave();
+          saved = await shiftByDayGroupComponent.instance.onSave();
+        }
+        ;
       }
     } else {
       result = await new DentistProcedureDAO().save(datas);
 
-      if (result.keys.first) {
+      for (ComponentRef shiftByDayGroupComponent
+          in shiftByDayGroupListComponent) {
         shiftByDayGroupComponent.instance.dentistProcedureId =
             result.values.first;
-      }
 
-      saved = await shiftByDayGroupComponent.instance.onSave();
+        saved = await shiftByDayGroupComponent.instance.onSave();
+      }
     }
 
     return saved;
