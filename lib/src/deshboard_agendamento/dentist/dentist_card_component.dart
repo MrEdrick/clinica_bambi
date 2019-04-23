@@ -13,7 +13,8 @@ import 'dentist_edit_component.dart';
     styleUrls: const [
       'dentist_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
-    ],
+    ],  
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'dentist_card_component.html',
     directives: const [
       coreDirectives,

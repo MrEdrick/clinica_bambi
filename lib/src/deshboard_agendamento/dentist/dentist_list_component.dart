@@ -14,6 +14,7 @@ import '../../agendamento/user/user_service.dart';
       'dentist_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'dentist_list_component.html',
     directives: const [
       coreDirectives,

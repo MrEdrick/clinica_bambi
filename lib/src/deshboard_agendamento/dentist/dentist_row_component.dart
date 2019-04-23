@@ -16,6 +16,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_comp
       'dentist_row_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: 'dentist_row_component.html',
     directives: const [
       coreDirectives,

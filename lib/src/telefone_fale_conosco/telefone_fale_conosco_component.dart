@@ -18,6 +18,7 @@ import '../email/emailSenderHTTP.dart';
 @Component(
   selector: 'telefone-fale-conosco-app',
   templateUrl: 'telefone_fale_conosco_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     AutoFocusDirective,

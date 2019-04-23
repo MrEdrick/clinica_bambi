@@ -17,6 +17,7 @@ import '../email/emailSenderHTTP.dart';
 @Component(
   selector: 'email-fale-conosco-app',
   templateUrl: 'email_fale_conosco_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     AutoFocusDirective,
