@@ -27,28 +27,6 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFS2PU-ZB49FMtTHEkAQhgTmPLVoelNdQ">
 </script>
 
-<script type="text/javascript">
-  function sendEmail(email_cc, subject, message) {
-    Email.send("clinicaodontologicabambi@gmail.com",
-      "clinicaodontologicabambi@gmail.com",
-      'Fale conosco: ' + subject + ' - Enviado por: ' + email_cc,
-      ' Esta mensagem foi enviada por: ' + email_cc + "\r\n" + message,
-      "smtp.elasticemail.com",
-      "clinicaodontologicabambi@gmail.com",
-      "0e149b68-5f44-4642-8bb0-62dde5b9e127",
-      function done(message) {
-        Email.send(
-          "clinicaodontologicabambi@gmail.com",
-          "clinicaodontologicabambi@gmail.com",
-          'Fale conosco: ' + subject,
-          ' Olá, recebemos seu e-mail. Esta é apenas uma mensagem automática, por favor não responda.' + "\r\n" + message,
-          "smtp.elasticemail.com",
-          "clinicaodontologicabambi@gmail.com",
-          "0e149b68-5f44-4642-8bb0-62dde5b9e127")
-      })
-  }
-</script>
-
 <script defer src="main.dart.js"></script>
 
 <!-- WhatsHelp.io widget -->
@@ -71,25 +49,5 @@
 <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
 <script src="https://smtpjs.com/v2/smtp.js"></script>
-
-<div id="fb-root"></div>
-<script>(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.2&appId=2592459504313881&autoLogAppEvents=1';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-
-<script  async defer src="https://apis.google.com/js/client:platform.js?onload=start" gapi_processed="true"></script>
-<script>
-  function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
-</script>
 
 </html>
