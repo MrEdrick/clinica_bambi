@@ -6,6 +6,9 @@ import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
 import '../../agendamento/user/user_service.dart';
 
+import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_dao.dart';
+
+
 @Component(
     selector: 'shift_checkbox_component',
     styleUrls: const [
@@ -25,7 +28,13 @@ class ShiftCheckboxComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
 
   @Input()
-  String dentistProcedureByDayOfWeek;
+  String dentistProcedureByDayOfWeekByShiftId;
+
+  @Input()
+  String dentistProcedureByDayOfWeekId;
+
+  @Input()
+  String shiftId;
 
   @Input()
   String shift;
@@ -44,15 +53,15 @@ class ShiftCheckboxComponent implements OnInit {
 
   @Output()
   Future<bool> onSave() async {
-    Map datas = {"dentistId": dentistId, "procedureId": procedureId};
+    Map datas = {"dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId, "shiftId": shiftId};
 
     Map<bool, String> result;
 
-    if (dentistProcedureService.dentistProcedure != null) {
-      result[await new DentistProcedureDAO().update(dentistProcedureService.dentistProcedure?.id, datas) ==
-          ""] = dentistProcedureService.dentistProcedure?.id;
+    if (dentistProcedureByDayOfWeekByShiftId != "") {
+      result[await new DentistProcedureByDayOfWeekByShiftDAO().update(dentistProcedureByDayOfWeekByShiftId, datas) ==
+          ""] = dentistProcedureByDayOfWeekByShiftId;
     } else {
-      result = await new DentistProcedureDAO().save(datas);
+      result = await new DentistProcedureByDayOfWeekByShiftDAO().save(datas);
     }
 
     if (result.keys.first) {
