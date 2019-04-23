@@ -9,17 +9,14 @@ import '../../firebase/firestore.dart';
 class PatientAccountDAO {
   PatientAccountDAO();
 
-  Future<String> save(Map<String, dynamic> datas) async {
+  Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
     await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp _fireStoreApp = new FireStoreApp(PATIENT_ACCOUNT_COLLECTION);
 
-    if (await _fireStoreApp.addItem(datas)) {
-      _fireStoreApp.FireStoreOffLine();
-      return '';
-    } else {
-      _fireStoreApp.FireStoreOffLine();
-      return 'Error';
-    }
+    Map<bool, String> result = (await _fireStoreApp.addItem(datas));
+    
+    _fireStoreApp.FireStoreOffLine();
+    return result;
   }
 
   Future<String> update(String id, Map<String, dynamic> datas) async {

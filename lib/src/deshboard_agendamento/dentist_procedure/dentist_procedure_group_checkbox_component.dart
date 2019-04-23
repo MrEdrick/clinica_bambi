@@ -34,6 +34,12 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   @Input()
   String procedure;
 
+  @Input()
+  String procedureId;
+
+  @Input()
+  String dentistId;
+
   @ViewChild('dayShiftGroup',
       read: ViewContainerRef)
   ViewContainerRef materialContainerDayGroup;
@@ -62,5 +68,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     });
 
     _changeDetectorRef.markForCheck();
+  }
+
+  @Output()
+  Future<bool> onSave() async {
+    return true;
   }
 }

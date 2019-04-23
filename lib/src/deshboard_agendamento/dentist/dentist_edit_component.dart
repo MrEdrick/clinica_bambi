@@ -12,10 +12,9 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 
+import '../../agendamento/dentist/dentist_dao.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 import '../../agendamento/dentist/dentist_constants.dart';
-
-import '../../firebase/firestore.dart';
 
 import '../../agendamento/user/user_service.dart';
 import '../../agendamento/procedure/procedure.dart';
@@ -59,6 +58,8 @@ class DentistEditComponent implements OnInit {
   ComponentRef componentRef;
 
   DentistService _dentistService;
+
+  ComponentRef procedureCheckboxGroupComponent;
 
   @ViewChild('dentistProcedureGroupCheckboxComponent',
       read: ViewContainerRef)
@@ -107,11 +108,12 @@ class DentistEditComponent implements OnInit {
             shiftComponent =
             dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponentNgFactory;
 
-        ComponentRef shiftCheckboxComponent =
+        procedureCheckboxGroupComponent =
             _loader.loadNextToLocation(
                 shiftComponent, materialContainerdentistProcedureGroup);
 
-        shiftCheckboxComponent.instance.procedure = procedure.description;
+        procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
+        procedureCheckboxGroupComponent.instance.procedure = procedure.description;
     });
 
     List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
@@ -177,18 +179,21 @@ class DentistEditComponent implements OnInit {
 
     datas = new Map<String, dynamic>();
 
-    datas = {"name": name, "state": state ? 'A' : 'I'};
+    datas = {"name": name, "state": state ? "A" : "I"};
 
-    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
+    if (((dentistService.dentist != null) 
+        ? await new DentistDAO().update(dentistService.dentist?.id, datas)
+        : await new DentistDAO().save(datas)) == "") {
 
-    if (dentistService.dentist != null
-        ? await _fireStoreApp.updateItem(dentistService.dentist?.id, datas)
-        : await _fireStoreApp.addItem(datas)) {
-      showSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
+      procedureCheckboxGroupComponent.instance.dentistId;
+
+      if (await procedureCheckboxGroupComponent.instance.onSave()) {
+        showSuccessfullySave = true;
+      } else {
+        showNotSuccessfullySave = true;
+      }     
     } else {
       showNotSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     }
   }
 }

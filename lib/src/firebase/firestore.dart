@@ -25,14 +25,13 @@ class FireStoreApp {
     return this._ref.orderBy(orderBy).onSnapshot;
   }
 
-  Future<bool> addItem(Map<String, dynamic> datas) async {
+  Future<Map<bool, String>> addItem(Map<String, dynamic> datas) async {
     try {
       fb.firestore().enableNetwork();
-      await this._ref.add(datas);
-      return true;
+      DocumentReference doc = (await this._ref.add(datas));
+      return {true : doc.id};
     } catch (e) {
-      print("Error ao escrever documento, $e");
-      return false;
+      return {false : "Error ao escrever documento, $e"};
     } finally {
       fb.firestore().disableNetwork();
     }
