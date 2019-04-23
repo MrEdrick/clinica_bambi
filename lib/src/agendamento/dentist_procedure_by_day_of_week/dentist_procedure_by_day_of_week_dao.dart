@@ -28,6 +28,18 @@ class DentistProcedureByDayOfWeekDAO {
     }
   }
 
+  Future<String> delete(String id) async {
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(DENTIST_PROCEDURE_BY_DAY_OF_WEEK_COLLECTION);
+    if (await _fireStoreApp.deleteItem(id)) {
+      _fireStoreApp.FireStoreOffLine();
+      return '';
+    } else {
+      _fireStoreApp.FireStoreOffLine();
+      return 'Error';
+    }
+  }
+
   Future<List<Map>> getAllDentistProcedureByDayOfWeekFilter(Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =

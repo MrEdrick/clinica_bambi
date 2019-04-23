@@ -25,8 +25,10 @@ import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_proc
       MaterialCheckboxComponent,
     ])
 class ShiftCheckboxComponent implements OnInit {
-  final DentistProcedureByDayOfWeekByShiftService dentistProcedureByDayOfWeekByShiftService = new DentistProcedureByDayOfWeekByShiftService();
-  final ChangeDetectorRef _changeDetectorRef; 
+  final DentistProcedureByDayOfWeekByShiftService
+      dentistProcedureByDayOfWeekByShiftService =
+      new DentistProcedureByDayOfWeekByShiftService();
+  final ChangeDetectorRef _changeDetectorRef;
 
   String dentistProcedureByDayOfWeekByShiftId;
 
@@ -47,11 +49,15 @@ class ShiftCheckboxComponent implements OnInit {
   ShiftCheckboxComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
-    if (new UserService().user  == null)
-      return;
+    if (new UserService().user == null) return;
 
-    dentistProcedureByDayOfWeekByShiftId = (await dentistProcedureByDayOfWeekByShiftService.getOneDentistProcedureByDayOfWeekByShiftByFilter(
-        {"dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId, "shiftId": shiftId}))?.id;
+    dentistProcedureByDayOfWeekByShiftId =
+        (await dentistProcedureByDayOfWeekByShiftService
+                .getOneDentistProcedureByDayOfWeekByShiftByFilter({
+      "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
+      "shiftId": shiftId
+    }))
+            ?.id;
 
     checked = dentistProcedureByDayOfWeekByShiftId != "";
 
@@ -60,13 +66,23 @@ class ShiftCheckboxComponent implements OnInit {
 
   @Output()
   Future<bool> onSave() async {
-    Map datas = {"dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId, "shiftId": shiftId};
+    Map datas = {
+      "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
+      "shiftId": shiftId
+    };
 
     Map<bool, String> result;
 
     if (dentistProcedureByDayOfWeekByShiftId != "") {
-      result[await new DentistProcedureByDayOfWeekByShiftDAO().update(dentistProcedureByDayOfWeekByShiftId, datas) ==
-          ""] = dentistProcedureByDayOfWeekByShiftId;
+      if (!checked) {
+        result[await new DentistProcedureByDayOfWeekByShiftDAO()
+                .delete(dentistProcedureByDayOfWeekByShiftId) ==
+            ""] = dentistProcedureByDayOfWeekByShiftId;
+      } else {
+        result[await new DentistProcedureByDayOfWeekByShiftDAO()
+                .update(dentistProcedureByDayOfWeekByShiftId, datas) ==
+            ""] = dentistProcedureByDayOfWeekByShiftId;
+      }
     } else {
       result = await new DentistProcedureByDayOfWeekByShiftDAO().save(datas);
     }
