@@ -144,7 +144,11 @@ class ShiftByDayGroupComponent implements OnInit {
             shiftByDayGroupComponent.instance.dentistProcedureByDayOfWeekId =
                 result.values.first;
 
-            await shiftByDayGroupComponent.instance.onSave();
+            saved = await shiftByDayGroupComponent.instance.onSave();
+
+            if (!saved) {
+              break;
+            }
           }
         }
       }
@@ -157,7 +161,11 @@ class ShiftByDayGroupComponent implements OnInit {
           shiftByDayGroupComponent.instance.dentistProcedureByDayOfWeekId =
               result.values.first;
 
-          await shiftByDayGroupComponent.instance.onSave();
+          saved = await shiftByDayGroupComponent.instance.onSave();
+
+          if (!saved) {
+            break;
+          }
         }
       }
     }

@@ -127,6 +127,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
               result.values.first;
 
           saved = await shiftByDayGroupComponent.instance.onSave();
+
+          if (!saved) {
+            break;
+          }
         }
       }
     } else {
@@ -138,6 +142,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
             result.values.first;
 
         saved = await shiftByDayGroupComponent.instance.onSave();
+
+        if (!saved) {
+          break;
+        }
       }
     }
 
