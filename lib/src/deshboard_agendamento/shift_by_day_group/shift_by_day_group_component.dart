@@ -108,40 +108,50 @@ class ShiftByDayGroupComponent implements OnInit {
       "dayOfWeek": dayOfWeek
     };
 
+    bool saved = false;
+
     Map<bool, String> result;
 
     if (dentistProcedureByDayOfWeekId != "") {
       if (!checked) {
-        result[await new DentistProcedureByDayOfWeekDAO()
-                .delete(dentistProcedureByDayOfWeekId) ==
-            ""] = dentistProcedureByDayOfWeekId;
+        saved = ((shiftType == 'checkbox')
+            ? await shiftCheckboxComponent.instance.onSave()
+            : await quantityPerShiftInputComponent.instance.onSave());
+
+        if (saved) {
+          result[await new DentistProcedureByDayOfWeekDAO()
+                  .delete(dentistProcedureByDayOfWeekId) ==
+              ""] = dentistProcedureByDayOfWeekId;
+        }
       } else {
         result[await new DentistProcedureByDayOfWeekDAO()
                 .update(dentistProcedureByDayOfWeekId, datas) ==
             ""] = dentistProcedureByDayOfWeekId;
+
+        if (result.keys.first) {
+          if (shiftType == 'checkbox') {
+            shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+                result.values.first;
+          } else {
+            quantityPerShiftInputComponent
+                .instance.dentistProcedureByDayOfWeekId = result.values.first;
+          }
+        }
       }
     } else {
       result = await new DentistProcedureByDayOfWeekDAO().save(datas);
+
+      if (result.keys.first) {
+        if (shiftType == 'checkbox') {
+          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+              result.values.first;
+        } else {
+          quantityPerShiftInputComponent
+              .instance.dentistProcedureByDayOfWeekId = result.values.first;
+        }
+      }
     }
 
-    if (result.keys.first) {
-      if (shiftType == 'checkbox') {
-        shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
-            result.values.first;
-      } else {
-        quantityPerShiftInputComponent.instance.dentistProcedureByDayOfWeekId =
-            result.values.first;
-      }
-
-      if ((shiftType == 'checkbox')
-          ? await shiftCheckboxComponent.instance.onSave()
-          : quantityPerShiftInputComponent.instance.onSave()) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+    return saved;
   }
 }
