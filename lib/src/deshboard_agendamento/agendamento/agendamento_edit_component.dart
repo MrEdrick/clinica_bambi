@@ -33,9 +33,9 @@ import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/agreement/agreement_selection_options.dart';
 
 import 'package:firebase/firebase.dart' as fb;
-import '../../firebase/firestore.dart';
 
 import '../../agendamento/consulta/consulta_service.dart';
+import '../../agendamento/consulta/appointment_scheduling_dao.dart';
 
 import '../../agendamento/user/user_service.dart';
 
@@ -416,16 +416,18 @@ class AgendamentoEditComponent implements OnInit {
       "userId": fb.auth().currentUser.uid
     };
 
-    FireStoreApp _fireStoreApp = new FireStoreApp('appointmentsScheduling');
+    Map<bool, String> result;
 
-    if (consultaService.consulta != null
-        ? await _fireStoreApp.updateItem(consultaService.consulta?.id, datas)
-        : await _fireStoreApp.addItem(datas)) {
+    if (consultaService.consulta != null) {
+      result[await new AppointmentSchedulingDAO().update(consultaService.consulta?.id, datas) == ""] = consultaService.consulta?.id; 
+    } else {
+      result = await new AppointmentSchedulingDAO().save(datas); 
+    } 
+
+    if (result.keys.first) {
       showSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     } else {
       showNotSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     }
   }
 }

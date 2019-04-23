@@ -181,11 +181,16 @@ class DentistEditComponent implements OnInit {
 
     datas = {"name": name, "state": state ? "A" : "I"};
 
-    if (((dentistService.dentist != null) 
-        ? await new DentistDAO().update(dentistService.dentist?.id, datas)
-        : await new DentistDAO().save(datas)) == "") {
+    Map<bool, String> result; 
+    
+    if (dentistService.dentist != null) {
+      result[await new DentistDAO().update(dentistService.dentist?.id, datas) == ""] = dentistService.dentist?.id; 
+    } else {
+      result = await new DentistDAO().save(datas); 
+    } 
 
-      procedureCheckboxGroupComponent.instance.dentistId;
+    if (result.keys.first) {
+      procedureCheckboxGroupComponent.instance.dentistId = result.values.first;
 
       if (await procedureCheckboxGroupComponent.instance.onSave()) {
         showSuccessfullySave = true;
