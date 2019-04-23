@@ -54,8 +54,7 @@ class ShiftByDayGroupComponent implements OnInit {
   @Input()
   String shiftType;
 
-  bool checked;
-
+  bool checked = false;
 
   @ViewChild('shiftGroup', read: ViewContainerRef)
   ViewContainerRef materialContainerShitGroup;

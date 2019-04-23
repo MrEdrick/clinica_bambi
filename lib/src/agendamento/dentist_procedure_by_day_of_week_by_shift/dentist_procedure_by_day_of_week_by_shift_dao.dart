@@ -27,4 +27,25 @@ class DentistProcedureByDayOfWeekByShiftDAO {
       return 'Error';
     }
   }
+
+  Future<List<Map>> getAllDentistProcedureByDayOfWeekByShiftFilter(Map filter, List comparisons) async {
+    List<Map> _list = new List<Map>();
+    FireStoreApp fireStoreApp =
+        new FireStoreApp(DENTIST_PROCEDURE_BY_DAY_OF_WEEK_BY_SHIFT_COLLECTION);
+
+    await (await fireStoreApp.ref
+            .where(filter.keys.first, comparisons.first, filter.values.first)
+            .get())
+        .docs
+        .forEach((doc) {
+      Map map = new Map.from(doc.data());
+      map['documentPath'] = doc.id;
+      _list.add(map);
+    });
+
+    fireStoreApp.FireStoreOffLine();
+
+    return _list;
+  }
+
 }
