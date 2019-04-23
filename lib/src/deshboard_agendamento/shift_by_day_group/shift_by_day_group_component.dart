@@ -105,10 +105,10 @@ class ShiftByDayGroupComponent implements OnInit {
 
     if (result.keys.first) {
       if (shiftType == 'checkbox') {
-        shiftCheckboxComponent.instance.dentistProcedureId =
+        shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
           result.values.first;
       } else {
-        quantityPerShiftInputComponent.instance.dentistProcedureId =
+        quantityPerShiftInputComponent.instance.dentistProcedureByDayOfWeekId =
           result.values.first;
       }
 

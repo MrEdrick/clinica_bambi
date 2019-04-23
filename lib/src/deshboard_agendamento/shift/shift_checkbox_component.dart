@@ -25,6 +25,9 @@ class ShiftCheckboxComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
 
   @Input()
+  String dentistProcedureByDayOfWeek;
+
+  @Input()
   String shift;
 
   @Input()
