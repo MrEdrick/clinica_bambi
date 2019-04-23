@@ -7,7 +7,7 @@ import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_dao.dart';
-
+import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
 
 @Component(
     selector: 'shift_checkbox_component',
@@ -25,9 +25,9 @@ import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_proc
       MaterialCheckboxComponent,
     ])
 class ShiftCheckboxComponent implements OnInit {
+  final DentistProcedureByDayOfWeekByShiftService dentistProcedureByDayOfWeekByShiftService = new DentistProcedureByDayOfWeekByShiftService();
   final ChangeDetectorRef _changeDetectorRef; 
 
-  @Input()
   String dentistProcedureByDayOfWeekByShiftId;
 
   @Input()
@@ -42,11 +42,18 @@ class ShiftCheckboxComponent implements OnInit {
   @Input()
   String dayOfWeek;
 
+  bool checked = false;
+
   ShiftCheckboxComponent(this._changeDetectorRef);
 
-  void ngOnInit() {
+  void ngOnInit() async {
     if (new UserService().user  == null)
       return;
+
+    dentistProcedureByDayOfWeekByShiftId = (await dentistProcedureByDayOfWeekByShiftService.getOneDentistProcedureByDayOfWeekByShiftByFilter(
+        {"dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId, "shiftId": shiftId}))?.id;
+
+    checked = dentistProcedureByDayOfWeekByShiftId != "";
 
     _changeDetectorRef.markForCheck();
   }
