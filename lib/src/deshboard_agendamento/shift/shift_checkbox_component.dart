@@ -41,4 +41,24 @@ class ShiftCheckboxComponent implements OnInit {
 
     _changeDetectorRef.markForCheck();
   }
+
+  @Output()
+  Future<bool> onSave() async {
+    Map datas = {"dentistId": dentistId, "procedureId": procedureId};
+
+    Map<bool, String> result;
+
+    if (dentistProcedureService.dentistProcedure != null) {
+      result[await new DentistProcedureDAO().update(dentistProcedureService.dentistProcedure?.id, datas) ==
+          ""] = dentistProcedureService.dentistProcedure?.id;
+    } else {
+      result = await new DentistProcedureDAO().save(datas);
+    }
+
+    if (result.keys.first) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

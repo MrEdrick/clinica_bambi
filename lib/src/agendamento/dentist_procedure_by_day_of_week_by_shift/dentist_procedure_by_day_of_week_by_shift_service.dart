@@ -1,0 +1,8 @@
+import 'dentist_procedure_by_day_of_week_by_shift.dart';
+
+class DentistProcedureByDayOfWeekServiceByShift {
+  static DentistProcedureByDayOfWeekByShift _dentistProcedureByDayOfWeekByShift = null;
+
+  DentistProcedureByDayOfWeekByShift get dentistProcedureByDayOfWeekByShift => _dentistProcedureByDayOfWeekByShift;
+  set dentistProcedureByDayOfWeekByShift(DentistProcedureByDayOfWeekByShift dentistProcedureByDayOfWeekByShift) => _dentistProcedureByDayOfWeekByShift = dentistProcedureByDayOfWeekByShift;
+}
