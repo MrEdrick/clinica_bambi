@@ -27,4 +27,25 @@ class DentistProcedureDAO {
       return 'Error';
     }
   }
+
+  Future<List<Map>> getAllDentistProcedureFilter(Map filter) async {
+    List<Map> _list = new List<Map>();
+    FireStoreApp fireStoreApp =
+        new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
+
+    await (await fireStoreApp.ref
+            .where(filter.keys.first, '==', filter.values.first)
+            .get())
+        .docs
+        .forEach((doc) {
+      Map map = new Map.from(doc.data());
+      map['documentPath'] = doc.id;
+      _list.add(map);
+    });
+
+    fireStoreApp.FireStoreOffLine();
+
+    return _list;
+  }
+
 }

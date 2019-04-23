@@ -36,6 +36,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   final DentistProcedureService dentistProcedureService = new DentistProcedureService(); 
   ComponentRef shiftByDayGroupComponent;
 
+  bool checked = false;
+
+  String dentistProcedureId;
+
   @Input()
   String procedure;
 
@@ -52,6 +56,9 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    checked = dentistProcedureId != ""; 
+
     List _list = [
       'Domingo',
       'Segunda-Feira',
