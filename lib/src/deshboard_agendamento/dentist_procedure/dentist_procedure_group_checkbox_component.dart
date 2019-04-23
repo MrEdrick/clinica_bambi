@@ -128,7 +128,6 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
           saved = await shiftByDayGroupComponent.instance.onSave();
         }
-        ;
       }
     } else {
       result = await new DentistProcedureDAO().save(datas);
