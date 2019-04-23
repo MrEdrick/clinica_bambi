@@ -11,6 +11,7 @@ import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_dao.dart';
+import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift/quantity_per_shift_input_component.template.dart'
     as quantity_per_shift_component;
@@ -37,11 +38,11 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift/shift_checkbox_comp
 class ShiftByDayGroupComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  
+  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService = new DentistProcedureByDayOfWeekService(); 
+
   ComponentRef shiftCheckboxComponent;
   ComponentRef quantityPerShiftInputComponent;
 
-  @Input()
   String dentistProcedureByDayOfWeekId;
 
   @Input()
@@ -53,6 +54,9 @@ class ShiftByDayGroupComponent implements OnInit {
   @Input()
   String shiftType;
 
+  bool checked;
+
+
   @ViewChild('shiftGroup', read: ViewContainerRef)
   ViewContainerRef materialContainerShitGroup;
 
@@ -60,6 +64,11 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
+    
+    dentistProcedureByDayOfWeekId = (await dentistProcedureByDayOfWeekService.getOneDentistProcedureByDayOfWeekByFilter(
+        {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek}))?.id;
+
+    checked = dentistProcedureByDayOfWeekId != "";
 
     List<Shift> _list = await new ShiftService().getAllShiftAcives();
 

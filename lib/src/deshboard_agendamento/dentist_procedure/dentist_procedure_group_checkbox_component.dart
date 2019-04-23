@@ -94,7 +94,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
     Map<bool, String> result;
 
-    if (dentistProcedureService.dentistProcedure != null) {
+    if (dentistProcedureId != "") {
       result[await new DentistProcedureDAO()
               .update(dentistProcedureService.dentistProcedure?.id, datas) ==
           ""] = dentistProcedureService.dentistProcedure?.id;
