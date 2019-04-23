@@ -3,8 +3,8 @@ import 'dart:async';
 import 'dentist_procedure_by_day_of_week_constants.dart';
 import '../../firebase/firestore.dart';
 
-class DentistProcedureDAO {
-  DentistProcedureDAO();
+class DentistProcedureByDayOfWeekDAO {
+  DentistProcedureByDayOfWeekDAO();
 
   Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
