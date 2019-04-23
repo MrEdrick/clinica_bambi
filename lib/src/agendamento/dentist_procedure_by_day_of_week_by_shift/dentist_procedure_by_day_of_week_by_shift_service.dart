@@ -45,7 +45,7 @@ class DentistProcedureByDayOfWeekByShiftService {
       await getAllDentistProcedureByDayOfWeekByShiftAcives();
     }
 
-    doc = getDentistProcedureByDayOfWeekListWithFilterFromList(filter).first;
+    doc = getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(filter).first;
 
     if (doc == null) {
       doc = (await new DentistProcedureByDayOfWeekByShiftDAO()
