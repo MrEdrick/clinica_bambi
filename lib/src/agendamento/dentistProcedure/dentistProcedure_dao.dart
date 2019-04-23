@@ -9,8 +9,8 @@ class DentistProcedureDAO {
   DentistProcedureDAO();
 
   Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
-    await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
-    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
     
@@ -19,7 +19,6 @@ class DentistProcedureDAO {
   }
 
   Future<String> update(String id, Map<String, dynamic> datas) async {
-    await new UserDAO().authWithEmailAndPassword(EMAIL_ADM, PASSWORD_ADM);
     FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
 
     if (await _fireStoreApp.updateItem(id, datas)) {

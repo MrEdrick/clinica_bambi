@@ -37,6 +37,9 @@ class ShiftByDayGroupComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   @Input()
+  String dentistProcedureId;
+
+  @Input()
   String dayOfWeek;
 
   @Input()
@@ -78,4 +81,32 @@ class ShiftByDayGroupComponent implements OnInit {
 
     _changeDetectorRef.markForCheck();
   }
+
+  @Output()
+  Future<bool> onSave() async {
+    Map datas = {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek};
+
+    Map<bool, String> result;
+
+    if (dentistService.dentist != null) {
+      result[await new DentistDAO().update(dentistService.dentist?.id, datas) ==
+          ""] = dentistService.dentist?.id;
+    } else {
+      result = await new DentistDAO().save(datas);
+    }
+
+    if (result.keys.first) {
+      shiftByDayGroupComponent.instance.dentistProcedureId =
+          result.values.first;
+
+      if (await shiftByDayGroupComponent.instance.onSave()) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
 }
