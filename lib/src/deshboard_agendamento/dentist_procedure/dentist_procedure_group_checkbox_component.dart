@@ -33,7 +33,8 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_
 class DentistProcedureGroupCheckboxComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  final DentistProcedureService dentistProcedureService = new DentistProcedureService(); 
+  final DentistProcedureService dentistProcedureService =
+      new DentistProcedureService();
   ComponentRef shiftByDayGroupComponent;
 
   bool checked = false;
@@ -57,7 +58,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    checked = dentistProcedureId != ""; 
+    dentistProcedureId = (await dentistProcedureService.getOneDentistProcedureByFilter(
+        {"dentistId": dentistId, "procedureId": procedureId}))?.id;
+
+    checked = dentistProcedureId != "";
 
     List _list = [
       'Domingo',
@@ -91,7 +95,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     Map<bool, String> result;
 
     if (dentistProcedureService.dentistProcedure != null) {
-      result[await new DentistProcedureDAO().update(dentistProcedureService.dentistProcedure?.id, datas) ==
+      result[await new DentistProcedureDAO()
+              .update(dentistProcedureService.dentistProcedure?.id, datas) ==
           ""] = dentistProcedureService.dentistProcedure?.id;
     } else {
       result = await new DentistProcedureDAO().save(datas);
