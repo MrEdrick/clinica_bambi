@@ -8,8 +8,8 @@ import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
 import '../../agendamento/user/user_service.dart';
 
-import '../../agendamento/dentistProcedure/dentistProcedure_service.dart';
-import '../../agendamento/dentistProcedure/dentistProcedure_dao.dart';
+import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
+import '../../agendamento/dentist_procedure/dentist_procedure_dao.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_component.template.dart'
     as shift_by_day_group_component;

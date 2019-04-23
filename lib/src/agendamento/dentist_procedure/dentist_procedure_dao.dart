@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'dentistProcedure_constants.dart';
-import '../user/user_dao.dart';
-import '../user/user_constants.dart';
+import 'dentist_procedure_constants.dart';
 import '../../firebase/firestore.dart';
 
 class DentistProcedureDAO {
