@@ -58,8 +58,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    dentistProcedureId = (await dentistProcedureService.getOneDentistProcedureByFilter(
-        {"dentistId": dentistId, "procedureId": procedureId}))?.id;
+    dentistProcedureId = (await dentistProcedureService
+            .getOneDentistProcedureByFilter(
+                {"dentistId": dentistId, "procedureId": procedureId}))
+        ?.id;
 
     checked = dentistProcedureId != "";
 
@@ -95,9 +97,15 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     Map<bool, String> result;
 
     if (dentistProcedureId != "") {
-      result[await new DentistProcedureDAO()
-              .update(dentistProcedureService.dentistProcedure?.id, datas) ==
-          ""] = dentistProcedureService.dentistProcedure?.id;
+      if (!checked) {
+        result[await new DentistProcedureDAO()
+                .delete(dentistProcedureService.dentistProcedure?.id) ==
+            ""] = dentistProcedureService.dentistProcedure?.id;
+      } else {
+        result[await new DentistProcedureDAO()
+                .update(dentistProcedureService.dentistProcedure?.id, datas) ==
+            ""] = dentistProcedureService.dentistProcedure?.id;
+      }
     } else {
       result = await new DentistProcedureDAO().save(datas);
     }

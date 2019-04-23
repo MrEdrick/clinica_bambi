@@ -38,7 +38,8 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift/shift_checkbox_comp
 class ShiftByDayGroupComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService = new DentistProcedureByDayOfWeekService(); 
+  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService =
+      new DentistProcedureByDayOfWeekService();
 
   ComponentRef shiftCheckboxComponent;
   ComponentRef quantityPerShiftInputComponent;
@@ -63,9 +64,13 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-    
-    dentistProcedureByDayOfWeekId = (await dentistProcedureByDayOfWeekService.getOneDentistProcedureByDayOfWeekByFilter(
-        {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek}))?.id;
+
+    dentistProcedureByDayOfWeekId = (await dentistProcedureByDayOfWeekService
+            .getOneDentistProcedureByDayOfWeekByFilter({
+      "dentistProcedureId": dentistProcedureId,
+      "dayOfWeek": dayOfWeek
+    }))
+        ?.id;
 
     checked = dentistProcedureByDayOfWeekId != "";
 
@@ -77,9 +82,8 @@ class ShiftByDayGroupComponent implements OnInit {
             shiftComponent =
             shift_checkbox_component.ShiftCheckboxComponentNgFactory;
 
-        shiftCheckboxComponent =
-            _loader.loadNextToLocation(
-                shiftComponent, materialContainerShitGroup);
+        shiftCheckboxComponent = _loader.loadNextToLocation(
+            shiftComponent, materialContainerShitGroup);
 
         shiftCheckboxComponent.instance.shift = shift.description;
       } else {
@@ -87,9 +91,8 @@ class ShiftByDayGroupComponent implements OnInit {
             shiftComponent =
             quantity_per_shift_component.QuantityPerShiftComponentNgFactory;
 
-        quantityPerShiftInputComponent =
-            _loader.loadNextToLocation(
-                shiftComponent, materialContainerShitGroup);
+        quantityPerShiftInputComponent = _loader.loadNextToLocation(
+            shiftComponent, materialContainerShitGroup);
 
         quantityPerShiftInputComponent.instance.shift = shift.description;
       }
@@ -100,13 +103,23 @@ class ShiftByDayGroupComponent implements OnInit {
 
   @Output()
   Future<bool> onSave() async {
-    Map datas = {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek};
+    Map datas = {
+      "dentistProcedureId": dentistProcedureId,
+      "dayOfWeek": dayOfWeek
+    };
 
     Map<bool, String> result;
 
     if (dentistProcedureByDayOfWeekId != "") {
-      result[await new DentistProcedureByDayOfWeekDAO().update(dentistProcedureByDayOfWeekId, datas) ==
-          ""] = dentistProcedureByDayOfWeekId;
+      if (!checked) {
+        result[await new DentistProcedureByDayOfWeekDAO()
+                .delete(dentistProcedureByDayOfWeekId) ==
+            ""] = dentistProcedureByDayOfWeekId;
+      } else {
+        result[await new DentistProcedureByDayOfWeekDAO()
+                .update(dentistProcedureByDayOfWeekId, datas) ==
+            ""] = dentistProcedureByDayOfWeekId;
+      }
     } else {
       result = await new DentistProcedureByDayOfWeekDAO().save(datas);
     }
@@ -114,13 +127,15 @@ class ShiftByDayGroupComponent implements OnInit {
     if (result.keys.first) {
       if (shiftType == 'checkbox') {
         shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
-          result.values.first;
+            result.values.first;
       } else {
         quantityPerShiftInputComponent.instance.dentistProcedureByDayOfWeekId =
-          result.values.first;
+            result.values.first;
       }
 
-      if ((shiftType == 'checkbox') ? await shiftCheckboxComponent.instance.onSave() : quantityPerShiftInputComponent.instance.onSave()) {
+      if ((shiftType == 'checkbox')
+          ? await shiftCheckboxComponent.instance.onSave()
+          : quantityPerShiftInputComponent.instance.onSave()) {
         return true;
       } else {
         return false;
@@ -129,5 +144,4 @@ class ShiftByDayGroupComponent implements OnInit {
       return false;
     }
   }
-
 }
