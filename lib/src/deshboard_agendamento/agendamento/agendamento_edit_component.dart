@@ -160,23 +160,23 @@ class AgendamentoEditComponent implements OnInit {
   static ItemRenderer<DentistUI> _displayNameRenderer =
       (HasUIDisplayName item) => item.uiDisplayName;
 
-  List<Dentist> _listDentist;
+  List<DentistUI> _listDentist;
   final DentistService _dentistService;
 
-  static ItemRenderer<Dentist> _itemRendererDentist =
-      newCachingItemRenderer<Dentist>((dentista) => "${dentista.name}");
+  static ItemRenderer<DentistUI> _itemRendererDentist =
+      newCachingItemRenderer<DentistUI>((dentista) => "${dentista.name}");
 
   ItemRenderer<DentistUI> get itemRendererDentist =>
       useItemRenderer ? _itemRendererDentist : _displayNameRenderer;
 
-  DentistSelectionOptions<Dentist> dentistListOptions;
+  DentistSelectionOptions<DentistUI> dentistListOptions;
 
-  StringSelectionOptions<Dentist> get dentistOptions {
+  StringSelectionOptions<DentistUI> get dentistOptions {
     if (_listDentist == null) {
       return null;
     }
 
-    dentistListOptions = DentistSelectionOptions<Dentist>(_listDentist);
+    dentistListOptions = DentistSelectionOptions<DentistUI>(_listDentist);
 
     return dentistListOptions;
   }
@@ -277,7 +277,7 @@ class AgendamentoEditComponent implements OnInit {
       this._agreementService, this._changeDetectorRef);
 
   Future<void> _getListDentist() async {
-    _listDentist = await _dentistService.getAllDentistAcives();
+    _listDentist = await _dentistService.getAllDentistUIAcives();
   }
 
   Future<void> _getListShift() async {
