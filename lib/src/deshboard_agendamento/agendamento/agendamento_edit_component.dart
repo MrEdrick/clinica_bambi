@@ -328,6 +328,8 @@ class AgendamentoEditComponent implements OnInit {
     if (new UserService().user == null) return;
 
     onEdit();
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
@@ -363,6 +365,7 @@ class AgendamentoEditComponent implements OnInit {
 
   void onDismissSuccessfullySave() {
     showSuccessfullySave = false;
+    querySelector("#bt-filter").click();
     onClose();
   }
 
@@ -429,5 +432,7 @@ class AgendamentoEditComponent implements OnInit {
     } else {
       showNotSuccessfullySave = true;
     }
+
+    _changeDetectorRef.markForCheck();
   }
 }

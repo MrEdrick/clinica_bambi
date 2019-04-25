@@ -62,7 +62,6 @@ class ConsultaService {
     return _appointmentSchedulingById;
   }
 
-
   List<Map> getAppointmentSchedulingWithFilterFromList(
       String date, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
@@ -88,8 +87,6 @@ class ConsultaService {
         if (filter["dentistId"] == doc["dentistId"]) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
-      } else {
-        _listDocumentSnapshotTemp.add(new Map.from(doc));
       }
     });
 

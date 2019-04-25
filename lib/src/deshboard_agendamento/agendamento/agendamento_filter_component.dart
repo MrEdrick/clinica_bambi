@@ -241,7 +241,6 @@ class AgendamentoFilterComponent implements OnInit {
       dataFinal = dataInicial;
     }
 
-    querySelector('#agendamento-result-filter-text').setAttribute('value', '0');
     querySelector('#agendamento-result-filter-text').setInnerHtml('0');
 
     dataInicialFormatada =
@@ -284,21 +283,23 @@ class AgendamentoFilterComponent implements OnInit {
     new ConsultaService().clearAllAppointmentSchedulingByDate();
 
     await listDate.forEach((date) async {
+      int total = 0;
+
       new ConsultaService()
           .getAllAppointmentSchedulingByDateMap(date)
           .then((onValue) {
-        new ConsultaService().getAppointmentSchedulingWithFilterFromList(
+        total += (new ConsultaService().getAppointmentSchedulingWithFilterFromList(
             date.toString(), {
           "dentistId": dentistId,
           "shiftId": shiftId,
           "patient": patientName
-        });
+        })).length;
 
         if (listDate.last == date) {
           onLoad();
 
           querySelector('#agendamento-result-filter-text')
-              .setInnerHtml(consultaService.getAppointmentScheduling().length.toString());
+              .setInnerHtml(total.toString());
         }
       });
     });
@@ -321,8 +322,13 @@ class AgendamentoFilterComponent implements OnInit {
           ?.deselect(singleSelectModelDentist?.selectedValues?.first);
     }
 
+    if (!singleSelectModelShift.selectedValues.isEmpty) {
+      singleSelectModelShift
+          ?.deselect(singleSelectModelShift?.selectedValues?.first);
+    }
+
     dataInicial = new Date.today();
-    dataFinal = new Date.today().add(days: 7);
+    dataFinal = new Date.today();
 
     dataInicialFormatada = '';
     dataFinalFormatada = '';
@@ -330,8 +336,5 @@ class AgendamentoFilterComponent implements OnInit {
     turnoDescription = '';
 
     patientName = '';
-
-    querySelector('#total-result-filter-text').setAttribute('value', '0');
-    querySelector('#total-result-filter-text').setInnerHtml('0');
   }
 }

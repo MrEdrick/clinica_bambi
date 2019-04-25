@@ -38,6 +38,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   List<ComponentRef> shiftByDayGroupListComponent = new List<ComponentRef>();
 
   bool checked = false;
+  String display = "none";
 
   String dentistProcedureId;
 
@@ -150,5 +151,13 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     }
 
     return saved;
+  }
+
+  void onClickCheckbox() {
+    if (checked) {
+      display = "block";
+    }
+    
+    _changeDetectorRef.markForCheck();
   }
 }

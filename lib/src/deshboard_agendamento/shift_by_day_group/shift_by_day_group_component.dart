@@ -63,7 +63,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
+    
     dentistProcedureByDayOfWeekId = (await dentistProcedureByDayOfWeekService
             .getOneDentistProcedureByDayOfWeekByFilter({
       "dentistProcedureId": dentistProcedureId,
@@ -89,6 +89,7 @@ class ShiftByDayGroupComponent implements OnInit {
         shiftCheckboxComponent.instance.shift = shift.description;
 
         shiftByDayGroupListComponent.add(shiftCheckboxComponent);
+        print("teste");
       } else {
         ComponentFactory<quantity_per_shift_component.QuantityPerShiftComponent>
             shiftComponent =
