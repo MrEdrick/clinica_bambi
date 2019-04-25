@@ -68,9 +68,9 @@ header {
   background-color: #cbcbcb; 
 }
 
-#container-menu-itens material-button material-icon {
+#container-menu-itens material-button material-icon .material-icon-i {
   margin-right: 1%;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
