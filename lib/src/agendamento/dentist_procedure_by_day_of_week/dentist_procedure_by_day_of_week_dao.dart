@@ -45,15 +45,24 @@ class DentistProcedureByDayOfWeekDAO {
     FireStoreApp fireStoreApp =
         new FireStoreApp(DENTIST_PROCEDURE_BY_DAY_OF_WEEK_COLLECTION);
 
-    await (await fireStoreApp.ref
-            .where(filter.keys.first, comparisons.first, filter.values.first)
-            .get())
-        .docs
-        .forEach((doc) {
-      Map map = new Map.from(doc.data());
-      map['documentPath'] = doc.id;
-      _list.add(map);
-    });
+    if (filter.length == 0) {
+      await (await fireStoreApp.ref.get()).docs.forEach((doc) {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      });
+    } else {
+      await (await fireStoreApp.ref
+              .where(filter.keys.first.toString(), comparisons.first.toString(),
+                  filter.values.first.toString())
+              .get())
+          .docs
+          .forEach((doc) {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      });
+    }
 
     fireStoreApp.FireStoreOffLine();
 

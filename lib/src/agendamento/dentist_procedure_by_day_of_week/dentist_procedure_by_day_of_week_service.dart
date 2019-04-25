@@ -28,7 +28,7 @@ class DentistProcedureByDayOfWeekService {
     clearAllDentistProcedureByDayOfWeekList();
     
     await (_dentistProcedureByDayOfWeekList = await new DentistProcedureByDayOfWeekDAO()
-        .getAllDentistProcedureByDayOfWeekFilter({"dentistProcedureByDayOfWeekId": ""}, [">="]));
+        .getAllDentistProcedureByDayOfWeekFilter({}, []));
     
     _dentistProcedureByDayOfWeekList.forEach((dentistProcedureByDayOfWeek) {
       _dentistProcedureByDayOfWeekListById[dentistProcedureByDayOfWeek["documentPath"]] = dentistProcedureByDayOfWeek;

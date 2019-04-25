@@ -81,10 +81,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       ComponentFactory<shift_by_day_group_component.ShiftByDayGroupComponent>
           shiftByDayGroup =
           shift_by_day_group_component.ShiftByDayGroupComponentNgFactory;
-
+      print("t0");
       ComponentRef shiftByDayGroupComponent = _loader.loadNextToLocation(
           shiftByDayGroup, materialContainerDayGroup);
- 
+      print("t1");
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
 
