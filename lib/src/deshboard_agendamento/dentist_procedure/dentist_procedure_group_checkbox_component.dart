@@ -61,8 +61,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
     dentistProcedureId = (await dentistProcedureService
             .getOneDentistProcedureByFilter(
-                {"dentistId": dentistId, "procedureId": procedureId}))
-        ?.id;
+                {"dentistId": dentistId, "procedureId": procedureId}))?.id;
 
     checked = dentistProcedureId != "";
 
@@ -85,7 +84,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
       ComponentRef shiftByDayGroupComponent = _loader.loadNextToLocation(
           shiftByDayGroup, materialContainerDayGroup);
-
+ 
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
 
@@ -157,7 +156,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (checked) {
       display = "block";
     }
-    
+
     _changeDetectorRef.markForCheck();
   }
 }

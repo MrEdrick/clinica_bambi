@@ -28,7 +28,7 @@ class DentistProcedureService {
     clearAllDentistProcedureList();
     
     await (_dentistProcedureList = await new DentistProcedureDAO()
-        .getAllDentistProcedureFilter({"dentistProcedureId": ""}, [">="]));
+        .getAllDentistProcedureFilter({"id": ""}, [">="]));
     
     _dentistProcedureList.forEach((dentistProcedure) {
       _dentistProcedureListById[dentistProcedure["documentPath"]] = dentistProcedure;

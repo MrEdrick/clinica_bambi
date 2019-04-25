@@ -72,7 +72,7 @@ class ShiftByDayGroupComponent implements OnInit {
         ?.id;
 
     checked = dentistProcedureByDayOfWeekId != "";
-
+    
     List<Shift> _list = await new ShiftService().getAllShiftAcives();
 
     shiftByDayGroupListComponent.clear();
@@ -85,11 +85,12 @@ class ShiftByDayGroupComponent implements OnInit {
 
         ComponentRef shiftCheckboxComponent = _loader.loadNextToLocation(
             shiftComponent, materialContainerShitGroup);
-
+        
+        shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId = dentistProcedureByDayOfWeekId;
+        shiftCheckboxComponent.instance.shiftId = shift.id;
         shiftCheckboxComponent.instance.shift = shift.description;
 
         shiftByDayGroupListComponent.add(shiftCheckboxComponent);
-        print("teste");
       } else {
         ComponentFactory<quantity_per_shift_component.QuantityPerShiftComponent>
             shiftComponent =
