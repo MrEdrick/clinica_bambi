@@ -7,11 +7,10 @@ class DentistProcedureDAO {
   DentistProcedureDAO();
 
   Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
-    
+
     _fireStoreApp.FireStoreOffLine();
     return result;
   }
@@ -29,8 +28,7 @@ class DentistProcedureDAO {
   }
 
   Future<String> delete(String id) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
     if (await _fireStoreApp.deleteItem(id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
@@ -40,24 +38,32 @@ class DentistProcedureDAO {
     }
   }
 
-  Future<List<Map>> getAllDentistProcedureFilter(Map filter, List comparisons) async {
+  Future<List<Map>> getAllDentistProcedureFilter(
+      Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp fireStoreApp =
-        new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
+    FireStoreApp fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
 
-    await (await fireStoreApp.ref
-            .where(filter.keys.first, comparisons.first, filter.values.first)
-            .get())
-        .docs
-        .forEach((doc) {
-      Map map = new Map.from(doc.data());
-      map['documentPath'] = doc.id;
-      _list.add(map);
-    });
+    if (filter.length == 0) {
+      await (await fireStoreApp.ref.get()).docs.forEach((doc) {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      });
+    } else {
+      await (await fireStoreApp.ref
+              .where(filter.keys.first.toString(), comparisons.first.toString(),
+                  filter.values.first.toString())
+              .get())
+          .docs
+          .forEach((doc) {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      });
+    }
 
     fireStoreApp.FireStoreOffLine();
 
     return _list;
   }
-
 }

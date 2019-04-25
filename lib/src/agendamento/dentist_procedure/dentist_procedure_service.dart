@@ -26,12 +26,13 @@ class DentistProcedureService {
     }
 
     clearAllDentistProcedureList();
-    
-    await (_dentistProcedureList = await new DentistProcedureDAO()
-        .getAllDentistProcedureFilter({"id": ""}, [">="]));
-    
+
+    await (_dentistProcedureList = await (new DentistProcedureDAO()
+        .getAllDentistProcedureFilter({}, [])));
+
     _dentistProcedureList.forEach((dentistProcedure) {
       _dentistProcedureListById[dentistProcedure["documentPath"]] = dentistProcedure;
+      _dentistProcedureList.add(dentistProcedure);
       _list.add(turnMapInDentistProcedure(dentistProcedure));
     });
     
@@ -46,13 +47,13 @@ class DentistProcedureService {
     }
 
     doc = getDentistProcedureListWithFilterFromList(filter).first;
-
+    
     if (doc == null) {
       doc = (await new DentistProcedureDAO()
               .getAllDentistProcedureFilter(filter, ["=="]))
           .first;
     }
-
+    
     return turnMapInDentistProcedure(doc);
   }
 
