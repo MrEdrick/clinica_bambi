@@ -70,7 +70,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
     checked = dentistProcedureId != "";
 
-    onClickCheckbox();
+    onCheckedChange();
 
     List _list = [
       'Domingo',
@@ -159,7 +159,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     return saved;
   }
 
-  void onClickCheckbox() {
+  void onCheckedChange() {
     if (checked) {
       display = "block";
     } else {

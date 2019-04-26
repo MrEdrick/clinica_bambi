@@ -1,5 +1,5 @@
 <div id="container-procedure-dentist">
-    <material-checkbox [checked]="checked" (click)="onClickCheckbox" id="chackbox-procedure-description" label="{{procedure}}">
+    <material-checkbox [(checked)]="checked" (click)="onCheckedChange" id="chackbox-procedure-description" label="{{procedure}}">
     </material-checkbox>
     <div id="container-day-shift-group" [style.display]="display">
         <div #dayShiftGroup></div>
