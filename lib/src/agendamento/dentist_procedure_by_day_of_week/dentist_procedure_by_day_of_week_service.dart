@@ -26,21 +26,21 @@ class DentistProcedureByDayOfWeekService {
     }
 
     clearAllDentistProcedureByDayOfWeekList();
-    
+
     await (_dentistProcedureByDayOfWeekList = await new DentistProcedureByDayOfWeekDAO()
         .getAllDentistProcedureByDayOfWeekFilter({}, []));
-    
+
     _dentistProcedureByDayOfWeekList.forEach((dentistProcedureByDayOfWeek) {
       _dentistProcedureByDayOfWeekListById[dentistProcedureByDayOfWeek["documentPath"]] = dentistProcedureByDayOfWeek;
       _list.add(turnMapInDentistProcedureByDayOfWeek(dentistProcedureByDayOfWeek));
     });
-    
+
     return _list;
   }
 
   Future<DentistProcedureByDayOfWeek> getOneDentistProcedureByDayOfWeekByFilter(Map filter) async {
     Map doc;
-
+    
     if ((_dentistProcedureByDayOfWeekList == null) || (_dentistProcedureByDayOfWeekList.length == 0)) {
       await getAllDentistProcedureByDayOfWeekAcives();
     }

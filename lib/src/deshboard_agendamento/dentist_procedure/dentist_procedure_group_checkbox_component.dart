@@ -43,13 +43,13 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   String dentistProcedureId;
 
   @Input()
-  String procedure;
+  String procedure = "";
 
   @Input()
-  String procedureId;
+  String procedureId = "";
 
   @Input()
-  String dentistId;
+  String dentistId = "";
 
   @ViewChild('dayShiftGroup', read: ViewContainerRef)
   ViewContainerRef materialContainerDayGroup;
@@ -59,11 +59,18 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    dentistProcedureId = (await dentistProcedureService
-            .getOneDentistProcedureByFilter(
-                {"dentistId": dentistId, "procedureId": procedureId}))?.id;
+    if ((procedureId != "") && (dentistId != "")) {
+      dentistProcedureId = (await dentistProcedureService
+              .getOneDentistProcedureByFilter(
+                  {"dentistId": dentistId, "procedureId": procedureId}))
+          ?.id;
+    } else {
+      dentistProcedureId = "";
+    }
 
     checked = dentistProcedureId != "";
+
+    onClickCheckbox();
 
     List _list = [
       'Domingo',
@@ -81,10 +88,10 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       ComponentFactory<shift_by_day_group_component.ShiftByDayGroupComponent>
           shiftByDayGroup =
           shift_by_day_group_component.ShiftByDayGroupComponentNgFactory;
-      print("t0");
+
       ComponentRef shiftByDayGroupComponent = _loader.loadNextToLocation(
           shiftByDayGroup, materialContainerDayGroup);
-      print("t1");
+
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
 
@@ -155,6 +162,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   void onClickCheckbox() {
     if (checked) {
       display = "block";
+    } else {
+      display = "none";
     }
 
     _changeDetectorRef.markForCheck();

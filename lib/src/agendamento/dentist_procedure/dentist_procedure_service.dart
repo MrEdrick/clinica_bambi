@@ -32,7 +32,6 @@ class DentistProcedureService {
 
     _dentistProcedureList.forEach((dentistProcedure) {
       _dentistProcedureListById[dentistProcedure["documentPath"]] = dentistProcedure;
-      _dentistProcedureList.add(dentistProcedure);
       _list.add(turnMapInDentistProcedure(dentistProcedure));
     });
     
@@ -45,15 +44,15 @@ class DentistProcedureService {
     if ((_dentistProcedureList == null) || (_dentistProcedureList.length == 0)) {
       await getAllDentistProcedureAcives();
     }
-
-    doc = getDentistProcedureListWithFilterFromList(filter).first;
     
+    doc = getDentistProcedureListWithFilterFromList(filter).first;
+
     if (doc == null) {
       doc = (await new DentistProcedureDAO()
               .getAllDentistProcedureFilter(filter, ["=="]))
           .first;
     }
-    
+
     return turnMapInDentistProcedure(doc);
   }
 
@@ -86,9 +85,10 @@ List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
 
-    ListsApplyFilter();
+    
 
     if ((filter["procedureId"] != null) && (filter["procedureId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
@@ -100,9 +100,8 @@ List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
 
     if ((filter["procedureId"] != null) && (filter["procedureId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     _dentistProcedureListWithFilter = _listDocumentSnapshot;
     
