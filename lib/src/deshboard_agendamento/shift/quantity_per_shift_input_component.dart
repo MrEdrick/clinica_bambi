@@ -26,7 +26,9 @@ import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quan
     providers: [windowBindings, datepickerBindings])
 class QuantityPerShiftComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
-  final DentistQuantityPerShiftByDayOfWeekService dentistQuantityPerShiftByDayOfWeekService = new DentistQuantityPerShiftByDayOfWeekService(); 
+  final DentistQuantityPerShiftByDayOfWeekService
+      dentistQuantityPerShiftByDayOfWeekService =
+      new DentistQuantityPerShiftByDayOfWeekService();
 
   String dentistQuantityPerShiftByDayOfWeekId;
 
@@ -46,8 +48,31 @@ class QuantityPerShiftComponent implements OnInit {
 
   QuantityPerShiftComponent(this._changeDetectorRef);
 
-  void ngOnInit() {
+  void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    if ((shiftId != "") && (dentistId != "") && (dayOfWeek != "")) {
+      dentistQuantityPerShiftByDayOfWeekId =
+          (await dentistQuantityPerShiftByDayOfWeekService
+                  .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
+        "dentistId": dentistId,
+        "shiftId": shiftId,
+        "dayOfWeek": dayOfWeek
+      }))
+              ?.id;
+
+      quantity =
+          (await dentistQuantityPerShiftByDayOfWeekService
+                  .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
+        "dentistId": dentistId,
+        "shiftId": shiftId,
+        "dayOfWeek": dayOfWeek
+      }))
+              ?.quantity.toString();
+    } else {
+      dentistQuantityPerShiftByDayOfWeekId = "";
+      quantity = "";
+    }
 
     _changeDetectorRef.markForCheck();
   }
@@ -57,15 +82,20 @@ class QuantityPerShiftComponent implements OnInit {
     Map datas = {
       "dentistId": dentistId,
       "shiftId": shiftId,
-      "dayOfWeek": dayOfWeek
+      "dayOfWeek": dayOfWeek,
+      "quantity": int.parse(quantity)
     };
 
     Map<bool, String> result;
 
     if (dentistQuantityPerShiftByDayOfWeekId != "") {
-      result[await new DentistQuantityPerShiftByDayOfWeekDAO()
-              .update(dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek?.id, datas) ==
-          ""] = dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek?.id;
+      result[await new DentistQuantityPerShiftByDayOfWeekDAO().update(
+                  dentistQuantityPerShiftByDayOfWeekService
+                      .dentistQuantityPerShiftByDayOfWeek?.id,
+                  datas) ==
+              ""] =
+          dentistQuantityPerShiftByDayOfWeekService
+              .dentistQuantityPerShiftByDayOfWeek?.id;
     } else {
       result = await new DentistQuantityPerShiftByDayOfWeekDAO().save(datas);
     }
