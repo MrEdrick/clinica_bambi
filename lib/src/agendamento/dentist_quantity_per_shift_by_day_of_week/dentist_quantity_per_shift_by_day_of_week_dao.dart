@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'dentist_quantity_per_shift_constants.dart';
+import 'dentist_quantity_per_shift_by_day_of_week_constants.dart';
 import '../../firebase/firestore.dart';
 
-class DentistQuantityPerShiftDAO {
-  DentistQuantityPerShiftDAO();
+class DentistQuantityPerShiftByDayOfWeekDAO {
+  DentistQuantityPerShiftByDayOfWeekDAO();
 
   Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT);
+        new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT_BY_DAY_OF_WEEK);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
     
@@ -17,7 +17,7 @@ class DentistQuantityPerShiftDAO {
   }
 
   Future<String> update(String id, Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT_BY_DAY_OF_WEEK);
 
     if (await _fireStoreApp.updateItem(id, datas)) {
       _fireStoreApp.FireStoreOffLine();
@@ -30,7 +30,7 @@ class DentistQuantityPerShiftDAO {
 
   Future<String> delete(String id) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT);
+        new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT_BY_DAY_OF_WEEK);
     if (await _fireStoreApp.deleteItem(id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
@@ -40,10 +40,10 @@ class DentistQuantityPerShiftDAO {
     }
   }
 
-  Future<List<Map>> getAllDentistQuantityPerShiftFilter(Map filter, List comparisons) async {
+  Future<List<Map>> getAllDentistQuantityPerShiftByDayOfWeekFilter(Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
-        new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT);
+        new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT_BY_DAY_OF_WEEK);
 
     if (filter.length == 0) {
       await (await fireStoreApp.ref.get()).docs.forEach((doc) {

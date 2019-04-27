@@ -1,1 +1,0 @@
-final DENTIST_QUANTITY_PER_SHIFT = 'dentistQuantityPerShiftfir';

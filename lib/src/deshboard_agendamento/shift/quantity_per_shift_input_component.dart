@@ -6,6 +6,8 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
 import '../../agendamento/user/user_service.dart';
+import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_dao.dart';
+import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 
 @Component(
     selector: 'quantity_per_shift_input_component',
@@ -21,18 +23,21 @@ import '../../agendamento/user/user_service.dart';
       MaterialInputComponent,
       materialInputDirectives,
     ],
-    providers: [
-      windowBindings,
-      datepickerBindings
-    ])
+    providers: [windowBindings, datepickerBindings])
 class QuantityPerShiftComponent implements OnInit {
-  final ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef;
+  final DentistQuantityPerShiftByDayOfWeekService dentistQuantityPerShiftByDayOfWeekService = new DentistQuantityPerShiftByDayOfWeekService(); 
 
-  @Input()
-  String dentistProcedureByDayOfWeek;
+  String dentistQuantityPerShiftByDayOfWeekId;
 
   @Input()
   String shift;
+
+  @Input()
+  String shiftId;
+
+  @Input()
+  String dentistId;
 
   @Input()
   String dayOfWeek;
@@ -42,67 +47,29 @@ class QuantityPerShiftComponent implements OnInit {
   QuantityPerShiftComponent(this._changeDetectorRef);
 
   void ngOnInit() {
-    if (new UserService().user  == null)
-      return;
+    if (new UserService().user == null) return;
 
     _changeDetectorRef.markForCheck();
   }
 
   @Output()
   Future<bool> onSave() async {
-    Map datas = {"dentistId": dentistId, "procedureId": procedureId};
-    bool saved = false;
+    Map datas = {
+      "dentistId": dentistId,
+      "shiftId": shiftId,
+      "dayOfWeek": dayOfWeek
+    };
+
     Map<bool, String> result;
 
-    if (dentistProcedureId != "") {
-      if (!checked) {
-        for (ComponentRef shiftByDayGroupComponent
-            in shiftByDayGroupListComponent) {
-          saved = await shiftByDayGroupComponent.instance.onSave();
-          if (!saved) {
-            break;
-          }
-        }
-        ;
-
-        if (saved) {
-          result[await new DentistProcedureDAO()
-                  .delete(dentistProcedureService.dentistProcedure?.id) ==
-              ""] = dentistProcedureService.dentistProcedure?.id;
-        }
-      } else {
-        result[await new DentistProcedureDAO()
-                .update(dentistProcedureService.dentistProcedure?.id, datas) ==
-            ""] = dentistProcedureService.dentistProcedure?.id;
-
-        for (ComponentRef shiftByDayGroupComponent
-            in shiftByDayGroupListComponent) {
-          shiftByDayGroupComponent.instance.dentistProcedureId =
-              result.values.first;
-
-          saved = await shiftByDayGroupComponent.instance.onSave();
-
-          if (!saved) {
-            break;
-          }
-        }
-      }
+    if (dentistQuantityPerShiftByDayOfWeekId != "") {
+      result[await new DentistQuantityPerShiftByDayOfWeekDAO()
+              .update(dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek?.id, datas) ==
+          ""] = dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek?.id;
     } else {
-      result = await new DentistProcedureDAO().save(datas);
-
-      for (ComponentRef shiftByDayGroupComponent
-          in shiftByDayGroupListComponent) {
-        shiftByDayGroupComponent.instance.dentistProcedureId =
-            result.values.first;
-
-        saved = await shiftByDayGroupComponent.instance.onSave();
-
-        if (!saved) {
-          break;
-        }
-      }
+      result = await new DentistQuantityPerShiftByDayOfWeekDAO().save(datas);
     }
 
-    return saved;
+    return result.keys.first;
   }
 }

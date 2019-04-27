@@ -1,11 +1,11 @@
-class DentistQuantityPerShift {
+class DentistQuantityPerShiftByDayOfWeek {
   String _id;
   String _dayOfWeek;
   String _dentistId;
   String _shiftId;
   int _quantity;
 
-  DentistQuantityPerShift(
+  DentistQuantityPerShiftByDayOfWeek(
       this._id, this._dayOfWeek, this._dentistId, this._shiftId, this._quantity);
 
   String get id => _id;
