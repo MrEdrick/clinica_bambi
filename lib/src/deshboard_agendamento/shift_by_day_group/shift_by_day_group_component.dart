@@ -49,6 +49,9 @@ class ShiftByDayGroupComponent implements OnInit {
   String dentistProcedureId = "";
 
   @Input()
+  String dentistId = "";
+
+  @Input()
   String dayOfWeek = "";
 
   @Input()
@@ -107,7 +110,10 @@ class ShiftByDayGroupComponent implements OnInit {
         ComponentRef quantityPerShiftInputComponent = _loader
             .loadNextToLocation(shiftComponent, materialContainerShitGroup);
 
+        quantityPerShiftInputComponent.instance.shiftId = shift.id;
         quantityPerShiftInputComponent.instance.shift = shift.description;
+        quantityPerShiftInputComponent.instance.dayOfWeek = dayOfWeek;
+        quantityPerShiftInputComponent.instance.dentistId = dentistId;
 
         shiftByDayGroupListComponent.add(quantityPerShiftInputComponent);
       }

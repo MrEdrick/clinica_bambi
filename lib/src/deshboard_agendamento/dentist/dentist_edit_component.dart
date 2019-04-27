@@ -14,7 +14,6 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 
 import '../../agendamento/dentist/dentist_dao.dart';
 import '../../agendamento/dentist/dentist_service.dart';
-import '../../agendamento/dentist/dentist_constants.dart';
 
 import '../../agendamento/user/user_service.dart';
 import '../../agendamento/procedure/procedure.dart';
@@ -131,6 +130,7 @@ class DentistEditComponent implements OnInit {
           _loader.loadNextToLocation(
               agendamentoCard, materialContainerDayGroupCheckbox);
 
+      quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dentistId = dentistService.dentist?.id;
       quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek = day;
     });
 
