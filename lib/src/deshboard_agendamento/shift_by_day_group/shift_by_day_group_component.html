@@ -1,2 +1,4 @@
-<material-checkbox [checked]="checked" label="{{dayOfWeek}}"></material-checkbox>
-<div #shiftGroup></div>
+<material-checkbox [(checked)]="checked" (click)="onCheckedChange"  label="{{dayOfWeek}}"></material-checkbox>
+<div id="container-shift-group" [style.display]="display">
+    <div #shiftGroup></div>
+</div>

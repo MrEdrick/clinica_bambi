@@ -55,6 +55,7 @@ class ShiftByDayGroupComponent implements OnInit {
   String shiftType = "";
 
   bool checked = false;
+  String display = "none";
 
   @ViewChild('shiftGroup', read: ViewContainerRef)
   ViewContainerRef materialContainerShitGroup;
@@ -76,6 +77,8 @@ class ShiftByDayGroupComponent implements OnInit {
     }
 
     checked = dentistProcedureByDayOfWeekId != "";
+
+    onCheckedChange();
 
     List<Shift> _list = await new ShiftService().getAllShiftAcives();
 
@@ -178,5 +181,15 @@ class ShiftByDayGroupComponent implements OnInit {
     }
 
     return saved;
+  }
+
+  void onCheckedChange() {
+    if (checked) {
+      display = "block";
+    } else {
+      display = "none";
+    }
+
+    _changeDetectorRef.markForCheck();
   }
 }

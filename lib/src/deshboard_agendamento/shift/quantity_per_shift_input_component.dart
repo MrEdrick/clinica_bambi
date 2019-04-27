@@ -47,4 +47,62 @@ class QuantityPerShiftComponent implements OnInit {
 
     _changeDetectorRef.markForCheck();
   }
+
+  @Output()
+  Future<bool> onSave() async {
+    Map datas = {"dentistId": dentistId, "procedureId": procedureId};
+    bool saved = false;
+    Map<bool, String> result;
+
+    if (dentistProcedureId != "") {
+      if (!checked) {
+        for (ComponentRef shiftByDayGroupComponent
+            in shiftByDayGroupListComponent) {
+          saved = await shiftByDayGroupComponent.instance.onSave();
+          if (!saved) {
+            break;
+          }
+        }
+        ;
+
+        if (saved) {
+          result[await new DentistProcedureDAO()
+                  .delete(dentistProcedureService.dentistProcedure?.id) ==
+              ""] = dentistProcedureService.dentistProcedure?.id;
+        }
+      } else {
+        result[await new DentistProcedureDAO()
+                .update(dentistProcedureService.dentistProcedure?.id, datas) ==
+            ""] = dentistProcedureService.dentistProcedure?.id;
+
+        for (ComponentRef shiftByDayGroupComponent
+            in shiftByDayGroupListComponent) {
+          shiftByDayGroupComponent.instance.dentistProcedureId =
+              result.values.first;
+
+          saved = await shiftByDayGroupComponent.instance.onSave();
+
+          if (!saved) {
+            break;
+          }
+        }
+      }
+    } else {
+      result = await new DentistProcedureDAO().save(datas);
+
+      for (ComponentRef shiftByDayGroupComponent
+          in shiftByDayGroupListComponent) {
+        shiftByDayGroupComponent.instance.dentistProcedureId =
+            result.values.first;
+
+        saved = await shiftByDayGroupComponent.instance.onSave();
+
+        if (!saved) {
+          break;
+        }
+      }
+    }
+
+    return saved;
+  }
 }
