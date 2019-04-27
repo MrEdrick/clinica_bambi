@@ -40,7 +40,7 @@ class DentistQuantityPerShiftDAO {
     }
   }
 
-  Future<List<Map>> getAllDentistProcedureByDayOfWeekByShiftFilter(Map filter, List comparisons) async {
+  Future<List<Map>> getAllDentistQuantityPerShiftFilter(Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(DENTIST_QUANTITY_PER_SHIFT);

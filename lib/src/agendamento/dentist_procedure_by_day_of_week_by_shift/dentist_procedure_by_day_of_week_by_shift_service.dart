@@ -85,9 +85,8 @@ List<Map> getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(Map filter
 
     if ((filter["dentistProcedureByDayOfWeekId"] != null) && (filter["dentistProcedureByDayOfWeekId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
@@ -99,9 +98,8 @@ List<Map> getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(Map filter
 
     if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     _dentistProcedureByDayOfWeekByShiftListWithFilter = _listDocumentSnapshot;
     

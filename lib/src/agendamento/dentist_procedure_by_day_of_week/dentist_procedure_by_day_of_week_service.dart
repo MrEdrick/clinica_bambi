@@ -85,9 +85,8 @@ List<Map> getDentistProcedureByDayOfWeekListWithFilterFromList(Map filter) {
 
     if ((filter["dentistProcedureId"] != null) && (filter["dentistProcedureId"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     if ((filter["dayOfWeek"] != null) && (filter["dayOfWeek"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
@@ -99,9 +98,8 @@ List<Map> getDentistProcedureByDayOfWeekListWithFilterFromList(Map filter) {
 
     if ((filter["dayOfWeek"] != null) && (filter["dayOfWeek"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     _dentistProcedureByDayOfWeekListWithFilter = _listDocumentSnapshot;
     
