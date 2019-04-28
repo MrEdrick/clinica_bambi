@@ -7,12 +7,14 @@ class DentistQuantityPerShiftByDayOfWeekService {
       new List<DentistQuantityPerShiftByDayOfWeek>();
   static List<Map> _dentistQuantityPerShiftByDayOfWeekList = new List<Map>();
   static Map _dentistQuantityPerShiftByDayOfWeekListById = new Map();
-  static List<Map> _dentistQuantityPerShiftByDayOfWeekListWithFilter = new List<Map>();
+  static List<Map> _dentistQuantityPerShiftByDayOfWeekListWithFilter =
+      new List<Map>();
 
   DentistQuantityPerShiftByDayOfWeek get dentistQuantityPerShiftByDayOfWeek =>
       _dentistQuantityPerShiftByDayOfWeek;
   set dentistQuantityPerShiftByDayOfWeek(
-          DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek) =>
+          DentistQuantityPerShiftByDayOfWeek
+              dentistQuantityPerShiftByDayOfWeek) =>
       _dentistQuantityPerShiftByDayOfWeek = dentistQuantityPerShiftByDayOfWeek;
 
   void clearAllDentistQuantityPerShiftByDayOfWeekList() {
@@ -31,20 +33,24 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     clearAllDentistQuantityPerShiftByDayOfWeekList();
 
-    await (_dentistQuantityPerShiftByDayOfWeekList = await new DentistQuantityPerShiftByDayOfWeekDAO()
-        .getAllDentistQuantityPerShiftByDayOfWeekFilter({}, []));
+    await (_dentistQuantityPerShiftByDayOfWeekList =
+        await new DentistQuantityPerShiftByDayOfWeekDAO()
+            .getAllDentistQuantityPerShiftByDayOfWeekFilter({}, []));
 
-    _dentistQuantityPerShiftByDayOfWeekList.forEach((dentistQuantityPerShiftByDayOfWeek) {
+    _dentistQuantityPerShiftByDayOfWeekList
+        .forEach((dentistQuantityPerShiftByDayOfWeek) {
       _dentistQuantityPerShiftByDayOfWeekListById[
-          dentistQuantityPerShiftByDayOfWeek["documentPath"]] = dentistQuantityPerShiftByDayOfWeek;
-      _list.add(turnMapInDentistQuantityPerShiftByDayOfWeek(dentistQuantityPerShiftByDayOfWeek));
+              dentistQuantityPerShiftByDayOfWeek["documentPath"]] =
+          dentistQuantityPerShiftByDayOfWeek;
+      _list.add(turnMapInDentistQuantityPerShiftByDayOfWeek(
+          dentistQuantityPerShiftByDayOfWeek));
     });
 
     return _list;
   }
 
-  Future<DentistQuantityPerShiftByDayOfWeek> getOneDentistQuantityPerShiftByDayOfWeekByFilter(
-      Map filter) async {
+  Future<DentistQuantityPerShiftByDayOfWeek>
+      getOneDentistQuantityPerShiftByDayOfWeekByFilter(Map filter) async {
     Map doc;
     List result;
 
@@ -52,25 +58,32 @@ class DentistQuantityPerShiftByDayOfWeekService {
         (_dentistQuantityPerShiftByDayOfWeekList.length == 0)) {
       await getAllDentistQuantityPerShiftByDayOfWeekAcives();
     }
-    
-    result = getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(filter);
+
+    result =
+        getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(filter);
 
     if (result.length > 0) {
-      doc = result?.first;
+      doc = result.first;
     } else {
       doc = null;
     }
 
     if (doc == null) {
-      doc = (await new DentistQuantityPerShiftByDayOfWeekDAO()
-              .getAllDentistQuantityPerShiftByDayOfWeekFilter(filter, ["=="]))
-          .first;
+      result = (await new DentistQuantityPerShiftByDayOfWeekDAO()
+          .getAllDentistQuantityPerShiftByDayOfWeekFilter(filter, ["=="]));
+
+      if (result.length > 0) {
+        doc = result.first;
+      } else {
+        doc = null;
+      }
     }
 
     return turnMapInDentistQuantityPerShiftByDayOfWeek(doc);
   }
 
-  List<Map> getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(Map filter) {
+  List<Map> getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(
+      Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -133,7 +146,12 @@ class DentistQuantityPerShiftByDayOfWeekService {
     return _dentistQuantityPerShiftByDayOfWeekListWithFilter;
   }
 
-  DentistQuantityPerShiftByDayOfWeek turnMapInDentistQuantityPerShiftByDayOfWeek(Map map) {
+  DentistQuantityPerShiftByDayOfWeek
+      turnMapInDentistQuantityPerShiftByDayOfWeek(Map map) {
+    if (map == null) {
+      return null;
+    }
+    
     return new DentistQuantityPerShiftByDayOfWeek(
         map["documentPath"],
         map["dayOfWeek"],

@@ -8,7 +8,6 @@ class DentistProcedureService {
   static Map _dentistProcedureListById = new Map();
   static List<Map> _dentistProcedureListWithFilter = new List<Map>();
 
-
   DentistProcedure get dentistProcedure => _dentistProcedure;
   set dentistProcedure(DentistProcedure dentistProcedure) =>
       _dentistProcedure = dentistProcedure;
@@ -21,20 +20,22 @@ class DentistProcedureService {
   }
 
   Future<List<DentistProcedure>> getAllDentistProcedureAcives() async {
-    if ((_dentistProcedureList != null) && (_dentistProcedureList.length != 0)) {
+    if ((_dentistProcedureList != null) &&
+        (_dentistProcedureList.length != 0)) {
       return _list;
     }
 
     clearAllDentistProcedureList();
 
-    await (_dentistProcedureList = await (new DentistProcedureDAO()
-        .getAllDentistProcedureFilter({}, [])));
+    await (_dentistProcedureList =
+        await (new DentistProcedureDAO().getAllDentistProcedureFilter({}, [])));
 
     _dentistProcedureList.forEach((dentistProcedure) {
-      _dentistProcedureListById[dentistProcedure["documentPath"]] = dentistProcedure;
+      _dentistProcedureListById[dentistProcedure["documentPath"]] =
+          dentistProcedure;
       _list.add(turnMapInDentistProcedure(dentistProcedure));
     });
-    
+
     return _list;
   }
 
@@ -42,12 +43,13 @@ class DentistProcedureService {
     Map doc;
     List result;
 
-    if ((_dentistProcedureList == null) || (_dentistProcedureList.length == 0)) {
+    if ((_dentistProcedureList == null) ||
+        (_dentistProcedureList.length == 0)) {
       await getAllDentistProcedureAcives();
     }
 
     result = getDentistProcedureListWithFilterFromList(filter);
-    
+
     if (result.length > 0) {
       doc = result?.first;
     } else {
@@ -55,15 +57,20 @@ class DentistProcedureService {
     }
 
     if (doc == null) {
-      doc = (await new DentistProcedureDAO()
-              .getAllDentistProcedureFilter(filter, ["=="]))
-          .first;
+      result = (await new DentistProcedureDAO()
+          .getAllDentistProcedureFilter(filter, ["=="]));
+
+      if (result.length > 0) {
+        doc = result?.first;
+      } else {
+        doc = null;
+      }
     }
 
     return turnMapInDentistProcedure(doc);
   }
 
-List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
+  List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -95,8 +102,6 @@ List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
       ListsApplyFilter();
     }
 
-    
-
     if ((filter["procedureId"] != null) && (filter["procedureId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if (doc["procedureId"].toString() == filter["procedureId"].toString()) {
@@ -111,13 +116,15 @@ List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
     }
 
     _dentistProcedureListWithFilter = _listDocumentSnapshot;
-    
+
     return _dentistProcedureListWithFilter;
   }
 
-
   DentistProcedure turnMapInDentistProcedure(Map map) {
-    return new DentistProcedure(map["documentPath"], map["dentistId"], map["procedureId"]);
+    if (map == null) {
+      return null;
+    }
+    return new DentistProcedure(
+        map["documentPath"], map["dentistId"], map["procedureId"]);
   }
-
 }
