@@ -5,6 +5,7 @@
 
     <material-input class="edit-input" id="name" label="Dentista..." [ngModel]="name" (inputKeyPress)="name = $event">
     </material-input>
+    <material-checkbox [(checked)]="state" label="Ativo" id="state"></material-checkbox>
 
     <div class="sub-titulo">
         Procedimentos realizados pelo dentista

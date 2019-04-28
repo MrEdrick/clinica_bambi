@@ -10,8 +10,6 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 
 import '../../agendamento/dentist/dentist_dao.dart';
 import '../../agendamento/dentist/dentist_service.dart';
@@ -43,8 +41,6 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_
       MaterialInputComponent,
       MaterialCheckboxComponent,
       materialInputDirectives,
-      MaterialDropdownSelectComponent,
-      DropdownSelectValueAccessor,
       MaterialDialogComponent,
       ModalComponent,
       AutoDismissDirective,

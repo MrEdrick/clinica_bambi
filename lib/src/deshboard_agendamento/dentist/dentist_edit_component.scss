@@ -40,7 +40,12 @@
   transition: all 0.5s linear;
 }
 
+#state {
+  float: left;
+}
+
 #name {
+  float: left;
   width: 70%;
 }
 
