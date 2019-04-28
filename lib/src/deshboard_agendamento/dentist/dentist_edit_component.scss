@@ -16,7 +16,7 @@
   z-index: 999;
 }
 
-.container-edit {
+#container-edit-dentist {
   margin: 60px;
   position: relative;
   width: 100%;
@@ -32,7 +32,7 @@
   overflow-x: hidden;
 }
 
-.container-edit::-webkit-scrollbar {
+#container-edit-dentist::-webkit-scrollbar {
   display: none;
 }
 
@@ -107,7 +107,7 @@ material-dialog {
 }
 
 @media screen and (min-width: 769px) {
-  .container-edit {
+  #container-edit-dentist {
     position: relative;
     margin-left: 29%;
     width: 42%;
