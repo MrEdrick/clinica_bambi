@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -98,6 +99,8 @@ class DentistEditComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
+    querySelector('deshboard-app').style.overflowY = "hidden";
+
     onEdit();
 
       List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
@@ -140,7 +143,7 @@ class DentistEditComponent implements OnInit {
   void onClose() {
     name = '';
     state = true;
-
+    querySelector('deshboard-app').style.overflowY = "scroll";
     componentRef.destroy();
   }
 
