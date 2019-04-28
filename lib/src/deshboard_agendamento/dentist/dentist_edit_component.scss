@@ -30,15 +30,10 @@
   transition: all 0.5s linear;
   overflow-y: scroll;
   overflow-x: hidden;
-
 }
 
 .container-edit::-webkit-scrollbar {
   display: none;
-}
-
-.container-cadastro {
-  flex: 1; 
 }
 
 .button-close {

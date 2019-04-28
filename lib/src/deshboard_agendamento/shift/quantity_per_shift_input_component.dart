@@ -69,6 +69,11 @@ class QuantityPerShiftComponent implements OnInit {
       }))
           ?.quantity
           .toString();
+      
+      if (quantity == "null") {
+        quantity = "";
+      }
+      
     } else {
       dentistQuantityPerShiftByDayOfWeekId = "";
       quantity = "";
