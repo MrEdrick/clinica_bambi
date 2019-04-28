@@ -50,6 +50,9 @@ class DentistEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
+  final List<ComponentRef> listComponentRefProcedure = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefQuantityPerShiftByDayOfWeek = new List<ComponentRef>();
+
   @Input()
   ComponentRef componentRef;
 
@@ -92,6 +95,20 @@ class DentistEditComponent implements OnInit {
     }
   }
 
+  void onClearListsOfComponentRef() {
+    listComponentRefProcedure.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRefProcedure.clear();
+
+    listComponentRefQuantityPerShiftByDayOfWeek.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRefQuantityPerShiftByDayOfWeek.clear();
+  }
+
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
@@ -99,7 +116,9 @@ class DentistEditComponent implements OnInit {
 
     onEdit();
 
-      List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
+    onClearListsOfComponentRef();
+
+    List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
 
     _listProcedure.forEach((procedure) {
         ComponentFactory<dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponent>
@@ -112,6 +131,8 @@ class DentistEditComponent implements OnInit {
 
         procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
         procedureCheckboxGroupComponent.instance.procedure = procedure.description;
+
+        listComponentRefProcedure.add(procedureCheckboxGroupComponent);
     });
 
     List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
@@ -131,6 +152,8 @@ class DentistEditComponent implements OnInit {
 
       quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dentistId = dentistService.dentist?.id;
       quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek = day;
+
+      listComponentRefQuantityPerShiftByDayOfWeek.add(quantityPerShiftByDayGroupCheckboxComponentComponent);
     });
 
     _changeDetectorRef.markForCheck();
@@ -181,6 +204,8 @@ class DentistEditComponent implements OnInit {
     datas = {"name": name, "state": state ? "A" : "I"};
 
     Map<bool, String> result; 
+
+    bool notSavedAll = false;
     
     if (dentistService.dentist != null) {
       result[await new DentistDAO().update(dentistService.dentist?.id, datas) == ""] = dentistService.dentist?.id; 
@@ -189,9 +214,24 @@ class DentistEditComponent implements OnInit {
     } 
 
     if (result.keys.first) {
-      procedureCheckboxGroupComponent.instance.dentistId = result.values.first;
 
-      if (await procedureCheckboxGroupComponent.instance.onSave()) {
+      await (listComponentRefQuantityPerShiftByDayOfWeek.forEach((componentRef) async {
+          componentRef.instance.dentistId = result.values.first;
+          
+          if (!await procedureCheckboxGroupComponent.instance.onSave()) {
+            notSavedAll = true;
+          }
+      }));  
+
+      await (listComponentRefProcedure.forEach((componentRef) async {
+          componentRef.instance.dentistId = result.values.first;
+          
+          if (!await procedureCheckboxGroupComponent.instance.onSave()) {
+            notSavedAll = true;
+          }
+      }));  
+
+      if (!notSavedAll) {
         showSuccessfullySave = true;
       } else {
         showNotSuccessfullySave = true;
