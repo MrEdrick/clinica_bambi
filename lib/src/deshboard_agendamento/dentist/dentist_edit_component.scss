@@ -5,25 +5,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  min-height: 100%;
-  padding: 0%;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  align-content: center;
   background: rgba(#000000, 0.30);
   z-index: 999;
 }
 
 #container-edit-dentist {
-  margin: 60px;
   position: relative;
+  margin: 60px;
   width: 100%;
   height: 100%;
   background-color: rgba(#ffffff, 1);
-  display: flex;
-  flex-flow: column;
   flex-wrap: wrap;
   align-content: flex-start;
   padding: 10px;
@@ -50,7 +41,6 @@
 
 #name {
   width: 70%;
-  margin-bottom: 3%;
 }
 
 material-input {
@@ -106,18 +96,29 @@ material-dialog {
   border-radius: 5px;
 }
 
+#container-dentist-procedure {
+  position: relative;
+}
+
+#container-amount-appointment {
+  position: relative;
+}
+
 @media screen and (min-width: 769px) {
   #container-edit-dentist {
-    position: relative;
     margin-left: 29%;
     width: 42%;
     height: 580px;
     background-color: rgba(#ffffff, 1);
     border-radius: 5px;
-    display: flex;
     flex-flow: row;
     flex-wrap: wrap;
-    align-content: flex-start;
-    padding: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
+  
+  #container-edit-dentist::-webkit-scrollbar {
+    display: none;
+  }
+  
 }
