@@ -40,12 +40,19 @@ class DentistProcedureService {
 
   Future<DentistProcedure> getOneDentistProcedureByFilter(Map filter) async {
     Map doc;
+    List result;
 
     if ((_dentistProcedureList == null) || (_dentistProcedureList.length == 0)) {
       await getAllDentistProcedureAcives();
     }
+
+    result = getDentistProcedureListWithFilterFromList(filter);
     
-    doc = getDentistProcedureListWithFilterFromList(filter).first;
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
+    }
 
     if (doc == null) {
       doc = (await new DentistProcedureDAO()

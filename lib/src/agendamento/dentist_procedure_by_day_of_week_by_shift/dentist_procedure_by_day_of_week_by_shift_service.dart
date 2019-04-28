@@ -40,12 +40,19 @@ class DentistProcedureByDayOfWeekByShiftService {
 
   Future<DentistProcedureByDayOfWeekByShift> getOneDentistProcedureByDayOfWeekByShiftByFilter(Map filter) async {
     Map doc;
+    List result;
 
     if ((_dentistProcedureByDayOfWeekByShiftList == null) || (_dentistProcedureByDayOfWeekByShiftList.length == 0)) {
       await getAllDentistProcedureByDayOfWeekByShiftAcives();
     }
 
-    doc = getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(filter).first;
+    result = getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(filter);
+
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
+    }
 
     if (doc == null) {
       doc = (await new DentistProcedureByDayOfWeekByShiftDAO()

@@ -61,14 +61,14 @@ class QuantityPerShiftComponent implements OnInit {
       }))
               ?.id;
 
-      quantity =
-          (await dentistQuantityPerShiftByDayOfWeekService
-                  .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
+      quantity = (await dentistQuantityPerShiftByDayOfWeekService
+              .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
         "dentistId": dentistId,
         "shiftId": shiftId,
         "dayOfWeek": dayOfWeek
       }))
-              ?.quantity.toString();
+          ?.quantity
+          .toString();
     } else {
       dentistQuantityPerShiftByDayOfWeekId = "";
       quantity = "";

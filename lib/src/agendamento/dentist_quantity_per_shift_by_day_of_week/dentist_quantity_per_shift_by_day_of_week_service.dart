@@ -46,13 +46,20 @@ class DentistQuantityPerShiftByDayOfWeekService {
   Future<DentistQuantityPerShiftByDayOfWeek> getOneDentistQuantityPerShiftByDayOfWeekByFilter(
       Map filter) async {
     Map doc;
+    List result;
 
     if ((_dentistQuantityPerShiftByDayOfWeekList == null) ||
         (_dentistQuantityPerShiftByDayOfWeekList.length == 0)) {
       await getAllDentistQuantityPerShiftByDayOfWeekAcives();
     }
+    
+    result = getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(filter);
 
-    doc = getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(filter).first;
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
+    }
 
     if (doc == null) {
       doc = (await new DentistQuantityPerShiftByDayOfWeekDAO()
@@ -84,7 +91,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["dentistId"].toString() == filter["dentistId"].toString()) {
+        if (doc["dentistId"]?.toString() == filter["dentistId"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
@@ -97,7 +104,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["shiftId"].toString() == filter["shiftId"].toString()) {
+        if (doc["shiftId"]?.toString() == filter["shiftId"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
@@ -110,7 +117,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     if ((filter["dayOfWeek"] != null) && (filter["dayOfWeek"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["dayOfWeek"].toString() == filter["dayOfWeek"].toString()) {
+        if (doc["dayOfWeek"]?.toString() == filter["dayOfWeek"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
