@@ -91,7 +91,7 @@ class QuantityPerShiftComponent implements OnInit {
       "quantity": int.parse(quantity)
     };
 
-    Map<bool, String> result;
+    Map<bool, String> result = new Map<bool, String>();
 
     if (dentistQuantityPerShiftByDayOfWeekId != "") {
       result[await new DentistQuantityPerShiftByDayOfWeekDAO().update(

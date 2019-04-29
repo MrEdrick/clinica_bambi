@@ -75,7 +75,7 @@ class ShiftCheckboxComponent implements OnInit {
       "shiftId": shiftId
     };
 
-    Map<bool, String> result;
+    Map<bool, String> result = new Map<bool, String>();
 
     if (dentistProcedureByDayOfWeekByShiftId != "") {
       if (!checked) {

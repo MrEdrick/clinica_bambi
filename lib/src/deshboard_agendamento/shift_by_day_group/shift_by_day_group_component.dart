@@ -131,7 +131,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
     bool saved = false;
 
-    Map<bool, String> result;
+    Map<bool, String> result = new Map<bool, String>();
 
     if (dentistProcedureByDayOfWeekId != "") {
       if (!checked) {

@@ -19,7 +19,6 @@ class DentistDAO {
   Future<String> update(String id, Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
         new FireStoreApp(DENTIST_COLLECTION);
-
     if (await _fireStoreApp.updateItem(id, datas)) {
       _fireStoreApp.FireStoreOffLine();
       return '';

@@ -105,7 +105,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   Future<bool> onSave() async {
     Map datas = {"dentistId": dentistId, "procedureId": procedureId};
     bool saved = false;
-    Map<bool, String> result;
+    Map<bool, String> result = new Map<bool, String>();
 
     if (dentistProcedureId != "") {
       if (!checked) {

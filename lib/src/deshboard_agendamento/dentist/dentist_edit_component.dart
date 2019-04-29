@@ -203,16 +203,17 @@ class DentistEditComponent implements OnInit {
 
     datas = {"name": name, "state": state ? "A" : "I"};
 
-    Map<bool, String> result; 
+    Map<bool, String> result = new Map<bool, String>(); 
 
     bool notSavedAll = false;
     
     if (dentistService.dentist != null) {
+      print("t0");
       result[await new DentistDAO().update(dentistService.dentist?.id, datas) == ""] = dentistService.dentist?.id; 
     } else {
       result = await new DentistDAO().save(datas); 
     } 
-
+    
     if (result.keys.first) {
 
       await (listComponentRefQuantityPerShiftByDayOfWeek.forEach((componentRef) async {

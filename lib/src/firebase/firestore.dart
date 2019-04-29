@@ -61,7 +61,6 @@ class FireStoreApp {
     }
 
     datas.forEach(interateMapentry);
-
     try {
       fb.firestore().enableNetwork();
       await this._ref.doc(id).update(data: values);
