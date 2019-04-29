@@ -208,7 +208,6 @@ class DentistEditComponent implements OnInit {
     bool notSavedAll = false;
     
     if (dentistService.dentist != null) {
-      print("t0");
       result[await new DentistDAO().update(dentistService.dentist?.id, datas) == ""] = dentistService.dentist?.id; 
     } else {
       result = await new DentistDAO().save(datas); 

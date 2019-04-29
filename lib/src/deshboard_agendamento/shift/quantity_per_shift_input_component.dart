@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -69,11 +70,10 @@ class QuantityPerShiftComponent implements OnInit {
       }))
           ?.quantity
           .toString();
-      
+
       if (quantity == "null") {
         quantity = "";
       }
-      
     } else {
       dentistQuantityPerShiftByDayOfWeekId = "";
       quantity = "";
@@ -106,5 +106,17 @@ class QuantityPerShiftComponent implements OnInit {
     }
 
     return result.keys.first;
+  }
+
+  onKeydownJustInteger(event) {
+    if ((event.keyCode == KeyCode.BACKSPACE) ||
+        (event.keyCode == KeyCode.RIGHT) ||
+        (event.keyCode == KeyCode.LEFT)) {
+      return;
+    }
+
+    if (int.tryParse(event.key) == null) {
+      event.preventDefault();
+    }
   }
 }
