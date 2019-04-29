@@ -84,6 +84,7 @@ class QuantityPerShiftComponent implements OnInit {
 
   @Output()
   Future<bool> onSave() async {
+    print("t0");
     Map datas = {
       "dentistId": dentistId,
       "shiftId": shiftId,

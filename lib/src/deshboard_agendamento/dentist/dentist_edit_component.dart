@@ -217,8 +217,8 @@ class DentistEditComponent implements OnInit {
 
       await (listComponentRefQuantityPerShiftByDayOfWeek.forEach((componentRef) async {
           componentRef.instance.dentistId = result.values.first;
-          
-          if (!await procedureCheckboxGroupComponent.instance.onSave()) {
+
+          if (!await componentRef.instance.onSave()) {
             notSavedAll = true;
           }
       }));  
@@ -226,7 +226,7 @@ class DentistEditComponent implements OnInit {
       await (listComponentRefProcedure.forEach((componentRef) async {
           componentRef.instance.dentistId = result.values.first;
           
-          if (!await procedureCheckboxGroupComponent.instance.onSave()) {
+          if (!await componentRef.instance.onSave()) {
             notSavedAll = true;
           }
       }));  
@@ -239,7 +239,7 @@ class DentistEditComponent implements OnInit {
     } else {
       showNotSuccessfullySave = true;
     }
-    
+
     _changeDetectorRef.markForCheck();
   }
 }
