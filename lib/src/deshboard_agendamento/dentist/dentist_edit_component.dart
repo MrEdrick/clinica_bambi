@@ -239,5 +239,7 @@ class DentistEditComponent implements OnInit {
     } else {
       showNotSuccessfullySave = true;
     }
+    
+    _changeDetectorRef.markForCheck();
   }
 }
