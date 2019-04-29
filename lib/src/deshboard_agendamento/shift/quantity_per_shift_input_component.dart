@@ -111,7 +111,8 @@ class QuantityPerShiftComponent implements OnInit {
   onKeydownJustInteger(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
         (event.keyCode == KeyCode.RIGHT) ||
-        (event.keyCode == KeyCode.LEFT)) {
+        (event.keyCode == KeyCode.LEFT) ||
+        (event.keyCode == KeyCode.TAb)) {
       return;
     }
 

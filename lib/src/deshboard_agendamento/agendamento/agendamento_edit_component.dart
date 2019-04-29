@@ -145,7 +145,8 @@ class AgendamentoEditComponent implements OnInit {
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
         (event.keyCode == KeyCode.RIGHT) ||
-        (event.keyCode == KeyCode.LEFT)) {
+        (event.keyCode == KeyCode.LEFT) ||
+        (event.keyCode == KeyCode.TAB)) {
       return;
     }
 
