@@ -11,7 +11,7 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../agendamento/dentist/dentist_dao.dart';
+import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 
 import '../../agendamento/user/user_service.dart';
@@ -79,8 +79,8 @@ class DentistEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  String name = '';
-  bool state;
+  //String name = '';
+  //bool state;
 
   Map<String, dynamic> datas;
 
@@ -89,9 +89,10 @@ class DentistEditComponent implements OnInit {
   void onEdit() {
     dentistService = new DentistService();
 
-    if (dentistService.dentist != null) {
-      name = dentistService.dentist.name;
-      state = dentistService.dentist.state == 'A';
+    if (dentistService.dentist == null) {
+      dentistService.dentist = new Dentist("", "", true);
+      //name = ;
+      //state = dentistService.dentist.state == 'A';
     }
   }
 
@@ -160,8 +161,9 @@ class DentistEditComponent implements OnInit {
   }
 
   void onClose() {
-    name = '';
-    state = true;
+    //name = '';
+    //state = true;
+    dentistService.dentist = null;
     querySelector('deshboard-app').style.overflowY = "scroll";
     componentRef.destroy();
   }
@@ -184,7 +186,7 @@ class DentistEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((name == '')) {
+    if ((dentistService?.dentist?.name == "")) {
       showAssertMessageSave = true;
       return;
     }
@@ -199,8 +201,8 @@ class DentistEditComponent implements OnInit {
   void onSave() async {
     showAssertMessageAlert = false;
 
+    /*
     datas = new Map<String, dynamic>();
-
     datas = {"name": name, "state": state ? "A" : "I"};
 
     Map<bool, String> result = new Map<bool, String>(); 
@@ -211,7 +213,7 @@ class DentistEditComponent implements OnInit {
       result[await new DentistDAO().update(dentistService.dentist?.id, datas) == ""] = dentistService.dentist?.id; 
     } else {
       result = await new DentistDAO().save(datas); 
-    } 
+    }
     
     if (result.keys.first) {
 
@@ -239,7 +241,9 @@ class DentistEditComponent implements OnInit {
     } else {
       showNotSuccessfullySave = true;
     }
-
+    */
+    await dentistService.save();
+    showSuccessfullySave = true;
     _changeDetectorRef.markForCheck();
   }
 }

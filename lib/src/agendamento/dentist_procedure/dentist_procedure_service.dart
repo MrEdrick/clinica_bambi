@@ -127,4 +127,63 @@ class DentistProcedureService {
     return new DentistProcedure(
         map["documentPath"], map["dentistId"], map["procedureId"]);
   }
+
+  Future<bool> save() async {
+    Map datas = {
+      "dentistId": _dentistProcedure.dentistId,
+      "procedureId": _dentistProcedure.procedureId
+    };
+
+    bool saved = false;
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_dentistProcedure.id != "") {
+      if ((_dentistProcedure.dentistId == "") && (_dentistProcedure.procedureId == "")) {
+        /*for (ComponentRef shiftByDayGroupComponent
+            in shiftByDayGroupListComponent) {
+          saved = await shiftByDayGroupComponent.instance.onSave();
+          if (!saved) {
+            break;
+          }
+        }*/
+
+        if (saved) {
+          result[await new DentistProcedureDAO()
+                  .delete(_dentistProcedure.id) ==
+              ""] = _dentistProcedure.id;
+        }
+      } else {
+        result[await new DentistProcedureDAO()
+                .update(_dentistProcedure.id, datas) ==
+            ""] = _dentistProcedure.id;
+
+        /*for (ComponentRef shiftByDayGroupComponent
+            in shiftByDayGroupListComponent) {
+          shiftByDayGroupComponent.instance.dentistProcedureId =
+              result.values.first;
+
+          saved = await shiftByDayGroupComponent.instance.onSave();
+      
+          if (!saved) {
+            break;
+          }
+        }*/
+      }
+    } else {
+      result = await new DentistProcedureDAO().save(datas);
+
+      /*for (ComponentRef shiftByDayGroupComponent
+          in shiftByDayGroupListComponent) {
+        shiftByDayGroupComponent.instance.dentistProcedureId =
+            result.values.first;
+
+        saved = await shiftByDayGroupComponent.instance.onSave();
+
+        if (!saved) {
+          break;
+        }
+      }*/
+    }
+    return true;
+  }
 }

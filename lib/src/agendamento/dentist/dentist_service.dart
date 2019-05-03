@@ -3,6 +3,8 @@ import 'dentist.dart';
 import 'dentist_dao.dart';
 import 'dentistUI.dart';
 
+import '../dentist_procedure/dentist_procedure_service.dart';
+
 class DentistService {
   static List<Dentist> _list = new List<Dentist>();
   static Dentist _dentist;
@@ -26,15 +28,15 @@ class DentistService {
     }
 
     clearAllDentistList();
-    
+
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-    
+
     _dentistList.forEach((dentist) {
       _dentistListById[dentist["documentPath"]] = dentist;
       _list.add(turnMapInDentist(dentist));
     });
-    
+
     return _list;
   }
 
@@ -104,7 +106,7 @@ class DentistService {
     ListsApplyFilter();
 
     _dentistListWithFilter = _listDocumentSnapshot;
-    
+
     return _dentistListWithFilter;
   }
 
@@ -114,5 +116,31 @@ class DentistService {
 
   Dentist turnMapInDentist(Map map) {
     return new Dentist(map["documentPath"], map["name"], map["state"]);
+  }
+
+  Future<bool> save() async {
+    bool saved = false;
+
+    if (_dentist == null) {
+      return saved;
+    }
+
+    Map<String, dynamic> datas = {
+      "name": _dentist.name,
+      "state": _dentist.state ? "A" : "I"
+    };
+
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_dentist.id != "") {
+      result[await new DentistDAO().update(_dentist.id, datas) == ""] =
+          _dentist.id;
+    } else {
+      result = await new DentistDAO().save(datas);
+    }
+
+    saved = await (new DentistProcedureService().save());
+
+    return saved;
   }
 }

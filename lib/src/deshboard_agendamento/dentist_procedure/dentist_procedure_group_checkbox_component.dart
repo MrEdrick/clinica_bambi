@@ -9,6 +9,7 @@ import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
+import '../../agendamento/dentist_procedure/dentist_procedure.dart';
 import '../../agendamento/dentist_procedure/dentist_procedure_dao.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_component.template.dart'
@@ -66,6 +67,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
           ?.id;
     } else {
       dentistProcedureId = "";
+      dentistProcedureService.dentistProcedure = new DentistProcedure("", dentistId, procedureId);
     }
 
     checked = dentistProcedureId != "";
@@ -162,8 +164,14 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   void onCheckedChange() {
     if (checked) {
       display = "block";
+
+      dentistProcedureService.dentistProcedure.dentistId = dentistId;
+      dentistProcedureService.dentistProcedure.procedureId = procedureId;
     } else {
       display = "none";
+
+      dentistProcedureService.dentistProcedure.dentistId = "";
+      dentistProcedureService.dentistProcedure.procedureId = "";
     }
 
     _changeDetectorRef.markForCheck();

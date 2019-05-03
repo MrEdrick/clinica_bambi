@@ -3,9 +3,9 @@
         Dados para o cadastro
     </div>
 
-    <material-input class="edit-input" id="name" label="Dentista..." [ngModel]="name" (inputKeyPress)="name = $event">
+    <material-input class="edit-input" id="name" label="Dentista..." [ngModel]="dentistService.dentist.name" (inputKeyPress)="dentistService.dentist.name = $event">
     </material-input>
-    <material-checkbox [(checked)]="state" label="Ativo" id="state"></material-checkbox>
+    <material-checkbox [(checked)]="dentistService.dentist.state" label="Ativo" id="state"></material-checkbox>
 
     <div class="sub-titulo">
         Procedimentos realizados pelo dentista
