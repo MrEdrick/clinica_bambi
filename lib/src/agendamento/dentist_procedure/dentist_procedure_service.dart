@@ -128,7 +128,9 @@ class DentistProcedureService {
         map["documentPath"], map["dentistId"], map["procedureId"]);
   }
 
-  Future<bool> save() async {
+  Future<bool> save(String dentistId) async {
+    _dentistProcedure.dentistId = dentistId;
+     
     Map datas = {
       "dentistId": _dentistProcedure.dentistId,
       "procedureId": _dentistProcedure.procedureId

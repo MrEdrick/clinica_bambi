@@ -139,7 +139,9 @@ class DentistService {
       result = await new DentistDAO().save(datas);
     }
 
-    saved = await (new DentistProcedureService().save());
+    DentistProcedureService _dentistProcedure = new DentistProcedureService();
+
+    saved = await (_dentistProcedure.save(result.values.first));
 
     return saved;
   }

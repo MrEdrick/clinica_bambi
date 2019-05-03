@@ -60,7 +60,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    if ((procedureId != "") && (dentistId != "")) {
+    if ((dentistId != "") && (dentistId != null)) {
       dentistProcedureId = (await dentistProcedureService
               .getOneDentistProcedureByFilter(
                   {"dentistId": dentistId, "procedureId": procedureId}))
@@ -167,6 +167,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
       dentistProcedureService.dentistProcedure.dentistId = dentistId;
       dentistProcedureService.dentistProcedure.procedureId = procedureId;
+      print(dentistId);
+      print(procedureId);
     } else {
       display = "none";
 

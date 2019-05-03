@@ -99,6 +99,6 @@ class ProcedureService {
 
   Procedure turnMapInProcedure(Map map) {
     return new Procedure(
-        map["id"], map["description"], map["state"]);
+        map["documentPath"], map["description"], map["state"]);
   }
 }
