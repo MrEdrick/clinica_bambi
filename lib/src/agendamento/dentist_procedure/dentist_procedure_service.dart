@@ -129,14 +129,19 @@ class DentistProcedureService {
   }
 
   Future<bool> save(String dentistId) async {
+    bool saved = false;
+
+    if (_dentistProcedure == null) {
+      return saved; 
+    }
+    
     _dentistProcedure.dentistId = dentistId;
-     
+
     Map datas = {
       "dentistId": _dentistProcedure.dentistId,
       "procedureId": _dentistProcedure.procedureId
     };
 
-    bool saved = false;
     Map<bool, String> result = new Map<bool, String>();
 
     if (_dentistProcedure.id != "") {

@@ -61,10 +61,17 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((dentistId != "") && (dentistId != null)) {
-      dentistProcedureId = (await dentistProcedureService
+       (await dentistProcedureService
               .getOneDentistProcedureByFilter(
-                  {"dentistId": dentistId, "procedureId": procedureId}))
-          ?.id;
+                  {"dentistId": dentistId, "procedureId": procedureId}));
+
+      if (dentistProcedureService.dentistProcedure == null) {
+        dentistProcedureId = "";
+        dentistProcedureService.dentistProcedure = new DentistProcedure("", dentistId, procedureId);
+      } else {
+        dentistProcedureId = dentistProcedureService.dentistProcedure.id;
+      }
+      
     } else {
       dentistProcedureId = "";
       dentistProcedureService.dentistProcedure = new DentistProcedure("", dentistId, procedureId);
@@ -167,8 +174,6 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
 
       dentistProcedureService.dentistProcedure.dentistId = dentistId;
       dentistProcedureService.dentistProcedure.procedureId = procedureId;
-      print(dentistId);
-      print(procedureId);
     } else {
       display = "none";
 

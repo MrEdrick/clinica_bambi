@@ -130,6 +130,7 @@ class DentistEditComponent implements OnInit {
             _loader.loadNextToLocation(
                 shiftComponent, materialContainerdentistProcedureGroup);
 
+        procedureCheckboxGroupComponent.instance.dentistId = dentistService.dentist.id;
         procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
         procedureCheckboxGroupComponent.instance.procedure = procedure.description;
 
