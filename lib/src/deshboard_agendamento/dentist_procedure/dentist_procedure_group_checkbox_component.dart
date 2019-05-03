@@ -61,20 +61,18 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((dentistId != "") && (dentistId != null)) {
-       (await dentistProcedureService
-              .getOneDentistProcedureByFilter(
-                  {"dentistId": dentistId, "procedureId": procedureId}));
+      (await dentistProcedureService.getOneDentistProcedureByFilter(
+          {"dentistId": dentistId, "procedureId": procedureId}));
 
       if (dentistProcedureService.dentistProcedure == null) {
         dentistProcedureId = "";
-        dentistProcedureService.dentistProcedure = new DentistProcedure("", dentistId, procedureId);
       } else {
         dentistProcedureId = dentistProcedureService.dentistProcedure.id;
       }
-      
     } else {
       dentistProcedureId = "";
-      dentistProcedureService.dentistProcedure = new DentistProcedure("", dentistId, procedureId);
+      dentistProcedureService.dentistProcedure =
+          new DentistProcedure("", dentistId, procedureId);
     }
 
     checked = dentistProcedureId != "";
@@ -172,13 +170,21 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (checked) {
       display = "block";
 
-      dentistProcedureService.dentistProcedure.dentistId = dentistId;
-      dentistProcedureService.dentistProcedure.procedureId = procedureId;
+      dentistProcedureService
+          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .dentistId = dentistId;
+      dentistProcedureService
+          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .procedureId = procedureId;
     } else {
       display = "none";
 
-      dentistProcedureService.dentistProcedure.dentistId = "";
-      dentistProcedureService.dentistProcedure.procedureId = "";
+      dentistProcedureService
+          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .dentistId = "";
+      dentistProcedureService
+          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .procedureId = "";
     }
 
     _changeDetectorRef.markForCheck();

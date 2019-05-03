@@ -3,6 +3,7 @@ import 'dentist.dart';
 import 'dentist_dao.dart';
 import 'dentistUI.dart';
 
+import '../dentist_procedure/dentist_procedure.dart';
 import '../dentist_procedure/dentist_procedure_service.dart';
 
 class DentistService {
@@ -141,7 +142,10 @@ class DentistService {
 
     DentistProcedureService _dentistProcedure = new DentistProcedureService();
 
-    saved = await (_dentistProcedure.save(result.values.first));
+    for (DentistProcedure dentistProcedure in  _dentistProcedure.dentistProcedureListByDentistIdProcedureId.values) {
+      _dentistProcedure.dentistProcedure = dentistProcedure;
+      saved = await (_dentistProcedure.save(result.values.first));
+    };
 
     return saved;
   }

@@ -4,19 +4,23 @@ import 'dentist_procedure_dao.dart';
 class DentistProcedureService {
   static DentistProcedure _dentistProcedure;
   static List<DentistProcedure> _list = new List<DentistProcedure>();
+  static Map<String, DentistProcedure> _dentistProcedureListByDentistIdProcedureId = new Map();
   static List<Map> _dentistProcedureList = new List<Map>();
-  static Map _dentistProcedureListById = new Map();
+  static Map<String, DentistProcedure> _dentistProcedureListById = new Map();
   static List<Map> _dentistProcedureListWithFilter = new List<Map>();
 
   DentistProcedure get dentistProcedure => _dentistProcedure;
   set dentistProcedure(DentistProcedure dentistProcedure) =>
       _dentistProcedure = dentistProcedure;
 
+  Map get dentistProcedureListByDentistIdProcedureId => _dentistProcedureListByDentistIdProcedureId;
+  
   void clearAllDentistProcedureList() {
     _list.clear();
     _dentistProcedureList.clear();
     _dentistProcedureListById.clear();
     _dentistProcedureListWithFilter.clear();
+    _dentistProcedureListByDentistIdProcedureId.clear();
   }
 
   Future<List<DentistProcedure>> getAllDentistProcedureAcives() async {
@@ -32,7 +36,12 @@ class DentistProcedureService {
 
     _dentistProcedureList.forEach((dentistProcedure) {
       _dentistProcedureListById[dentistProcedure["documentPath"]] =
-          dentistProcedure;
+          turnMapInDentistProcedure(dentistProcedure);
+
+      _dentistProcedureListByDentistIdProcedureId[
+              dentistProcedure["dentistId"] + dentistProcedure["procedureId"]] =
+          turnMapInDentistProcedure(dentistProcedure);
+          
       _list.add(turnMapInDentistProcedure(dentistProcedure));
     });
 
@@ -132,10 +141,8 @@ class DentistProcedureService {
     bool saved = false;
 
     if (_dentistProcedure == null) {
-      return saved; 
+      return saved;
     }
-    
-    _dentistProcedure.dentistId = dentistId;
 
     Map datas = {
       "dentistId": _dentistProcedure.dentistId,
@@ -145,7 +152,8 @@ class DentistProcedureService {
     Map<bool, String> result = new Map<bool, String>();
 
     if (_dentistProcedure.id != "") {
-      if ((_dentistProcedure.dentistId == "") && (_dentistProcedure.procedureId == "")) {
+      if ((_dentistProcedure.dentistId == "") &&
+          (_dentistProcedure.procedureId == "")) {
         /*for (ComponentRef shiftByDayGroupComponent
             in shiftByDayGroupListComponent) {
           saved = await shiftByDayGroupComponent.instance.onSave();
@@ -155,8 +163,7 @@ class DentistProcedureService {
         }*/
 
         if (saved) {
-          result[await new DentistProcedureDAO()
-                  .delete(_dentistProcedure.id) ==
+          result[await new DentistProcedureDAO().delete(_dentistProcedure.id) ==
               ""] = _dentistProcedure.id;
         }
       } else {
