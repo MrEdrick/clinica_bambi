@@ -67,7 +67,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       if (dentistProcedureService.dentistProcedure == null) {
         dentistProcedureId = "";
       } else {
-        dentistProcedureId = dentistProcedureService.dentistProcedure.id;
+        dentistProcedureId = dentistProcedureService.dentistProcedureListByDentistIdProcedureId[dentistId + procedureId].id;
       }
     } else {
       dentistProcedureId = "";
