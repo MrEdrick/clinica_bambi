@@ -4,7 +4,8 @@ import 'dentist_procedure_dao.dart';
 class DentistProcedureService {
   static DentistProcedure _dentistProcedure;
   static List<DentistProcedure> _list = new List<DentistProcedure>();
-  static Map<String, DentistProcedure> _dentistProcedureListByDentistIdProcedureId = new Map();
+  static Map<String, DentistProcedure>
+      _dentistProcedureListByDentistIdProcedureId = new Map();
   static List<Map> _dentistProcedureList = new List<Map>();
   static Map<String, DentistProcedure> _dentistProcedureListById = new Map();
   static List<Map> _dentistProcedureListWithFilter = new List<Map>();
@@ -13,8 +14,9 @@ class DentistProcedureService {
   set dentistProcedure(DentistProcedure dentistProcedure) =>
       _dentistProcedure = dentistProcedure;
 
-  Map get dentistProcedureListByDentistIdProcedureId => _dentistProcedureListByDentistIdProcedureId;
-  
+  Map get dentistProcedureListByDentistIdProcedureId =>
+      _dentistProcedureListByDentistIdProcedureId;
+
   void clearAllDentistProcedureList() {
     _list.clear();
     _dentistProcedureList.clear();
@@ -31,16 +33,17 @@ class DentistProcedureService {
 
     clearAllDentistProcedureList();
 
-    await (_dentistProcedureList =
-        await (new DentistProcedureDAO().getAllDentistProcedureFilter({"isReal": "Y"}, ["=="])));
+    await (_dentistProcedureList = await (new DentistProcedureDAO()
+        .getAllDentistProcedureFilter({"isReal": "Y"}, ["=="])));
 
     _dentistProcedureList.forEach((dentistProcedure) {
       _dentistProcedureListById[dentistProcedure["documentPath"]] =
           turnMapInDentistProcedure(dentistProcedure);
 
-      _dentistProcedureListByDentistIdProcedureId[dentistProcedure["procedureId"]] =
+      _dentistProcedureListByDentistIdProcedureId[
+              dentistProcedure["dentistId"] + dentistProcedure["procedureId"]] =
           turnMapInDentistProcedure(dentistProcedure);
-        
+
       _list.add(turnMapInDentistProcedure(dentistProcedure));
     });
 
@@ -50,15 +53,14 @@ class DentistProcedureService {
   Future<DentistProcedure> getOneDentistProcedureByFilter(Map filter) async {
     Map doc;
     List result;
-    
+
     if ((_dentistProcedureList == null) ||
         (_dentistProcedureList?.length == 0)) {
-
       await getAllDentistProcedureAcives();
     }
-    
+
     result = getDentistProcedureListWithFilterFromList(filter);
-    
+
     if (result.length > 0) {
       doc = result?.first;
     } else {
@@ -68,7 +70,7 @@ class DentistProcedureService {
     if (doc == null) {
       result = (await new DentistProcedureDAO()
           .getAllDentistProcedureFilter(filter, ["=="]));
-    
+
       if (result.length > 0) {
         doc = result?.first;
       } else {
