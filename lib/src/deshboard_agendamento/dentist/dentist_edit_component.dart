@@ -202,47 +202,6 @@ class DentistEditComponent implements OnInit {
   void onSave() async {
     showAssertMessageAlert = false;
 
-    /*
-    datas = new Map<String, dynamic>();
-    datas = {"name": name, "state": state ? "A" : "I"};
-
-    Map<bool, String> result = new Map<bool, String>(); 
-
-    bool notSavedAll = false;
-    
-    if (dentistService.dentist != null) {
-      result[await new DentistDAO().update(dentistService.dentist?.id, datas) == ""] = dentistService.dentist?.id; 
-    } else {
-      result = await new DentistDAO().save(datas); 
-    }
-    
-    if (result.keys.first) {
-
-      await (listComponentRefQuantityPerShiftByDayOfWeek.forEach((componentRef) async {
-          componentRef.instance.dentistId = result.values.first;
-
-          if (!await componentRef.instance.onSave()) {
-            notSavedAll = true;
-          }
-      }));  
-
-      await (listComponentRefProcedure.forEach((componentRef) async {
-          componentRef.instance.dentistId = result.values.first;
-          
-          if (!await componentRef.instance.onSave()) {
-            notSavedAll = true;
-          }
-      }));  
-
-      if (!notSavedAll) {
-        showSuccessfullySave = true;
-      } else {
-        showNotSuccessfullySave = true;
-      }     
-    } else {
-      showNotSuccessfullySave = true;
-    }
-    */
     await dentistService.save();
     showSuccessfullySave = true;
     _changeDetectorRef.markForCheck();

@@ -12,6 +12,7 @@ import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_dao.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
+import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift/quantity_per_shift_input_component.template.dart'
     as quantity_per_shift_component;
@@ -68,15 +69,23 @@ class ShiftByDayGroupComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    if ((dentistProcedureId != "") && (dayOfWeek != "")) {
-      dentistProcedureByDayOfWeekId = (await dentistProcedureByDayOfWeekService
-              .getOneDentistProcedureByDayOfWeekByFilter({
-        "dentistProcedureId": dentistProcedureId,
-        "dayOfWeek": dayOfWeek
-      }))
-          ?.id;
+    if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
+      (await dentistProcedureByDayOfWeekService.getOneDentistProcedureByDayOfWeekByFilter(
+          {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek}));
+
+      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+              dentistProcedureId + dayOfWeek] ==
+          null) {
+        dentistProcedureByDayOfWeekId = "";
+      } else {
+        dentistProcedureId = dentistProcedureByDayOfWeekService
+            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .id;
+      }
     } else {
       dentistProcedureByDayOfWeekId = "";
+      dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
+          new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
     }
 
     checked = dentistProcedureByDayOfWeekId != "";
@@ -192,8 +201,35 @@ class ShiftByDayGroupComponent implements OnInit {
   void onCheckedChange() {
     if (checked) {
       display = "block";
+
+      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+              dentistProcedureId + dayOfWeek] ==
+          null) {
+        dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek] =
+            new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
+      }
+
+      dentistProcedureByDayOfWeekService
+          .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+          .dentistProcedureId = dentistProcedureId;
+      dentistProcedureByDayOfWeekService
+          .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+          .procedureId = dayOfWeek;
     } else {
       display = "none";
+
+      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+              dentistProcedureId + dayOfWeek] !=
+          null) {
+        dentistProcedureByDayOfWeekService
+            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .dentistProcedureId = "";
+
+        dentistProcedureByDayOfWeekService
+            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .procedureId = "";
+      }
     }
 
     _changeDetectorRef.markForCheck();
