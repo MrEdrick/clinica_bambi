@@ -64,11 +64,14 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       (await dentistProcedureService.getOneDentistProcedureByFilter(
           {"dentistId": dentistId, "procedureId": procedureId}));
 
-      if (dentistProcedureService.dentistProcedure == null) {
+      if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
+              dentistId + procedureId] ==
+          null) {
         dentistProcedureId = "";
       } else {
         dentistProcedureId = dentistProcedureService
-            .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId].id;
+            .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+            .id;
       }
     } else {
       dentistProcedureId = "";
@@ -171,8 +174,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (checked) {
       display = "block";
 
-      if (dentistProcedureService
-              .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId] !=
+      if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
+              dentistId + procedureId] !=
           null) {
         dentistProcedureService
             .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
@@ -184,8 +187,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     } else {
       display = "none";
 
-      if (dentistProcedureService
-              .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId] !=
+      if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
+              dentistId + procedureId] !=
           null) {
         dentistProcedureService
             .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
