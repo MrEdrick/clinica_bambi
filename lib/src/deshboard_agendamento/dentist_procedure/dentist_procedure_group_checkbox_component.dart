@@ -67,7 +67,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       if (dentistProcedureService.dentistProcedure == null) {
         dentistProcedureId = "";
       } else {
-        dentistProcedureId = dentistProcedureService.dentistProcedure.id;
+        dentistProcedureId = dentistProcedureService
+            .dentistProcedureListByDentistIdProcedureId[procedureId].id;
       }
     } else {
       dentistProcedureId = "";
@@ -171,19 +172,20 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       display = "block";
 
       dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .dentistProcedureListByDentistIdProcedureId[procedureId]
           .dentistId = dentistId;
       dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .dentistProcedureListByDentistIdProcedureId[procedureId]
           .procedureId = procedureId;
     } else {
+      print("t0");
       display = "none";
-
+      print(dentistProcedureService.dentistProcedureListByDentistIdProcedureId.keys);
       dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .dentistProcedureListByDentistIdProcedureId[procedureId]
           .dentistId = "";
       dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+          .dentistProcedureListByDentistIdProcedureId[procedureId]
           .procedureId = "";
     }
 

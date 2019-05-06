@@ -25,23 +25,22 @@ class DentistProcedureService {
 
   Future<List<DentistProcedure>> getAllDentistProcedureAcives() async {
     if ((_dentistProcedureList != null) &&
-        (_dentistProcedureList.length != 0)) {
+        (_dentistProcedureList?.length != 0)) {
       return _list;
     }
 
     clearAllDentistProcedureList();
 
     await (_dentistProcedureList =
-        await (new DentistProcedureDAO().getAllDentistProcedureFilter({}, [])));
+        await (new DentistProcedureDAO().getAllDentistProcedureFilter({"isReal": "Y"}, ["=="])));
 
     _dentistProcedureList.forEach((dentistProcedure) {
       _dentistProcedureListById[dentistProcedure["documentPath"]] =
           turnMapInDentistProcedure(dentistProcedure);
 
-      _dentistProcedureListByDentistIdProcedureId[
-              dentistProcedure["dentistId"] + dentistProcedure["procedureId"]] =
+      _dentistProcedureListByDentistIdProcedureId[dentistProcedure["procedureId"]] =
           turnMapInDentistProcedure(dentistProcedure);
-          
+        
       _list.add(turnMapInDentistProcedure(dentistProcedure));
     });
 
@@ -51,14 +50,15 @@ class DentistProcedureService {
   Future<DentistProcedure> getOneDentistProcedureByFilter(Map filter) async {
     Map doc;
     List result;
-
+    
     if ((_dentistProcedureList == null) ||
-        (_dentistProcedureList.length == 0)) {
+        (_dentistProcedureList?.length == 0)) {
+
       await getAllDentistProcedureAcives();
     }
-
+    
     result = getDentistProcedureListWithFilterFromList(filter);
-
+    
     if (result.length > 0) {
       doc = result?.first;
     } else {
@@ -68,7 +68,7 @@ class DentistProcedureService {
     if (doc == null) {
       result = (await new DentistProcedureDAO()
           .getAllDentistProcedureFilter(filter, ["=="]));
-
+    
       if (result.length > 0) {
         doc = result?.first;
       } else {
@@ -146,7 +146,8 @@ class DentistProcedureService {
 
     Map datas = {
       "dentistId": _dentistProcedure.dentistId,
-      "procedureId": _dentistProcedure.procedureId
+      "procedureId": _dentistProcedure.procedureId,
+      "isReal": "Y"
     };
 
     Map<bool, String> result = new Map<bool, String>();
