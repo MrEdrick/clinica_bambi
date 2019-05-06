@@ -17,7 +17,7 @@ class DentistProcedureByDayOfWeekService {
       _dentistProcedureByDayOfWeek = dentistProcedureByDayOfWeek;
 
   Map get dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek =>
-    _dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek;
+      _dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek;
 
   void clearAllDentistProcedureByDayOfWeekList() {
     _list.clear();
@@ -147,5 +147,10 @@ class DentistProcedureByDayOfWeekService {
     }
     return new DentistProcedureByDayOfWeek(
         map["documentPath"], map["dentistProcedureId"], map["dayOfWeek"]);
+  }
+
+  Future<bool> save(String dentistId) async {
+    bool saved = false;
+    return saved;
   }
 }

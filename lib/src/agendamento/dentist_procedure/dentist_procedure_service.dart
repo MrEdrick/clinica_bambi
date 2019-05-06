@@ -1,5 +1,7 @@
 import 'dentist_procedure.dart';
 import 'dentist_procedure_dao.dart';
+import '../dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
+import '../dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week.dart';
 
 class DentistProcedureService {
   static DentistProcedure _dentistProcedure;
@@ -154,52 +156,59 @@ class DentistProcedureService {
 
     Map<bool, String> result = new Map<bool, String>();
 
+    DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeek =
+        new DentistProcedureByDayOfWeekService();
+
     if (_dentistProcedure.id != "") {
       if ((_dentistProcedure.dentistId == "") &&
           (_dentistProcedure.procedureId == "")) {
-        /*for (ComponentRef shiftByDayGroupComponent
-            in shiftByDayGroupListComponent) {
-          saved = await shiftByDayGroupComponent.instance.onSave();
-          if (!saved) {
-            break;
-          }
-        }*/
+        for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
+            in _dentistProcedureByDayOfWeek
+                .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+          _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek =
+              dentistProcedureByDayOfWeek;
+          _dentistProcedureByDayOfWeek
+              .dentistProcedureByDayOfWeek.dentistProcedureId = "";
+          _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek.dayOfWeek =
+              "";
+          saved =
+              await (_dentistProcedureByDayOfWeek.save(result.values.first));
+        }
 
-        //if (saved) {
+        if (saved) {
           result[await new DentistProcedureDAO().delete(_dentistProcedure.id) ==
               ""] = _dentistProcedure.id;
-        //}
+        }
       } else {
         result[await new DentistProcedureDAO()
                 .update(_dentistProcedure.id, datas) ==
             ""] = _dentistProcedure.id;
 
-        /*for (ComponentRef shiftByDayGroupComponent
-            in shiftByDayGroupListComponent) {
-          shiftByDayGroupComponent.instance.dentistProcedureId =
-              result.values.first;
-
-          saved = await shiftByDayGroupComponent.instance.onSave();
-      
+        for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
+            in _dentistProcedureByDayOfWeek
+                .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+          _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek =
+              dentistProcedureByDayOfWeek;
+          saved =
+              await (_dentistProcedureByDayOfWeek.save(result.values.first));
           if (!saved) {
             break;
           }
-        }*/
+        }
       }
     } else {
       result = await new DentistProcedureDAO().save(datas);
 
-      /*for (ComponentRef shiftByDayGroupComponent
-          in shiftByDayGroupListComponent) {
-        shiftByDayGroupComponent.instance.dentistProcedureId =
-            result.values.first;
-
-        saved = await shiftByDayGroupComponent.instance.onSave();
-
+      for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
+          in _dentistProcedureByDayOfWeek
+              .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+        _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek =
+            dentistProcedureByDayOfWeek;
+        saved = await (_dentistProcedureByDayOfWeek.save(result.values.first));
         if (!saved) {
           break;
         }
-      }*/
+      }
     }
     return true;
   }
