@@ -64,7 +64,9 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       (await dentistProcedureService.getOneDentistProcedureByFilter(
           {"dentistId": dentistId, "procedureId": procedureId}));
 
-      if (dentistProcedureService.dentistProcedure == null) {
+      if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
+              dentistId + procedureId] ==
+          null) {
         dentistProcedureId = "";
       } else {
         dentistProcedureId = dentistProcedureService.dentistProcedureListByDentistIdProcedureId[dentistId + procedureId].id;
@@ -170,21 +172,30 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (checked) {
       display = "block";
 
-      dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
-          .dentistId = dentistId;
-      dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
-          .procedureId = procedureId;
+      if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
+              dentistId + procedureId] !=
+          null) {
+        dentistProcedureService
+            .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+            .dentistId = dentistId;
+        dentistProcedureService
+            .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+            .procedureId = procedureId;
+      }
     } else {
       display = "none";
 
-      dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
-          .dentistId = "";
-      dentistProcedureService
-          .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
-          .procedureId = "";
+      if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
+              dentistId + procedureId] !=
+          null) {
+        dentistProcedureService
+            .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+            .dentistId = "";
+
+        dentistProcedureService
+            .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
+            .procedureId = "";
+      }
     }
 
     _changeDetectorRef.markForCheck();
