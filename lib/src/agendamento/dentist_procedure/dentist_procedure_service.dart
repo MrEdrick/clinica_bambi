@@ -165,10 +165,10 @@ class DentistProcedureService {
           }
         }*/
 
-        if (saved) {
+        //if (saved) {
           result[await new DentistProcedureDAO().delete(_dentistProcedure.id) ==
               ""] = _dentistProcedure.id;
-        }
+        //}
       } else {
         result[await new DentistProcedureDAO()
                 .update(_dentistProcedure.id, datas) ==
