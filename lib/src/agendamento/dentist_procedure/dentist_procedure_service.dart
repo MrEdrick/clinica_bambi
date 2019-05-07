@@ -221,6 +221,7 @@ class DentistProcedureService {
 
       saved = await saveDentistProcedureByDayOfWeekList(result.values.first);
     }
-    return true;
+    
+    return saved;
   }
 }
