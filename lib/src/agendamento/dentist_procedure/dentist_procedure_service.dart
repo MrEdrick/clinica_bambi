@@ -141,6 +141,49 @@ class DentistProcedureService {
         map["documentPath"], map["dentistId"], map["procedureId"]);
   }
 
+  Future<bool> deleteDentistProcedureByDayOfWeekList(String dentistId) async {
+    bool saved = false;
+    DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
+        new DentistProcedureByDayOfWeekService();
+
+    for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
+        in _dentistProcedureByDayOfWeekService
+            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+      _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
+          dentistProcedureByDayOfWeek;
+      _dentistProcedureByDayOfWeekService
+          .dentistProcedureByDayOfWeek.dentistProcedureId = "";
+      _dentistProcedureByDayOfWeekService
+          .dentistProcedureByDayOfWeek.dayOfWeek = "";
+      saved = await (_dentistProcedureByDayOfWeekService.save(dentistId));
+
+      if (!saved) {
+        break;
+      }
+    }
+
+    return saved;
+  }
+
+  Future<bool> saveDentistProcedureByDayOfWeekList(String dentistId) async {
+    bool saved = false;
+    DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
+        new DentistProcedureByDayOfWeekService();
+
+    for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
+        in _dentistProcedureByDayOfWeekService
+            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+      _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
+          dentistProcedureByDayOfWeek;
+      saved = await (_dentistProcedureByDayOfWeekService.save(dentistId));
+      if (!saved) {
+        break;
+      }
+    }
+
+    return saved;
+  }
+
   Future<bool> save(String dentistId) async {
     bool saved = false;
 
@@ -156,24 +199,11 @@ class DentistProcedureService {
 
     Map<bool, String> result = new Map<bool, String>();
 
-    DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeek =
-        new DentistProcedureByDayOfWeekService();
-
     if (_dentistProcedure.id != "") {
       if ((_dentistProcedure.dentistId == "") &&
           (_dentistProcedure.procedureId == "")) {
-        for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
-            in _dentistProcedureByDayOfWeek
-                .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
-          _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek =
-              dentistProcedureByDayOfWeek;
-          _dentistProcedureByDayOfWeek
-              .dentistProcedureByDayOfWeek.dentistProcedureId = "";
-          _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek.dayOfWeek =
-              "";
-          saved =
-              await (_dentistProcedureByDayOfWeek.save(result.values.first));
-        }
+        saved =
+            await deleteDentistProcedureByDayOfWeekList(_dentistProcedure.id);
 
         if (saved) {
           result[await new DentistProcedureDAO().delete(_dentistProcedure.id) ==
@@ -184,31 +214,12 @@ class DentistProcedureService {
                 .update(_dentistProcedure.id, datas) ==
             ""] = _dentistProcedure.id;
 
-        for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
-            in _dentistProcedureByDayOfWeek
-                .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
-          _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek =
-              dentistProcedureByDayOfWeek;
-          saved =
-              await (_dentistProcedureByDayOfWeek.save(result.values.first));
-          if (!saved) {
-            break;
-          }
-        }
+        saved = await saveDentistProcedureByDayOfWeekList(result.values.first);
       }
     } else {
       result = await new DentistProcedureDAO().save(datas);
 
-      for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
-          in _dentistProcedureByDayOfWeek
-              .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
-        _dentistProcedureByDayOfWeek.dentistProcedureByDayOfWeek =
-            dentistProcedureByDayOfWeek;
-        saved = await (_dentistProcedureByDayOfWeek.save(result.values.first));
-        if (!saved) {
-          break;
-        }
-      }
+      saved = await saveDentistProcedureByDayOfWeekList(result.values.first);
     }
     return true;
   }

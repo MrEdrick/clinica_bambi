@@ -1,5 +1,7 @@
 import 'dentist_procedure_by_day_of_week.dart';
 import 'dentist_procedure_by_day_of_week_dao.dart';
+import '../dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
+import '../dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift.dart';
 
 class DentistProcedureByDayOfWeekService {
   static DentistProcedureByDayOfWeek _dentistProcedureByDayOfWeek;
@@ -151,6 +153,22 @@ class DentistProcedureByDayOfWeekService {
 
   Future<bool> save(String dentistId) async {
     bool saved = false;
+
+    if (_dentistProcedureByDayOfWeek == null) {
+      return saved;
+    }
+
+    Map datas = {
+      "dentistProcedureId": _dentistProcedureByDayOfWeek.dentistProcedureId,
+      "dayOfWeek": _dentistProcedureByDayOfWeek.dayOfWeek,
+      "isReal": "Y"
+    };
+
+    Map<bool, String> result = new Map<bool, String>();
+
+    DentistProcedureByDayOfWeekByShiftService _dentistProcedureByDayOfWeekByShiftService =
+        new DentistProcedureByDayOfWeekByShiftService();
+
     return saved;
   }
 }
