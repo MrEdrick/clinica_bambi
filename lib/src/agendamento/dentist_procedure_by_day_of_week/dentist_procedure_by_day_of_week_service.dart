@@ -151,7 +151,7 @@ class DentistProcedureByDayOfWeekService {
         map["documentPath"], map["dentistProcedureId"], map["dayOfWeek"]);
   }
 
-  Future<bool> save(String dentistId) async {
+  Future<bool> save(String dentistProcedureId) async {
     bool saved = false;
 
     if (_dentistProcedureByDayOfWeek == null) {
@@ -159,13 +159,15 @@ class DentistProcedureByDayOfWeekService {
     }
 
     Map datas = {
-      "dentistProcedureId": _dentistProcedureByDayOfWeek.dentistProcedureId,
+      "dentistProcedureId": dentistProcedureId,
       "dayOfWeek": _dentistProcedureByDayOfWeek.dayOfWeek,
       "isReal": "Y"
     };
 
     Map<bool, String> result = new Map<bool, String>();
-
+    
+    print(datas);
+    print(_dentistProcedureByDayOfWeek.id);
     if (_dentistProcedureByDayOfWeek.id != "") {
       if ((_dentistProcedureByDayOfWeek.dentistProcedureId == "") &&
           (_dentistProcedureByDayOfWeek.dayOfWeek == "")) {
