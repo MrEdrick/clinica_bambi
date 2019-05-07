@@ -200,6 +200,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void onCheckedChange() {
     if (checked) {
+
       display = "block";
 
       if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
@@ -215,7 +216,8 @@ class ShiftByDayGroupComponent implements OnInit {
           .dentistProcedureId = dentistProcedureId;
       dentistProcedureByDayOfWeekService
           .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
-          .procedureId = dayOfWeek;
+          .dayOfWeek = dayOfWeek;
+
     } else {
       display = "none";
 
@@ -228,7 +230,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
         dentistProcedureByDayOfWeekService
             .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
-            .procedureId = "";
+            .dayOfWeek = "";
       }
     }
 

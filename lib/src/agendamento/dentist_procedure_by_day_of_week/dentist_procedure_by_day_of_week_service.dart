@@ -186,7 +186,6 @@ class DentistProcedureByDayOfWeekService {
       }
     } else {
       result = await new DentistProcedureByDayOfWeekDAO().save(datas);
-
       //saved = await saveDentistProcedureByDayOfWeekList(result.values.first);
     }
 

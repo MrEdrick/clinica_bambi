@@ -175,7 +175,9 @@ class DentistProcedureService {
             .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
       _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
           dentistProcedureByDayOfWeek;
+ 
       saved = await (_dentistProcedureByDayOfWeekService.save(dentistId));
+
       if (!saved) {
         break;
       }
@@ -221,7 +223,7 @@ class DentistProcedureService {
 
       saved = await saveDentistProcedureByDayOfWeekList(result.values.first);
     }
-    
+
     return saved;
   }
 }
