@@ -7,7 +7,7 @@ class DentistProcedureByDayOfWeekService {
   static DentistProcedureByDayOfWeek _dentistProcedureByDayOfWeek;
   static List<DentistProcedureByDayOfWeek> _list =
       new List<DentistProcedureByDayOfWeek>();
-  static Map _dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek = new Map();
+  static Map _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek = new Map();
   static List<Map> _dentistProcedureByDayOfWeekList = new List<Map>();
   static Map _dentistProcedureByDayOfWeekListById = new Map();
   static List<Map> _dentistProcedureByDayOfWeekListWithFilter = new List<Map>();
@@ -18,15 +18,15 @@ class DentistProcedureByDayOfWeekService {
           DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek) =>
       _dentistProcedureByDayOfWeek = dentistProcedureByDayOfWeek;
 
-  Map get dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek =>
-      _dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek;
+  Map get dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek =>
+      _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek;
 
   void clearAllDentistProcedureByDayOfWeekList() {
     _list.clear();
     _dentistProcedureByDayOfWeekList.clear();
     _dentistProcedureByDayOfWeekListById.clear();
     _dentistProcedureByDayOfWeekListWithFilter.clear();
-    _dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.clear();
+    _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek.clear();
   }
 
   Future<List<DentistProcedureByDayOfWeek>>
@@ -47,7 +47,7 @@ class DentistProcedureByDayOfWeekService {
               dentistProcedureByDayOfWeek["documentPath"]] =
           dentistProcedureByDayOfWeek;
 
-      _dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+      _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureByDayOfWeek["procedureId"] +
                   dentistProcedureByDayOfWeek["dayOfWeek"]] =
           dentistProcedureByDayOfWeek;

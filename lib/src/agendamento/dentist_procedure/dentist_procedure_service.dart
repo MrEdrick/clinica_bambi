@@ -148,7 +148,7 @@ class DentistProcedureService {
 
     for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
         in _dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek.values) {
       _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
           dentistProcedureByDayOfWeek;
       _dentistProcedureByDayOfWeekService
@@ -172,7 +172,7 @@ class DentistProcedureService {
 
     for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
         in _dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek.values) {
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek.values) {
       _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
           dentistProcedureByDayOfWeek;
 

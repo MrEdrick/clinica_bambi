@@ -73,13 +73,13 @@ class ShiftByDayGroupComponent implements OnInit {
       (await dentistProcedureByDayOfWeekService.getOneDentistProcedureByDayOfWeekByFilter(
           {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek}));
 
-      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] ==
           null) {
         dentistProcedureByDayOfWeekId = "";
       } else {
         dentistProcedureId = dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
             .id;
       }
     } else {
@@ -203,33 +203,33 @@ class ShiftByDayGroupComponent implements OnInit {
 
       display = "block";
 
-      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] ==
           null) {
-        dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+        dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
                 dentistProcedureId + dayOfWeek] =
             new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
       }
 
       dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
           .dentistProcedureId = dentistProcedureId;
       dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
           .dayOfWeek = dayOfWeek;
 
     } else {
       display = "none";
 
-      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[
+      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] !=
           null) {
         dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
             .dentistProcedureId = "";
 
         dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
             .dayOfWeek = "";
       }
     }
