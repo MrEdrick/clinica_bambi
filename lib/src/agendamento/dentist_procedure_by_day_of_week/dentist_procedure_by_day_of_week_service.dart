@@ -48,7 +48,7 @@ class DentistProcedureByDayOfWeekService {
           dentistProcedureByDayOfWeek;
 
       _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-              dentistProcedureByDayOfWeek["procedureId"] +
+              dentistProcedureByDayOfWeek["dentistProcedureId"] +
                   dentistProcedureByDayOfWeek["dayOfWeek"]] =
           dentistProcedureByDayOfWeek;
       _list.add(
@@ -152,7 +152,7 @@ class DentistProcedureByDayOfWeekService {
   }
 
   Future<bool> save(String dentistProcedureId) async {
-    bool saved = false;
+    bool saved = true;
 
     if (_dentistProcedureByDayOfWeek == null) {
       return saved;
@@ -166,8 +166,7 @@ class DentistProcedureByDayOfWeekService {
 
     Map<bool, String> result = new Map<bool, String>();
     
-    print(datas);
-    print(_dentistProcedureByDayOfWeek.id);
+
     if (_dentistProcedureByDayOfWeek.id != "") {
       if ((_dentistProcedureByDayOfWeek.dentistProcedureId == "") &&
           (_dentistProcedureByDayOfWeek.dayOfWeek == "")) {
