@@ -68,8 +68,7 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-    print(dentistProcedureId + dayOfWeek);
-    print(dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek.keys);
+
     if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
       (await dentistProcedureByDayOfWeekService.getOneDentistProcedureByDayOfWeekByFilter(
           {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek}));

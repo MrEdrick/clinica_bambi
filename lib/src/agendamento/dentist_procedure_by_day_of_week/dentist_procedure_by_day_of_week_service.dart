@@ -31,24 +31,23 @@ class DentistProcedureByDayOfWeekService {
 
   Future<List<DentistProcedureByDayOfWeek>>
       getAllDentistProcedureByDayOfWeekAcives() async {
-        print("t0");
+
     if ((_dentistProcedureByDayOfWeekList != null) &&
         (_dentistProcedureByDayOfWeekList.length != 0)) {
       return _list;
     }
-    print("t1");
+
     clearAllDentistProcedureByDayOfWeekList();
-    print("t2");
+
     await (_dentistProcedureByDayOfWeekList =
         await new DentistProcedureByDayOfWeekDAO()
             .getAllDentistProcedureByDayOfWeekFilter({"isReal": "Y"}, ["=="]));
-    print(_dentistProcedureByDayOfWeekList);
-    print(_dentistProcedureByDayOfWeekList.length);
+
     _dentistProcedureByDayOfWeekList.forEach((dentistProcedureByDayOfWeek) {
       _dentistProcedureByDayOfWeekListById[
               dentistProcedureByDayOfWeek["documentPath"]] =
           dentistProcedureByDayOfWeek;
-      print("t3");
+
       _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureByDayOfWeek["dentistProcedureId"] +
                   dentistProcedureByDayOfWeek["dayOfWeek"]] =

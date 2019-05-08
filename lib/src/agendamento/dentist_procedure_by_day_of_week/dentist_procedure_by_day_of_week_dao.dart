@@ -55,7 +55,7 @@ class DentistProcedureByDayOfWeekDAO {
       print(filter.keys.first.toString());
       print(comparisons.first.toString());
       print(filter.values.first.toString());
-      print((await _fireStoreApp.ref.get()).empty);
+      print((await _fireStoreApp.ref.get()).query);
       await (await _fireStoreApp.ref
               .where(filter.keys.first.toString(), comparisons.first.toString(),
                   filter.values.first.toString())
