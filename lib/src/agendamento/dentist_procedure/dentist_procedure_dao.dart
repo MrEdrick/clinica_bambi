@@ -41,16 +41,16 @@ class DentistProcedureDAO {
   Future<List<Map>> getAllDentistProcedureFilter(
       Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_PROCEDURE_COLLECTION);
 
     if (filter.length == 0) {
-      await (await fireStoreApp.ref.get()).docs.forEach((doc) {
+      await (await _fireStoreApp.ref.get()).docs.forEach((doc) {
         Map map = new Map.from(doc.data());
         map['documentPath'] = doc.id;
         _list.add(map);
       });
     } else {
-      await (await fireStoreApp.ref
+      await (await _fireStoreApp.ref
               .where(filter.keys.first.toString(), comparisons.first.toString(),
                   filter.values.first.toString())
               .get())
@@ -62,7 +62,7 @@ class DentistProcedureDAO {
       });
     }
 
-    fireStoreApp.FireStoreOffLine();
+    _fireStoreApp.FireStoreOffLine();
 
     return _list;
   }

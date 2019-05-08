@@ -42,11 +42,11 @@ class DentistProcedureByDayOfWeekDAO {
 
   Future<List<Map>> getAllDentistProcedureByDayOfWeekFilter(Map filter, List comparisons) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp fireStoreApp =
+    FireStoreApp _fireStoreApp =
         new FireStoreApp(DENTIST_PROCEDURE_BY_DAY_OF_WEEK_COLLECTION);
 
     if (filter.length == 0) {
-      await (await fireStoreApp.ref.get()).docs.forEach((doc) {
+      await (await _fireStoreApp.ref.get()).docs.forEach((doc) {
         Map map = new Map.from(doc.data());
         map['documentPath'] = doc.id;
         _list.add(map);
@@ -55,7 +55,8 @@ class DentistProcedureByDayOfWeekDAO {
       print(filter.keys.first.toString());
       print(comparisons.first.toString());
       print(filter.values.first.toString());
-      await (await fireStoreApp.ref
+      print((await _fireStoreApp.ref.get()).empty);
+      await (await _fireStoreApp.ref
               .where(filter.keys.first.toString(), comparisons.first.toString(),
                   filter.values.first.toString())
               .get())
@@ -69,7 +70,7 @@ class DentistProcedureByDayOfWeekDAO {
       });
     }
 
-    fireStoreApp.FireStoreOffLine();
+    _fireStoreApp.FireStoreOffLine();
 
     return _list;
   }
