@@ -52,12 +52,17 @@ class DentistProcedureByDayOfWeekDAO {
         _list.add(map);
       });
     } else {
+      print(filter.keys.first.toString());
+      print(comparisons.first.toString());
+      print(filter.values.first.toString());
       await (await fireStoreApp.ref
               .where(filter.keys.first.toString(), comparisons.first.toString(),
                   filter.values.first.toString())
               .get())
           .docs
           .forEach((doc) {
+        print("tt0");
+        print(doc);
         Map map = new Map.from(doc.data());
         map['documentPath'] = doc.id;
         _list.add(map);
