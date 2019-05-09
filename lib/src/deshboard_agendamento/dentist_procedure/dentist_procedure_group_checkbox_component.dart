@@ -61,7 +61,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((dentistId != "") && (dentistId != null)) {
-      (await dentistProcedureService.getOneDentistProcedureByFilter(
+      (await dentistProcedureService.getOneDentistProcedureByFilterFromList(
           {"dentistId": dentistId, "procedureId": procedureId}));
 
       if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[

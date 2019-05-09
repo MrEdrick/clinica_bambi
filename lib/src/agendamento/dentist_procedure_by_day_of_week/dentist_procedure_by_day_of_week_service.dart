@@ -7,7 +7,8 @@ class DentistProcedureByDayOfWeekService {
   static DentistProcedureByDayOfWeek _dentistProcedureByDayOfWeek;
   static List<DentistProcedureByDayOfWeek> _list =
       new List<DentistProcedureByDayOfWeek>();
-  static Map _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek = new Map();
+  static Map _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek =
+      new Map();
   static List<Map> _dentistProcedureByDayOfWeekList = new List<Map>();
   static Map _dentistProcedureByDayOfWeekListById = new Map();
   static List<Map> _dentistProcedureByDayOfWeekListWithFilter = new List<Map>();
@@ -31,7 +32,6 @@ class DentistProcedureByDayOfWeekService {
 
   Future<List<DentistProcedureByDayOfWeek>>
       getAllDentistProcedureByDayOfWeekAcives() async {
-
     if ((_dentistProcedureByDayOfWeekList != null) &&
         (_dentistProcedureByDayOfWeekList.length != 0)) {
       return _list;
@@ -59,15 +59,10 @@ class DentistProcedureByDayOfWeekService {
     return _list;
   }
 
-  Future<DentistProcedureByDayOfWeek> getOneDentistProcedureByDayOfWeekByFilter(
-      Map filter) async {
+  Future<DentistProcedureByDayOfWeek>
+      getOneDentistProcedureByDayOfWeekByFilterFromList(Map filter) async {
     Map doc;
     List result;
-    
-    if ((_dentistProcedureByDayOfWeekList == null) ||
-        (_dentistProcedureByDayOfWeekList.length == 0)) {
-      await getAllDentistProcedureByDayOfWeekAcives();
-    }
 
     result = getDentistProcedureByDayOfWeekListWithFilterFromList(filter);
 
@@ -77,15 +72,21 @@ class DentistProcedureByDayOfWeekService {
       doc = null;
     }
 
-    if (doc == null) {
-      result = (await new DentistProcedureByDayOfWeekDAO()
-          .getAllDentistProcedureByDayOfWeekFilter(filter, ["=="]));
+    return turnMapInDentistProcedureByDayOfWeek(doc);
+  }
 
-      if (result.length > 0) {
-        doc = result?.first;
-      } else {
-        doc = null;
-      }
+  Future<DentistProcedureByDayOfWeek>
+      getOneDentistProcedureByDayOfWeekByFilterFromDataBase(Map filter) async {
+    Map doc;
+    List result;
+
+    result = (await new DentistProcedureByDayOfWeekDAO()
+        .getAllDentistProcedureByDayOfWeekFilter(filter, ["=="]));
+
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
     }
 
     return turnMapInDentistProcedureByDayOfWeek(doc);
@@ -166,7 +167,6 @@ class DentistProcedureByDayOfWeekService {
     };
 
     Map<bool, String> result = new Map<bool, String>();
-    
 
     if (_dentistProcedureByDayOfWeek.id != "") {
       if ((_dentistProcedureByDayOfWeek.dentistProcedureId == "") &&
