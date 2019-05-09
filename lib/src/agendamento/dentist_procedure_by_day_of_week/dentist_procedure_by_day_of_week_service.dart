@@ -148,6 +148,7 @@ class DentistProcedureByDayOfWeekService {
     if (map == null) {
       return null;
     }
+
     return new DentistProcedureByDayOfWeek(
         map["documentPath"], map["dentistProcedureId"], map["dayOfWeek"]);
   }

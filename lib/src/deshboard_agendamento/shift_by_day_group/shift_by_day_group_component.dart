@@ -68,30 +68,35 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
+    print("t0");
     if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
-      (await dentistProcedureByDayOfWeekService.getOneDentistProcedureByDayOfWeekByFilterFromList(
-          {"dentistProcedureId": dentistProcedureId, "dayOfWeek": dayOfWeek}));
-
-      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+      (await dentistProcedureByDayOfWeekService
+          .getOneDentistProcedureByDayOfWeekByFilterFromList({
+        "dentistProcedureId": dentistProcedureId,
+        "dayOfWeek": dayOfWeek
+      }));
+      print("t1");
+      if (dentistProcedureByDayOfWeekService
+                  .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] ==
           null) {
         dentistProcedureByDayOfWeekId = "";
       } else {
-        dentistProcedureId = dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
-            .id;
+        dentistProcedureByDayOfWeekId = "";
+        print(dentistProcedureByDayOfWeekService
+                .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+            dentistProcedureId + dayOfWeek]);
       }
     } else {
       dentistProcedureByDayOfWeekId = "";
       dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
           new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
     }
-
+    print("t2");
     checked = dentistProcedureByDayOfWeekId != "";
 
     onCheckedChange();
-
+    print("t3");
     List<Shift> _list = await new ShiftService().getAllShiftAcives();
 
     shiftByDayGroupListComponent.clear();
@@ -101,10 +106,10 @@ class ShiftByDayGroupComponent implements OnInit {
         ComponentFactory<shift_checkbox_component.ShiftCheckboxComponent>
             shiftComponent =
             shift_checkbox_component.ShiftCheckboxComponentNgFactory;
-
+        print("t4");
         ComponentRef shiftCheckboxComponent = _loader.loadNextToLocation(
             shiftComponent, materialContainerShitGroup);
-
+        print("t5");
         shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
             dentistProcedureByDayOfWeekId;
         shiftCheckboxComponent.instance.shiftId = shift.id;
@@ -133,36 +138,42 @@ class ShiftByDayGroupComponent implements OnInit {
 
   void onCheckedChange() {
     if (checked) {
-
       display = "block";
 
-      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+      if (dentistProcedureByDayOfWeekService
+                  .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] ==
           null) {
-        dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-                dentistProcedureId + dayOfWeek] =
-            new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
+        dentistProcedureByDayOfWeekService
+                .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+            dentistProcedureId +
+                dayOfWeek] = new DentistProcedureByDayOfWeek(
+            "", dentistProcedureId, dayOfWeek);
       }
 
       dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+              dentistProcedureId + dayOfWeek]
           .dentistProcedureId = dentistProcedureId;
       dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+              dentistProcedureId + dayOfWeek]
           .dayOfWeek = dayOfWeek;
-
     } else {
       display = "none";
 
-      if (dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+      if (dentistProcedureByDayOfWeekService
+                  .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] !=
           null) {
         dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek]
             .dentistProcedureId = "";
 
         dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[dentistProcedureId + dayOfWeek]
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek]
             .dayOfWeek = "";
       }
     }
