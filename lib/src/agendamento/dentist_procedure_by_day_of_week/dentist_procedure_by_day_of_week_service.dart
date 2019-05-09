@@ -38,7 +38,6 @@ class DentistProcedureByDayOfWeekService {
     }
 
     clearAllDentistProcedureByDayOfWeekList();
-
     await (_dentistProcedureByDayOfWeekList =
         await new DentistProcedureByDayOfWeekDAO()
             .getAllDentistProcedureByDayOfWeekFilter({"isReal": "Y"}, ["=="]));
@@ -63,9 +62,9 @@ class DentistProcedureByDayOfWeekService {
       getOneDentistProcedureByDayOfWeekByFilterFromList(Map filter) async {
     Map doc;
     List result;
-
+    
     result = getDentistProcedureByDayOfWeekListWithFilterFromList(filter);
-
+   
     if (result.length > 0) {
       doc = result?.first;
     } else {
@@ -79,10 +78,10 @@ class DentistProcedureByDayOfWeekService {
       getOneDentistProcedureByDayOfWeekByFilterFromDataBase(Map filter) async {
     Map doc;
     List result;
-
+    
     result = (await new DentistProcedureByDayOfWeekDAO()
         .getAllDentistProcedureByDayOfWeekFilter(filter, ["=="]));
-
+   
     if (result.length > 0) {
       doc = result?.first;
     } else {

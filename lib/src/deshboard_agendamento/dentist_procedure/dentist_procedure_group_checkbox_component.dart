@@ -63,12 +63,14 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if ((dentistId != "") && (dentistId != null)) {
       (await dentistProcedureService.getOneDentistProcedureByFilterFromList(
           {"dentistId": dentistId, "procedureId": procedureId}));
-
+      print("t0");
       if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
               dentistId + procedureId] ==
           null) {
+            print("t1");
         dentistProcedureId = "";
       } else {
+        print("t2");
         dentistProcedureId = dentistProcedureService
             .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
             .id;
@@ -78,7 +80,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       dentistProcedureService.dentistProcedure =
           new DentistProcedure("", dentistId, procedureId);
     }
-
+    print("t3");
+    print(dentistProcedureId);
     checked = dentistProcedureId != "";
 
     onCheckedChange();
@@ -116,64 +119,6 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     });
 
     _changeDetectorRef.markForCheck();
-  }
-
-  @Output()
-  Future<bool> onSave() async {
-    Map datas = {"dentistId": dentistId, "procedureId": procedureId};
-    bool saved = false;
-    Map<bool, String> result = new Map<bool, String>();
-
-    if (dentistProcedureId != "") {
-      if (!checked) {
-        for (ComponentRef shiftByDayGroupComponent
-            in shiftByDayGroupListComponent) {
-          saved = await shiftByDayGroupComponent.instance.onSave();
-          if (!saved) {
-            break;
-          }
-        }
-        ;
-
-        if (saved) {
-          result[await new DentistProcedureDAO()
-                  .delete(dentistProcedureService.dentistProcedure?.id) ==
-              ""] = dentistProcedureService.dentistProcedure?.id;
-        }
-      } else {
-        result[await new DentistProcedureDAO()
-                .update(dentistProcedureService.dentistProcedure?.id, datas) ==
-            ""] = dentistProcedureService.dentistProcedure?.id;
-
-        for (ComponentRef shiftByDayGroupComponent
-            in shiftByDayGroupListComponent) {
-          shiftByDayGroupComponent.instance.dentistProcedureId =
-              result.values.first;
-
-          saved = await shiftByDayGroupComponent.instance.onSave();
-
-          if (!saved) {
-            break;
-          }
-        }
-      }
-    } else {
-      result = await new DentistProcedureDAO().save(datas);
-
-      for (ComponentRef shiftByDayGroupComponent
-          in shiftByDayGroupListComponent) {
-        shiftByDayGroupComponent.instance.dentistProcedureId =
-            result.values.first;
-
-        saved = await shiftByDayGroupComponent.instance.onSave();
-
-        if (!saved) {
-          break;
-        }
-      }
-    }
-
-    return saved;
   }
 
   void onCheckedChange() {

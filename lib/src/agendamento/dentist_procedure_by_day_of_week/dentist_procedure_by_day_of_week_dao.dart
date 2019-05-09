@@ -59,7 +59,6 @@ class DentistProcedureByDayOfWeekDAO {
           .docs
           .forEach((doc) {
         Map map = new Map.from(doc.data());
-        print(map.values);
         map['documentPath'] = doc.id;
         _list.add(map);
       });
