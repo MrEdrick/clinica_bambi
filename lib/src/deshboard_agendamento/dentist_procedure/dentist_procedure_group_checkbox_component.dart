@@ -63,14 +63,13 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
     if ((dentistId != "") && (dentistId != null)) {
       (await dentistProcedureService.getOneDentistProcedureByFilterFromList(
           {"dentistId": dentistId, "procedureId": procedureId}));
-      print("t0");
+
       if (dentistProcedureService.dentistProcedureListByDentistIdProcedureId[
               dentistId + procedureId] ==
           null) {
-            print("t1");
         dentistProcedureId = "";
       } else {
-        print("t2");
+
         dentistProcedureId = dentistProcedureService
             .dentistProcedureListByDentistIdProcedureId[dentistId + procedureId]
             .id;
@@ -80,8 +79,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
       dentistProcedureService.dentistProcedure =
           new DentistProcedure("", dentistId, procedureId);
     }
-    print("t3");
-    print(dentistProcedureId);
+
     checked = dentistProcedureId != "";
 
     onCheckedChange();

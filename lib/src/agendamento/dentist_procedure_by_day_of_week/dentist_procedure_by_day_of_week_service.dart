@@ -64,7 +64,7 @@ class DentistProcedureByDayOfWeekService {
     List result;
     
     result = getDentistProcedureByDayOfWeekListWithFilterFromList(filter);
-   
+    
     if (result.length > 0) {
       doc = result?.first;
     } else {
