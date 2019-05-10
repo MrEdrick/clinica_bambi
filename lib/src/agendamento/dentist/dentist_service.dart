@@ -140,11 +140,13 @@ class DentistService {
       result = await new DentistDAO().save(datas);
     }
 
-    DentistProcedureService _dentistProcedure = new DentistProcedureService();
+    DentistProcedureService _dentistProcedureService = new DentistProcedureService();
+    
+    _dentistProcedureService.dentistProcedure = null;
 
-    for (DentistProcedure dentistProcedure in  _dentistProcedure.dentistProcedureListByDentistIdProcedureId.values) {
-      _dentistProcedure.dentistProcedure = dentistProcedure;
-      saved = await (_dentistProcedure.save(result.values.first));
+    for (DentistProcedure dentistProcedureService in  _dentistProcedureService.dentistProcedureListByDentistIdProcedureId.values) {
+      _dentistProcedureService.dentistProcedure = dentistProcedureService;
+      saved = await (_dentistProcedureService.save(result.values.first));
     };
 
     return saved;
