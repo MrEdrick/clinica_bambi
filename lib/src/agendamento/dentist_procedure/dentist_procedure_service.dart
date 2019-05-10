@@ -144,7 +144,7 @@ class DentistProcedureService {
   }
 
   Future<bool> deleteDentistProcedureByDayOfWeekList(String dentistId) async {
-    bool saved = false;
+    bool saved = true;
     DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
         new DentistProcedureByDayOfWeekService();
 
@@ -196,7 +196,7 @@ class DentistProcedureService {
   }
 
   Future<bool> save(String dentistId) async {
-    bool saved = false;
+    bool saved = true;
 
     if (_dentistProcedure == null) {
       return saved;
