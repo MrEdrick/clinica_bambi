@@ -4,7 +4,7 @@ import 'dentist_procedure_by_day_of_week_by_shift_dao.dart';
 class DentistProcedureByDayOfWeekByShiftService {
   static DentistProcedureByDayOfWeekByShift _dentistProcedureByDayOfWeekByShift;
   static Map
-      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId =
+      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId =
       new Map();
   static List<DentistProcedureByDayOfWeekByShift> _list =
       new List<DentistProcedureByDayOfWeekByShift>();
@@ -20,15 +20,15 @@ class DentistProcedureByDayOfWeekByShiftService {
               dentistProcedureByDayOfWeekByShift) =>
       _dentistProcedureByDayOfWeekByShift = dentistProcedureByDayOfWeekByShift;
 
-  Map get dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId =>
-    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId;
+  Map get dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId =>
+    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId;
 
   void clearAllDentistProcedureByDayOfWeekByShiftList() {
     _list.clear();
     _dentistProcedureByDayOfWeekByShiftList.clear();
     _dentistProcedureByDayOfWeekByShiftListById.clear();
     _dentistProcedureByDayOfWeekByShiftListWithFilter.clear();
-    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId.clear();
+    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId.clear();
   }
 
   Future<List<DentistProcedureByDayOfWeekByShift>>
@@ -51,7 +51,7 @@ class DentistProcedureByDayOfWeekByShiftService {
               dentistProcedureByDayOfWeekByShift["documentPath"]] =
           dentistProcedureByDayOfWeekByShift;
 
-      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId[
+      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
         dentistProcedureByDayOfWeekByShift["dentistProcedureByDayOfWeekId"] +
         dentistProcedureByDayOfWeekByShift["shiftId"]
       ] = dentistProcedureByDayOfWeekByShift;
