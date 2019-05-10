@@ -45,12 +45,12 @@ class DentistProcedureByDayOfWeekService {
     _dentistProcedureByDayOfWeekList.forEach((dentistProcedureByDayOfWeek) {
       _dentistProcedureByDayOfWeekListById[
               dentistProcedureByDayOfWeek["documentPath"]] =
-          dentistProcedureByDayOfWeek;
+          turnMapInDentistProcedureByDayOfWeek(dentistProcedureByDayOfWeek);
 
       _dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureByDayOfWeek["dentistProcedureId"] +
                   dentistProcedureByDayOfWeek["dayOfWeek"]] =
-          dentistProcedureByDayOfWeek;
+          turnMapInDentistProcedureByDayOfWeek(dentistProcedureByDayOfWeek);
       _list.add(
           turnMapInDentistProcedureByDayOfWeek(dentistProcedureByDayOfWeek));
     });
