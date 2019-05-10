@@ -3,6 +3,9 @@ import 'dentist_procedure_by_day_of_week_by_shift_dao.dart';
 
 class DentistProcedureByDayOfWeekByShiftService {
   static DentistProcedureByDayOfWeekByShift _dentistProcedureByDayOfWeekByShift;
+  static Map
+      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId =
+      new Map();
   static List<DentistProcedureByDayOfWeekByShift> _list =
       new List<DentistProcedureByDayOfWeekByShift>();
   static List<Map> _dentistProcedureByDayOfWeekByShiftList = new List<Map>();
@@ -17,11 +20,15 @@ class DentistProcedureByDayOfWeekByShiftService {
               dentistProcedureByDayOfWeekByShift) =>
       _dentistProcedureByDayOfWeekByShift = dentistProcedureByDayOfWeekByShift;
 
+  Map get dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId =>
+    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId;
+
   void clearAllDentistProcedureByDayOfWeekByShiftList() {
     _list.clear();
     _dentistProcedureByDayOfWeekByShiftList.clear();
     _dentistProcedureByDayOfWeekByShiftListById.clear();
     _dentistProcedureByDayOfWeekByShiftListWithFilter.clear();
+    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId.clear();
   }
 
   Future<List<DentistProcedureByDayOfWeekByShift>>
@@ -39,9 +46,16 @@ class DentistProcedureByDayOfWeekByShiftService {
 
     _dentistProcedureByDayOfWeekByShiftList
         .forEach((dentistProcedureByDayOfWeekByShift) {
+
       _dentistProcedureByDayOfWeekByShiftListById[
               dentistProcedureByDayOfWeekByShift["documentPath"]] =
           dentistProcedureByDayOfWeekByShift;
+
+      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdByShiftId[
+        dentistProcedureByDayOfWeekByShift["dentistProcedureByDayOfWeekId"] +
+        dentistProcedureByDayOfWeekByShift["shiftId"]
+      ] = dentistProcedureByDayOfWeekByShift;
+
       _list.add(turnMapInDentistProcedureByDayOfWeekByShift(
           dentistProcedureByDayOfWeekByShift));
     });
@@ -143,5 +157,38 @@ class DentistProcedureByDayOfWeekByShiftService {
     }
     return new DentistProcedureByDayOfWeekByShift(map["documentPath"],
         map["dentistProcedureIdByDayOfWeek"], map["shiftId"]);
+  }
+
+  Future<bool> save(String dentistProcedureByDayOfWeekId) async {
+    bool saved = true;
+
+    if (_dentistProcedureByDayOfWeekByShift == null) {
+      return saved;
+    }
+
+    Map datas = {
+      "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
+      "shiftId": _dentistProcedureByDayOfWeekByShift.shiftId,
+      "isReal": "Y"
+    };
+
+    Map<bool, String> result = new Map<bool, String>();
+    if (_dentistProcedureByDayOfWeekByShift.id != "") {
+      if ((_dentistProcedureByDayOfWeekByShift.dentistProcedureByDayOfWeekId ==
+              "") &&
+          (_dentistProcedureByDayOfWeekByShift.shiftId == "")) {
+        result[await new DentistProcedureByDayOfWeekByShiftDAO()
+                .delete(_dentistProcedureByDayOfWeekByShift.id) ==
+            ""] = _dentistProcedureByDayOfWeekByShift.id;
+      } else {
+        result[await new DentistProcedureByDayOfWeekByShiftDAO()
+                .update(_dentistProcedureByDayOfWeekByShift.id, datas) ==
+            ""] = _dentistProcedureByDayOfWeekByShift.id;
+      }
+    } else {
+      result = await new DentistProcedureByDayOfWeekByShiftDAO().save(datas);
+    }
+
+    return result.keys.first;
   }
 }
