@@ -63,18 +63,13 @@ class DentistProcedureByDayOfWeekByShiftService {
     return _list;
   }
 
+  
   Future<DentistProcedureByDayOfWeekByShift>
-      getOneDentistProcedureByDayOfWeekByShiftByFilter(Map filter) async {
+      getOneDentistProcedureByDayOfWeekByShiftByFilterFromList(Map filter) async {
     Map doc;
     List result;
 
-    if ((_dentistProcedureByDayOfWeekByShiftList == null) ||
-        (_dentistProcedureByDayOfWeekByShiftList.length == 0)) {
-      await getAllDentistProcedureByDayOfWeekByShiftAcives();
-    }
-
-    result =
-        getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(filter);
+    result = getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(filter);
 
     if (result.length > 0) {
       doc = result?.first;
@@ -82,15 +77,21 @@ class DentistProcedureByDayOfWeekByShiftService {
       doc = null;
     }
 
-    if (doc == null) {
-      result = (await new DentistProcedureByDayOfWeekByShiftDAO()
-          .getAllDentistProcedureByDayOfWeekByShiftFilter(filter, ["=="]));
+    return turnMapInDentistProcedureByDayOfWeekByShift(doc);
+  }
 
-      if (result.length > 0) {
-        doc = result?.first;
-      } else {
-        doc = null;
-      }
+  Future<DentistProcedureByDayOfWeekByShift>
+      getOneDentistProcedureByDayOfWeekByShiftByFilterFromDataBase(Map filter) async {
+    Map doc;
+    List result;
+
+    result = (await new DentistProcedureByDayOfWeekByShiftDAO()
+        .getAllDentistProcedureByDayOfWeekByShiftFilter(filter, ["=="]));
+
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
     }
 
     return turnMapInDentistProcedureByDayOfWeekByShift(doc);

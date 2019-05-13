@@ -50,34 +50,37 @@ class ShiftCheckboxComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
-    if ((dentistProcedureByDayOfWeekId != "") &&
+    print("t0");
+    if ((dentistProcedureByDayOfWeekId != "") ||
         (dentistProcedureByDayOfWeekId != null)) {
       (await dentistProcedureByDayOfWeekByShiftService
-          .getOneDentistProcedureByDayOfWeekByShiftByFilter({
+          .getOneDentistProcedureByDayOfWeekByShiftByFilterFromList({
         "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
         "shiftId": shiftId
       }));
-
+      print("t1");
       if (dentistProcedureByDayOfWeekByShiftService
                   .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
               dentistProcedureByDayOfWeekId + shiftId] ==
           null) {
+            print("t2");
         dentistProcedureByDayOfWeekByShiftId = "";
       } else {
+        print("t3");
         dentistProcedureByDayOfWeekByShiftId = dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
                 dentistProcedureByDayOfWeekId + shiftId]
             .id;
       }
     } else {
+      print("t4");
       dentistProcedureByDayOfWeekByShiftId = "";
       dentistProcedureByDayOfWeekByShiftService
               .dentistProcedureByDayOfWeekByShift =
           new DentistProcedureByDayOfWeekByShift(
               "", dentistProcedureByDayOfWeekId, shiftId);
     }
-
+    print("t5");
     checked = dentistProcedureByDayOfWeekByShiftId != "";
 
     _changeDetectorRef.markForCheck();
