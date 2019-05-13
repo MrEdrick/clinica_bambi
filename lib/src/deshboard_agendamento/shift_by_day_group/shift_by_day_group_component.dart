@@ -83,8 +83,9 @@ class ShiftByDayGroupComponent implements OnInit {
         dentistProcedureByDayOfWeekId = "";
       } else {
         dentistProcedureByDayOfWeekId = dentistProcedureByDayOfWeekService
-                .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-            dentistProcedureId + dayOfWeek].id;
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek]
+            .id;
       }
     } else {
       dentistProcedureByDayOfWeekId = "";
@@ -109,8 +110,14 @@ class ShiftByDayGroupComponent implements OnInit {
         ComponentRef shiftCheckboxComponent = _loader.loadNextToLocation(
             shiftComponent, materialContainerShitGroup);
 
-        shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
-            dentistProcedureByDayOfWeekId;
+        if (dentistProcedureId == "") {
+          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+              dentistProcedureId;
+        } else {
+          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+              dentistProcedureByDayOfWeekId;
+        }
+        
         shiftCheckboxComponent.instance.shiftId = shift.id;
         shiftCheckboxComponent.instance.shift = shift.description;
 
@@ -159,7 +166,6 @@ class ShiftByDayGroupComponent implements OnInit {
           .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek]
           .dayOfWeek = dayOfWeek;
-
     } else {
       display = "none";
 
@@ -167,7 +173,6 @@ class ShiftByDayGroupComponent implements OnInit {
                   .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
               dentistProcedureId + dayOfWeek] !=
           null) {
-
         dentistProcedureByDayOfWeekService
             .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
                 dentistProcedureId + dayOfWeek]
@@ -177,7 +182,6 @@ class ShiftByDayGroupComponent implements OnInit {
             .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
                 dentistProcedureId + dayOfWeek]
             .dayOfWeek = "";
-
       }
     }
 
