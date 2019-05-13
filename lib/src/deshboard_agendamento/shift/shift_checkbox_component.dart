@@ -63,15 +63,15 @@ class ShiftCheckboxComponent implements OnInit {
                   .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
               dentistProcedureByDayOfWeekId + shiftId] ==
           null) {
-        dentistProcedureByDayOfWeekId = "";
+        dentistProcedureByDayOfWeekByShiftId = "";
       } else {
-        dentistProcedureByDayOfWeekId = dentistProcedureByDayOfWeekByShiftService
+        dentistProcedureByDayOfWeekByShiftId = dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
                 dentistProcedureByDayOfWeekId + shiftId]
             .id;
       }
     } else {
-      dentistProcedureByDayOfWeekId = "";
+      dentistProcedureByDayOfWeekByShiftId = "";
       dentistProcedureByDayOfWeekByShiftService
               .dentistProcedureByDayOfWeekByShift =
           new DentistProcedureByDayOfWeekByShift(
