@@ -48,6 +48,9 @@ class ShiftByDayGroupComponent implements OnInit {
 
   @Input()
   String dentistProcedureId = "";
+  
+  @Input()
+  String procedureId = "";
 
   @Input()
   String dentistId = "";
@@ -110,14 +113,14 @@ class ShiftByDayGroupComponent implements OnInit {
         ComponentRef shiftCheckboxComponent = _loader.loadNextToLocation(
             shiftComponent, materialContainerShitGroup);
 
-        if (dentistProcedureId == "") {
-          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
-              dentistProcedureId;
-        } else {
+        if (dentistProcedureByDayOfWeekId == "") {
           shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
               dentistProcedureByDayOfWeekId;
+        } else {
+          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+              procedureId + dentistProcedureId;
         }
-        
+
         shiftCheckboxComponent.instance.shiftId = shift.id;
         shiftCheckboxComponent.instance.shift = shift.description;
 

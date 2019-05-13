@@ -109,6 +109,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
         shiftByDayGroupComponent.instance.dentistProcedureId = dentistProcedureId;
       }
       
+      shiftByDayGroupComponent.instance.procedureId = procedureId;
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
 
