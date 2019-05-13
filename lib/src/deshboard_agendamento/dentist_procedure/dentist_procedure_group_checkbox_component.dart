@@ -57,6 +57,8 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   DentistProcedureGroupCheckboxComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
+    int index = 0;
+    
     if (new UserService().user == null) return;
 
     if ((dentistId != "") && (dentistId != null)) {
@@ -109,11 +111,14 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
         shiftByDayGroupComponent.instance.dentistProcedureId = dentistProcedureId;
       }
       
+      shiftByDayGroupComponent.instance.index = index;
       shiftByDayGroupComponent.instance.procedureId = procedureId;
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
 
       shiftByDayGroupListComponent.add(shiftByDayGroupComponent);
+
+      index += 1;
     });
 
     _changeDetectorRef.markForCheck();

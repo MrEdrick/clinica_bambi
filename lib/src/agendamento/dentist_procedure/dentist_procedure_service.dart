@@ -158,7 +158,7 @@ class DentistProcedureService {
           .dentistProcedureByDayOfWeek.dentistProcedureId = "";
       _dentistProcedureByDayOfWeekService
           .dentistProcedureByDayOfWeek.dayOfWeek = "";
-      saved = await (_dentistProcedureByDayOfWeekService.save(dentistId));
+      saved = await (_dentistProcedureByDayOfWeekService.save(dentistId, "", 0));
 
       if (!saved) {
         break;
@@ -170,6 +170,7 @@ class DentistProcedureService {
 
   Future<bool> saveDentistProcedureByDayOfWeekList(
       String dentistProcedureId, String procedureId) async {
+    int index = 0;
     bool saved = true;
     DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
         new DentistProcedureByDayOfWeekService();
@@ -184,8 +185,9 @@ class DentistProcedureService {
                 key];
 
         saved = await (_dentistProcedureByDayOfWeekService
-            .save(dentistProcedureId));
+            .save(dentistProcedureId, procedureId, index));
 
+        index += 1;
         if (!saved) {
           break;
         }

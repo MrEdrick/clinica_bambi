@@ -47,6 +47,9 @@ class ShiftByDayGroupComponent implements OnInit {
   String dentistProcedureByDayOfWeekId;
 
   @Input()
+  int index = 0;
+  
+  @Input()
   String dentistProcedureId = "";
   
   @Input()
@@ -70,7 +73,6 @@ class ShiftByDayGroupComponent implements OnInit {
   ShiftByDayGroupComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
-    int index = 0;
     if (new UserService().user == null) return;
 
     if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
