@@ -42,7 +42,7 @@ class DentistProcedureByDayOfWeekByShiftService {
 
     await (_dentistProcedureByDayOfWeekByShiftList =
         await new DentistProcedureByDayOfWeekByShiftDAO()
-            .getAllDentistProcedureByDayOfWeekByShiftFilter({}, []));
+            .getAllDentistProcedureByDayOfWeekByShiftFilter({"isReal": "Y"}, ["=="]));
 
     _dentistProcedureByDayOfWeekByShiftList
         .forEach((dentistProcedureByDayOfWeekByShift) {

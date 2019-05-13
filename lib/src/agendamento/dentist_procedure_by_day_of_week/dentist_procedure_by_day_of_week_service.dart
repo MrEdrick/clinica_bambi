@@ -38,6 +38,7 @@ class DentistProcedureByDayOfWeekService {
     }
 
     clearAllDentistProcedureByDayOfWeekList();
+    
     await (_dentistProcedureByDayOfWeekList =
         await new DentistProcedureByDayOfWeekDAO()
             .getAllDentistProcedureByDayOfWeekFilter({"isReal": "Y"}, ["=="]));

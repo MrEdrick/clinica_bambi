@@ -73,7 +73,7 @@ class ShiftByDayGroupComponent implements OnInit {
     int index = 0;
     if (new UserService().user == null) return;
 
-    if ((dentistProcedureId != "") || (dentistProcedureId != null)) {
+    if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
       (await dentistProcedureByDayOfWeekService
           .getOneDentistProcedureByDayOfWeekByFilterFromList({
         "dentistProcedureId": dentistProcedureId,
