@@ -6,7 +6,7 @@ import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
 import '../../agendamento/user/user_service.dart';
 
-import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_dao.dart';
+import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
 
 @Component(
@@ -68,33 +68,48 @@ class ShiftCheckboxComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  @Output()
-  Future<bool> onSave() async {
-    Map datas = {
-      "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
-      "shiftId": shiftId
-    };
-
-    Map<bool, String> result = new Map<bool, String>();
-
-    if (dentistProcedureByDayOfWeekByShiftId != "") {
-      if (!checked) {
-        result[await new DentistProcedureByDayOfWeekByShiftDAO()
-                .delete(dentistProcedureByDayOfWeekByShiftId) ==
-            ""] = dentistProcedureByDayOfWeekByShiftId;
-      } else {
-        result[await new DentistProcedureByDayOfWeekByShiftDAO()
-                .update(dentistProcedureByDayOfWeekByShiftId, datas) ==
-            ""] = dentistProcedureByDayOfWeekByShiftId;
+  void onCheckedChange() {
+    if (checked) {
+      if (dentistProcedureByDayOfWeekByShiftService
+                  .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+              dentistProcedureByDayOfWeekId + shiftId] ==
+          null) {
+        dentistProcedureByDayOfWeekByShiftService
+                .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+            dentistProcedureByDayOfWeekId +
+                shiftId] = new DentistProcedureByDayOfWeekByShift(
+            "", dentistProcedureByDayOfWeekId, shiftId);
       }
+
+      dentistProcedureByDayOfWeekByShiftService
+          .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+              dentistProcedureByDayOfWeekId + shiftId]
+          .dentistProcedureId = dentistProcedureByDayOfWeekId;
+
+      dentistProcedureByDayOfWeekByShiftService
+          .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+              dentistProcedureByDayOfWeekId + shiftId]
+          .shiftId = shiftId;
+
     } else {
-      result = await new DentistProcedureByDayOfWeekByShiftDAO().save(datas);
+      if (dentistProcedureByDayOfWeekByShiftService
+                  .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+              dentistProcedureByDayOfWeekId + shiftId] !=
+          null) {
+
+        dentistProcedureByDayOfWeekByShiftService
+            .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+                dentistProcedureByDayOfWeekId + shiftId]
+            .dentistProcedureByDayOfWeekId = "";
+
+        dentistProcedureByDayOfWeekByShiftService
+            .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+                dentistProcedureByDayOfWeekId + dayOfWeek]
+            .shiftId = "";
+
+      }
     }
 
-    if (result.keys.first) {
-      return true;
-    } else {
-      return false;
-    }
+    _changeDetectorRef.markForCheck();
   }
 }
