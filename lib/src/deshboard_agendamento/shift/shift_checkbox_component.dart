@@ -51,16 +51,31 @@ class ShiftCheckboxComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    if ((dentistProcedureByDayOfWeekId != "") && (shiftId != "")) {
-      dentistProcedureByDayOfWeekByShiftId =
-          (await dentistProcedureByDayOfWeekByShiftService
-                  .getOneDentistProcedureByDayOfWeekByShiftByFilter({
+    if ((dentistProcedureByDayOfWeekId != "") &&
+        (dentistProcedureByDayOfWeekId != null)) {
+      (await dentistProcedureByDayOfWeekByShiftService
+          .getOneDentistProcedureByDayOfWeekByShiftByFilter({
         "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
         "shiftId": shiftId
-      }))
-              ?.id;
+      }));
+
+      if (dentistProcedureByDayOfWeekByShiftService
+                  .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+              dentistProcedureByDayOfWeekId + shiftId] ==
+          null) {
+        dentistProcedureByDayOfWeekId = "";
+      } else {
+        dentistProcedureByDayOfWeekId = dentistProcedureByDayOfWeekByShiftService
+            .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
+                dentistProcedureByDayOfWeekId + shiftId]
+            .id;
+      }
     } else {
-      dentistProcedureByDayOfWeekByShiftId = "";
+      dentistProcedureByDayOfWeekId = "";
+      dentistProcedureByDayOfWeekByShiftService
+              .dentistProcedureByDayOfWeekByShift =
+          new DentistProcedureByDayOfWeekByShift(
+              "", dentistProcedureByDayOfWeekId, shiftId);
     }
 
     checked = dentistProcedureByDayOfWeekByShiftId != "";
@@ -90,13 +105,11 @@ class ShiftCheckboxComponent implements OnInit {
           .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
               dentistProcedureByDayOfWeekId + shiftId]
           .shiftId = shiftId;
-
     } else {
       if (dentistProcedureByDayOfWeekByShiftService
                   .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
               dentistProcedureByDayOfWeekId + shiftId] !=
           null) {
-
         dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
                 dentistProcedureByDayOfWeekId + shiftId]
@@ -106,7 +119,6 @@ class ShiftCheckboxComponent implements OnInit {
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
                 dentistProcedureByDayOfWeekId + dayOfWeek]
             .shiftId = "";
-
       }
     }
 
