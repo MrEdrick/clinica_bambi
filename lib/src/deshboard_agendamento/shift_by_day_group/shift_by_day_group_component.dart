@@ -70,6 +70,7 @@ class ShiftByDayGroupComponent implements OnInit {
   ShiftByDayGroupComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
+    int index = 0;
     if (new UserService().user == null) return;
 
     if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
@@ -118,13 +119,14 @@ class ShiftByDayGroupComponent implements OnInit {
               dentistProcedureByDayOfWeekId;
         } else {
           shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
-              procedureId + dentistProcedureId;
+              procedureId + dentistProcedureId + index.toString();
         }
 
         shiftCheckboxComponent.instance.shiftId = shift.id;
         shiftCheckboxComponent.instance.shift = shift.description;
-
+      
         shiftByDayGroupListComponent.add(shiftCheckboxComponent);
+        index += 1;
       } else {
         ComponentFactory<quantity_per_shift_component.QuantityPerShiftComponent>
             shiftComponent =
