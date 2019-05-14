@@ -143,7 +143,7 @@ class DentistProcedureService {
         map["documentPath"], map["dentistId"], map["procedureId"]);
   }
 
-  Future<bool> deleteDentistProcedureByDayOfWeekList(String dentistId) async {
+  Future<bool> deleteDentistProcedureByDayOfWeekList(String dentistProcedureId) async {
     bool saved = true;
     DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
         new DentistProcedureByDayOfWeekService();
@@ -158,7 +158,7 @@ class DentistProcedureService {
           .dentistProcedureByDayOfWeek.dentistProcedureId = "";
       _dentistProcedureByDayOfWeekService
           .dentistProcedureByDayOfWeek.dayOfWeek = "";
-      saved = await (_dentistProcedureByDayOfWeekService.save(dentistId, "", 0));
+      saved = await (_dentistProcedureByDayOfWeekService.save(dentistProcedureId, ""));
 
       if (!saved) {
         break;
@@ -170,7 +170,6 @@ class DentistProcedureService {
 
   Future<bool> saveDentistProcedureByDayOfWeekList(
       String dentistProcedureId, String procedureId) async {
-    int index = 0;
     bool saved = true;
     DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
         new DentistProcedureByDayOfWeekService();
@@ -185,9 +184,7 @@ class DentistProcedureService {
                 key];
 
         saved = await (_dentistProcedureByDayOfWeekService
-            .save(dentistProcedureId, procedureId, index));
-
-        index += 1;
+            .save(dentistProcedureId, procedureId));
         if (!saved) {
           break;
         }
