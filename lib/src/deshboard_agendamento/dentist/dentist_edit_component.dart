@@ -21,6 +21,7 @@ import '../../agendamento/procedure/procedure_service.dart';
 import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
+import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
@@ -84,9 +85,6 @@ class DentistEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  //String name = '';
-  //bool state;
-
   Map<String, dynamic> datas;
 
   DentistEditComponent(this._changeDetectorRef, this._loader);
@@ -96,8 +94,6 @@ class DentistEditComponent implements OnInit {
 
     if (dentistService.dentist == null) {
       dentistService.dentist = new Dentist("", "", true);
-      //name = ;
-      //state = dentistService.dentist.state == 'A';
     }
   }
 
@@ -127,11 +123,10 @@ class DentistEditComponent implements OnInit {
     List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
 
     await new DentistProcedureService().getAllDentistProcedureAcives();
-
     await new DentistProcedureByDayOfWeekService().getAllDentistProcedureByDayOfWeekAcives();
-
     await new DentistProcedureByDayOfWeekByShiftService().getAllDentistProcedureByDayOfWeekByShiftAcives();
-    
+    await new DentistQuantityPerShiftByDayOfWeekService().getAllDentistQuantityPerShiftByDayOfWeekAcives();
+
     _listProcedure.forEach((procedure) {
         ComponentFactory<dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponent>
             shiftComponent =
