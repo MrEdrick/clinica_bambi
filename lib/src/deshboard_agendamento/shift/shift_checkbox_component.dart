@@ -77,6 +77,7 @@ class ShiftCheckboxComponent implements OnInit {
           new DentistProcedureByDayOfWeekByShift(
               "", dentistProcedureByDayOfWeekId, shiftId);
     }
+    
     checked = dentistProcedureByDayOfWeekByShiftId != "";
 
     _changeDetectorRef.markForCheck();

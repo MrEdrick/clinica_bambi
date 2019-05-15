@@ -165,23 +165,21 @@ class DentistProcedureByDayOfWeekService {
         in _dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId
             .values) {
+      _dentistProcedureByDayOfWeekByShiftService
+              .dentistProcedureByDayOfWeekByShift =
+          dentistProcedureByDayOfWeekByShift;
 
       if (_dentistProcedureByDayOfWeekByShiftService
               .dentistProcedureByDayOfWeekByShift
               .dentistProcedureByDayOfWeekId ==
           dentistProcedureByDayOfWeekId) {
-
-        _dentistProcedureByDayOfWeekByShiftService
-                .dentistProcedureByDayOfWeekByShift =
-            dentistProcedureByDayOfWeekByShift;
-
         _dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShift
             .dentistProcedureByDayOfWeekId = "";
 
         _dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShift.shiftId = "";
-            
+
         saved = await (_dentistProcedureByDayOfWeekByShiftService
             .save(dentistProcedureByDayOfWeekId));
       }
