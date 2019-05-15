@@ -230,8 +230,10 @@ class DentistProcedureService {
             result.values.first, dentistProcedure.procedureId);
       }
     } else {
+      
       if ((_dentistProcedure.dentistId != "") &&
           (_dentistProcedure.procedureId != "")) {
+            
         result = await new DentistProcedureDAO().save(datas);
 
         saved = await saveDentistProcedureByDayOfWeekList(
@@ -239,6 +241,7 @@ class DentistProcedureService {
       }
     }
 
+    print(saved);
     return saved;
   }
 }
