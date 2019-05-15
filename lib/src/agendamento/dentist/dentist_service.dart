@@ -123,7 +123,7 @@ class DentistService {
   }
 
   Future<bool> save() async {
-    bool saved = false;
+    bool saved = true;
 
     if (_dentist == null) {
       return saved;
@@ -167,7 +167,6 @@ class DentistService {
     for (DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek
         in _dentistQuantityPerShiftByDayOfWeekService
             .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId.values) {
-              print("t0");
       _dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek =
           dentistQuantityPerShiftByDayOfWeek;
       saved = await (_dentistQuantityPerShiftByDayOfWeekService.save());

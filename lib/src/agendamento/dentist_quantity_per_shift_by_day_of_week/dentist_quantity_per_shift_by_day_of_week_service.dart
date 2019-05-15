@@ -189,12 +189,10 @@ class DentistQuantityPerShiftByDayOfWeekService {
       "quantity": _dentistQuantityPerShiftByDayOfWeek.quantity,
       "isReal": "Y"
     };
-    print(_dentistQuantityPerShiftByDayOfWeek.id);
-    print(datas);
+
     Map<bool, String> result = new Map<bool, String>();
     if (_dentistQuantityPerShiftByDayOfWeek.id != "") {
       if (_dentistQuantityPerShiftByDayOfWeek.shiftId == "") {
-        print(_dentistQuantityPerShiftByDayOfWeek.id);    
         result[await new DentistQuantityPerShiftByDayOfWeekDAO()
                 .delete(_dentistQuantityPerShiftByDayOfWeek.id) ==
             ""] = _dentistQuantityPerShiftByDayOfWeek.id;

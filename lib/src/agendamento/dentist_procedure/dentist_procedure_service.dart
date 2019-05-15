@@ -241,7 +241,6 @@ class DentistProcedureService {
       }
     }
 
-    print(saved);
     return saved;
   }
 }
