@@ -117,7 +117,7 @@ class ShiftCheckboxComponent implements OnInit {
 
         dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
-                dentistProcedureByDayOfWeekId + dayOfWeek]
+                dentistProcedureByDayOfWeekId + shiftId]
             .shiftId = "";
       }
     }
