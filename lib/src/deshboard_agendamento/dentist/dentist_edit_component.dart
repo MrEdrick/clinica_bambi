@@ -168,8 +168,6 @@ class DentistEditComponent implements OnInit {
   }
 
   void onClose() {
-    //name = '';
-    //state = true;
     dentistService.dentist = null;
     querySelector('deshboard-app').style.overflowY = "scroll";
     componentRef.destroy();
