@@ -7,7 +7,6 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
 import '../../agendamento/user/user_service.dart';
-import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_dao.dart';
 import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 
 @Component(
@@ -80,32 +79,6 @@ class QuantityPerShiftComponent implements OnInit {
     }
 
     _changeDetectorRef.markForCheck();
-  }
-
-  @Output()
-  Future<bool> onSave() async {
-    Map datas = {
-      "dentistId": dentistId,
-      "shiftId": shiftId,
-      "dayOfWeek": dayOfWeek,
-      "quantity": int.parse(quantity)
-    };
-
-    Map<bool, String> result = new Map<bool, String>();
-
-    if (dentistQuantityPerShiftByDayOfWeekId != "") {
-      result[await new DentistQuantityPerShiftByDayOfWeekDAO().update(
-                  dentistQuantityPerShiftByDayOfWeekService
-                      .dentistQuantityPerShiftByDayOfWeek?.id,
-                  datas) ==
-              ""] =
-          dentistQuantityPerShiftByDayOfWeekService
-              .dentistQuantityPerShiftByDayOfWeek?.id;
-    } else {
-      result = await new DentistQuantityPerShiftByDayOfWeekDAO().save(datas);
-    }
-
-    return result.keys.first;
   }
 
   onKeydownJustInteger(event) {
