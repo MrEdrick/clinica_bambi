@@ -175,7 +175,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
         int.parse(map["quantity"].toString()));
   }
 
-  Future<bool> save(String dentistId) async {
+  Future<bool> save() async {
     bool saved = true;
 
     if (_dentistQuantityPerShiftByDayOfWeek == null) {
@@ -184,7 +184,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     Map datas = {
       "dayOfWeek": _dentistQuantityPerShiftByDayOfWeek.dayOfWeek,
-      "dentistId": dentistId,
+      "dentistId": _dentistQuantityPerShiftByDayOfWeek.dentistId,
       "shiftId": _dentistQuantityPerShiftByDayOfWeek.shiftId,
       "quantity": _dentistQuantityPerShiftByDayOfWeek.quantity,
       "isReal": "Y"
@@ -192,7 +192,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     Map<bool, String> result = new Map<bool, String>();
     if (_dentistQuantityPerShiftByDayOfWeek.id != "") {
-      if (_dentistQuantityPerShiftByDayOfWeek.quantity == 0) {
+      if (_dentistQuantityPerShiftByDayOfWeek.shiftId == "") {
             
         result[await new DentistQuantityPerShiftByDayOfWeekDAO()
                 .delete(_dentistQuantityPerShiftByDayOfWeek.id) ==
