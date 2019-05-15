@@ -1,2 +1,2 @@
 <material-input id="quantity-per-shift-{{shift}}-{{dayOfWeek}}" class="input-quantity-per-shift" label="{{shift}}..." [ngModel]="quantity"
-    (inputKeyPress)="quantity = $event" (keydown)="onKeydownJustInteger($event)"></material-input>
+    (inputKeyPress)="quantity = $event" (keydown)="onKeydownJustInteger($event)" (keyup)="onKeyUp($event)"></material-input>

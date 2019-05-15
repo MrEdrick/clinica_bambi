@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:ClinicaBambi/src/agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -30,8 +31,6 @@ class QuantityPerShiftComponent implements OnInit {
       dentistQuantityPerShiftByDayOfWeekService =
       new DentistQuantityPerShiftByDayOfWeekService();
 
-  String dentistQuantityPerShiftByDayOfWeekId;
-
   @Input()
   String shift;
 
@@ -52,21 +51,9 @@ class QuantityPerShiftComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((shiftId != "") && (dentistId != "") && (dayOfWeek != "")) {
-      dentistQuantityPerShiftByDayOfWeekId =
-          (await dentistQuantityPerShiftByDayOfWeekService
-                  .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
-        "dentistId": dentistId,
-        "shiftId": shiftId,
-        "dayOfWeek": dayOfWeek
-      }))
-              ?.id;
-
-      quantity = (await dentistQuantityPerShiftByDayOfWeekService
-              .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
-        "dentistId": dentistId,
-        "shiftId": shiftId,
-        "dayOfWeek": dayOfWeek
-      }))
+      quantity = dentistQuantityPerShiftByDayOfWeekService
+          .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+              dentistId + dayOfWeek + shiftId]
           ?.quantity
           .toString();
 
@@ -74,7 +61,12 @@ class QuantityPerShiftComponent implements OnInit {
         quantity = "";
       }
     } else {
-      dentistQuantityPerShiftByDayOfWeekId = "";
+      dentistQuantityPerShiftByDayOfWeekService
+              .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+          dentistId +
+              dayOfWeek +
+              shiftId] = new DentistQuantityPerShiftByDayOfWeek(
+          "", dentistId, dayOfWeek, shiftId, 0);
       quantity = "";
     }
 
@@ -92,5 +84,12 @@ class QuantityPerShiftComponent implements OnInit {
     if (int.tryParse(event.key) == null) {
       event.preventDefault();
     }
+  }
+
+  onKeyUp(event) {
+    dentistQuantityPerShiftByDayOfWeekService
+        .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+            dentistId + dayOfWeek + shiftId]
+        .quantity = quantity;
   }
 }
