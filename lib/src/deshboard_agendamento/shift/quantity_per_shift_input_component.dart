@@ -90,6 +90,6 @@ class QuantityPerShiftComponent implements OnInit {
     dentistQuantityPerShiftByDayOfWeekService
         .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
             dentistId + dayOfWeek + shiftId]
-        .quantity = quantity;
+        .quantity = quantity == "" ? 0 : int.tryParse(quantity);
   }
 }

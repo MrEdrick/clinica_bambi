@@ -263,12 +263,16 @@ class DentistProcedureByDayOfWeekService {
             _dentistProcedureByDayOfWeek.dayOfWeek);
       }
     } else {
-      result = await new DentistProcedureByDayOfWeekDAO().save(datas);
-      saved = await saveDentistProcedureByDayOfWeekByShiftList(
-          result.values.first,
-          _dentistProcedureByDayOfWeek.dentistProcedureId,
-          procedureId,
-          _dentistProcedureByDayOfWeek.dayOfWeek);
+      if ((_dentistProcedureByDayOfWeek.dentistProcedureId != "") &&
+          (_dentistProcedureByDayOfWeek.dayOfWeek != "")) {
+        result = await new DentistProcedureByDayOfWeekDAO().save(datas);
+
+        saved = await saveDentistProcedureByDayOfWeekByShiftList(
+            result.values.first,
+            _dentistProcedureByDayOfWeek.dentistProcedureId,
+            procedureId,
+            _dentistProcedureByDayOfWeek.dayOfWeek);
+      }
     }
 
     return saved;

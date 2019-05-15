@@ -159,7 +159,7 @@ class DentistService {
       _dentistProcedureService.dentistProcedure = dentistProcedure;
       saved = await (_dentistProcedureService.save(result.values.first));
     }
-
+    
     if (!saved) {
       return saved;
     }
@@ -167,6 +167,7 @@ class DentistService {
     for (DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek
         in _dentistQuantityPerShiftByDayOfWeekService
             .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId.values) {
+              print("t0");
       _dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek =
           dentistQuantityPerShiftByDayOfWeek;
       saved = await (_dentistQuantityPerShiftByDayOfWeekService.save());

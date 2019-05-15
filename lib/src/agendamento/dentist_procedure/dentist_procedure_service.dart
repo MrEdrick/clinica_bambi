@@ -143,7 +143,8 @@ class DentistProcedureService {
         map["documentPath"], map["dentistId"], map["procedureId"]);
   }
 
-  Future<bool> deleteDentistProcedureByDayOfWeekList(String dentistProcedureId) async {
+  Future<bool> deleteDentistProcedureByDayOfWeekList(
+      String dentistProcedureId) async {
     bool saved = true;
     DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
         new DentistProcedureByDayOfWeekService();
@@ -158,7 +159,8 @@ class DentistProcedureService {
           .dentistProcedureByDayOfWeek.dentistProcedureId = "";
       _dentistProcedureByDayOfWeekService
           .dentistProcedureByDayOfWeek.dayOfWeek = "";
-      saved = await (_dentistProcedureByDayOfWeekService.save(dentistProcedureId, ""));
+      saved = await (_dentistProcedureByDayOfWeekService.save(
+          dentistProcedureId, ""));
 
       if (!saved) {
         break;
@@ -183,8 +185,8 @@ class DentistProcedureService {
                     .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
                 key];
 
-        saved = await (_dentistProcedureByDayOfWeekService
-            .save(dentistProcedureId, procedureId));
+        saved = await (_dentistProcedureByDayOfWeekService.save(
+            dentistProcedureId, procedureId));
         if (!saved) {
           break;
         }
@@ -228,10 +230,13 @@ class DentistProcedureService {
             result.values.first, dentistProcedure.procedureId);
       }
     } else {
-      result = await new DentistProcedureDAO().save(datas);
+      if ((_dentistProcedure.dentistId != "") &&
+          (_dentistProcedure.procedureId != "")) {
+        result = await new DentistProcedureDAO().save(datas);
 
-      saved = await saveDentistProcedureByDayOfWeekList(
-          result.values.first, dentistProcedure.procedureId);
+        saved = await saveDentistProcedureByDayOfWeekList(
+            result.values.first, dentistProcedure.procedureId);
+      }
     }
 
     return saved;
