@@ -106,14 +106,21 @@ class ShiftByDayGroupComponent implements OnInit {
 
       checked = dentistProcedureByDayOfWeekId != "";
     } else {
-      _list.forEach((shift) {
+      await (_list.forEach((shift) async {
+        (await dentistQuantityPerShiftByDayOfWeekService
+            .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
+          "dentistId": dentistId,
+          "dayOfWeek": dayOfWeek,
+          "shiftId": shift.id        
+        }));
+
         if (dentistQuantityPerShiftByDayOfWeekService
                     .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
                 dentistId + dayOfWeek + shift.id] !=
             null) {
           checked = true;
         }
-      });
+      }));
     }
 
     onCheckedChange();

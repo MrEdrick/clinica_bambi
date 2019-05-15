@@ -65,6 +65,24 @@ class DentistQuantityPerShiftByDayOfWeekService {
   }
 
   Future<DentistQuantityPerShiftByDayOfWeek>
+      getOneDentistQuantityPerShiftByDayOfWeekByFilterFromList(
+          Map filter) async {
+    Map doc;
+    List result;
+
+    result =
+        getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(filter);
+
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
+    }
+
+    return turnMapInDentistQuantityPerShiftByDayOfWeek(doc);
+  }
+
+  Future<DentistQuantityPerShiftByDayOfWeek>
       getOneDentistQuantityPerShiftByDayOfWeekByFilter(Map filter) async {
     Map doc;
     List result;
@@ -191,8 +209,8 @@ class DentistQuantityPerShiftByDayOfWeekService {
     };
 
     Map<bool, String> result = new Map<bool, String>();
-    if (_dentistQuantityPerShiftByDayOfWeek.id != "") {
-      if (_dentistQuantityPerShiftByDayOfWeek.shiftId == "") {
+    if (!_dentistQuantityPerShiftByDayOfWeek.id.isEmpty) {
+      if (_dentistQuantityPerShiftByDayOfWeek.shiftId.isEmpty) {
         result[await new DentistQuantityPerShiftByDayOfWeekDAO()
                 .delete(_dentistQuantityPerShiftByDayOfWeek.id) ==
             ""] = _dentistQuantityPerShiftByDayOfWeek.id;
