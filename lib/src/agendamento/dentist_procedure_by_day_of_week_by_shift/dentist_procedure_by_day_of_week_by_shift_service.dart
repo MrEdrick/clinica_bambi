@@ -49,12 +49,12 @@ class DentistProcedureByDayOfWeekByShiftService {
 
       _dentistProcedureByDayOfWeekByShiftListById[
               dentistProcedureByDayOfWeekByShift["documentPath"]] =
-          dentistProcedureByDayOfWeekByShift;
+          turnMapInDentistProcedureByDayOfWeekByShift(dentistProcedureByDayOfWeekByShift);
 
       _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
         dentistProcedureByDayOfWeekByShift["dentistProcedureByDayOfWeekId"] +
         dentistProcedureByDayOfWeekByShift["shiftId"]
-      ] = dentistProcedureByDayOfWeekByShift;
+      ] = turnMapInDentistProcedureByDayOfWeekByShift(dentistProcedureByDayOfWeekByShift);
 
       _list.add(turnMapInDentistProcedureByDayOfWeekByShift(
           dentistProcedureByDayOfWeekByShift));
@@ -156,6 +156,7 @@ class DentistProcedureByDayOfWeekByShiftService {
     if (map == null) {
       return null;
     }
+    
     return new DentistProcedureByDayOfWeekByShift(map["documentPath"],
         map["dentistProcedureIdByDayOfWeek"], map["shiftId"]);
   }
@@ -178,9 +179,11 @@ class DentistProcedureByDayOfWeekByShiftService {
       if ((_dentistProcedureByDayOfWeekByShift.dentistProcedureByDayOfWeekId ==
               "") &&
           (_dentistProcedureByDayOfWeekByShift.shiftId == "")) {
+            print(_dentistProcedureByDayOfWeekByShift.id);
         result[await new DentistProcedureByDayOfWeekByShiftDAO()
                 .delete(_dentistProcedureByDayOfWeekByShift.id) ==
             ""] = _dentistProcedureByDayOfWeekByShift.id;
+            print(result.keys.first);
       } else {
         result[await new DentistProcedureByDayOfWeekByShiftDAO()
                 .update(_dentistProcedureByDayOfWeekByShift.id, datas) ==

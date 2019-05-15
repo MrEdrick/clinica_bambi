@@ -50,7 +50,7 @@ class ShiftCheckboxComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
+    
     if ((dentistProcedureByDayOfWeekId != "") &&
         (dentistProcedureByDayOfWeekId != null)) {
       (await dentistProcedureByDayOfWeekByShiftService
@@ -58,7 +58,6 @@ class ShiftCheckboxComponent implements OnInit {
         "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
         "shiftId": shiftId
       }));
-
       if (dentistProcedureByDayOfWeekByShiftService
                   .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
               dentistProcedureByDayOfWeekId + shiftId] ==

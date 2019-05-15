@@ -155,22 +155,36 @@ class DentistProcedureByDayOfWeekService {
   }
 
   Future<bool> deleteDentistProcedureByDayOfWeekByShiftList(
-      String dentistProcedureId) async {
+      String dentistProcedureByDayOfWeekId) async {
     bool saved = true;
-    DentistProcedureByDayOfWeekByShiftService _dentistProcedureByDayOfWeekByShiftService =
+    DentistProcedureByDayOfWeekByShiftService
+        _dentistProcedureByDayOfWeekByShiftService =
         new DentistProcedureByDayOfWeekByShiftService();
 
     for (DentistProcedureByDayOfWeekByShift dentistProcedureByDayOfWeekByShift
         in _dentistProcedureByDayOfWeekByShiftService
             .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId
             .values) {
-      _dentistProcedureByDayOfWeekByShiftService.dentistProcedureByDayOfWeekByShift =
-          dentistProcedureByDayOfWeekByShift;
-      _dentistProcedureByDayOfWeekByShiftService
-          .dentistProcedureByDayOfWeekByShift.dentistProcedureByDayOfWeekId = "";
-      _dentistProcedureByDayOfWeekByShiftService
-          .dentistProcedureByDayOfWeekByShift.shiftId = "";
-      saved = await (_dentistProcedureByDayOfWeekByShiftService.save(dentistProcedureId));
+
+      if (_dentistProcedureByDayOfWeekByShiftService
+              .dentistProcedureByDayOfWeekByShift
+              .dentistProcedureByDayOfWeekId ==
+          dentistProcedureByDayOfWeekId) {
+
+        _dentistProcedureByDayOfWeekByShiftService
+                .dentistProcedureByDayOfWeekByShift =
+            dentistProcedureByDayOfWeekByShift;
+
+        _dentistProcedureByDayOfWeekByShiftService
+            .dentistProcedureByDayOfWeekByShift
+            .dentistProcedureByDayOfWeekId = "";
+
+        _dentistProcedureByDayOfWeekByShiftService
+            .dentistProcedureByDayOfWeekByShift.shiftId = "";
+            
+        saved = await (_dentistProcedureByDayOfWeekByShiftService
+            .save(dentistProcedureByDayOfWeekId));
+      }
 
       if (!saved) {
         break;
@@ -181,17 +195,22 @@ class DentistProcedureByDayOfWeekService {
   }
 
   Future<bool> saveDentistProcedureByDayOfWeekByShiftList(
-      String dentistProcedureByDayOfWeekId, String dentistProcedureId, String procedureId,
+      String dentistProcedureByDayOfWeekId,
+      String dentistProcedureId,
+      String procedureId,
       String dayOfWeek) async {
     bool saved = true;
-    DentistProcedureByDayOfWeekByShiftService _dentistProcedureByDayOfWeekByShiftService =
+    DentistProcedureByDayOfWeekByShiftService
+        _dentistProcedureByDayOfWeekByShiftService =
         new DentistProcedureByDayOfWeekByShiftService();
 
     for (String key in _dentistProcedureByDayOfWeekByShiftService
-        .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId.keys) {
+        .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId
+        .keys) {
       if ((key.indexOf(dentistProcedureByDayOfWeekId) > -1) ||
           (key.indexOf(procedureId + dentistProcedureId + dayOfWeek) > -1)) {
-        _dentistProcedureByDayOfWeekByShiftService.dentistProcedureByDayOfWeekByShift =
+        _dentistProcedureByDayOfWeekByShiftService
+                .dentistProcedureByDayOfWeekByShift =
             _dentistProcedureByDayOfWeekByShiftService
                     .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
                 key];
@@ -241,12 +260,17 @@ class DentistProcedureByDayOfWeekService {
 
         saved = await saveDentistProcedureByDayOfWeekByShiftList(
             result.values.first,
-            _dentistProcedureByDayOfWeek.dentistProcedureId, procedureId, _dentistProcedureByDayOfWeek.dayOfWeek);
+            _dentistProcedureByDayOfWeek.dentistProcedureId,
+            procedureId,
+            _dentistProcedureByDayOfWeek.dayOfWeek);
       }
     } else {
       result = await new DentistProcedureByDayOfWeekDAO().save(datas);
       saved = await saveDentistProcedureByDayOfWeekByShiftList(
-          result.values.first, _dentistProcedureByDayOfWeek.dentistProcedureId, procedureId, _dentistProcedureByDayOfWeek.dayOfWeek);
+          result.values.first,
+          _dentistProcedureByDayOfWeek.dentistProcedureId,
+          procedureId,
+          _dentistProcedureByDayOfWeek.dayOfWeek);
     }
 
     return saved;
