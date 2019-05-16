@@ -108,7 +108,7 @@ class ShiftByDayGroupComponent implements OnInit {
     } else {
       await (_list.forEach((shift) async {
         (await dentistQuantityPerShiftByDayOfWeekService
-            .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
+            .getOneDentistQuantityPerShiftByDayOfWeekByFilterFromList({
           "dentistId": dentistId,
           "dayOfWeek": dayOfWeek,
           "shiftId": shift.id        
