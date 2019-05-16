@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:ClinicaBambi/src/agendamento/procedure/procedure.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -47,13 +48,13 @@ import '../../agendamento/user/user_service.dart';
       datepickerBindings
     ])
 class ProcedureEditComponent implements OnInit {
-  bool state = true;
-
   ProcedureService _procedureService;
 
   ProcedureService get procedureService => _procedureService;
   set procedureService(ProcedureService procedureService) => _procedureService = procedureService;
 
+  @Input()
+  ComponentRef componentRef;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -64,15 +65,12 @@ class ProcedureEditComponent implements OnInit {
 
   String description = '';
 
-  Map<String, dynamic> datas;
-
+ 
   void onEdit() {
     procedureService = new ProcedureService();
 
-    if (procedureService.procedure != null) {
-
-      description = procedureService.procedure.description;
-      state = procedureService.procedure.state == 'A';
+    if (procedureService.procedure == null) { 
+      procedureService.procedure = new Procedure("", "", true);
     }
   }
 
@@ -80,15 +78,15 @@ class ProcedureEditComponent implements OnInit {
     if (new UserService().user  == null)
       return;
 
+    querySelector('deshboard-app').style.overflowY = "hidden";
+
     onEdit();    
   }
 
   void onClose() {
-
-    description = '';
-    state = true;
-
-    querySelector('#procedure-edit-app').style.display = 'none';
+    procedureService.procedure = null;
+    querySelector('deshboard-app').style.overflowY = "scroll";
+    componentRef.destroy();
   }
 
   bool asserts() {
@@ -115,14 +113,14 @@ class ProcedureEditComponent implements OnInit {
       return;
     }
 
-    onSave();
+    //onSave();
   }
 
   void onNoSave() {
     showAssertMessageAlert = false;  
   }
 
-  void onSave() async {   
+  /*void onSave() async {   
     showAssertMessageAlert = false;
 
     datas = new Map<String, dynamic>();
@@ -143,5 +141,5 @@ class ProcedureEditComponent implements OnInit {
       showNotSuccessfullySave = true;
       _fireStoreApp.FireStoreOffLine();
     }
-  }
+  }*/
 }
