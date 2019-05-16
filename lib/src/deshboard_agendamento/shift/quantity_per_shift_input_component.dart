@@ -51,13 +51,6 @@ class QuantityPerShiftComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((shiftId != "") && (dentistId != "") && (dayOfWeek != "")) {
-      (await dentistQuantityPerShiftByDayOfWeekService
-          .getOneDentistQuantityPerShiftByDayOfWeekByFilterFromList({
-        "dentistId": dentistId,
-        "dayOfWeef": dayOfWeek,
-        "shiftId": shiftId
-      }));
-
       quantity = dentistQuantityPerShiftByDayOfWeekService
           .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
               dentistId + dayOfWeek + shiftId]
