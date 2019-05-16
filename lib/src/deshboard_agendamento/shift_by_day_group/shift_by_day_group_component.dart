@@ -10,9 +10,11 @@ import '../../agendamento/shift/shift.dart';
 import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/user/user_service.dart';
 
-import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_dao.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week.dart';
+
+import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
+import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift/quantity_per_shift_input_component.template.dart'
     as quantity_per_shift_component;
@@ -41,6 +43,9 @@ class ShiftByDayGroupComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService =
       new DentistProcedureByDayOfWeekService();
+  final DentistQuantityPerShiftByDayOfWeekService
+      dentistQuantityPerShiftByDayOfWeekService =
+      new DentistQuantityPerShiftByDayOfWeekService();
 
   List<ComponentRef> shiftByDayGroupListComponent = new List<ComponentRef>();
 
@@ -48,6 +53,9 @@ class ShiftByDayGroupComponent implements OnInit {
 
   @Input()
   String dentistProcedureId = "";
+
+  @Input()
+  String procedureId = "";
 
   @Input()
   String dentistId = "";
@@ -69,34 +77,53 @@ class ShiftByDayGroupComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
-      (await dentistProcedureByDayOfWeekService
-          .getOneDentistProcedureByDayOfWeekByFilterFromList({
-        "dentistProcedureId": dentistProcedureId,
-        "dayOfWeek": dayOfWeek
-      }));
+    List<Shift> _list = await new ShiftService().getAllShiftAcives();
 
-      if (dentistProcedureByDayOfWeekService
-                  .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-              dentistProcedureId + dayOfWeek] ==
-          null) {
-        dentistProcedureByDayOfWeekId = "";
+    if (shiftType == 'checkbox') {
+      if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
+        (await dentistProcedureByDayOfWeekService
+            .getOneDentistProcedureByDayOfWeekByFilterFromList({
+          "dentistProcedureId": dentistProcedureId,
+          "dayOfWeek": dayOfWeek
+        }));
+
+        if (dentistProcedureByDayOfWeekService
+                    .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek] ==
+            null) {
+          dentistProcedureByDayOfWeekId = "";
+        } else {
+          dentistProcedureByDayOfWeekId = dentistProcedureByDayOfWeekService
+              .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                  dentistProcedureId + dayOfWeek]
+              .id;
+        }
       } else {
-        dentistProcedureByDayOfWeekId = dentistProcedureByDayOfWeekService
-                .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-            dentistProcedureId + dayOfWeek].id;
+        dentistProcedureByDayOfWeekId = "";
+        dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
+            new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
       }
+
+      checked = dentistProcedureByDayOfWeekId != "";
     } else {
-      dentistProcedureByDayOfWeekId = "";
-      dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
-          new DentistProcedureByDayOfWeek("", dentistProcedureId, dayOfWeek);
+      await (_list.forEach((shift) async {
+        (await dentistQuantityPerShiftByDayOfWeekService
+            .getOneDentistQuantityPerShiftByDayOfWeekByFilterFromList({
+          "dentistId": dentistId,
+          "dayOfWeek": dayOfWeek,
+          "shiftId": shift.id        
+        }));
+
+        if (dentistQuantityPerShiftByDayOfWeekService
+                    .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+                dentistId + dayOfWeek + shift.id] !=
+            null) {
+          checked = true;
+        }
+      }));
     }
 
-    checked = dentistProcedureByDayOfWeekId != "";
-
     onCheckedChange();
-
-    List<Shift> _list = await new ShiftService().getAllShiftAcives();
 
     shiftByDayGroupListComponent.clear();
 
@@ -109,8 +136,14 @@ class ShiftByDayGroupComponent implements OnInit {
         ComponentRef shiftCheckboxComponent = _loader.loadNextToLocation(
             shiftComponent, materialContainerShitGroup);
 
-        shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
-            dentistProcedureByDayOfWeekId;
+        if (dentistProcedureByDayOfWeekId == "") {
+          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+              procedureId + dentistProcedureId + dayOfWeek;
+        } else {
+          shiftCheckboxComponent.instance.dentistProcedureByDayOfWeekId =
+              dentistProcedureByDayOfWeekId;
+        }
+
         shiftCheckboxComponent.instance.shiftId = shift.id;
         shiftCheckboxComponent.instance.shift = shift.description;
 
@@ -135,49 +168,83 @@ class ShiftByDayGroupComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  void onCheckedChange() {
+  void onCheckedChange() async {
     if (checked) {
       display = "block";
-
-      if (dentistProcedureByDayOfWeekService
+      if (shiftType == 'checkbox') {
+        if (dentistProcedureByDayOfWeekService
+                    .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek] ==
+            null) {
+          dentistProcedureByDayOfWeekService
                   .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-              dentistProcedureId + dayOfWeek] ==
-          null) {
+              dentistProcedureId +
+                  dayOfWeek] = new DentistProcedureByDayOfWeek(
+              "", dentistProcedureId, dayOfWeek);
+        }
+
         dentistProcedureByDayOfWeekService
-                .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-            dentistProcedureId +
-                dayOfWeek] = new DentistProcedureByDayOfWeek(
-            "", dentistProcedureId, dayOfWeek);
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek]
+            .dentistProcedureId = dentistProcedureId;
+
+        dentistProcedureByDayOfWeekService
+            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek]
+            .dayOfWeek = dayOfWeek;
+      } else {
+        List<Shift> _list = await new ShiftService().getAllShiftAcives();
+
+        _list.forEach((shift) {
+          if (dentistQuantityPerShiftByDayOfWeekService
+                      .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+                  dentistId + dayOfWeek + shift.id] ==
+              null) {
+            dentistQuantityPerShiftByDayOfWeekService
+                    .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+                dentistId +
+                    dayOfWeek +
+                    shift.id] = new DentistQuantityPerShiftByDayOfWeek(
+                "", dayOfWeek, dentistId, shift.id, 0);
+          }
+
+          dentistQuantityPerShiftByDayOfWeekService
+              .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+                  dentistId + dayOfWeek + shift.id]
+              .shiftId = shift.id;
+        });
       }
-
-      dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-              dentistProcedureId + dayOfWeek]
-          .dentistProcedureId = dentistProcedureId;
-
-      dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-              dentistProcedureId + dayOfWeek]
-          .dayOfWeek = dayOfWeek;
-
     } else {
       display = "none";
+      if (shiftType == 'checkbox') {
+        if (dentistProcedureByDayOfWeekService
+                    .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                dentistProcedureId + dayOfWeek] !=
+            null) {
+          dentistProcedureByDayOfWeekService
+              .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                  dentistProcedureId + dayOfWeek]
+              .dentistProcedureId = "";
 
-      if (dentistProcedureByDayOfWeekService
-                  .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-              dentistProcedureId + dayOfWeek] !=
-          null) {
+          dentistProcedureByDayOfWeekService
+              .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
+                  dentistProcedureId + dayOfWeek]
+              .dayOfWeek = "";
+        }
+      } else {
+        List<Shift> _list = await new ShiftService().getAllShiftAcives();
 
-        dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-                dentistProcedureId + dayOfWeek]
-            .dentistProcedureId = "";
-
-        dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-                dentistProcedureId + dayOfWeek]
-            .dayOfWeek = "";
-
+        _list.forEach((shift) {
+          if (dentistQuantityPerShiftByDayOfWeekService
+                      .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+                  dentistId + dayOfWeek + shift.id] !=
+              null) {
+            dentistQuantityPerShiftByDayOfWeekService
+                .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+                    dentistId + dayOfWeek + shift.id]
+                .shiftId = "";
+          }
+        });
       }
     }
 

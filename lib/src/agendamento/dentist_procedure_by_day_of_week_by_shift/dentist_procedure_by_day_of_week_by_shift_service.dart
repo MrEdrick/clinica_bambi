@@ -21,14 +21,15 @@ class DentistProcedureByDayOfWeekByShiftService {
       _dentistProcedureByDayOfWeekByShift = dentistProcedureByDayOfWeekByShift;
 
   Map get dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId =>
-    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId;
+      _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId;
 
   void clearAllDentistProcedureByDayOfWeekByShiftList() {
     _list.clear();
     _dentistProcedureByDayOfWeekByShiftList.clear();
     _dentistProcedureByDayOfWeekByShiftListById.clear();
     _dentistProcedureByDayOfWeekByShiftListWithFilter.clear();
-    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId.clear();
+    _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId
+        .clear();
   }
 
   Future<List<DentistProcedureByDayOfWeekByShift>>
@@ -42,19 +43,21 @@ class DentistProcedureByDayOfWeekByShiftService {
 
     await (_dentistProcedureByDayOfWeekByShiftList =
         await new DentistProcedureByDayOfWeekByShiftDAO()
-            .getAllDentistProcedureByDayOfWeekByShiftFilter({}, []));
+            .getAllDentistProcedureByDayOfWeekByShiftFilter(
+                {"isReal": "Y"}, ["=="]));
 
     _dentistProcedureByDayOfWeekByShiftList
         .forEach((dentistProcedureByDayOfWeekByShift) {
-
       _dentistProcedureByDayOfWeekByShiftListById[
               dentistProcedureByDayOfWeekByShift["documentPath"]] =
-          dentistProcedureByDayOfWeekByShift;
+          turnMapInDentistProcedureByDayOfWeekByShift(
+              dentistProcedureByDayOfWeekByShift);
 
       _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
-        dentistProcedureByDayOfWeekByShift["dentistProcedureByDayOfWeekId"] +
-        dentistProcedureByDayOfWeekByShift["shiftId"]
-      ] = dentistProcedureByDayOfWeekByShift;
+          dentistProcedureByDayOfWeekByShift["dentistProcedureByDayOfWeekId"] +
+              dentistProcedureByDayOfWeekByShift[
+                  "shiftId"]] = turnMapInDentistProcedureByDayOfWeekByShift(
+          dentistProcedureByDayOfWeekByShift);
 
       _list.add(turnMapInDentistProcedureByDayOfWeekByShift(
           dentistProcedureByDayOfWeekByShift));
@@ -64,14 +67,10 @@ class DentistProcedureByDayOfWeekByShiftService {
   }
 
   Future<DentistProcedureByDayOfWeekByShift>
-      getOneDentistProcedureByDayOfWeekByShiftByFilter(Map filter) async {
+      getOneDentistProcedureByDayOfWeekByShiftByFilterFromList(
+          Map filter) async {
     Map doc;
     List result;
-
-    if ((_dentistProcedureByDayOfWeekByShiftList == null) ||
-        (_dentistProcedureByDayOfWeekByShiftList.length == 0)) {
-      await getAllDentistProcedureByDayOfWeekByShiftAcives();
-    }
 
     result =
         getDentistProcedureByDayOfWeekByShiftListWithFilterFromList(filter);
@@ -82,15 +81,22 @@ class DentistProcedureByDayOfWeekByShiftService {
       doc = null;
     }
 
-    if (doc == null) {
-      result = (await new DentistProcedureByDayOfWeekByShiftDAO()
-          .getAllDentistProcedureByDayOfWeekByShiftFilter(filter, ["=="]));
+    return turnMapInDentistProcedureByDayOfWeekByShift(doc);
+  }
 
-      if (result.length > 0) {
-        doc = result?.first;
-      } else {
-        doc = null;
-      }
+  Future<DentistProcedureByDayOfWeekByShift>
+      getOneDentistProcedureByDayOfWeekByShiftByFilterFromDataBase(
+          Map filter) async {
+    Map doc;
+    List result;
+
+    result = (await new DentistProcedureByDayOfWeekByShiftDAO()
+        .getAllDentistProcedureByDayOfWeekByShiftFilter(filter, ["=="]));
+
+    if (result.length > 0) {
+      doc = result?.first;
+    } else {
+      doc = null;
     }
 
     return turnMapInDentistProcedureByDayOfWeekByShift(doc);
@@ -155,8 +161,9 @@ class DentistProcedureByDayOfWeekByShiftService {
     if (map == null) {
       return null;
     }
+
     return new DentistProcedureByDayOfWeekByShift(map["documentPath"],
-        map["dentistProcedureIdByDayOfWeek"], map["shiftId"]);
+        map["dentistProcedureByDayOfWeekId"], map["shiftId"]);
   }
 
   Future<bool> save(String dentistProcedureByDayOfWeekId) async {
@@ -186,7 +193,11 @@ class DentistProcedureByDayOfWeekByShiftService {
             ""] = _dentistProcedureByDayOfWeekByShift.id;
       }
     } else {
-      result = await new DentistProcedureByDayOfWeekByShiftDAO().save(datas);
+      if ((_dentistProcedureByDayOfWeekByShift.dentistProcedureByDayOfWeekId !=
+              "") &&
+          (_dentistProcedureByDayOfWeekByShift.shiftId != "")) {
+        result = await new DentistProcedureByDayOfWeekByShiftDAO().save(datas);
+      }
     }
 
     return result.keys.first;

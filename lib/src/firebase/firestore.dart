@@ -48,7 +48,7 @@ class FireStoreApp {
       error = true;
     } finally {
       fb.firestore().disableNetwork();
-      return error;
+      return !error;
     }
   }
   

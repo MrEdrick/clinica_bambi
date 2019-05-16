@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:ClinicaBambi/src/agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -7,7 +8,6 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
 import '../../agendamento/user/user_service.dart';
-import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_dao.dart';
 import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 
 @Component(
@@ -31,8 +31,6 @@ class QuantityPerShiftComponent implements OnInit {
       dentistQuantityPerShiftByDayOfWeekService =
       new DentistQuantityPerShiftByDayOfWeekService();
 
-  String dentistQuantityPerShiftByDayOfWeekId;
-
   @Input()
   String shift;
 
@@ -53,21 +51,9 @@ class QuantityPerShiftComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((shiftId != "") && (dentistId != "") && (dayOfWeek != "")) {
-      dentistQuantityPerShiftByDayOfWeekId =
-          (await dentistQuantityPerShiftByDayOfWeekService
-                  .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
-        "dentistId": dentistId,
-        "shiftId": shiftId,
-        "dayOfWeek": dayOfWeek
-      }))
-              ?.id;
-
-      quantity = (await dentistQuantityPerShiftByDayOfWeekService
-              .getOneDentistQuantityPerShiftByDayOfWeekByFilter({
-        "dentistId": dentistId,
-        "shiftId": shiftId,
-        "dayOfWeek": dayOfWeek
-      }))
+      quantity = dentistQuantityPerShiftByDayOfWeekService
+          .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+              dentistId + dayOfWeek + shiftId]
           ?.quantity
           .toString();
 
@@ -75,37 +61,16 @@ class QuantityPerShiftComponent implements OnInit {
         quantity = "";
       }
     } else {
-      dentistQuantityPerShiftByDayOfWeekId = "";
+      dentistQuantityPerShiftByDayOfWeekService
+              .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+          dentistId +
+              dayOfWeek +
+              shiftId] = new DentistQuantityPerShiftByDayOfWeek(
+          "", dentistId, dayOfWeek, shiftId, 0);
       quantity = "";
     }
 
     _changeDetectorRef.markForCheck();
-  }
-
-  @Output()
-  Future<bool> onSave() async {
-    Map datas = {
-      "dentistId": dentistId,
-      "shiftId": shiftId,
-      "dayOfWeek": dayOfWeek,
-      "quantity": int.parse(quantity)
-    };
-
-    Map<bool, String> result = new Map<bool, String>();
-
-    if (dentistQuantityPerShiftByDayOfWeekId != "") {
-      result[await new DentistQuantityPerShiftByDayOfWeekDAO().update(
-                  dentistQuantityPerShiftByDayOfWeekService
-                      .dentistQuantityPerShiftByDayOfWeek?.id,
-                  datas) ==
-              ""] =
-          dentistQuantityPerShiftByDayOfWeekService
-              .dentistQuantityPerShiftByDayOfWeek?.id;
-    } else {
-      result = await new DentistQuantityPerShiftByDayOfWeekDAO().save(datas);
-    }
-
-    return result.keys.first;
   }
 
   onKeydownJustInteger(event) {
@@ -119,5 +84,12 @@ class QuantityPerShiftComponent implements OnInit {
     if (int.tryParse(event.key) == null) {
       event.preventDefault();
     }
+  }
+
+  onKeyUp(event) {
+    dentistQuantityPerShiftByDayOfWeekService
+        .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId[
+            dentistId + dayOfWeek + shiftId]
+        .quantity = quantity == "" ? 0 : int.tryParse(quantity);
   }
 }

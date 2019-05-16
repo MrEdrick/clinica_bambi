@@ -33,10 +33,10 @@ class DentistProcedureByDayOfWeekByShiftDAO {
         new FireStoreApp(DENTIST_PROCEDURE_BY_DAY_OF_WEEK_BY_SHIFT_COLLECTION);
     if (await _fireStoreApp.deleteItem(id)) {
       _fireStoreApp.FireStoreOffLine();
-      return '';
+      return "";
     } else {
       _fireStoreApp.FireStoreOffLine();
-      return 'Error';
+      return "Error";
     }
   }
 

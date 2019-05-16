@@ -10,7 +10,6 @@ import '../../agendamento/user/user_service.dart';
 
 import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
 import '../../agendamento/dentist_procedure/dentist_procedure.dart';
-import '../../agendamento/dentist_procedure/dentist_procedure_dao.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_component.template.dart'
     as shift_by_day_group_component;
@@ -58,6 +57,7 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
   DentistProcedureGroupCheckboxComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() async {
+    
     if (new UserService().user == null) return;
 
     if ((dentistId != "") && (dentistId != null)) {
@@ -110,10 +110,12 @@ class DentistProcedureGroupCheckboxComponent implements OnInit {
         shiftByDayGroupComponent.instance.dentistProcedureId = dentistProcedureId;
       }
       
+      shiftByDayGroupComponent.instance.procedureId = procedureId;
       shiftByDayGroupComponent.instance.dayOfWeek = day;
       shiftByDayGroupComponent.instance.shiftType = 'checkbox';
 
       shiftByDayGroupListComponent.add(shiftByDayGroupComponent);
+
     });
 
     _changeDetectorRef.markForCheck();
