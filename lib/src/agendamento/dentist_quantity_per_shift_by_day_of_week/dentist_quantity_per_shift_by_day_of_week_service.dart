@@ -56,7 +56,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
                   dentistQuantityPerShiftByDayOfWeek["shiftId"]] =
           turnMapInDentistQuantityPerShiftByDayOfWeek(
               dentistQuantityPerShiftByDayOfWeek);
-
+              
       _list.add(turnMapInDentistQuantityPerShiftByDayOfWeek(
           dentistQuantityPerShiftByDayOfWeek));
     });

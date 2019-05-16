@@ -162,6 +162,8 @@ class DentistService {
     
     if (!saved) {
       return saved;
+    } else {
+      _dentistProcedureService.clearAllDentistProcedureList();      
     }
 
     for (DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek
@@ -169,7 +171,12 @@ class DentistService {
             .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId.values) {
       _dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek =
           dentistQuantityPerShiftByDayOfWeek;
+          print(saved);
       saved = await (_dentistQuantityPerShiftByDayOfWeekService.save());
+    }
+
+    if (saved) {
+      _dentistQuantityPerShiftByDayOfWeekService.clearAllDentistQuantityPerShiftByDayOfWeekList();
     }
 
     return saved;

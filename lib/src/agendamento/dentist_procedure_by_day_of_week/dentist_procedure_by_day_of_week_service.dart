@@ -189,6 +189,9 @@ class DentistProcedureByDayOfWeekService {
       }
     }
 
+    if (saved) {
+      _dentistProcedureByDayOfWeekByShiftService.clearAllDentistProcedureByDayOfWeekByShiftList();
+    }
     return saved;
   }
 

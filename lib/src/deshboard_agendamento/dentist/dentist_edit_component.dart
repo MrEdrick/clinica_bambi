@@ -206,8 +206,12 @@ class DentistEditComponent implements OnInit {
   void onSave() async {
     showAssertMessageAlert = false;
 
-    await dentistService.save();
-    showSuccessfullySave = true;
+    if (await dentistService.save()) {
+      showSuccessfullySave = true;  
+    } else {
+      showNotSuccessfullySave = true;
+    }
+    
     _changeDetectorRef.markForCheck();
   }
 }

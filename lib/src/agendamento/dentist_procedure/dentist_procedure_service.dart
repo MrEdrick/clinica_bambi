@@ -167,6 +167,10 @@ class DentistProcedureService {
       }
     }
 
+    if (saved) {
+      _dentistProcedureByDayOfWeekService.clearAllDentistProcedureByDayOfWeekList();
+    }
+
     return saved;
   }
 
