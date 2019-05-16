@@ -1,0 +1,9 @@
+@import 'package:angular_components/css/material/shadow';
+@import 'package:angular_components/css/material/material';
+
+:host {
+  position: relative;
+  display: inline;
+  margin: 0.5%;
+  font-weight: 500;
+}

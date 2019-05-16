@@ -14,11 +14,10 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 
+import '../../agendamento/requirement/requirement.dart';
+import '../../agendamento/requirement/requirement_service.dart';
+
 import '../../agendamento/procedure/procedure_service.dart';
-import '../../agendamento/procedure/procedure_constants.dart';
-
-import '../../firebase/firestore.dart';
-
 
 import '../../agendamento/user/user_service.dart';
 
@@ -74,11 +73,29 @@ class ProcedureEditComponent implements OnInit {
     }
   }
 
-  void ngOnInit() {
+  void ngOnInit() async {
     if (new UserService().user  == null)
       return;
 
     querySelector('deshboard-app').style.overflowY = "hidden";
+
+    List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
+
+    _listRequirement.forEach((requirement) {
+        ComponentFactory<requirement_checkbox_component.RequirementCheckboxComponent>
+            requirementComponent =
+            Requirement_checkbox_component.RequirementCheckboxComponentNgFactory;
+
+        requirementCheckboxComponent =
+            _loader.loadNextToLocation(
+                requirementComponent, materialContainerRequirement);
+
+        requirementCheckboxComponent.instance.procedureId = procedureService.procedure.id;
+        requirementCheckboxComponent.instance.requirementId = requirement.id;
+        requirementCheckboxComponent.instance.requirement = requirement.description;
+
+        listComponentRefRequirement.add(requirementCheckboxComponent);
+    });
 
     onEdit();    
   }
