@@ -57,7 +57,7 @@ class ProcedureDAO {
             _procedure = new Procedure(
                 querySnapshot.docs[0].id.toString(),
                 querySnapshot.docs[0].data()["description"].toString(),
-                querySnapshot.docs[0].data()["state"].toString());
+                querySnapshot.docs[0].data()["state"].toString() == "A");
           } else {
             _procedure = null;
           }

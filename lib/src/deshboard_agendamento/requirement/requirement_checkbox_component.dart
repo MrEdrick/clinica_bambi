@@ -28,6 +28,7 @@ class RequirementCheckboxComponent implements OnInit {
   final RequirementService requirementService = new RequirementService();
   final ChangeDetectorRef _changeDetectorRef;
 
+  String requirementProcedureId = "";
   @Input()
   String procedureId;
 
@@ -45,30 +46,31 @@ class RequirementCheckboxComponent implements OnInit {
     if (new UserService().user == null) return;
 
     if ((procedureId != "") && (procedureId != null)) {
-      (await requerimentService
+      (await requirementService
           .getOneDentistProcedureByDayOfWeekByShiftByFilterFromList(
-              {"procedureId": procedureId}));
-      if (dentistProcedureByDayOfWeekByShiftService
+              {"procedureId": procedureId,
+               "reuirementId": requirementId}));
+      if (requirementService
                   .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
-              dentistProcedureByDayOfWeekId + shiftId] ==
+              procedureId + requirementId] ==
           null) {
-        dentistProcedureByDayOfWeekByShiftId = "";
+        requirementProcedureId = "";
       } else {
-        dentistProcedureByDayOfWeekByShiftId =
-            dentistProcedureByDayOfWeekByShiftService
+        requirementProcedureId =
+            requirementService
                 .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId[
-                    dentistProcedureByDayOfWeekId + shiftId]
+                    procedureId + requirementId]
                 .id;
       }
     } else {
-      dentistProcedureByDayOfWeekByShiftId = "";
-      dentistProcedureByDayOfWeekByShiftService
+      requirementProcedureId = "";
+      requirementServiceyDayOfWeekByShiftService
               .dentistProcedureByDayOfWeekByShift =
-          new DentistProcedureByDayOfWeekByShift(
-              "", dentistProcedureByDayOfWeekId, shiftId);
+          new RequirementProcedure(
+              "", procedureId, requirementId);
     }
 
-    checked = dentistProcedureByDayOfWeekByShiftId != "";
+    checked = requirementProcedureId != "";
 
     _changeDetectorRef.markForCheck();
   }
