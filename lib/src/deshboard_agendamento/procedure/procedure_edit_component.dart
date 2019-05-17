@@ -17,6 +17,9 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import '../../agendamento/requirement/requirement.dart';
 import '../../agendamento/requirement/requirement_service.dart';
 
+import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_checkbox_component.template.dart'
+    as requirement_checkbox_component;
+
 import '../../agendamento/procedure/procedure_service.dart';
 
 import '../../agendamento/user/user_service.dart';
@@ -47,6 +50,11 @@ import '../../agendamento/user/user_service.dart';
       datepickerBindings
     ])
 class ProcedureEditComponent implements OnInit {
+  final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
+
+  final List<ComponentRef> listComponentRefRequirement = new List<ComponentRef>();
+
   ProcedureService _procedureService;
 
   ProcedureService get procedureService => _procedureService;
@@ -54,6 +62,12 @@ class ProcedureEditComponent implements OnInit {
 
   @Input()
   ComponentRef componentRef;
+
+  ComponentRef requirementCheckboxComponent;
+
+  @ViewChild('requirementCheckboxComponent',
+      read: ViewContainerRef)
+  ViewContainerRef materialContainerRequirementCheckBox;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -64,7 +78,9 @@ class ProcedureEditComponent implements OnInit {
 
   String description = '';
 
- 
+  ProcedureEditComponent(this._changeDetectorRef, this._loader);
+
+
   void onEdit() {
     procedureService = new ProcedureService();
 
@@ -84,11 +100,11 @@ class ProcedureEditComponent implements OnInit {
     _listRequirement.forEach((requirement) {
         ComponentFactory<requirement_checkbox_component.RequirementCheckboxComponent>
             requirementComponent =
-            Requirement_checkbox_component.RequirementCheckboxComponentNgFactory;
+            requirement_checkbox_component.RequirementCheckboxComponentNgFactory;
 
         requirementCheckboxComponent =
             _loader.loadNextToLocation(
-                requirementComponent, materialContainerRequirement);
+                requirementComponent, materialContainerRequirementCheckBox);
 
         requirementCheckboxComponent.instance.procedureId = procedureService.procedure.id;
         requirementCheckboxComponent.instance.requirementId = requirement.id;
