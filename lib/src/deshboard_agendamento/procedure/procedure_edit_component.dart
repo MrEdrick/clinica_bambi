@@ -17,8 +17,8 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import '../../agendamento/requirement/requirement.dart';
 import '../../agendamento/requirement/requirement_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_checkbox_component.template.dart'
-    as requirement_checkbox_component;
+import 'package:ClinicaBambi/src/deshboard_agendamento/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
+    as procedure_requirement_checkbox_component;
 
 import '../../agendamento/procedure/procedure_service.dart';
 
@@ -53,7 +53,7 @@ class ProcedureEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
-  final List<ComponentRef> listComponentRefRequirement = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefProcedureRequirement = new List<ComponentRef>();
 
   ProcedureService _procedureService;
 
@@ -63,11 +63,11 @@ class ProcedureEditComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  ComponentRef requirementCheckboxComponent;
+  ComponentRef procedureRequirementCheckboxComponent;
 
-  @ViewChild('requirementCheckboxComponent',
+  @ViewChild('procedureRequirementCheckboxComponent',
       read: ViewContainerRef)
-  ViewContainerRef materialContainerRequirementCheckBox;
+  ViewContainerRef materialContainerProcedureRequirementCheckBox;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -98,19 +98,19 @@ class ProcedureEditComponent implements OnInit {
     List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
 
     _listRequirement.forEach((requirement) {
-        ComponentFactory<requirement_checkbox_component.RequirementCheckboxComponent>
-            requirementComponent =
-            requirement_checkbox_component.RequirementCheckboxComponentNgFactory;
+        ComponentFactory<procedure_requirement_checkbox_component.ProcedureRequirementCheckboxComponent>
+            procedureRequirementComponent =
+            procedure_requirement_checkbox_component.ProcedureRequirementCheckboxComponentNgFactory;
 
-        requirementCheckboxComponent =
+        procedureRequirementCheckboxComponent =
             _loader.loadNextToLocation(
-                requirementComponent, materialContainerRequirementCheckBox);
+                procedureRequirementComponent, materialContainerProcedureRequirementCheckBox);
 
-        requirementCheckboxComponent.instance.procedureId = procedureService.procedure.id;
-        requirementCheckboxComponent.instance.requirementId = requirement.id;
-        requirementCheckboxComponent.instance.requirement = requirement.description;
+        procedureRequirementCheckboxComponent.instance.procedureId = procedureService.procedure.id;
+        procedureRequirementCheckboxComponent.instance.requirementId = requirement.id;
+        procedureRequirementCheckboxComponent.instance.requirement = requirement.description;
 
-        listComponentRefRequirement.add(requirementCheckboxComponent);
+        listComponentRefProcedureRequirement.add(procedureRequirementCheckboxComponent);
     });
 
     onEdit();    
