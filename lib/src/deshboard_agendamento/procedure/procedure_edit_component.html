@@ -13,6 +13,14 @@
         <material-input class="edit-input" id="description" label="Procedure..." [ngModel]="procedureService.procedure.description" (inputKeyPress)="description = $event"></material-input>
     </div>
 
+    <div class="sub-titulo">
+        Requisitos
+    </div>
+    <div id="container-requirement-checkbox">
+        <div #requirementCheckboxComponent></div>
+    </div>
+  
+
     <material-button class="button-close" (click)="onClose()">
         <material-icon icon="close"></material-icon>
     </material-button>

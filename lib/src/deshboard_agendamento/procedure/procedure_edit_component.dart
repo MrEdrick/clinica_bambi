@@ -153,10 +153,10 @@ class ProcedureEditComponent implements OnInit {
     showAssertMessageAlert = false;  
   }
 
-  /*void onSave() async {   
+  void onSave() async {   
     showAssertMessageAlert = false;
 
-    datas = new Map<String, dynamic>();
+    /*datas = new Map<String, dynamic>();
 
     datas = {
       "description": description,
@@ -173,6 +173,6 @@ class ProcedureEditComponent implements OnInit {
     } else {
       showNotSuccessfullySave = true;
       _fireStoreApp.FireStoreOffLine();
-    }
-  }*/
+    }*/
+  }
 }
