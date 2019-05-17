@@ -1,6 +1,9 @@
 import 'procedure.dart';
 import 'procedure_dao.dart';
 
+import '../procedure_requirement/procedure_requirement.dart';
+import '../procedure_requirement/procedure_requirement_service.dart';
+
 class ProcedureService {
   static List<Procedure> _list = new List<Procedure>();
   static Procedure _procedure;
@@ -101,4 +104,40 @@ class ProcedureService {
     return new Procedure(
         map["documentPath"], map["description"], map["state"]);
   }
+
+  Future<bool> save() async {
+    bool saved = true;
+
+    if (_procedure == null) {
+      return saved;
+    }
+
+    Map<String, dynamic> datas = {
+      "description": _procedure.description,
+      "state": _procedure.state ? "A" : "I"
+    };
+
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_procedure.id != "") {
+      result[await new ProcedureDAO().update(_procedure.id, datas) == ""] =
+          _procedure.id;
+    } else {
+      result = await new ProcedureDAO().save(datas);
+    }
+
+    ProcedureRequirementService _procedureRequirementService =
+        new ProcedureRequirementService();
+
+    _procedureRequirementService.procedureRequirement = null;
+
+    for (ProcedureRequirement procedureRequirement in _procedureRequirementService
+        .procedureRequirementListByProcedureIdRequirementId.values) {
+      _procedureRequirementService.procedureRequirement = procedureRequirement;
+      saved = await (_procedureRequirementService.save(result.values.first));
+    }
+ 
+    return saved;
+  }
+
 }

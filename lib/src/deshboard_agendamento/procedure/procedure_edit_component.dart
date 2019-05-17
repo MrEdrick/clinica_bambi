@@ -146,7 +146,7 @@ class ProcedureEditComponent implements OnInit {
       return;
     }
 
-    //onSave();
+    onSave();
   }
 
   void onNoSave() {
@@ -156,23 +156,12 @@ class ProcedureEditComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
 
-    /*datas = new Map<String, dynamic>();
-
-    datas = {
-      "description": description,
-      "state": state ? 'A' : 'I'
-    };
-
-    FireStoreApp _fireStoreApp = new FireStoreApp(PROCEDURE_COLLECTION);
-
-    if (procedureService.procedure != null
-        ? await _fireStoreApp.updateItem(procedureService.procedure?.id, datas)
-        : await _fireStoreApp.addItem(datas)) {
-      showSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
+    if (await procedureService.save()) {
+      showSuccessfullySave = true;  
     } else {
       showNotSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
-    }*/
+    }
+    
+    _changeDetectorRef.markForCheck();
   }
 }
