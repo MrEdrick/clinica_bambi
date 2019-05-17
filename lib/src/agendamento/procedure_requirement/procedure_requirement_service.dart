@@ -36,26 +36,26 @@ class ProcedureRequirementService {
     await (_procedureRequirementList = await (new ProcedureRequirementDAO()
         .getAllProcedureRequirementFilter({"isReal": "Y"}, ["=="])));
 
-    _dentistProcedureList.forEach((dentistProcedure) {
-      _dentistProcedureListById[dentistProcedure["documentPath"]] =
-          turnMapInDentistProcedure(dentistProcedure);
+    _procedureRequirementList.forEach((procedureRequirement) {
+      _procedureRequirementListById[procedureRequirement["documentPath"]] =
+          turnMapInProcedureRequirement(procedureRequirement);
 
-      _dentistProcedureListByDentistIdProcedureId[
-              dentistProcedure["dentistId"] + dentistProcedure["procedureId"]] =
-          turnMapInDentistProcedure(dentistProcedure);
+      _procedureRequirementListByProcedureIdRequirementId[
+              procedureRequirement["procedureId"] + procedureRequirement["requirementeId"]] =
+          turnMapInProcedureRequirement(procedureRequirement);
 
-      _list.add(turnMapInDentistProcedure(dentistProcedure));
+      _list.add(turnMapInProcedureRequirement(procedureRequirement));
     });
 
     return _list;
   }
 
-  Future<DentistProcedure> getOneDentistProcedureByFilterFromList(
+  Future<ProcedureRequirement> getOneProcedureRequirementByFilterFromList(
       Map filter) async {
     Map doc;
     List result;
 
-    result = getDentistProcedureListWithFilterFromList(filter);
+    result = getProcedureRequirementListWithFilterFromList(filter);
 
     if (result.length > 0) {
       doc = result?.first;
@@ -63,16 +63,16 @@ class ProcedureRequirementService {
       doc = null;
     }
 
-    return turnMapInDentistProcedure(doc);
+    return turnMapInProcedureRequirement(doc);
   }
 
-  Future<DentistProcedure> getOneDentistProcedureByFilterFromDataBase(
+  Future<ProcedureRequirement> getOneProcedureRequirementByFilterFromDataBase(
       Map filter) async {
     Map doc;
     List result;
 
-    result = (await new DentistProcedureDAO()
-        .getAllDentistProcedureFilter(filter, ["=="]));
+    result = (await new ProcedureRequirementDAO()
+        .getAllProcedureRequirementFilter(filter, ["=="]));
 
     if (result.length > 0) {
       doc = result?.first;
@@ -80,10 +80,10 @@ class ProcedureRequirementService {
       doc = null;
     }
 
-    return turnMapInDentistProcedure(doc);
+    return turnMapInProcedureRequirement(doc);
   }
 
-  List<Map> getDentistProcedureListWithFilterFromList(Map filter) {
+  List<Map> getProcedureRequirementListWithFilterFromList(Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -98,19 +98,19 @@ class ProcedureRequirementService {
       }
     }
 
-    _listDocumentSnapshot = _dentistProcedureList;
+    _listDocumentSnapshot = _procedureRequirementList;
 
     _listDocumentSnapshotTemp.clear();
 
-    if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
+    if ((filter["requirementId"] != null) && (filter["requirementId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["dentistId"].toString() == filter["dentistId"].toString()) {
+        if (doc["requirementId"].toString() == filter["requirementId"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
     }
 
-    if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
+    if ((filter["requirementId"] != null) && (filter["requirementId"] != '')) {
       _listDocumentSnapshot.clear();
       ListsApplyFilter();
     }
@@ -128,121 +128,53 @@ class ProcedureRequirementService {
       ListsApplyFilter();
     }
 
-    _dentistProcedureListWithFilter = _listDocumentSnapshot;
+    _procedureRequirementListWithFilter = _listDocumentSnapshot;
 
-    return _dentistProcedureListWithFilter;
+    return _procedureRequirementListWithFilter;
   }
 
-  DentistProcedure turnMapInDentistProcedure(Map map) {
+  ProcedureRequirement turnMapInProcedureRequirement(Map map) {
     if (map == null) {
       return null;
     }
-    return new DentistProcedure(
-        map["documentPath"], map["dentistId"], map["procedureId"]);
+    return new ProcedureRequirement(
+        map["documentPath"], map["procedureId"], map["requirementId"]);
   }
 
-  Future<bool> deleteDentistProcedureByDayOfWeekList(
-      String dentistProcedureId) async {
-    bool saved = true;
-    DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
-        new DentistProcedureByDayOfWeekService();
-
-    for (DentistProcedureByDayOfWeek dentistProcedureByDayOfWeek
-        in _dentistProcedureByDayOfWeekService
-            .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek
-            .values) {
-      _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
-          dentistProcedureByDayOfWeek;
-      _dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeek.dentistProcedureId = "";
-      _dentistProcedureByDayOfWeekService
-          .dentistProcedureByDayOfWeek.dayOfWeek = "";
-      saved = await (_dentistProcedureByDayOfWeekService.save(
-          dentistProcedureId, ""));
-
-      if (!saved) {
-        break;
-      }
-    }
-
-    if (saved) {
-      _dentistProcedureByDayOfWeekService.clearAllDentistProcedureByDayOfWeekList();
-    }
-
-    return saved;
-  }
-
-  Future<bool> saveDentistProcedureByDayOfWeekList(
-      String dentistProcedureId, String procedureId) async {
-    bool saved = true;
-    DentistProcedureByDayOfWeekService _dentistProcedureByDayOfWeekService =
-        new DentistProcedureByDayOfWeekService();
-
-    for (String key in _dentistProcedureByDayOfWeekService
-        .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek.keys) {
-      if ((key.indexOf(dentistProcedureId) > -1) ||
-          (key.indexOf(procedureId) > -1)) {
-        _dentistProcedureByDayOfWeekService.dentistProcedureByDayOfWeek =
-            _dentistProcedureByDayOfWeekService
-                    .dentistProcedureByDayOfWeekListByDentistProcedureIdDayOfWeek[
-                key];
-
-        saved = await (_dentistProcedureByDayOfWeekService.save(
-            dentistProcedureId, procedureId));
-        if (!saved) {
-          break;
-        }
-      }
-    }
-
-    return saved;
-  }
 
   Future<bool> save(String dentistId) async {
-    bool saved = true;
-
-    if (_dentistProcedure == null) {
-      return saved;
+    if (_procedureRequirement == null) {
+      return true;
     }
 
     Map datas = {
-      "dentistId": _dentistProcedure.dentistId,
-      "procedureId": _dentistProcedure.procedureId,
+      "requirementId": _procedureRequirement.requirementId,
+      "procedureId": _procedureRequirement.procedureId,
       "isReal": "Y"
     };
 
     Map<bool, String> result = new Map<bool, String>();
 
-    if (_dentistProcedure.id != "") {
-      if ((_dentistProcedure.dentistId == "") &&
-          (_dentistProcedure.procedureId == "")) {
-        saved =
-            await deleteDentistProcedureByDayOfWeekList(_dentistProcedure.id);
+    if (_procedureRequirement.id != "") {
+      if ((_procedureRequirement.requirementId == "") &&
+          (_procedureRequirement.procedureId == "")) {
 
-        if (saved) {
-          result[await new DentistProcedureDAO().delete(_dentistProcedure.id) ==
-              ""] = _dentistProcedure.id;
-        }
+          result[await new ProcedureRequirementDAO().delete(_procedureRequirement.id) ==
+              ""] = _procedureRequirement.id;
       } else {
-        result[await new DentistProcedureDAO()
-                .update(_dentistProcedure.id, datas) ==
-            ""] = _dentistProcedure.id;
-
-        saved = await saveDentistProcedureByDayOfWeekList(
-            result.values.first, dentistProcedure.procedureId);
+        result[await new ProcedureRequirementDAO()
+                .update(_procedureRequirement.id, datas) ==
+            ""] = _procedureRequirement.id;
       }
     } else {
       
-      if ((_dentistProcedure.dentistId != "") &&
-          (_dentistProcedure.procedureId != "")) {
+      if ((_procedureRequirement.requirementId != "") &&
+          (_procedureRequirement.procedureId != "")) {
             
-        result = await new DentistProcedureDAO().save(datas);
-
-        saved = await saveDentistProcedureByDayOfWeekList(
-            result.values.first, dentistProcedure.procedureId);
+        result = await new ProcedureRequirementDAO().save(datas);
       }
     }
 
-    return saved;
+    return result.keys.first;
   }
 }
