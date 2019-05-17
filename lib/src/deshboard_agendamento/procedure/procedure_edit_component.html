@@ -1,16 +1,13 @@
-<material-fab raised (click)="onEdit" id="editProcedure" style="display: none">
-</material-fab>
-
-<div class="container-add-consulta">
+<div id="container-edit-procedure">
     <div class="container-cadastro">
         <div class="titulo">
             Dados para o cadastro
         </div>
 
-        <material-toggle [(checked)]="procedureService.procedure.state">
-        </material-toggle>
-
         <material-input class="edit-input" id="description" label="Procedure..." [ngModel]="procedureService.procedure.description" (inputKeyPress)="description = $event"></material-input>
+
+        <material-toggle [(checked)]="procedureService.procedure.state" id="state">
+        </material-toggle>
     </div>
 
     <div class="sub-titulo">
