@@ -51,7 +51,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_
       ModalComponent,
       AutoDismissDirective,
     ],
-    providers: [windowBindings, datepickerBindings])
+    providers: [windowBindings])
 class DentistEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
