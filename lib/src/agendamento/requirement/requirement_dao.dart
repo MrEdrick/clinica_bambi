@@ -43,9 +43,9 @@ class RequirementDAO {
         .then((querySnapshot) {
           if (querySnapshot.size > 0) {
             _requirement = new Requirement(
-                querySnapshot.docs[0].id.toString(),
-                querySnapshot.docs[0].data()["description"].toString(), 
-                querySnapshot.docs[0].data()["state"].toString());
+                querySnapshot.docs.first.id.toString(),
+                querySnapshot.docs.first.data()["description"].toString(), 
+                querySnapshot.docs.first.data()["state"].toString());
           } else {
             _requirement = null;
           }
@@ -77,13 +77,15 @@ class RequirementDAO {
             .get())
         .docs
         .forEach((doc) {
+      
       Map map = new Map.from(doc.data());
+      
       map['documentPath'] = doc.id;
+      
       _list.add(map);
     });
 
     _fireStoreApp.FireStoreOffLine();
-
     return _list;
   }
 

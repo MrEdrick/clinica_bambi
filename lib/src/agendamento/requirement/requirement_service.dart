@@ -22,19 +22,18 @@ class RequirementService {
     if ((_requirementList != null) && (_requirementList.length != 0)) {
       return _list;
     }
-    print("tt0");
+    
     clearAllRequirementList();
-    print("tt1");
+    
     await (_requirementList = await new RequirementDAO()
         .getAllRequirementFilter({"state": "A"}, {"description": "asc"}));
-    print("tt2");
+    
     _requirementList.forEach((requirement) {
-      print("tt3");
       _requirementListById[requirement["documentPath"]] = turnMapInRequirement(requirement);
-      print("tt4");
+      
       _list.add(turnMapInRequirement(requirement));
     });
-    print("tt5");
+    
     return _list;
   }
 

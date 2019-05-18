@@ -171,7 +171,7 @@ class DentistService {
             .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId.values) {
       _dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek =
           dentistQuantityPerShiftByDayOfWeek;
-          print(saved);
+          
       saved = await (_dentistQuantityPerShiftByDayOfWeekService.save());
     }
 

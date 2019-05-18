@@ -114,30 +114,4 @@ class ShiftService {
   Shift turnMapInShift(Map map) {
     return new Shift(map["documentPath"], map["description"], map["state"]);
   }
-
-  /*Future<Shift> getShiftById(String shiftId, String hourId) async {
-    if ((shiftId == '') || (shiftId == null)) {
-      if ((hourId == 'JVWNJdwwqjFXCbmuGWf0')
-          || (hourId == 'Q14M2Diimon1ksVLO3TO')
-          || (hourId == 'hql4fUJfU8vhoxaF7IkB')
-          || (hourId == 'mUFFpnp6CP53gnEuS9DU')) {
-          shiftId = '1a5XNjDT8qfLQ53KSSxh';
-      } else {
-          shiftId = 'fBXihJRGPTPepfkfbxSs';
-      }
-    }
-
-    if (_list == null) {
-      await getAllShiftAcives();
-    }
-
-    for (var i = 0; i < _list.length; i++) {
-      if (_list[i].shiftId == shiftId) {
-        return _list[i];
-      }
-    };
-
-     return null;
-  }*/
-
 }
