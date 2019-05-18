@@ -72,8 +72,6 @@ class ProcedureEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  String description = '';
-
   ProcedureEditComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
@@ -135,8 +133,7 @@ class ProcedureEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((description == '')) {
-
+    if ((procedureService.procedure.description == "")) {
       showAssertMessageSave = true;
       return;
     }
