@@ -76,7 +76,6 @@ class ProcedureEditComponent implements OnInit {
 
   ProcedureEditComponent(this._changeDetectorRef, this._loader);
 
-
   void onEdit() {
     procedureService = new ProcedureService();
 

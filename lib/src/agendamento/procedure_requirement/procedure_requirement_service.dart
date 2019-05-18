@@ -41,7 +41,7 @@ class ProcedureRequirementService {
           turnMapInProcedureRequirement(procedureRequirement);
 
       _procedureRequirementListByProcedureIdRequirementId[
-              procedureRequirement["procedureId"] + procedureRequirement["requirementeId"]] =
+              procedureRequirement["procedureId"] + procedureRequirement["requirementId"]] =
           turnMapInProcedureRequirement(procedureRequirement);
 
       _list.add(turnMapInProcedureRequirement(procedureRequirement));
@@ -148,8 +148,8 @@ class ProcedureRequirementService {
     }
 
     Map datas = {
-      "requirementId": _procedureRequirement.requirementId,
       "procedureId": _procedureRequirement.procedureId,
+      "requirementId": _procedureRequirement.requirementId,
       "isReal": "Y"
     };
 
