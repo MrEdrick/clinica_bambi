@@ -29,6 +29,7 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   String procedureRequirementId = "";
+  
   @Input()
   String procedureId;
 
@@ -44,12 +45,12 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
+    
     if ((procedureId != "") && (procedureId != null)) {
       (await procedureRequirementService
           .getOneProcedureRequirementByFilterFromList(
               {"procedureId": procedureId,
-               "reuirementId": requirementId}));
+               "requirementId": requirementId}));
       if (procedureRequirementService
                   .procedureRequirementListByProcedureIdRequirementId[
               procedureId + requirementId] ==

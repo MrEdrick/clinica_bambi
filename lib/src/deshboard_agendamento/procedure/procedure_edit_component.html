@@ -6,8 +6,8 @@
     <material-input class="edit-input" id="description" label="Procedure..."
         [ngModel]="procedureService.procedure.description" (inputKeyPress)="procedureService.procedure.description = $event"></material-input>
 
-    <material-toggle [(checked)]="procedureService.procedure.state" id="state">
-    </material-toggle>
+    <material-checkbox [(checked)]="procedureService.procedure.state" label="Ativo" id="state">
+    </material-checkbox>
 
     <div class="sub-titulo">
         Requisitos

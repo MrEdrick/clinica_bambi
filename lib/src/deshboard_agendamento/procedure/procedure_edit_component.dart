@@ -15,6 +15,8 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import '../../agendamento/requirement/requirement.dart';
 import '../../agendamento/requirement/requirement_service.dart';
 
+import '../../agendamento/procedure_requirement/procedure_requirement_service.dart';
+
 import 'package:ClinicaBambi/src/deshboard_agendamento/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
     as procedure_requirement_checkbox_component;
 
@@ -82,30 +84,43 @@ class ProcedureEditComponent implements OnInit {
     }
   }
 
+
+  void onClearListsOfComponentRef() {
+    listComponentRefProcedureRequirement.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRefProcedureRequirement.clear();
+  }
+
   void ngOnInit() async {
     if (new UserService().user  == null)
       return;
-
+    onClearListsOfComponentRef();
+    
     querySelector('deshboard-app').style.overflowY = "hidden";
-
+    print("t0");
     List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
 
+    await new ProcedureRequirementService().getAllProcedureRequirementAcives();
+
+    print("t1");
     _listRequirement.forEach((requirement) {
         ComponentFactory<procedure_requirement_checkbox_component.ProcedureRequirementCheckboxComponent>
             procedureRequirementComponent =
             procedure_requirement_checkbox_component.ProcedureRequirementCheckboxComponentNgFactory;
-
+        print("t2");
         procedureRequirementCheckboxComponent =
             _loader.loadNextToLocation(
                 procedureRequirementComponent, materialContainerProcedureRequirementCheckBox);
-
+        print("t3");
         procedureRequirementCheckboxComponent.instance.procedureId = procedureService.procedure.id;
         procedureRequirementCheckboxComponent.instance.requirementId = requirement.id;
         procedureRequirementCheckboxComponent.instance.requirement = requirement.description;
-
+        print("t4");
         listComponentRefProcedureRequirement.add(procedureRequirementCheckboxComponent);
     });
-
+    print("t5");
     onEdit();    
   }
 
