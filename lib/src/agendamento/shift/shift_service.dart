@@ -3,7 +3,6 @@ import 'dart:async';
 import 'shift.dart';
 import 'shift_dao.dart';
 import 'shiftUI.dart';
-import '../../firebase/firestore.dart';
 
 class ShiftService {
   static List<Shift> _list = new List<Shift>();

@@ -19,6 +19,8 @@ import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
+import '../agendamento/generic/generic_service.dart'; 
+
 import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_filter_component.template.dart'
     as agendamento_filter;
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_filter_component.template.dart'
@@ -132,6 +134,8 @@ class DeshboardComponent implements OnActivate, OnInit {
   void onClickMenuItem(String filter) {
     componentRef.destroy();
 
+    new GenericService().clearAllServicesLists();
+    
     switch (filter) {
       case 'Agendamentos':
         loadAppointmentSchedulingFilter();
