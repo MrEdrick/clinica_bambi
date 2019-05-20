@@ -53,7 +53,11 @@ header {
 
 
 #container-menu-itens material-button {
-  color: #616161; 
+  color: #616161;
+}
+
+#container-menu-itens material-ripple {
+  overflow: hidden !important; 
 }
 
 .deshboard-menu-item {

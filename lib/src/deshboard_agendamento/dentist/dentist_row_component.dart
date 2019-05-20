@@ -3,6 +3,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_dialog/material_dialog.dart';
 
 import '../../agendamento/dentist/dentist.dart';
 import '../../agendamento/dentist/dentist_dao.dart';
@@ -23,6 +24,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_comp
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
+      MaterialDialogComponent,
       ModalComponent,
       MaterialButtonComponent,
     ])

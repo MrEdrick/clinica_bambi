@@ -4,6 +4,7 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_dialog/material_dialog.dart';
 
 import '../../agendamento/requirement/requirement.dart';
 import '../../agendamento/requirement/requirement_dao.dart';
@@ -24,6 +25,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_e
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
+      MaterialDialogComponent,
       ModalComponent,
       MaterialIconComponent,
       MaterialButtonComponent,
