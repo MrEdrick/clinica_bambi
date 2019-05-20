@@ -8,16 +8,9 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
-import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 
 import '../../agendamento/requirement/requirement_service.dart';
-import '../../agendamento/requirement/requirement_constants.dart';
-
-import '../../firebase/firestore.dart';
-
 
 import '../../agendamento/user/user_service.dart';
 
@@ -36,18 +29,16 @@ import '../../agendamento/user/user_service.dart';
       MaterialButtonComponent,
       MaterialInputComponent,
       materialInputDirectives,
-      MaterialDropdownSelectComponent,
-      DropdownSelectValueAccessor,
       MaterialDialogComponent,
       ModalComponent,
       AutoDismissDirective,
     ],
     providers: [
-      windowBindings,
-      datepickerBindings
+      windowBindings
     ])
 class RequirementEditComponent implements OnInit {
-  bool state = true;
+  final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
 
   RequirementService _requirementService;
 
@@ -62,18 +53,13 @@ class RequirementEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  String description = '';
-
   Map<String, dynamic> datas;
+
+  RequirementEditComponent(this._loader, this._changeDetectorRef);
 
   void onEdit() {
     requirementService = new RequirementService();
 
-    if (requirementService.requirement != null) {
-
-      description = requirementService.requirement.description;
-      state = requirementService.requirement.state == 'A';
-    }
   }
 
   void ngOnInit() {
@@ -84,11 +70,6 @@ class RequirementEditComponent implements OnInit {
   }
 
   void onClose() {
-
-    description = '';
-    state = true;
-
-    querySelector('#requirement-edit-app').style.display = 'none';
   }
 
   bool asserts() {
@@ -109,7 +90,7 @@ class RequirementEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((description == '')) {
+    if ((requirementService.requirement.description == '')) {
 
       showAssertMessageSave = true;
       return;
@@ -125,23 +106,12 @@ class RequirementEditComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
 
-    datas = new Map<String, dynamic>();
-
-    datas = {
-      "description": description,
-      "state": state ? 'A' : 'I'
-    };
-
-    FireStoreApp _fireStoreApp = new FireStoreApp(REQUIREMENT_COLLECTION);
-
-    if (requirementService.requirement != null
-        ? await _fireStoreApp.updateItem(requirementService.requirement?.id, datas)
-        : await _fireStoreApp.addItem(datas)) {
-      showSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
+    if (await requirementService.save()) {
+      showSuccessfullySave = true;  
     } else {
       showNotSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     }
+    
+    _changeDetectorRef.markForCheck();
   }
 }

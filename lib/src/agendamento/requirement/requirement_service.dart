@@ -101,4 +101,29 @@ class RequirementService {
   Requirement turnMapInRequirement(Map map) {
     return new Requirement(map["documentPath"], map["description"], map["state"]);
   }
+
+  Future<bool> save() async {
+    bool saved = true;
+
+    if (_requirement == null) {
+      return saved;
+    }
+
+    Map<String, dynamic> datas = {
+      "description": _requirement.description,
+      "state": _requirement.state ? "A" : "I"
+    };
+
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_requirement.id != "") {
+      result[await new RequirementDAO().update(_requirement.id, datas) == ""] =
+          _requirement.id;
+    } else {
+      result = await new RequirementDAO().save(datas);
+    }
+ 
+    return saved;
+  }
+
 }

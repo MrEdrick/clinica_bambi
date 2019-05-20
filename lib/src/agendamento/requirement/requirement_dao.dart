@@ -45,7 +45,7 @@ class RequirementDAO {
             _requirement = new Requirement(
                 querySnapshot.docs.first.id.toString(),
                 querySnapshot.docs.first.data()["description"].toString(), 
-                querySnapshot.docs.first.data()["state"].toString());
+                querySnapshot.docs.first.data()["state"].toString() == "A");
           } else {
             _requirement = null;
           }
