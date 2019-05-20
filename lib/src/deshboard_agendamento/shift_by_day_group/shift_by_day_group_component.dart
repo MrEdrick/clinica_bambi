@@ -78,7 +78,7 @@ class ShiftByDayGroupComponent implements OnInit {
     if (new UserService().user == null) return;
 
     List<Shift> _list = await new ShiftService().getAllShiftAcives();
-
+    
     if (shiftType == 'checkbox') {
       if ((dentistProcedureId != "") && (dentistProcedureId != null)) {
         (await dentistProcedureByDayOfWeekService

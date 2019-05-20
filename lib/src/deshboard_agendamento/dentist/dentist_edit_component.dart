@@ -22,7 +22,7 @@ import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
 import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
-
+import '../../agendamento/shift/shift_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
     as dentist_procedure_group_checkbox_component;
@@ -126,7 +126,8 @@ class DentistEditComponent implements OnInit {
     await new DentistProcedureByDayOfWeekService().getAllDentistProcedureByDayOfWeekAcives();
     await new DentistProcedureByDayOfWeekByShiftService().getAllDentistProcedureByDayOfWeekByShiftAcives();
     await new DentistQuantityPerShiftByDayOfWeekService().getAllDentistQuantityPerShiftByDayOfWeekAcives();
-
+    await new ShiftService().getAllShiftAcives();
+    
     _listProcedure.forEach((procedure) {
         ComponentFactory<dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponent>
             shiftComponent =
