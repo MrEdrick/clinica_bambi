@@ -121,7 +121,7 @@ class ProcedureEditComponent implements OnInit {
         listComponentRefProcedureRequirement.add(procedureRequirementCheckboxComponent);
     });
     
-    onEdit();    
+    _changeDetectorRef.markForCheck();  
   }
 
   void onClose() {
