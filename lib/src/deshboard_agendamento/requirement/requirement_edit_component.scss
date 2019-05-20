@@ -5,74 +5,41 @@
   position: fixed;
   top: 0;
   left: 0;
+  background: rgba(#000000, 0.30);
+  z-index: 999;
   width: 100%;
   height: 100%;
-  padding: 0%;
-  z-index: 1 !important;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  align-content: center;
-  background: rgba(#000000, 0.30);
 }
 
-.container-add-consulta {
+#container-edit-requirement {
   position: relative;
+  margin: 60px;
   width: 100%;
   height: 100%;
   background-color: rgba(#ffffff, 1);
-  display: flex;
-  flex-flow: column;
   flex-wrap: wrap;
   align-content: flex-start;
   padding: 10px;
   transition: all 0.5s linear;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
 }
 
-.container-cadastro {
-  flex: 1; 
+#container-edit-requirement::-webkit-scrollbar {
+  display: none;
 }
 
 .button-close {
   position: absolute;
   top: 10px;
   right: 10px;
-}
-
-.button-close {
   width: 40px;
   min-width: 40px;
   height: 40px;
-}
-
-.button-close {
   background-color: #fff !important;
   color: #616161;
   transition: all 0.5s linear;
-}
-
-material-dropdown-select {
-  margin: 1%;
-  margin-top: 10px;
-  color: #616161 
-}
-
-material-datepicker {
-  position: relative;
-  color: #616161;
-}
-
-.container-add-procedure ::ng-deep material-datepicker .main-content {
-  margin: 1% 0 3% 0%;
-  display: inline !important;
-}
-
-.container-add-procedure ::ng-deep material-datepicker .button {
-  border-bottom: 1px solid #00B0FF !important
-}
-
-.container-add-procedure ::ng-deep material-dropdown-select .button {
-  border-bottom: 1px solid #00B0FF !important;
 }
 
 .container-add-procedure ::ng-deep .label-text {
@@ -83,6 +50,15 @@ material-datepicker {
   color: #616161 !important;
 }
 
+#state {
+  float: left;
+}
+
+#description {
+  float: left;
+  width: 70%;
+}
+
 material-input {
   display: inline-block;
   margin: 0 3% 1% 1%;
@@ -91,10 +67,6 @@ material-input {
 
 .edit-input, .edit-input * {
   color: #616161 !important; 
-}
-
-#telefone {
-  width: 20%;
 }
 
 .button-save {
@@ -128,19 +100,29 @@ material-dialog {
   border-radius: 5px;
 }
 
+.sub-titulo {
+  position: relative;
+  display: inline-block;
+  font-family: 'Montserrat';
+  flex: 1;
+  width: 100%;
+  max-height: 48px;
+  color: #DB3813;
+  font-size: 3.0vh;
+  text-align: left;
+  font-weight: 500;
+  padding: 10px;
+  margin-bottom: 0.5%;
+}
+
 @media screen and (min-width: 769px) {
-  .container-add-procedure {
-    position: relative;
-    top: 15%;
-    margin-left: 29%;
+  #container-edit-requirement {
+    margin: 10% 29%;
     width: 42%;
-    height: 70%;
+    height: 200px;
     background-color: rgba(#ffffff, 1);
     border-radius: 5px;
-    display: flex;
     flex-flow: row;
     flex-wrap: wrap;
-    align-content: flex-start;
-    padding: 10px;
   }
 }

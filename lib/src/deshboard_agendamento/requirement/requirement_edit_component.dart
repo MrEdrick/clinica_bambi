@@ -8,9 +8,11 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
+import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
 import '../../agendamento/requirement/requirement_service.dart';
+import '../../agendamento/requirement/requirement.dart';
 
 import '../../agendamento/user/user_service.dart';
 
@@ -29,6 +31,7 @@ import '../../agendamento/user/user_service.dart';
       MaterialButtonComponent,
       MaterialInputComponent,
       materialInputDirectives,
+      MaterialCheckboxComponent,
       MaterialDialogComponent,
       ModalComponent,
       AutoDismissDirective,
@@ -45,6 +48,8 @@ class RequirementEditComponent implements OnInit {
   RequirementService get requirementService => _requirementService;
   set requirementService(RequirementService requirementService) => _requirementService = requirementService;
 
+  @Input()
+  ComponentRef componentRef;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -57,19 +62,30 @@ class RequirementEditComponent implements OnInit {
 
   RequirementEditComponent(this._loader, this._changeDetectorRef);
 
-  void onEdit() {
+    void onEdit() {
     requirementService = new RequirementService();
 
+    if (requirementService.requirement == null) { 
+      requirementService.requirement = new Requirement("", "", true);
+    }
   }
+
 
   void ngOnInit() {
     if (new UserService().user  == null)
       return;
 
-    onEdit();    
+    querySelector('deshboard-app').style.overflowY = "hidden";
+    
+    onEdit();
+
+    _changeDetectorRef.markForCheck();  
   }
 
   void onClose() {
+    requirementService.requirement = null;
+    querySelector('deshboard-app').style.overflowY = "scroll";
+    componentRef.destroy();
   }
 
   bool asserts() {

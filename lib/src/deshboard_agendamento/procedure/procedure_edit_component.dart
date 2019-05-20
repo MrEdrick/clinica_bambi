@@ -39,7 +39,6 @@ import '../../agendamento/user/user_service.dart';
       MaterialButtonComponent,
       MaterialInputComponent,
       materialInputDirectives,
-      MaterialCheckboxComponent,
       MaterialDialogComponent,
       ModalComponent,
       AutoDismissDirective,
@@ -96,6 +95,7 @@ class ProcedureEditComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user  == null)
       return;
+
     onClearListsOfComponentRef();
 
     querySelector('deshboard-app').style.overflowY = "hidden";
