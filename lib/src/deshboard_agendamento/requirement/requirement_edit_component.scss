@@ -42,11 +42,11 @@
   transition: all 0.5s linear;
 }
 
-.container-add-procedure ::ng-deep .label-text {
+#container-edit-requirement ::ng-deep .label-text {
   color: #616161;
 }
 
-.container-add-procedure ::ng-deep material-input .label-text {
+#container-edit-requirement ::ng-deep material-input .label-text {
   color: #616161 !important;
 }
 

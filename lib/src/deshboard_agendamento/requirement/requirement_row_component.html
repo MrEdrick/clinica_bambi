@@ -4,7 +4,7 @@
             <label>REQUISITO</label>
         </div>
         <div class="label">
-            <label id="nome-dentista">{{requirement?.description}}</label>
+            <label id="description">{{requirement?.description}}</label>
         </div>
     </div>
 </div>
@@ -18,7 +18,7 @@
             <h1>Stop... wait a minute!</h1>
         </div>
 
-        <p>Tem certeza que deseja apagar esta consulta?</p>
+        <p>Tem certeza que deseja apagar esta requisito?</p>
 
         <div footer>
             <material-button (trigger)="delete">
@@ -31,4 +31,4 @@
 
     </material-dialog>
 </modal>
-<div #containerEditProcedure></div>
+<div #containerEditRequirement></div>

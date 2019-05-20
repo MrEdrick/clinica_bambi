@@ -5,7 +5,7 @@ class RequirementService {
   static List<Requirement> _list = new List<Requirement>();
   static Requirement _requirement;
   static List<Map> _requirementList = new List<Map>();
-  static Map _requirementListById = new Map();
+  static Map<String, Requirement> _requirementListById = new Map<String, Requirement>();
   static List<Map> _requirementListWithFilter = new List<Map>();
 
   Requirement get requirement => _requirement;
@@ -30,7 +30,6 @@ class RequirementService {
     
     _requirementList.forEach((requirement) {
       _requirementListById[requirement["documentPath"]] = turnMapInRequirement(requirement);
-      
       _list.add(turnMapInRequirement(requirement));
     });
     
@@ -39,21 +38,21 @@ class RequirementService {
 
 
   Future<Requirement> getRequirementById(String id) async {
-    Map doc;
+    Requirement _requirement;
 
     if ((_requirementList == null) || (_requirementList.length == 0)) {
       await getAllRequirementAcives();
     }
 
-    doc = _requirementListById[id];
+    _requirement = _requirementListById[id];
 
-    if (doc == null) {
-      doc = (await new RequirementDAO()
+    if (_requirement == null) {
+      _requirement = turnMapInRequirement((await new RequirementDAO()
               .getAllRequirementFilter({'id': id}, {"description": "asc"}))
-          .first;
+          .first);
     }
 
-    return turnMapInRequirement(doc);
+    return _requirement;
   }
 
   List<Map> getRequirementListWithFilterFromList(Map filter) {
@@ -99,7 +98,7 @@ class RequirementService {
   }
 
   Requirement turnMapInRequirement(Map map) {
-    return new Requirement(map["documentPath"], map["description"], map["state"]);
+    return new Requirement(map["documentPath"], map["description"], map["state"] == "A");
   }
 
   Future<bool> save() async {

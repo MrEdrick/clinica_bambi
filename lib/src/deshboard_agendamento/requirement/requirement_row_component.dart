@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
 
@@ -24,6 +25,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_e
       AutoFocusDirective,
       materialInputDirectives,
       ModalComponent,
+      MaterialIconComponent,
       MaterialButtonComponent,
     ])
 class RequirementRowComponent implements OnInit {
@@ -41,7 +43,7 @@ class RequirementRowComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  @ViewChild('containerEditProcedure', read: ViewContainerRef)
+  @ViewChild('containerEditRequirement', read: ViewContainerRef)
   ViewContainerRef materialContainerEdit;
 
   RequirementRowComponent(this._changeDetectorRef, this._loader);

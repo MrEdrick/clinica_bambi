@@ -119,7 +119,7 @@ class DentistService {
   }
 
   Dentist turnMapInDentist(Map map) {
-    return new Dentist(map["documentPath"], map["name"], map["state"]);
+    return new Dentist(map["documentPath"], map["name"], map["state"] == "A");
   }
 
   Future<bool> save() async {

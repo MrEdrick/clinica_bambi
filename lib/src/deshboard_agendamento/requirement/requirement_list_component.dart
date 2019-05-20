@@ -19,8 +19,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_r
     directives: const [
       coreDirectives,
       formDirectives,
-      materialInputDirectives,
-      materialInputDirectives,
+      materialInputDirectives
     ])
 class RequirementListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 

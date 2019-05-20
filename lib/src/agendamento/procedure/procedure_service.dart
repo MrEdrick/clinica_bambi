@@ -102,7 +102,7 @@ class ProcedureService {
 
   Procedure turnMapInProcedure(Map map) {
     return new Procedure(
-        map["documentPath"], map["description"], map["state"]);
+        map["documentPath"], map["description"], map["state"] == "A");
   }
 
   Future<bool> save() async {
