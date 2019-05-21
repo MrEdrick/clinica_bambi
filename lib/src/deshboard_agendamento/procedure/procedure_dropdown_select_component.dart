@@ -1,9 +1,13 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/material_input/material_input.dart';
+import 'package:angular_components/utils/browser/window/module.dart';
+import 'package:angular_components/material_select/material_dropdown_select.dart';
+import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
+import 'package:angular_components/model/selection/selection_model.dart';
 
 import '../../agendamento/procedure/procedure.dart';
+import '../../agendamento/procedure/procedureUI.dart';
 import '../../agendamento/procedure/procedure_service.dart';
 import '../../agendamento/procedure/procedure_selection_options.dart';
 
@@ -19,17 +23,31 @@ import '../../agendamento/procedure/procedure_selection_options.dart';
       coreDirectives,
       formDirectives,
       materialInputDirectives,
+      MaterialDropdownSelectComponent,
+      DropdownSelectValueAccessor
+    ],
+    providers: [
+      windowBindings,
+      ClassProvider(ProcedureService)
     ])
 class ProcedureDropdownSelectComponent implements OnInit {
+
   @Input()
   ComponentRef componentRef;
+  
   List<Procedure> _listProcedure;
   final ProcedureService _procedureService;
 
-  static ItemRenderer<Procedure> _itemRendererProcedure =
-      newCachingItemRenderer<Procedure>((procedure) => "${procedure.description}");
+  bool useItemRenderer = false;
 
-  ItemRenderer<Procedure> get itemRendererProcedure =>
+  static ItemRenderer<ProcedureUI> _displayNameRenderer =
+      (HasUIDisplayName item) => item.uiDisplayName;
+
+  static ItemRenderer<ProcedureUI> _itemRendererProcedure =
+      newCachingItemRenderer<ProcedureUI>(
+          (procedure) => "${procedure.description}");
+
+  ItemRenderer<ProcedureUI> get itemRendererProcedure =>
       useItemRenderer ? _itemRendererProcedure : _displayNameRenderer;
 
   ProcedureSelectionOptions<Procedure> procedureListOptions;
@@ -44,14 +62,16 @@ class ProcedureDropdownSelectComponent implements OnInit {
     return procedureListOptions;
   }
 
-  final SelectionModel<Procedure> singleSelectModelProcedure = SelectionModel.single();
+  final SelectionModel<ProcedureUI> singleSelectModelProcedure =
+      SelectionModel.single();
 
   String get singleSelectProcedureLabel =>
-    singleSelectModelProcedure.selectedValues == null
-    ? '  '
-    : singleSelectModelProcedure.selectedValues.length > 0
-          ? itemRendererProcedure(singleSelectModelProcedure.selectedValues.first)
-          : 'Procedimento';
+      singleSelectModelProcedure.selectedValues == null
+          ? '  '
+          : singleSelectModelProcedure.selectedValues.length > 0
+              ? itemRendererProcedure(
+                  singleSelectModelProcedure.selectedValues.first)
+              : 'Procedimento';
 
   String get singleSelectedProcedure =>
       singleSelectModelProcedure.selectedValues.isNotEmpty
@@ -60,6 +80,5 @@ class ProcedureDropdownSelectComponent implements OnInit {
 
   ProcedureDropdownSelectComponent(this._procedureService);
 
-  void ngOnInit() {
-  }
+  void ngOnInit() {}
 }

@@ -69,7 +69,6 @@ import '../firebase/firestore.dart';
     providers: [
       windowBindings,
       datepickerBindings,
-      ClassProvider(ProcedureService),
       ClassProvider(DentistService),
       ClassProvider(AgreementService)
     ])
