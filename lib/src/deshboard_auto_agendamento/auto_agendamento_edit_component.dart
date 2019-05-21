@@ -14,26 +14,13 @@ import 'package:angular_components/material_datepicker/material_datepicker.dart'
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
-import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
-
-import '../agendamento/dentist/dentist.dart';
-import '../agendamento/dentist/dentistUI.dart';
 import '../agendamento/dentist/dentist_service.dart';
-import '../agendamento/dentist/dentist_selection_options.dart';
-
 import '../agendamento/procedure/procedure_service.dart';
-
-import '../agendamento/shift/shift.dart';
 import '../agendamento/shift/shift_service.dart';
-
-import '../agendamento/agreement/agreement.dart';
 import '../agendamento/agreement/agreement_service.dart';
-import '../agendamento/agreement/agreement_selection_options.dart';
 
 import '../agendamento/consulta/consulta_service.dart';
 
@@ -60,21 +47,15 @@ import '../firebase/firestore.dart';
       materialInputDirectives,
       MaterialDatepickerComponent,
       DateRangeInputComponent,
-      MaterialDropdownSelectComponent,
-      DropdownSelectValueAccessor,
       MaterialDialogComponent,
       ModalComponent,
       AutoDismissDirective,
     ],
     providers: [
       windowBindings,
-      datepickerBindings,
-      ClassProvider(DentistService),
-      ClassProvider(AgreementService)
+      datepickerBindings
     ])
 class AutoAgendamentoEditComponent implements OnInit {
-  final Router _router;
-
   ConsultaService _consultaService;
 
   ConsultaService get consultaService => _consultaService;
@@ -158,84 +139,9 @@ class AutoAgendamentoEditComponent implements OnInit {
 
   String get telefone => _telefone;
 
-  static ItemRenderer<DentistUI> _displayNameRenderer =
-      (HasUIDisplayName item) => item.uiDisplayName;
+  AutoAgendamentoEditComponent();
 
-  List<Dentist> _listDentist;
-  final DentistService _dentistService;
-
-  static ItemRenderer<Dentist> _itemRendererDentist =
-      newCachingItemRenderer<Dentist>((dentista) => "${dentista.name}");
-
-  ItemRenderer<DentistUI> get itemRendererDentist =>
-      useItemRenderer ? _itemRendererDentist : _displayNameRenderer;
-
-  DentistSelectionOptions<Dentist> dentistListOptions;
-
-  StringSelectionOptions<Dentist> get dentistOptions {
-    if (_listDentist == null) {
-      return null;
-    }
-
-    dentistListOptions = DentistSelectionOptions<Dentist>(_listDentist);
-
-    return dentistListOptions;
-  }
-
-  final SelectionModel<DentistUI> singleSelectModelDentist =
-      SelectionModel.single();
-
-  String get singleSelectDentistLabel =>
-    singleSelectModelDentist.selectedValues == null 
-    ? 'Dentista'
-    : singleSelectModelDentist.selectedValues.length > 0
-          ? itemRendererDentist(singleSelectModelDentist.selectedValues.first)
-          : 'Dentista';
-
-  String get singleSelectedDentist =>
-      singleSelectModelDentist.selectedValues.isNotEmpty
-          ? singleSelectModelDentist.selectedValues.first.uiDisplayName
-          : null;
-
-  List<Agreement> _listAgreement;
-  final AgreementService _agreementService;
-
-  static ItemRenderer<Agreement> _itemRendererAgreement =
-      newCachingItemRenderer<Agreement>((agreement) => "${agreement.description}");
-
-  ItemRenderer<Agreement> get itemRendererAgreement =>
-      useItemRenderer ? _itemRendererAgreement : _displayNameRenderer;
-
-  AgreementSelectionOptions<Agreement> agreementListOptions;
-
-  StringSelectionOptions<Agreement> get agreementOptions {
-    if (_listAgreement == null) {
-      return null;
-    }
-
-    agreementListOptions = AgreementSelectionOptions<Agreement>(_listAgreement);
-
-    return agreementListOptions;
-  }
-
-  final SelectionModel<Agreement> singleSelectModelAgreement = SelectionModel.single();
-
-  String get singleSelectAgreementLabel =>
-    singleSelectModelAgreement.selectedValues == null 
-      ? 'Convênios'
-      : singleSelectModelAgreement.selectedValues.length > 0
-            ? itemRendererAgreement(singleSelectModelAgreement.selectedValues.first)
-            : 'Convênios';
-
-  String get singleSelectedAgreement =>
-      singleSelectModelAgreement.selectedValues.isNotEmpty
-          ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
-          : null;
-
-  AutoAgendamentoEditComponent(
-      this._dentistService, this._agreementService, this._router);
-
-  Future<void> _getListDentist() async {
+  /*Future<void> _getListDentist() async {
     _listDentist = await _dentistService.getAllDentistAcives();
   }
 
@@ -243,13 +149,13 @@ class AutoAgendamentoEditComponent implements OnInit {
     if (_listAgreement == null) {
       _listAgreement = await _agreementService.getAllAgreementAcives();
     }
-  }
+  }*/
 
   void onEdit() {
     consultaService = new ConsultaService();
 
-    _getListDentist();
-    _getListAgreement();
+    //_getListDentist();
+    //_getListAgreement();
 
     if (consultaService.consulta != null) {
       dataConsulta = new Date.parse(consultaService.consulta.dataConsultaAgendamento, 
@@ -259,9 +165,9 @@ class AutoAgendamentoEditComponent implements OnInit {
       email = consultaService.consulta.email;
       telefone = consultaService.consulta.telefone;
 
-      singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
-                                                    consultaService.consulta.dentist.name));
-      singleSelectModelAgreement.select(consultaService.consulta.agreement);
+      //singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
+      //                                              consultaService.consulta.dentist.name));
+      //singleSelectModelAgreement.select(consultaService.consulta.agreement);
     } else {
       dataConsulta = new Date.today();
     }
@@ -275,7 +181,7 @@ class AutoAgendamentoEditComponent implements OnInit {
   }
 
   void onClose() {
-    if (!singleSelectModelDentist.selectedValues.isEmpty) {
+    /*if (!singleSelectModelDentist.selectedValues.isEmpty) {
       singleSelectModelDentist
           ?.deselect(singleSelectModelDentist?.selectedValues?.first);
     }
@@ -283,7 +189,7 @@ class AutoAgendamentoEditComponent implements OnInit {
     if (!singleSelectModelAgreement.selectedValues.isEmpty) {
       singleSelectModelAgreement
           ?.deselect(singleSelectModelAgreement?.selectedValues?.first);
-    }
+    }*/
 
     paciente = '';
     email = '';
@@ -314,9 +220,9 @@ class AutoAgendamentoEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((singleSelectModelDentist.selectedValues.isEmpty)
-       || (singleSelectModelAgreement.selectedValues.isEmpty)
-       || (paciente == '')
+    if (//(singleSelectModelDentist.selectedValues.isEmpty)
+       //|| (singleSelectModelAgreement.selectedValues.isEmpty)
+       (paciente == '')
        || (telefone == '')
        || (dataConsulta == null)) {
 
@@ -343,9 +249,9 @@ class AutoAgendamentoEditComponent implements OnInit {
 
     datas = {
       "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
-      "agreementId": singleSelectModelAgreement.selectedValues.first.agreementId,
-      "dentistId": singleSelectModelDentist
-          .selectedValues.first.id, //querySelector('#dentista').text
+      //"agreementId": singleSelectModelAgreement.selectedValues.first.agreementId,
+      //"dentistId": singleSelectModelDentist
+      //    .selectedValues.first.id, //querySelector('#dentista').text
       "patient": paciente,
       "email": email,
       "tel": telefone,
