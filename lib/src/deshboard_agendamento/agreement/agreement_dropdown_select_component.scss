@@ -1,0 +1,13 @@
+material-dropdown-select {
+  margin: 1%;
+  margin-top: 10px;
+  color: #616161 
+}
+
+::ng-deep material-dropdown-select .button {
+  border-bottom: 1px solid #00B0FF !important;
+}
+
+::ng-deep .label-text {
+  color: #616161;
+}
