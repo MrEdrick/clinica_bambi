@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'dentist_procedure_constants.dart';
 import '../../firebase/firestore.dart';
 
@@ -66,4 +65,5 @@ class DentistProcedureDAO {
 
     return _list;
   }
+
 }

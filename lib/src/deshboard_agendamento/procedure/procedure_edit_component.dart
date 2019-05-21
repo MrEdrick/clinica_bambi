@@ -38,6 +38,7 @@ import '../../agendamento/user/user_service.dart';
       MaterialIconComponent,
       MaterialButtonComponent,
       MaterialInputComponent,
+      MaterialCheckboxComponent,
       materialInputDirectives,
       MaterialDialogComponent,
       ModalComponent,
