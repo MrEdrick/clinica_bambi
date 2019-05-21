@@ -20,16 +20,16 @@ import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
-import '../route_paths.dart' as paths;
 
 import '../agendamento/dentist/dentist.dart';
 import '../agendamento/dentist/dentistUI.dart';
 import '../agendamento/dentist/dentist_service.dart';
 import '../agendamento/dentist/dentist_selection_options.dart';
 
+import '../agendamento/procedure/procedure_service.dart';
+
 import '../agendamento/shift/shift.dart';
 import '../agendamento/shift/shift_service.dart';
-import '../agendamento/shift/shift_selection_options.dart';
 
 import '../agendamento/agreement/agreement.dart';
 import '../agendamento/agreement/agreement_service.dart';
@@ -69,7 +69,7 @@ import '../firebase/firestore.dart';
     providers: [
       windowBindings,
       datepickerBindings,
-      ClassProvider(ShiftService),
+      ClassProvider(ProcedureService),
       ClassProvider(DentistService),
       ClassProvider(AgreementService)
     ])
@@ -198,44 +198,6 @@ class AutoAgendamentoEditComponent implements OnInit {
           ? singleSelectModelDentist.selectedValues.first.uiDisplayName
           : null;
 
-//----
-
-  List<Shift> _listShift;
-  final ShiftService _shiftService;
-
-  static ItemRenderer<Shift> _itemRendererShift =
-      newCachingItemRenderer<Shift>((shift) => "${shift.description}");
-
-  ItemRenderer<Shift> get itemRendererShift =>
-      useItemRenderer ? _itemRendererShift : _displayNameRenderer;
-
-  ShiftSelectionOptions<Shift> shiftListOptions;
-
-  StringSelectionOptions<Shift> get shiftOptions {
-    if (_listShift == null) {
-      return null;
-    }
-
-    shiftListOptions = ShiftSelectionOptions<Shift>(_listShift);
-
-    return shiftListOptions;
-  }
-
-  final SelectionModel<Shift> singleSelectModelShift = SelectionModel.single();
-
-  String get singleSelectShiftLabel =>
-    singleSelectModelShift.selectedValues == null
-    ? '  '
-    : singleSelectModelShift.selectedValues.length > 0
-          ? itemRendererShift(singleSelectModelShift.selectedValues.first)
-          : 'Turno';
-
-  String get singleSelectedShift =>
-      singleSelectModelShift.selectedValues.isNotEmpty
-          ? singleSelectModelShift.selectedValues.first.uiDisplayName
-          : null;
-//----
-
   List<Agreement> _listAgreement;
   final AgreementService _agreementService;
 
@@ -272,14 +234,10 @@ class AutoAgendamentoEditComponent implements OnInit {
           : null;
 
   AutoAgendamentoEditComponent(
-      this._dentistService, this._shiftService, this._agreementService, this._router);
+      this._dentistService, this._agreementService, this._router);
 
   Future<void> _getListDentist() async {
     _listDentist = await _dentistService.getAllDentistAcives();
-  }
-
-  Future<void> _getListShift() async {
-    _listShift = await _shiftService.getAllShiftAcives();
   }
 
   Future<void> _getListAgreement() async {
@@ -291,7 +249,6 @@ class AutoAgendamentoEditComponent implements OnInit {
   void onEdit() {
     consultaService = new ConsultaService();
 
-    _getListShift();
     _getListDentist();
     _getListAgreement();
 
@@ -303,7 +260,6 @@ class AutoAgendamentoEditComponent implements OnInit {
       email = consultaService.consulta.email;
       telefone = consultaService.consulta.telefone;
 
-      singleSelectModelShift.select(consultaService.consulta.shift);
       singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
                                                     consultaService.consulta.dentist.name));
       singleSelectModelAgreement.select(consultaService.consulta.agreement);
@@ -320,11 +276,6 @@ class AutoAgendamentoEditComponent implements OnInit {
   }
 
   void onClose() {
-    if (!singleSelectModelShift.selectedValues.isEmpty) {
-      singleSelectModelShift
-          ?.deselect(singleSelectModelShift?.selectedValues?.first);
-    }
-
     if (!singleSelectModelDentist.selectedValues.isEmpty) {
       singleSelectModelDentist
           ?.deselect(singleSelectModelDentist?.selectedValues?.first);
@@ -364,8 +315,7 @@ class AutoAgendamentoEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((singleSelectModelShift.selectedValues.isEmpty)
-       || (singleSelectModelDentist.selectedValues.isEmpty)
+    if ((singleSelectModelDentist.selectedValues.isEmpty)
        || (singleSelectModelAgreement.selectedValues.isEmpty)
        || (paciente == '')
        || (telefone == '')
@@ -394,7 +344,6 @@ class AutoAgendamentoEditComponent implements OnInit {
 
     datas = {
       "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
-      "shiftId": singleSelectModelShift.selectedValues.first.id,
       "agreementId": singleSelectModelAgreement.selectedValues.first.agreementId,
       "dentistId": singleSelectModelDentist
           .selectedValues.first.id, //querySelector('#dentista').text
