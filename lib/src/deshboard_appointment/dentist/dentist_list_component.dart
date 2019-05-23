@@ -3,8 +3,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 
 import '../../appointment/dentist/dentist_service.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_row_component.template.dart'
-    as dentist_row;
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_card_component.template.dart'
+    as dentist_card;
 
 import '../../appointment/user/user_service.dart';
 
@@ -30,8 +30,8 @@ class DentistListComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  @ViewChild('materialContainerRow', read: ViewContainerRef)
-  ViewContainerRef materialContainerRow;
+  @ViewChild('materialContainerCard', read: ViewContainerRef)
+  ViewContainerRef materialContainerCard;
 
   DentistListComponent(this._loader, this._changeDetectorRef);
 
@@ -43,15 +43,15 @@ class DentistListComponent implements OnInit {
     
     _list.forEach((dentist) {
       
-      ComponentFactory<dentist_row.DentistRowComponent>
-          dentistRow =
-          dentist_row.DentistRowComponentNgFactory;
+      ComponentFactory<dentist_card.DentistCardComponent>
+          dentistCard =
+          dentist_card.DentistCardComponentNgFactory;
       
-      ComponentRef dentistRowComponent =
-        _loader.loadNextToLocation(dentistRow, materialContainerRow);
+      ComponentRef dentistCardComponent =
+        _loader.loadNextToLocation(dentistCard, materialContainerCard);
       
-      dentistRowComponent.instance.dentistId = dentist["documentPath"];
-      dentistRowComponent.instance.componentRef = dentistRowComponent;
+      dentistCardComponent.instance.dentistId = dentist["documentPath"];
+      dentistCardComponent.instance.componentRef = dentistCardComponent;
            
     });
     

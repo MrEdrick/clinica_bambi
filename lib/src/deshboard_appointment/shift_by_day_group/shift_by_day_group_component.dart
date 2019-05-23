@@ -16,10 +16,10 @@ import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_
 import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/shift/quantity_per_shift_input_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/shift/quantity_per_shift_input_component.template.dart'
     as quantity_per_shift_component;
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/shift/shift_checkbox_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_checkbox_component.template.dart'
     as shift_checkbox_component;
 
 @Component(

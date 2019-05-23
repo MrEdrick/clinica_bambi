@@ -13,9 +13,9 @@ import '../../appointment/user/user_service.dart';
 import '../../appointment/requirement/requirement_service.dart';
 import '../../route_paths.dart' as paths;
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_list_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_list_component.template.dart'
     as requirement_list;
-import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_edit_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_edit_component.template.dart'
     as requirement_edit;
 
 

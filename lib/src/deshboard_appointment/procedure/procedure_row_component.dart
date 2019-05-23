@@ -9,7 +9,7 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 import '../../appointment/procedure/procedure.dart';
 import '../../appointment/procedure/procedure_dao.dart';
 import '../../appointment/procedure/procedure_service.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_edit_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_edit_component.template.dart'
     as procedure_edit;
 
 @Component(

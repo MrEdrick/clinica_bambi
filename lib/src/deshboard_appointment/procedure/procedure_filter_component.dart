@@ -13,9 +13,9 @@ import '../../appointment/user/user_service.dart';
 import '../../route_paths.dart' as paths;
 import '../../appointment/procedure/procedure_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_list_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_list_component.template.dart'
     as procedure_list;
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_edit_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_edit_component.template.dart'
     as procedure_edit;
 
 @Component(

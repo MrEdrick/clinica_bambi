@@ -17,7 +17,7 @@ import '../../appointment/requirement/requirement_service.dart';
 
 import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
     as procedure_requirement_checkbox_component;
 
 import '../../appointment/procedure/procedure_service.dart';

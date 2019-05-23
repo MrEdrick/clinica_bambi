@@ -15,9 +15,9 @@ import '../../route_paths.dart' as paths;
 import '../../appointment/dentist/dentist.dart';
 import '../../appointment/dentist/dentist_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_list_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_list_component.template.dart'
     as dentist_list;
-import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_edit_component.template.dart'
     as dentist_edit;
 
 @Component(

@@ -5,7 +5,7 @@ import 'package:angular_components/material_input/material_input.dart';
 
 import '../../appointment/user/user_service.dart';
 import '../../appointment/requirement/requirement_service.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_row_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_row_component.template.dart'
     as requirement_row;
 
 @Component(

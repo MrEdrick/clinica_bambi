@@ -5,7 +5,7 @@ import 'package:angular_components/material_input/material_input.dart';
 
 import '../../appointment/user/user_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_row_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_row_component.template.dart'
     as procedure_row;
 
 @Component(

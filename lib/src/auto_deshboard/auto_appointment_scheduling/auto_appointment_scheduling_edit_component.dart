@@ -27,11 +27,11 @@ import '../appointment/consulta/consulta_service.dart';
 
 import '../appointment/user/user_service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_dropdown_select_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;
-import 'package:ClinicaBambi/src/deshboard_agendamento/agreement/agreement_dropdown_select_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/agreement/agreement_dropdown_select_component.template.dart'
     as agreement_dropdown_select_list_component;
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_dropdown_select_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_dropdown_select_component.template.dart'
     as procedure_dropdown_select_list_component;
 
 @Component(

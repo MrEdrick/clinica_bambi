@@ -9,7 +9,7 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 import '../../appointment/requirement/requirement.dart';
 import '../../appointment/requirement/requirement_dao.dart';
 import '../../appointment/requirement/requirement_service.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_edit_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_edit_component.template.dart'
     as requirement_edit;
 
 @Component(
