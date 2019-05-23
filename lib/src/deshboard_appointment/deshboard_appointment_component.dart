@@ -21,8 +21,8 @@ import '../route_paths.dart' as paths;
 
 import '../agendamento/generic/generic_service.dart'; 
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_filter_component.template.dart'
-    as agendamento_filter;
+import 'package:ClinicaBambi/src/deshboard_agendamento/appointment/appointment_filter_component.template.dart'
+    as appointment_filter;
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_filter_component.template.dart'
     as dentist_filter;
 import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_filter_component.template.dart'
@@ -31,8 +31,8 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_f
     as requirement_filter;
 
 @Component(
-  selector: 'deshboard_component',
-  templateUrl: 'deshboard_component.html',
+  selector: 'deshboard_appointment_component',
+  templateUrl: 'deshboard_appointment_component.html',
   directives: const [
     coreDirectives,
     materialInputDirectives,
@@ -56,7 +56,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_f
     popupBindings
   ],
   styleUrls: const [
-    'deshboard_component.scss.css',
+    'deshboard_appointment_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
