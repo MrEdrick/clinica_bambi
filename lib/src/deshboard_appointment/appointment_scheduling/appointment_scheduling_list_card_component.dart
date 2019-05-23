@@ -1,41 +1,39 @@
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
-import 'agendamento_card_component.dart';
-import '../../agendamento/consulta/consulta_service.dart';
-import '../../agendamento/user/user_service.dart';
+import 'appointment_scheduling_card_component.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/user/user_service.dart';
 import 'package:intl/intl.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_card_component.template.dart'
-    as agendamento_card;
+import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_card_component.template.dart'
+    as appointment_scheduling_card;
 
 @Component(
-    selector: 'agendamento_list_card_component.',
+    selector: 'appointment_scheduling_list_card_component.',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
-      'agendamento_list_card_component.scss.css',
+      'appointment_scheduling_list_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'agendamento_list_card_component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: 'appointment_scheduling_list_card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      AgendamentoCardComponent,
       MaterialInputComponent,
       materialInputDirectives,
       ModalComponent,
     ])
-class AgendamentoListCardComponent implements OnInit {
+class AppointmentSchedulingListCardComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
   final List<String> listAppointmentSchedulingId = new List<String>();
 
-  AgendamentoListCardComponent(this._loader, this._changeDetectorRef);
+  AppointmentSchedulingListCardComponent(this._loader, this._changeDetectorRef);
 
   @Input()
   Date date;
@@ -49,7 +47,7 @@ class AgendamentoListCardComponent implements OnInit {
 
   bool showDeteleCertification = false;
 
-  @ViewChild('containerCardAgendamento', read: ViewContainerRef)
+  @ViewChild('containerCardAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerCard;
 
   void ngOnInit() {
@@ -57,18 +55,18 @@ class AgendamentoListCardComponent implements OnInit {
 
     dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
 
-    List<Map> _list = new ConsultaService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
+    List<Map> _list = new AppointmentSchedulingService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
     
     _list.forEach((appointmentScheduling) {
-      ComponentFactory<agendamento_card.AgendamentoCardComponent>
-          agendamentoCard =
-          agendamento_card.AgendamentoCardComponentNgFactory;
+      ComponentFactory<appointment_scheduling_card.AppointmentSchedulingCardComponent>
+          appointmentSchedulingCard =
+          appointment_scheduling_card.AppointmentSchedulingCardComponentNgFactory;
 
-      ComponentRef agendamentoListComponent =
-        _loader.loadNextToLocation(agendamentoCard, materialContainerCard);
+      ComponentRef appointmentSchedulingListComponent =
+        _loader.loadNextToLocation(appointmentSchedulingCard, materialContainerCard);
 
-      agendamentoListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
-      agendamentoListComponent.instance.componentRef = agendamentoListComponent;
+      appointmentSchedulingListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
+      appointmentSchedulingListComponent.instance.componentRef = appointmentSchedulingListComponent;
     });
     
     _changeDetectorRef.markForCheck();

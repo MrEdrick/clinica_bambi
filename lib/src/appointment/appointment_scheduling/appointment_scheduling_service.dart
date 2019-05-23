@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
 import 'appointment_scheduling_dao.dart';
 
-import '../../agendamento/shift/shift_service.dart';
-import '../../agendamento/agreement/agreement_service.dart';
-import '../../agendamento/dentist/dentist_service.dart';
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
 
 class AppointmentSchedulingService {
   static AppointmentScheduling _appointmentScheduling;

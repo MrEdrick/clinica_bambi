@@ -1,4 +1,4 @@
-<div id="container-filter-agendamento">
+<div id="container-filter-appointment-scheduling">
     <div class="container-filter">
         <div class="container-filter-title">
             <material-icon icon="filter_list"></material-icon>
@@ -8,7 +8,7 @@
             <span class="filter-title">
                 De:
             </span>
-            <material-datepicker [(date)]="dataInicial" [required]="true">
+            <material-datepicker [(date)]="initialDate" [required]="true">
             </material-datepicker>
         </div>
 
@@ -16,7 +16,7 @@
             <span class="filter-title">
                 Até:
             </span>
-            <material-datepicker [(date)]="dataFinal" [required]="true">
+            <material-datepicker [(date)]="finalDate" [required]="true">
             </material-datepicker>
         </div>
 
@@ -24,7 +24,7 @@
             <span class="filter-title">
                 Turno:
             </span>
-            <material-dropdown-select id="turno" class="lista-turno" [buttonText]="singleSelectShiftLabel"
+            <material-dropdown-select id="shift" class="shift-list" [buttonText]="singleSelectShiftLabel"
                 [selection]="singleSelectModelShift" [options]="shiftOptions" [itemRenderer]="itemRendererShift">
             </material-dropdown-select>
         </div>
@@ -33,7 +33,7 @@
             <span class="filter-title">
                 Dentista:
             </span>
-            <material-dropdown-select id="dentista" class="lista-dentistas" [buttonText]="singleSelectDentistLabel"
+            <material-dropdown-select id="dentist" class="dentist-list" [buttonText]="singleSelectDentistLabel"
                 [selection]="singleSelectModelDentist" [options]="dentistOptions" [itemRenderer]="itemRendererDentist">
             </material-dropdown-select>
         </div>
@@ -43,7 +43,7 @@
                 Paciente:
             </span>
 
-            <material-input class="filter-input" id="paciente" label="Paciente..." [ngModel]="patientName"
+            <material-input class="filter-input" id="patient" label="Paciente..." [ngModel]="patientName"
                 (inputKeyPress)="patientName = $event"></material-input>
         </div>
 
@@ -61,13 +61,13 @@
                 Período da filtragem:
             </span>
             <span class="total-result-filter-text">
-                {{dataInicialFormatada}}
+                {{initialDateFormated}}
             </span>
             <span class="total-result-filter-title">
                 Até
             </span>
             <span class="total-result-filter-text">
-                {{dataFinalFormatada}}
+                {{finalDateFormated}}
             </span>
         </div>
 
@@ -76,7 +76,7 @@
                 Turno da filtragem:
             </span>
             <span class="total-result-filter-text">
-                {{turnoDescription}}
+                {{shiftDescription}}
             </span>
         </div>
 
@@ -89,22 +89,22 @@
             </span>
         </div>
 
-        <div class="total-result-filtered" id="agendamento-total-result-filtered">
+        <div class="total-result-filtered" id="appointment-scheduling-total-result-filtered">
             <span class="total-result-filter-title">
                 Total de consultas:
             </span>
-            <span class="total-result-filter-text" id="agendamento-result-filter-text">
+            <span class="total-result-filter-text" id="appointment-scheduling-result-filter-text">
 
             </span>
         </div>
     </div>
-    <div id="container-list-agendamentos" class="container-list-agendamentos">
-        <div #containerListAgendamento></div>
+    <div id="container-list-appointment-scheduling" class="container-list-appointment-scheduling">
+        <div #containerListAppointmentScheduling></div>
     </div>
 </div>
 
-<material-fab raised (click)="onAdd" id="addAgendamento">
+<material-fab raised (click)="onAdd" id="addAppointmentScheduling">
     <material-icon icon="add"></material-icon>
 </material-fab>
 
-<div #containerEditAgendamento></div>
+<div #containerEditAppointmentScheduling></div>

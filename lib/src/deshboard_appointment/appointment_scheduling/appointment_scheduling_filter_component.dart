@@ -18,27 +18,27 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:intl/intl.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_list_card_component.template.dart'
-    as agendamento_list;
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_edit_component.template.dart'
-    as agendamento_edit;
+import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_list_card_component.template.dart'
+    as appointment_scheduling_list;
+import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_edit_component.template.dart'
+    as appointment_scheduling_edit;
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
-import '../../agendamento/shift/shift.dart';
-import '../../agendamento/shift/shift_service.dart';
-import '../../agendamento/shift/shift_selection_options.dart';
+import '../../appointment/shift/shift.dart';
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/shift/shift_selection_options.dart';
 
-import '../../agendamento/dentist/dentistUI.dart';
-import '../../agendamento/dentist/dentist_service.dart';
-import '../../agendamento/dentist/dentist_selection_options.dart';
+import '../../appointment/dentist/dentistUI.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist_selection_options.dart';
 
-import '../../agendamento/consulta/consulta.dart';
-import '../../agendamento/consulta/consulta_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
 @Component(
-  selector: 'agendamento_filter_component',
-  templateUrl: 'agendamento_filter_component.html',
+  selector: 'appointment_scheduling_filter_component',
+  templateUrl: 'appointment_scheduling_filter_component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
@@ -64,7 +64,7 @@ import '../../agendamento/consulta/consulta_service.dart';
     ClassProvider(ShiftService)
   ],
   styleUrls: const [
-    'agendamento_filter_component.scss.css',
+    'appointment_scheduling_filter_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
@@ -73,26 +73,26 @@ class AgendamentoFilterComponent implements OnInit {
   final ComponentLoader _loader;
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
 
-  ConsultaService _consultaService = new ConsultaService();
+  AppointmentSchedulingService _appointmentSchedulingService = new AppointmentSchedulingService();
 
-  ConsultaService get consultaService => _consultaService;
-  set consultaService(ConsultaService consultaService) =>
-      _consultaService = consultaService;
+  AppointmentSchedulingService get appointmentSchedulingService => _appointmentSchedulingService;
+  set appointmentSchedulingService(AppointmentSchedulingService appointmentSchedulingService) =>
+      _appointmentSchedulingService = appointmentSchedulingService;
 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
 
-  Date dataInicial = new Date.today();
-  Date dataFinal = new Date.today();
+  Date initialDate = new Date.today();
+  Date finalDate = new Date.today();
   List<Date> listDate = new List<Date>();
 
-  String dataInicialFormatada;
-  String dataFinalFormatada;
+  String initialDateFormated;
+  String finalDateFormated;
 
   int daysDif = 1;
 
-  String turnoDescription;
+  String shiftDescription;
   String shiftId;
 
   String dentistName;
@@ -100,15 +100,15 @@ class AgendamentoFilterComponent implements OnInit {
 
   String patientName;
 
-  @ViewChild('containerListAgendamento', read: ViewContainerRef)
+  @ViewChild('containerListApoointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 
-  @ViewChild('containerEditAgendamento', read: ViewContainerRef)
+  @ViewChild('containerEditAppointmentscheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
 
   List<List<Map<String, dynamic>>> listScheduling =
       new List<List<Map<String, dynamic>>>();
-  final List<Consulta> listAppointmentSchedulingByDate = new List<Consulta>();
+  final List<AppointmentScheduling> listAppointmentSchedulingByDate = new List<AppointmentScheduling>();
 
   int totalResultFilter = 0;
 
@@ -221,34 +221,34 @@ class AgendamentoFilterComponent implements OnInit {
   void onLoad() {
     listComponentRef.clear();
     listDate.forEach((date) {
-      ComponentFactory<agendamento_list.AgendamentoListCardComponent>
-          agendamentoList =
-          agendamento_list.AgendamentoListCardComponentNgFactory;
+      ComponentFactory<appointment_scheduling_list.AgendamentoAppointmentSchedulingListCardComponent>
+          appointmentSchedulingList =
+          appointment_scheduling_list.AppointmentSchedulingListCardComponentNgFactory;
 
-      ComponentRef agendamentoListComponent =
-          _loader.loadNextToLocation(agendamentoList, materialContainerList);
+      ComponentRef appointmentSchedulingListComponent =
+          _loader.loadNextToLocation(appointmentSchedulingList, materialContainerList);
 
-      agendamentoListComponent.instance.date = date;
-      agendamentoListComponent.instance.componentRef = agendamentoListComponent;
-      listComponentRef.add(agendamentoListComponent);
+      appointmentSchedulingListComponent.instance.date = date;
+      appointmentSchedulingListComponent.instance.componentRef = appointmentSchedulingListComponent;
+      listComponentRef.add(appointmentSchedulingListComponent);
     });
 
     _changeDetectorRef.markForCheck();
   }
 
   List<Date> onPrepareFilter() {
-    if (dataFinal.isBefore(dataInicial)) {
-      dataFinal = dataInicial;
+    if (finalDate.isBefore(initialDate)) {
+      finalDate = initialDate;
     }
 
-    querySelector('#agendamento-result-filter-text').setInnerHtml('0');
+    querySelector('#appointment-scheduling-result-filter-text').setInnerHtml('0');
 
-    dataInicialFormatada =
-        new DateFormat('dd/MM/yyyy').format(dataInicial.asUtcTime());
-    dataFinalFormatada =
-        new DateFormat('dd/MM/yyyy').format(dataFinal.asUtcTime());
+    initialDateFormated =
+        new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
+    finalDateFormated =
+        new DateFormat('dd/MM/yyyy').format(finalDate.asUtcTime());
 
-    daysDif = dataFinal.asUtcTime().difference(dataInicial.asUtcTime()).inDays;
+    daysDif = finalDate.asUtcTime().difference(initialDate.asUtcTime()).inDays;
 
     if (singleSelectModelDentist.selectedValues.isNotEmpty) {
       dentistName = singleSelectModelDentist.selectedValues.first.name;
@@ -258,7 +258,7 @@ class AgendamentoFilterComponent implements OnInit {
     }
 
     if (singleSelectModelShift.selectedValues.isNotEmpty) {
-      turnoDescription =
+      shiftDescription =
           singleSelectModelShift.selectedValues.first.description;
       shiftId = singleSelectModelShift.selectedValues.first.id;
     } else {
@@ -267,7 +267,7 @@ class AgendamentoFilterComponent implements OnInit {
 
     listDate.clear();
     for (var i = 0; i <= daysDif; i++) {
-      listDate.add(dataInicial.add(days: i));
+      listDate.add(initialDate.add(days: i));
     }
 
     return listDate;
@@ -280,15 +280,15 @@ class AgendamentoFilterComponent implements OnInit {
 
     listDate = onPrepareFilter();
 
-    new ConsultaService().clearAllAppointmentSchedulingByDate();
+    new AppointmentSchedulingService().clearAllAppointmentSchedulingByDate();
 
     await listDate.forEach((date) async {
       int total = 0;
 
-      new ConsultaService()
+      new AppointmentSchedulingService()
           .getAllAppointmentSchedulingByDateMap(date)
           .then((onValue) {
-        total += (new ConsultaService().getAppointmentSchedulingWithFilterFromList(
+        total += (new AppointmentSchedulingService().getAppointmentSchedulingWithFilterFromList(
             date.toString(), {
           "dentistId": dentistId,
           "shiftId": shiftId,
@@ -298,7 +298,7 @@ class AgendamentoFilterComponent implements OnInit {
         if (listDate.last == date) {
           onLoad();
 
-          querySelector('#agendamento-result-filter-text')
+          querySelector('#appointment-scheduling-result-filter-text')
               .setInnerHtml(total.toString());
         }
       });
@@ -307,13 +307,13 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   void onAdd() {
-    consultaService.consulta = null;
-    ComponentFactory<agendamento_edit.AgendamentoEditComponent>
-        agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
+    appointmentSchedulingService.appointmentScheduling = null;
+    ComponentFactory<appointment_scheduling_edit.AppointmentschedulingEditComponent>
+        appointmentSchedulingEdit = appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
 
-    ComponentRef agendamentoEditComponent =
-        _loader.loadNextToLocation(agendamentoEdit, materialContainerAdd);
-    agendamentoEditComponent.instance.componentRef = agendamentoEditComponent;
+    ComponentRef appointmentSchedulingEditComponent =
+        _loader.loadNextToLocation(appointmentSchedulingEdit, materialContainerAdd);
+    appointmentSchedulingEditComponent.instance.componentRef = appointmentSchedulingEditComponent;
   }
 
   void onClear() {
@@ -327,13 +327,13 @@ class AgendamentoFilterComponent implements OnInit {
           ?.deselect(singleSelectModelShift?.selectedValues?.first);
     }
 
-    dataInicial = new Date.today();
-    dataFinal = new Date.today();
+    initialDate = new Date.today();
+    finalDate = new Date.today();
 
-    dataInicialFormatada = '';
-    dataFinalFormatada = '';
+    initialDateFormated = '';
+    finalDateFormated = '';
     dentistName = '';
-    turnoDescription = '';
+    shiftDescription = '';
 
     patientName = '';
   }

@@ -5,7 +5,7 @@
   z-index: 2 !important;
 }
 
-#container-filter-agendamento {
+#container-filter-agendamento-scheduling {
   top: 0;
   position: relative;
   display: flex;
@@ -95,14 +95,14 @@ i {
   font-weight: 600;
 }
 
-#container-list-agendamentos {
+#container-list-appointment-scheduling {
   position: relative;
   display: inline-block;
   width: 100%;
   top: 162px;
 }
 
-.list-day-agendamentos {
+.list-day-appointment-scheduling {
   display: inline-block;
   position: relative;
   background-color: #ffffff;
@@ -119,11 +119,11 @@ material-fab {
   z-index: 999;
 }
 
-#container-filter-agendamento ::ng-deep .label-text {
+#container-filter-appointment-scheduling ::ng-deep .label-text {
   color: #616161;
 }
 
-#container-filter-agendamento ::ng-deep #wh-widget-send-button {
+#container-filter-appointment-scheduling ::ng-deep #wh-widget-send-button {
   display: none !important;
 }
 
@@ -144,28 +144,28 @@ material-dropdown-select {
   color: #616161 !important;
 }
 
-#container-filter-agendamento ::ng-deep material-input .label-text {
+#container-filter-appointment-scheduling ::ng-deep material-input .label-text {
   color: #616161 !important;
 }
 
-#container-filter-agendamento ::ng-deep .focused.label-text {
+#container-filter-appointment-scheduling ::ng-deep .focused.label-text {
   color: #616161 !important;
 }
 
-#container-filter-agendamento ::ng-deep .focused-underline, .cursor {
+#container-filter-appointment-scheduling ::ng-deep .focused-underline, .cursor {
   background-color: #616161 !important;
 }
 
-#container-filter-agendamento ::ng-deep .disabled-underline {
+#container-filter-appointment-scheduling ::ng-deep .disabled-underline {
   color: #616161 !important;
 }
 
-#container-filter-agendamento ::ng-deep .unfocused-underline {
+#container-filter-appointment-scheduling ::ng-deep .unfocused-underline {
   background: #616161 !important;
   border-bottom-color: #616161 !important;
 }
 
-#container-filter-agendamento ::ng-deep material-input .input-container {
+#container-filter-appointment-scheduling ::ng-deep material-input .input-container {
   margin-top: 0 !important;
   color: #616161 !important;
 }
@@ -187,7 +187,7 @@ material-dropdown-select {
 }
 
 @media screen and (min-width: 769px) {
-  .container-deshboard-agendament {
+  .container-deshboard-appointment-scheduling {
     top: 0px;
     position: unset;
   }

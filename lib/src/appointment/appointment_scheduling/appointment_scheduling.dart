@@ -9,7 +9,7 @@ class AppointmentScheduling {
   String _hourId;
   String _minuteId;
   String _dentistId;
-  String _paciente;
+  String _patient;
   String _email;
   String _telephone;
   String _dateAppointmentScheduling;
@@ -20,7 +20,7 @@ class AppointmentScheduling {
 
   AppointmentScheduling( this._id, this._dateAppointmentScheduling, 
             this._hourId, this._minuteId, this._shiftId, this._dentistId, 
-            this._paciente, this._email, this._telephone, this._userId,
+            this._patient, this._email, this._telephone, this._userId,
             this._shift, this._dentist, this._agreement);
 
   String get id => _id;
@@ -73,8 +73,8 @@ class AppointmentScheduling {
   String get dentistId => _dentistId;
   set dentistId(String dentistId) => _dentistId = dentistId;
 
-  String get paciente => _paciente;
-  set paciente(String paciente) => _paciente = paciente;
+  String get patient => _patient;
+  set patient(String patient) => _patient = patient;
 
   String get email => _email;
   set email(String email) => _email = email;

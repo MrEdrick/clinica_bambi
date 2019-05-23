@@ -19,32 +19,33 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
 
-import '../../agendamento/dentist/dentistUI.dart';
-import '../../agendamento/dentist/dentist_service.dart';
-import '../../agendamento/dentist/dentist_selection_options.dart';
+import '../../appointment/dentist/dentistUI.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist_selection_options.dart';
 
-import '../../agendamento/shift/shift.dart';
-import '../../agendamento/shift/shift_service.dart';
-import '../../agendamento/shift/shift_selection_options.dart';
+import '../../appointment/shift/shift.dart';
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/shift/shift_selection_options.dart';
 
-import '../../agendamento/agreement/agreement.dart';
-import '../../agendamento/agreement/agreement_service.dart';
-import '../../agendamento/agreement/agreement_selection_options.dart';
+import '../../appointment/agreement/agreement.dart';
+import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/agreement/agreement_selection_options.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 
-import '../../agendamento/consulta/consulta_service.dart';
-import '../../agendamento/consulta/appointment_scheduling_dao.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
+import '../../appointment/mask/telephone_mask.dart';
 
 @Component(
-    selector: 'agendamento_edit_component',
+    selector: 'appointment_scheduling_edit_component',
     styleUrls: const [
-      'agendamento_edit_component.scss.css',
+      'appointment_scheduling_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'agendamento_edit_component.html',
+    templateUrl: 'appointment_scheduling_edit_component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
@@ -71,15 +72,20 @@ import '../../agendamento/user/user_service.dart';
     ])
 class AgendamentoEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
-  ConsultaService _consultaService;
+  AppointmentSchedulingService _appointmentSchedulingService;
+
+  TelephoneMask telephoneMask = new TelephoneMask("");
+
   @Input()
   ComponentRef componentRef;
 
-  ConsultaService get consultaService => _consultaService;
-  set consultaService(ConsultaService consultaService) =>
-      _consultaService = consultaService;
+  AppointmentSchedulingService get appointmentSchedulingService =>
+      _appointmentSchedulingService;
+  set appointmentSchedulingService(
+          AppointmentSchedulingService appointmentSchedulingService) =>
+      _appointmentSchedulingService = appointmentSchedulingService;
 
-  Date dataConsulta = new Date.today();
+  Date dateAppointmentScheduling = new Date.today();
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -90,57 +96,6 @@ class AgendamentoEditComponent implements OnInit {
 
   String paciente = '';
   String email = '';
-  String _telefone = '';
-
-  int maxLength = 14;
-
-  Map<String, dynamic> datas;
-
-  set telefone(String value) {
-    _telefone = '';
-
-    if (value.length == 0) {
-      return;
-    }
-
-    String valueLocal = '';
-
-    for (var i = 0; i < value.length; i++) {
-      if (int.tryParse(value.substring(i, i + 1)) != null) {
-        valueLocal = valueLocal + value.substring(i, i + 1);
-      }
-    }
-
-    if (valueLocal.length >= 14) {
-      _telefone = '(' +
-          valueLocal.substring(0, 2) +
-          ')' +
-          valueLocal.substring(2, 6) +
-          '-' +
-          valueLocal.substring(6, 13);
-      return;
-    }
-
-    if (valueLocal.length >= 7) {
-      _telefone = '(' +
-          valueLocal.substring(0, 2) +
-          ')' +
-          valueLocal.substring(2, 6) +
-          '-' +
-          valueLocal.substring(6);
-      return;
-    }
-
-    if (valueLocal.length > 2) {
-      _telefone =
-          '(' + valueLocal.substring(0, 2) + ')' + valueLocal.substring(2);
-      return;
-    }
-
-    if (valueLocal.length > 0) {
-      _telefone = '(' + _telefone + valueLocal.substring(0);
-    }
-  }
 
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
@@ -150,12 +105,11 @@ class AgendamentoEditComponent implements OnInit {
       return;
     }
 
-    if ((int.tryParse(event.key) == null) || (telefone.length > 13)) {
+    if ((int.tryParse(event.key) == null) ||
+        (telephoneMask.number.length > 13)) {
       event.preventDefault();
     }
   }
-
-  String get telefone => _telefone;
 
   static ItemRenderer<DentistUI> _displayNameRenderer =
       (HasUIDisplayName item) => item.uiDisplayName;
@@ -291,36 +245,41 @@ class AgendamentoEditComponent implements OnInit {
   }
 
   void onEdit() {
-    consultaService = new ConsultaService();
+    appointmentSchedulingService = new AppointmentSchedulingService();
 
     _getListShift();
     _getListDentist();
     _getListAgreement();
 
-    if (consultaService.consulta != null) {
-      dataConsulta = new Date.parse(
-          consultaService.consulta.dataConsultaAgendamento,
+    if (appointmentSchedulingService.appointmentScheduling != null) {
+      dateAppointmentScheduling = new Date.parse(
+          appointmentSchedulingService
+              .appointmentScheduling.dateAppointmentScheduling,
           new DateFormat('yyyy-MM-dd'));
 
-      paciente = consultaService.consulta.paciente;
-      email = consultaService.consulta.email;
-      telefone = consultaService.consulta.telefone;
+      paciente = appointmentSchedulingService.appointmentScheduling.patient;
+      email = appointmentSchedulingService.appointmentScheduling.email;
+      telephoneMask.number =
+          appointmentSchedulingService.appointmentScheduling.telephone;
 
-      if (consultaService.consulta.shift != null) {
-        singleSelectModelShift.select(consultaService.consulta.shift);
+      if (appointmentSchedulingService.appointmentScheduling.shift != null) {
+        singleSelectModelShift
+            .select(appointmentSchedulingService.appointmentScheduling.shift);
       }
 
-      if (consultaService.consulta.dentist != null) {
+      if (appointmentSchedulingService.appointmentScheduling.dentist != null) {
         singleSelectModelDentist.select(new DentistUI(
-            consultaService.consulta.dentist.id,
-            consultaService.consulta.dentist.name));
+            appointmentSchedulingService.appointmentScheduling.dentist.id,
+            appointmentSchedulingService.appointmentScheduling.dentist.name));
       }
 
-      if (consultaService.consulta.agreement != null) {
-        singleSelectModelAgreement.select(consultaService.consulta.agreement);
+      if (appointmentSchedulingService.appointmentScheduling.agreement !=
+          null) {
+        singleSelectModelAgreement.select(
+            appointmentSchedulingService.appointmentScheduling.agreement);
       }
     } else {
-      dataConsulta = new Date.today();
+      dateAppointmentScheduling = new Date.today();
     }
   }
 
@@ -350,13 +309,13 @@ class AgendamentoEditComponent implements OnInit {
 
     paciente = '';
     email = '';
-    telefone = '';
+    telephoneMask.number = '';
 
     componentRef.destroy();
   }
 
   bool asserts() {
-    if (dataConsulta == null) {
+    if (dateAppointmentScheduling == null) {
       return false;
     }
 
@@ -382,8 +341,8 @@ class AgendamentoEditComponent implements OnInit {
         (singleSelectModelDentist.selectedValues.isEmpty) ||
         (singleSelectModelAgreement.selectedValues.isEmpty) ||
         (paciente == '') ||
-        (telefone == '') ||
-        (dataConsulta == null)) {
+        (telephoneMask.number == '') ||
+        (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
       return;
     }
@@ -403,11 +362,11 @@ class AgendamentoEditComponent implements OnInit {
   void onSave() async {
     showAssertMessageAlert = false;
 
-    datas = new Map<String, dynamic>();
+    Map datas = new Map<String, dynamic>();
 
     datas = {
-      "dateAppointmentScheduling":
-          new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
+      "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd')
+          .format(dateAppointmentScheduling.asUtcTime()),
       "shiftId": singleSelectModelShift.selectedValues.first.id,
       "agreementId":
           singleSelectModelAgreement.selectedValues.first.agreementId,
@@ -415,17 +374,19 @@ class AgendamentoEditComponent implements OnInit {
           .selectedValues.first.id, //querySelector('#dentista').text
       "patient": paciente,
       "email": email,
-      "tel": telefone,
+      "tel": telephoneMask.number,
       "userId": fb.auth().currentUser.uid
     };
 
     Map<bool, String> result;
 
-    if (consultaService.consulta != null) {
-      result[await new AppointmentSchedulingDAO().update(consultaService.consulta?.id, datas) == ""] = consultaService.consulta?.id; 
+    if (appointmentSchedulingService.appointmentScheduling != null) {
+      result[await new AppointmentSchedulingDAO().update(
+              appointmentSchedulingService.appointmentScheduling?.id, datas) ==
+          ""] = appointmentSchedulingService.appointmentScheduling?.id;
     } else {
-      result = await new AppointmentSchedulingDAO().save(datas); 
-    } 
+      result = await new AppointmentSchedulingDAO().save(datas);
+    }
 
     if (result.keys.first) {
       showSuccessfullySave = true;

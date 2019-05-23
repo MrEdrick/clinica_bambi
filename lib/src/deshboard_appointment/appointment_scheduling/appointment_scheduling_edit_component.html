@@ -1,33 +1,33 @@
-<div class="container-add-consulta">
-    <div class="container-cadastro">
-        <div class="titulo">
+<div class="container-add-appointment-scheduling">
+    <div class="container-register">
+        <div class="title">
             Dados para o cadastro
         </div>
 
-        <material-datepicker id="date" class="lista-date" [(date)]="dataConsulta" [required]="true">
+        <material-datepicker id="date" class="list-date" [(date)]="dateAppointmentScheduling" [required]="true">
         </material-datepicker>
 
-        <material-dropdown-select id="shift" class="lista-shift" [buttonText]="singleSelectShiftLabel"
+        <material-dropdown-select id="shift" class="list-shift" [buttonText]="singleSelectShiftLabel"
             [selection]="singleSelectModelShift" [options]="shiftOptions" [itemRenderer]="itemRendererShift">
         </material-dropdown-select>
 
-        <material-dropdown-select id="dentistas" class="lista-dentistas" [buttonText]="singleSelectDentistLabel"
+        <material-dropdown-select id="dentist" class="list-dentist" [buttonText]="singleSelectDentistLabel"
             [selection]="singleSelectModelDentist" [options]="dentistOptions" [itemRenderer]="itemRendererDentist">
         </material-dropdown-select>
 
-        <material-dropdown-select id="convenios" class="lista-convenios" [buttonText]="singleSelectAgreementLabel"
+        <material-dropdown-select id="agreement" class="list-agreement" [buttonText]="singleSelectAgreementLabel"
             [selection]="singleSelectModelAgreement" [options]="agreementOptions"
             [itemRenderer]="itemRendererAgreement">
         </material-dropdown-select>
 
-        <material-input class="edit-input" id="paciente" label="Paciente..." [ngModel]="paciente"
-            (inputKeyPress)="paciente = $event"></material-input>
+        <material-input class="edit-input" id="patient" label="Paciente..." [ngModel]="patient"
+            (inputKeyPress)="patient = $event"></material-input>
 
         <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email"
             (inputKeyPress)="email = $event"></material-input>
 
-        <material-input class="edit-input" type="number" id="telefone" label="Telefone..." [ngModel]="telefone"
-            [maxlength]="maxLength" (inputKeyPress)="telefone = $event" (keydown)="onKeydownTelephone($event)">
+        <material-input class="edit-input" type="number" id="telephone" label="Telefone..." [ngModel]="telephoneMask.number"
+            [maxlength]="maxLength" (inputKeyPress)="telephoneMask.number = $event" (keydown)="onKeydownTelephone($event)">
         </material-input>
 
     </div>

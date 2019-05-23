@@ -12,7 +12,7 @@
   z-index: 999;
 }
 
-.container-add-consulta {
+.container-add-appointment-scheduling {
   position: relative;
   width: 100%;
   height: 100%;
@@ -25,7 +25,7 @@
   transition: all 0.5s linear;
 }
 
-.container-cadastro {
+.container-register {
   flex: 1; 
 }
 
@@ -59,12 +59,12 @@ material-dropdown-select {
   margin-left: 1% !important;
 }
 
-#dentistas {
+#dentist {
   width: 50%;
   margin-bottom: 3%;
 }
 
-#convenios {
+#agreement {
   width: 50%;
   margin-bottom: 3%;
 }
@@ -79,24 +79,24 @@ material-datepicker {
   color: #616161;
 }
 
-.container-add-consulta ::ng-deep material-datepicker .main-content {
+.container-add-appointment-scheduling ::ng-deep material-datepicker .main-content {
   margin: 1% 0 3% 0%;
   display: inline !important;
 }
 
-.container-add-consulta ::ng-deep material-datepicker .button {
+.container-add-appointment-scheduling ::ng-deep material-datepicker .button {
   border-bottom: 1px solid #00B0FF !important
 }
 
-.container-add-consulta ::ng-deep material-dropdown-select .button {
+.container-add-appointment-scheduling ::ng-deep material-dropdown-select .button {
   border-bottom: 1px solid #00B0FF !important;
 }
 
-.container-add-consulta ::ng-deep .label-text {
+.container-add-appointment-scheduling ::ng-deep .label-text {
   color: #616161;
 }
 
-.container-add-consulta ::ng-deep material-input .label-text {
+.container-add-appointment-scheduling ::ng-deep material-input .label-text {
   color: #616161 !important;
 }
 
@@ -128,7 +128,7 @@ material-input {
   @include shadow-elevation(8);       
 }
 
-.titulo {
+.title {
   font-family: 'Montserrat';
   flex: 1;
   width: 100%;
@@ -146,7 +146,7 @@ material-dialog {
 }
 
 @media screen and (min-width: 769px) {
-  .container-add-consulta {
+  .container-add-appointment-scheduling {
     position: relative;
     top: 15%;
     margin-left: 29%;
