@@ -2,11 +2,11 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 
-import '../../agendamento/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_row_component.template.dart'
     as dentist_row;
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
 @Component(
     selector: 'dentist_list_component',

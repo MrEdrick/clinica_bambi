@@ -3,8 +3,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
 
-import '../../agendamento/user/user_service.dart';
-import '../../agendamento/requirement/requirement_service.dart';
+import '../../appointment/user/user_service.dart';
+import '../../appointment/requirement/requirement_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_row_component.template.dart'
     as requirement_row;
 

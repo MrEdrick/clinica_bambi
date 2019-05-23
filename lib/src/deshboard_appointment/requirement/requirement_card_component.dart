@@ -4,8 +4,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../agendamento/requirement/requirement.dart';
-import '../../agendamento/requirement/requirement_service.dart';
+import '../../appointment/requirement/requirement.dart';
+import '../../appointment/requirement/requirement_service.dart';
 import 'requirement_edit_component.dart';
 
 @Component(

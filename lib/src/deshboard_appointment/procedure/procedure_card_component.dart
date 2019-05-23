@@ -4,8 +4,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../agendamento/procedure/procedure.dart';
-import '../../agendamento/procedure/procedure_service.dart';
+import '../../appointment/procedure/procedure.dart';
+import '../../appointment/procedure/procedure_service.dart';
 import 'procedure_edit_component.dart';
 
 @Component(

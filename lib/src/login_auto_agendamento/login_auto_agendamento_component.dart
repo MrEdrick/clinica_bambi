@@ -14,8 +14,8 @@ import '../route_paths.dart' as paths;
 
 import 'cadastro_login_auto_agendamento_component.dart';
 import 'recover_password_login_auto_agendamento_component.dart';
-import '../agendamento/patient_account/patient_account.dart';
-import '../agendamento/patient_account/patient_account_dao.dart';
+import '../appointment/patient_account/patient_account.dart';
+import '../appointment/patient_account/patient_account_dao.dart';
 
 @Component(
   selector: 'login-auto-agendamento-app',

@@ -6,12 +6,12 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
-import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
-import '../../agendamento/dentist_procedure/dentist_procedure.dart';
+import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
+import '../../appointment/dentist_procedure/dentist_procedure.dart';
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/shift_by_day_group/shift_by_day_group_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/shift_by_day_group/shift_by_day_group_component.template.dart'
     as shift_by_day_group_component;
 
 @Component(

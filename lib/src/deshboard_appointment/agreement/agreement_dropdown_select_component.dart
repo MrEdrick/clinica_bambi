@@ -6,10 +6,10 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../agendamento/agreement/agreement.dart';
-import '../../agendamento/agreement/agreementUI.dart';
-import '../../agendamento/agreement/agreement_service.dart';
-import '../../agendamento/agreement/agreement_selection_options.dart';
+import '../../appointment/agreement/agreement.dart';
+import '../../appointment/agreement/agreementUI.dart';
+import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/agreement/agreement_selection_options.dart';
 
 @Component(
     selector: 'agreement_dropdown_select_component',

@@ -9,11 +9,11 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 import '../../route_paths.dart' as paths;
 
-import '../../agendamento/dentist/dentist.dart';
-import '../../agendamento/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist.dart';
+import '../../appointment/dentist/dentist_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_list_component.template.dart'
     as dentist_list;

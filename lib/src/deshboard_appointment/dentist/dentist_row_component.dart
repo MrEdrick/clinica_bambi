@@ -5,9 +5,9 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 
-import '../../agendamento/dentist/dentist.dart';
-import '../../agendamento/dentist/dentist_dao.dart';
-import '../../agendamento/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist.dart';
+import '../../appointment/dentist/dentist_dao.dart';
+import '../../appointment/dentist/dentist_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_edit_component.template.dart'
     as dentist_edit;
 

@@ -6,10 +6,10 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../agendamento/dentist/dentist.dart';
-import '../../agendamento/dentist/dentistUI.dart';
-import '../../agendamento/dentist/dentist_service.dart';
-import '../../agendamento/dentist/dentist_selection_options.dart';
+import '../../appointment/dentist/dentist.dart';
+import '../../appointment/dentist/dentistUI.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist_selection_options.dart';
 
 @Component(
     selector: 'dentist_dropdown_select_component',

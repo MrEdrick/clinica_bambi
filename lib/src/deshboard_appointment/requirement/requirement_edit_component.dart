@@ -11,10 +11,10 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../agendamento/requirement/requirement_service.dart';
-import '../../agendamento/requirement/requirement.dart';
+import '../../appointment/requirement/requirement_service.dart';
+import '../../appointment/requirement/requirement.dart';
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
 @Component(
     selector: 'requirement-edit-app',

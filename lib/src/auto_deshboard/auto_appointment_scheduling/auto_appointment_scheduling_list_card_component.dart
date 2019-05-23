@@ -11,12 +11,12 @@ import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'auto_agendamento_card_component.dart';
 import '../firebase/firestore.dart';
-import '../agendamento/consulta/consulta.dart';
-import '../agendamento/user/user.dart';
-import '../agendamento/dentist/dentist_service.dart';
-import '../agendamento/shift/shift_service.dart';
-import '../agendamento/agreement/agreement_service.dart';
-import '../agendamento/user/user_service.dart';
+import '../appointment/consulta/consulta.dart';
+import '../appointment/user/user.dart';
+import '../appointment/dentist/dentist_service.dart';
+import '../appointment/shift/shift_service.dart';
+import '../appointment/agreement/agreement_service.dart';
+import '../appointment/user/user_service.dart';
 
 @Component(
     selector: 'auto-agendamento-list-card-app',

@@ -17,15 +17,15 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
-import '../agendamento/mask/telephone_mask.dart';
-import '../agendamento/patient_account/patient_account_service.dart';
-import '../agendamento/dentist/dentist_service.dart';
-import '../agendamento/procedure/procedure_service.dart';
-import '../agendamento/shift/shift_service.dart';
-import '../agendamento/agreement/agreement_service.dart';
-import '../agendamento/consulta/consulta_service.dart';
+import '../appointment/mask/telephone_mask.dart';
+import '../appointment/patient_account/patient_account_service.dart';
+import '../appointment/dentist/dentist_service.dart';
+import '../appointment/procedure/procedure_service.dart';
+import '../appointment/shift/shift_service.dart';
+import '../appointment/agreement/agreement_service.dart';
+import '../appointment/consulta/consulta_service.dart';
 
-import '../agendamento/user/user_service.dart';
+import '../appointment/user/user_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;

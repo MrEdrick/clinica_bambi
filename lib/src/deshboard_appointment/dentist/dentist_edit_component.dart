@@ -11,18 +11,18 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../agendamento/dentist/dentist.dart';
-import '../../agendamento/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist.dart';
+import '../../appointment/dentist/dentist_service.dart';
 
-import '../../agendamento/user/user_service.dart';
-import '../../agendamento/procedure/procedure.dart';
-import '../../agendamento/procedure/procedure_service.dart';
+import '../../appointment/user/user_service.dart';
+import '../../appointment/procedure/procedure.dart';
+import '../../appointment/procedure/procedure_service.dart';
 
-import '../../agendamento/dentist_procedure/dentist_procedure_service.dart';
-import '../../agendamento/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
-import '../../agendamento/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
-import '../../agendamento/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
-import '../../agendamento/shift/shift_service.dart';
+import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
+import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
+import '../../appointment/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
+import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
+import '../../appointment/shift/shift_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
     as dentist_procedure_group_checkbox_component;

@@ -16,23 +16,23 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'auto_agendamento_list_card_component.dart';
-import '../agendamento/user/user.dart';
-import '../agendamento/user/user_service.dart';
+import '../appointment/user/user.dart';
+import '../appointment/user/user_service.dart';
 import '../route_paths.dart' as paths;
 import 'package:intl/intl.dart';
 
-import '../agendamento/shift/shift.dart';
-import '../agendamento/shift/shift_service.dart';
-import '../agendamento/shift/shift_selection_options.dart';
+import '../appointment/shift/shift.dart';
+import '../appointment/shift/shift_service.dart';
+import '../appointment/shift/shift_selection_options.dart';
 
-import '../agendamento/dentist/dentist.dart';
-import '../agendamento/dentist/dentistUI.dart';
-import '../agendamento/dentist/dentist_service.dart';
-import '../agendamento/dentist/dentist_selection_options.dart';
+import '../appointment/dentist/dentist.dart';
+import '../appointment/dentist/dentistUI.dart';
+import '../appointment/dentist/dentist_service.dart';
+import '../appointment/dentist/dentist_selection_options.dart';
 
 import 'auto_agendamento_edit_component.dart';
 
-import '../agendamento/consulta/consulta_service.dart';
+import '../appointment/consulta/consulta_service.dart';
 
 @Component(
   selector: 'deshboard-auto-agendamento-app',

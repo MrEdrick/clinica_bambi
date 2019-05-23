@@ -6,9 +6,9 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 
-import '../../agendamento/procedure/procedure.dart';
-import '../../agendamento/procedure/procedure_dao.dart';
-import '../../agendamento/procedure/procedure_service.dart';
+import '../../appointment/procedure/procedure.dart';
+import '../../appointment/procedure/procedure_dao.dart';
+import '../../appointment/procedure/procedure_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_edit_component.template.dart'
     as procedure_edit;
 

@@ -6,9 +6,9 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 
-import '../../agendamento/requirement/requirement.dart';
-import '../../agendamento/requirement/requirement_dao.dart';
-import '../../agendamento/requirement/requirement_service.dart';
+import '../../appointment/requirement/requirement.dart';
+import '../../appointment/requirement/requirement_dao.dart';
+import '../../appointment/requirement/requirement_service.dart';
 import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_edit_component.template.dart'
     as requirement_edit;
 

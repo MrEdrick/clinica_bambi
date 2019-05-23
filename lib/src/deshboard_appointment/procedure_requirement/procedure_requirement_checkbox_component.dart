@@ -4,10 +4,10 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
-import '../../agendamento/procedure_requirement/procedure_requirement.dart';
-import '../../agendamento/procedure_requirement/procedure_requirement_service.dart';
+import '../../appointment/procedure_requirement/procedure_requirement.dart';
+import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 
 @Component(
     selector: 'procedure_requirement_checkbox_component',

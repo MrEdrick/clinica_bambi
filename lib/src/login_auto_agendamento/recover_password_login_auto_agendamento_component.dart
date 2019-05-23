@@ -16,8 +16,8 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_router/angular_router.dart';
 import 'package:crypto/crypto.dart';
 
-import '../agendamento/patient_account/patient_account.dart';
-import '../agendamento/patient_account/patient_account_dao.dart';
+import '../appointment/patient_account/patient_account.dart';
+import '../appointment/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
 
 import '../email/email.dart';

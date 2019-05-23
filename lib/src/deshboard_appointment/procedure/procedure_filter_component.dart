@@ -9,9 +9,9 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../agendamento/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 import '../../route_paths.dart' as paths;
-import '../../agendamento/procedure/procedure_service.dart';
+import '../../appointment/procedure/procedure_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_list_component.template.dart'
     as procedure_list;

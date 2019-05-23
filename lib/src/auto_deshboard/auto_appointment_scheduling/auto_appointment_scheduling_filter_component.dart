@@ -9,8 +9,8 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../agendamento/user/user_service.dart';
-import '../../agendamento/requirement/requirement_service.dart';
+import '../../appointment/user/user_service.dart';
+import '../../appointment/requirement/requirement_service.dart';
 import '../../route_paths.dart' as paths;
 
 import 'package:ClinicaBambi/src/auto_deshboard/auto_appointment_scheduling/auto_appointment_scheduling_list_component.template.dart'
