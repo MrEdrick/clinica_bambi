@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'consulta.dart';
+import 'appointment_scheduling.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
 import 'appointment_scheduling_dao.dart';
@@ -8,14 +8,14 @@ import '../../agendamento/shift/shift_service.dart';
 import '../../agendamento/agreement/agreement_service.dart';
 import '../../agendamento/dentist/dentist_service.dart';
 
-class ConsultaService {
-  static Consulta _consulta;
+class AppointmentSchedulingService {
+  static AppointmentScheduling _appointmentScheduling;
   static Map _appointmentSchedulingById = new Map();
   static Map _appointmentSchedulingByDate = new Map();
   static Map _appointmentSchedulingByDateWithFilter = new Map();
 
-  Consulta get consulta => _consulta;
-  set consulta(Consulta consulta) => _consulta = consulta;
+  AppointmentScheduling get appointmentScheduling => _appointmentScheduling;
+  set appointmentScheduling(AppointmentScheduling appointmentScheduling) => _appointmentScheduling = appointmentScheduling;
 
   void clearAllAppointmentSchedulingByDate() {
     _appointmentSchedulingByDate.clear();
@@ -141,7 +141,7 @@ class ConsultaService {
     return _appointmentSchedulingByDateWithFilter[date];
   }
 
-  Future<Consulta> getAppointmentSchedulingById(String id) async {
+  Future<AppointmentScheduling> getAppointmentSchedulingById(String id) async {
     Map doc;
 
     doc = _appointmentSchedulingById[id];
@@ -152,11 +152,11 @@ class ConsultaService {
           .first;
     }
 
-    return await turnMapInConsulta(doc);
+    return await turnMapInAppointmentScheduling(doc);
   }
 
-  Future<Consulta> turnMapInConsulta(Map map) async {
-    return await (new Consulta(
+  Future<AppointmentScheduling> turnMapInAppointmentScheduling(Map map) async {
+    return await (new AppointmentScheduling(
         map["documentPath"],
         map["dateAppointmentScheduling"],
         map["hourId"],

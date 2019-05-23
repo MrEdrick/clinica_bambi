@@ -3,7 +3,7 @@ import '../dentist/dentist.dart';
 import '../agreement/agreement.dart';
 import 'package:intl/intl.dart';
 
-class Consulta {
+class AppointmentScheduling {
   String _id;
   String _shiftId;
   String _hourId;
@@ -11,28 +11,28 @@ class Consulta {
   String _dentistId;
   String _paciente;
   String _email;
-  String _telefone;
-  String _dataConsultaAgendamento;
-  String _idUser;
+  String _telephone;
+  String _dateAppointmentScheduling;
+  String _userId;
   Shift _shift;
   Dentist _dentist;
   Agreement _agreement;
 
-  Consulta( this._id, this._dataConsultaAgendamento, 
+  AppointmentScheduling( this._id, this._dateAppointmentScheduling, 
             this._hourId, this._minuteId, this._shiftId, this._dentistId, 
-            this._paciente, this._email, this._telefone, this._idUser,
+            this._paciente, this._email, this._telephone, this._userId,
             this._shift, this._dentist, this._agreement);
 
   String get id => _id;
   set id(String id) => _id = id;
 
 
-  String get dataConsultaAgendamentoFormated { 
-    return new DateFormat('dd/MM/yyyy').format(DateTime.parse(_dataConsultaAgendamento));
+  String get dateAppointmentSchedulingFormated { 
+    return new DateFormat('dd/MM/yyyy').format(DateTime.parse(_dateAppointmentScheduling));
   }
 
-  String get dataConsultaAgendamento => _dataConsultaAgendamento;
-  set dataConsultaAgendamento(String dataConsultaAgendamento) => _dataConsultaAgendamento = dataConsultaAgendamento;
+  String get dateAppointmentScheduling => _dateAppointmentScheduling;
+  set dateAppointmentScheduling(String dateAppointmentScheduling) => _dateAppointmentScheduling = dateAppointmentScheduling;
 
   String get shiftId {
     if ((_shiftId == '') || (_shiftId == null)) {
@@ -79,11 +79,11 @@ class Consulta {
   String get email => _email;
   set email(String email) => _email = email;
 
-  String get telefone => _telefone;
-  set telefone(String telefone) => _telefone = telefone;
+  String get telephone => _telephone;
+  set telephone(String telephone) => _telephone = telephone;
 
-  String get idUser => _idUser;
-  set idUser(String idUser) => _idUser = idUser;
+  String get userId => _userId;
+  set userId(String userId) => _userId = userId;
 
   Shift get shift => _shift;
   set shift(Shift shift) => _shift = shift;
