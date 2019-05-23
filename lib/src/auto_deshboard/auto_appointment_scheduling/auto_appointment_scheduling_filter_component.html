@@ -1,25 +1,4 @@
 <div class="material-content">
-    <header class="material-header shadow">
-        <div class="material-header-row">
-            <material-button class="material-drawer-button" icon>
-                <material-icon icon="calendar_today"></material-icon>
-            </material-button>
-
-            <span class="material-header-title">
-                Clínica Bambi
-            </span>
-
-            <div class="material-spacer"></div>
-
-            <material-button raised (click)="onAdd" id="addAgendamento" class="white">
-                AGENDAR
-            </material-button>
-
-            <material-button class="button-close" (click)="onClose()">
-                <material-icon icon="close"></material-icon>
-            </material-button>
-        </div>
-    </header>
     <div class="container-deshboard-agendamento">
         <div class="container-filter">
             <div class="container-filter-title">
@@ -111,15 +90,11 @@
                 </span>
             </div>
         </div>
-        <div id="container-list-agendamentos" class="container-list-agendamentos">
-            <div class="list-day-agendamentos" *ngFor="let date of listDates; let i=index; let last = last">
-                <auto-agendamento-list-card-app id="agendamento-list-card-app-{{i}}" [index]="i" [user]="user"
-                    [dataConsulta]="date" [dentistId]="dentistId" [shiftId]="shiftId" [patientId]="patientId">
-                </auto-agendamento-list-card-app>
-            </div>
-        </div>
+    </div>
+
+    <div id="container-list-auto-scheduling" class="container-list-auto-scheduling">
+        <div #containerListAutoScheduling></div>
     </div>
 </div>
-<!--[consulta]="consultaService.consulta  style="display: none" "-->
-<auto-agendamento-edit-app style="display: none" id="auto-agendamento-edit-app">
-</auto-agendamento-edit-app>
+
+<div #containerEditAutoScheduling></div>

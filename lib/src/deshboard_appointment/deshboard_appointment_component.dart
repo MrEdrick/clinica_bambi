@@ -60,7 +60,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_f
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class DeshboardComponent implements OnActivate, OnInit {
+class DeshboardAppointmentComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
   ComponentRef componentRef;
 
@@ -77,7 +77,7 @@ class DeshboardComponent implements OnActivate, OnInit {
   @ViewChild('materialContentFilter', read: ViewContainerRef)
   ViewContainerRef materialContentFilter;
 
-  DeshboardComponent(this._router, this._loader) //, this._location
+  DeshboardAppointmentComponent(this._router, this._loader) //, this._location
       : userService = new UserService();
 
   @override

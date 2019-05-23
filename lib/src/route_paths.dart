@@ -2,8 +2,8 @@ import 'package:angular_router/angular_router.dart';
 
 final login = new RoutePath(path: 'login');
 final deshboard = new RoutePath(path: 'deshboard');
-final deshboard_agendamento = new RoutePath(path: 'agendamento');
-final deshboard_auto_agendamento = new RoutePath(path: 'auto_agendamento');
+final deshboard_appointment = new RoutePath(path: 'deshboard_appointment');
+final deshboard_auto_appointment = new RoutePath(path: 'auto_deshboard_appointment');
 final not_found = new RoutePath(path: 'not_found');
 final idParam = 'id';
 //final hero = new RoutePath(path: '${heroes.path}/:$idParam');
