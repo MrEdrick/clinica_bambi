@@ -16,18 +16,18 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
-import '../agendamento/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
-import '../agendamento/generic/generic_service.dart'; 
+import '../appointment/user/user_service.dart';
+import '../appointment/generic/generic_service.dart'; 
 
-import 'package:ClinicaBambi/src/deshboard_agendamento/appointment/appointment_filter_component.template.dart'
-    as appointment_filter;
-import 'package:ClinicaBambi/src/deshboard_agendamento/dentist/dentist_filter_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_filter_component.template.dart'
+    as appointment_scheduling_filter;
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_filter_component.template.dart'
     as dentist_filter;
-import 'package:ClinicaBambi/src/deshboard_agendamento/procedure/procedure_filter_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_filter_component.template.dart'
     as procedure_filter;
-import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_filter_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_filter_component.template.dart'
     as requirement_filter;
 
 @Component(
@@ -99,11 +99,11 @@ class DeshboardAppointmentComponent implements OnActivate, OnInit {
   }
 
   void loadAppointmentSchedulingFilter() {
-    ComponentFactory<agendamento_filter.AgendamentoFilterComponent>
-        agendamentoFilter =
-        agendamento_filter.AgendamentoFilterComponentNgFactory;
+    ComponentFactory<appointment_scheduling_filter.AppointmentSchedulingFilterComponent>
+        appointment_schedulingFilter =
+        appointment_scheduling_filter.AppointmentSchedulingFilterComponentNgFactory;
     componentRef =
-        _loader.loadNextToLocation(agendamentoFilter, materialContentFilter);
+        _loader.loadNextToLocation(appointment_schedulingFilter, materialContentFilter);
   }
 
   void loadDentistFilter() {
