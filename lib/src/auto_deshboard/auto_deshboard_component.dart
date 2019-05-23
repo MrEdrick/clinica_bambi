@@ -15,7 +15,6 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
-import 'auto_agendamento_list_card_component.dart';
 import '../appointment/user/user.dart';
 import '../appointment/user/user_service.dart';
 import '../route_paths.dart' as paths;
@@ -30,14 +29,14 @@ import '../appointment/dentist/dentistUI.dart';
 import '../appointment/dentist/dentist_service.dart';
 import '../appointment/dentist/dentist_selection_options.dart';
 
-import 'auto_agendamento_edit_component.dart';
+import 'auto_appointment_scheduling/auto_appointment_scheduling_filter_component.dart';
 
-import '../appointment/consulta/consulta_service.dart';
+import '../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
 @Component(
-  selector: 'deshboard-auto-agendamento-app',
+  selector: 'auto_deshboard_agendamento_component',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'deshboard_auto_agendamento_component.html',
+  templateUrl: 'auto_deshboard_agendamento_component.html',
   directives: const [
     coreDirectives,
     materialInputDirectives,
@@ -50,9 +49,7 @@ import '../appointment/consulta/consulta_service.dart';
     DateRangeInputComponent,
     MaterialDropdownSelectComponent,
     MultiDropdownSelectValueAccessor,
-    MaterialFabComponent,
-    AutoAgendamentoListCardComponent,
-    AutoAgendamentoEditComponent
+    MaterialFabComponent
   ],
   providers: const [
     materialProviders,
@@ -63,15 +60,15 @@ import '../appointment/consulta/consulta_service.dart';
     ClassProvider(ShiftService)
   ],
   styleUrls: const [
-    'deshboard_auto_agendamento_component.scss.css',
+    'auto_deshboard_agendamento_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
 class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
-  ConsultaService _consultaService = new ConsultaService();
+  AppointmentSchedulingService _appointmentSchedulingService = new AppointmentSchedulingService();
 
-  ConsultaService get consultaService => _consultaService;
-  set consultaService(ConsultaService consultaService) => _consultaService = consultaService;
+  AppointmentSchedulingService get appointmentSchedulingService => _appointmentSchedulingService;
+  set appointmentSchedulingService(AppointmentSchedulingService appointmentSchedulingService) => _appointmentSchedulingService = appointmentSchedulingService;
 
   User user;
   
@@ -177,7 +174,7 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
 
   String get singleSelectDentistLabel => singleSelectModelDentist.selectedValues.length > 0
           ? itemRendererDentist(singleSelectModelDentist.selectedValues.first)
-          : 'Dentista da consulta';
+          : 'Dentista da appointmentScheduling';
 
   String get singleSelectedDentist {
     if (singleSelectModelDentist.selectedValues.isNotEmpty) {
@@ -246,7 +243,7 @@ class DeshboardAutoAgendamentoComponent implements OnActivate, OnInit {
   }
 
   void onAdd() {
-    consultaService.consulta = null;
+    appointmentSchedulingService.appointmentScheduling = null;
     querySelector('#editAgendamento').click();
     querySelector('#auto-agendamento-edit-app').style.display = 'block';
   }

@@ -4,14 +4,14 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../appointment/consulta/consulta.dart';
-import '../appointment/consulta/consulta_service.dart';
-import 'auto_agendamento_edit_component.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import 'auto_appointment_scheduling_edit_component.dart';
 
 @Component(
-    selector: 'auto-agendamento-card-app',
+    selector: 'auto_appointment_scheduling_card_component',
     styleUrls: const [
-      'auto_agendamento_card_component.scss.css',
+      'auto_appointment_scheduling_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'auto_agendamento_card_component.html',
@@ -24,22 +24,20 @@ import 'auto_agendamento_edit_component.dart';
       ModalComponent,
     ])
 
-class AutoAgendamentoCardComponent {
-  Consulta _consulta;
-  ConsultaService consultaService;
+class AutoAppointmentSchedulingCardComponent {
+  AppointmentScheduling _appointmentScheduling;
+  AppointmentSchedulingService appointmentSchedulingService;
 
-  bool showEditAgendamentoEditApp = false;
+  bool showEditAppointmentSchedulingEditApp = false;
 
-  Consulta get consulta => _consulta;
+  AppointmentScheduling get appointmentScheduling => _appointmentScheduling;
   @Input()
-  set consulta(Consulta consulta) => _consulta = consulta; 
+  set appointmentScheduling(AppointmentScheduling appointmentScheduling) => _appointmentScheduling = appointmentScheduling; 
 
-  AutoAgendamentoCardComponent();
+  AutoAppointmentSchedulingCardComponent();
 
   void onEdit() {
-    consultaService = new ConsultaService();
-    consultaService.consulta = consulta;
-    querySelector('#editAgendamento').click();
-    querySelector('#auto-agendamento-edit-app').style.display = 'block';
+    appointmentSchedulingService = new AppointmentSchedulingService();
+    appointmentSchedulingService.appointmentScheduling = appointmentScheduling;
   }
 }

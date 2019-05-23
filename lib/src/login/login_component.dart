@@ -48,14 +48,14 @@ class LoginComponent extends Object implements OnActivate {
   void onGetInside() async {
     error = await new AuthApp().login(email, password);
     if (error == '') {
-      goDeshboardAgendamento();
+      goDeshboardAppointment();
     } else {
       showNotSuccessfullyLogin = true;
     }
   }
 
-  Future<NavigationResult>  goDeshboardAgendamento() => _router.navigate(
-    paths.deshboard_agendamento.toUrl()
+  Future<NavigationResult>  goDeshboardAppointment() => _router.navigate(
+    paths.deshboard_appointment.toUrl()
   );
   
   void onDismissNotSuccessfullyLogin() {

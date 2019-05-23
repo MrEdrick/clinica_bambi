@@ -5,7 +5,7 @@ import 'route_paths.dart' as paths;
 import 'login/login_component.template.dart' as login_template;
 import 'deshboard/deshboard_component.template.dart' as deshboard_template;
 import 'deshboard_appointment/deshboard_appointment_component.template.dart' as deshboard_appointment_template;
-import 'auto_deshboard_appointment/auto_deshboard_appointment_component.template.dart' as auto_deshboard_appointment_component_template;
+import 'auto_deshboard_appointment/auto_deshboard_appointment_component.template.dart' as auto_deshboard_appointment_template;
 import 'not_found_component.template.dart' as not_found_template;
 
 @Injectable()
@@ -27,7 +27,7 @@ class Routes {
 
   static final _deshboardAutoAppointment = new RouteDefinition(
     routePath: paths.deshboard_auto_appointment,
-    component: deshboard_auto_appointment_component_template.DeshboardAutoAppointmentComponentNgFactory,
+    component: auto_deshboard_appointment_template.AutoDeshboardAppointmentComponentNgFactory,
   );
 
   static final _not_found_component = new RouteDefinition(

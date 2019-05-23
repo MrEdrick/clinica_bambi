@@ -17,15 +17,15 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
-import '../appointment/mask/telephone_mask.dart';
-import '../appointment/patient_account/patient_account_service.dart';
-import '../appointment/dentist/dentist_service.dart';
-import '../appointment/procedure/procedure_service.dart';
-import '../appointment/shift/shift_service.dart';
-import '../appointment/agreement/agreement_service.dart';
-import '../appointment/consulta/consulta_service.dart';
+import '../../appointment/mask/telephone_mask.dart';
+import '../../appointment/patient_account/patient_account_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/procedure/procedure_service.dart';
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
-import '../appointment/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;
@@ -35,13 +35,13 @@ import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_dropd
     as procedure_dropdown_select_list_component;
 
 @Component(
-    selector: 'auto_agendamento_edit_component',
+    selector: 'auto_appointment_scheduling_edit_component',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
-      'auto_agendamento_edit_component.scss.css',
+      'auto_appointment_scheduling_edit_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'auto_agendamento_edit_component.html',
+    templateUrl: 'auto_appointment_scheduling_edit_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -65,9 +65,9 @@ class AutoAgendamentoEditComponent implements OnInit {
   final List<ComponentRef> listComponentRefDropdownSelect = new List<ComponentRef>();
 
   PatientAccountService patientAccountService;
-  ConsultaService consultaService;
+  AppointmentSchedulingService appointmentSchedulingService;
 
-  Date dataConsulta = new Date.today();
+  Date dateAppointmentScheduling = new Date.today();
 
   TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -114,22 +114,22 @@ class AutoAgendamentoEditComponent implements OnInit {
   }*/
 
   void onEdit() {
-    consultaService = new ConsultaService();
+    appointmentSchedulingService = new AppointmentSchedulingService();
     patientAccountService = new PatientAccountService();
 
     //_getListDentist();
     //_getListAgreement();
 
-    if (consultaService.consulta != null) {
-      dataConsulta = new Date.parse(
-          consultaService.consulta.dataConsultaAgendamento,
+    if (appointmentSchedulingService.appointmentScheduling != null) {
+      dateAppointmentScheduling = new Date.parse(
+          appointmentSchedulingService.appointmentScheduling.dateAppointmentScheduling,
           new DateFormat('yyyy-MM-dd'));
 
       //singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
       //                                              consultaService.consulta.dentist.name));
       //singleSelectModelAgreement.select(consultaService.consulta.agreement);
     } else {
-      dataConsulta = new Date.today();
+      dateAppointmentScheduling = new Date.today();
     }
   }
 
@@ -181,7 +181,7 @@ class AutoAgendamentoEditComponent implements OnInit {
   }
 
   bool asserts() {
-    if (dataConsulta == null) {
+    if (dateAppointmentScheduling == null) {
       return false;
     }
 
@@ -204,14 +204,14 @@ class AutoAgendamentoEditComponent implements OnInit {
   void onAssertsSave() {
     if ( //(singleSelectModelDentist.selectedValues.isEmpty)
         //|| (singleSelectModelAgreement.selectedValues.isEmpty)
-        (consultaService.consulta.paciente == '') ||
+        (appointmentSchedulingService.appointmentScheduling.patient == '') ||
             (telephoneMask.number == '') ||
-            (dataConsulta == null)) {
+            (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
       return;
     }
 
-    if (consultaService.consulta.email == '') {
+    if (appointmentSchedulingService.appointmentScheduling.email == '') {
       showAssertMessageAlert = true;
       return;
     }

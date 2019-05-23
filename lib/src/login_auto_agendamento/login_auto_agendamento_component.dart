@@ -62,7 +62,7 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
     if (patientAccount == null) {
       showLoginNotFinded = true;
     } else {
-      goAutoAgendamento();
+      goAutoAppointment();
     }  
   }
 
@@ -74,8 +74,8 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
     querySelector('#recover-password-login-auto-agendamento-app').style.display = 'block';
   }
 
-  Future<NavigationResult>  goAutoAgendamento() => _router.navigate(
-    paths.deshboard_auto_agendamento.toUrl()
+  Future<NavigationResult>  goAutoAppointment() => _router.navigate(
+    paths.deshboard_auto_appointment.toUrl()
   );
   
   void onDismissNotSuccessfullyLogin() {

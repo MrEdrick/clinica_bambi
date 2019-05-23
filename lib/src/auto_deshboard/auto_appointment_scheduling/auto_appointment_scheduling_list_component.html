@@ -2,9 +2,9 @@
     <div class="total-result-by-day">
         <div    class="container-card" 
                 id="container-card"
-                *ngFor="let consulta of listConsultas; let i=index; let last = last"
+                *ngFor="let appointmentScheduling of listAppointmentScheduling; let i=index; let last = last"
                 style="margin: 5px">
-            <auto-agendamento-card-app id="{{consulta.id}}" [consulta]="consulta">
+            <auto-agendamento-card-app id="{{appointmentScheduling.id}}" [appointmentScheduling]="appointmentScheduling">
             </auto-agendamento-card-app>
 
             <material-button clear-size id="delete" (click)="onDelete(i)">
@@ -21,13 +21,13 @@
             <h1>Stop... wait a minute!</h1>
         </div>
 
-        <p>Tem certeza que deseja apagar esta consulta?</p>
+        <p>Tem certeza que deseja apagar esta appointmentScheduling?</p>
 
         <div footer>
-            <material-button (trigger)="deleteConsulta">
+            <material-button (trigger)="deleteAppointmentScheduling">
                 Tenho sim
             </material-button>
-            <material-button (trigger)="noDeleteConsulta">
+            <material-button (trigger)="noDeleteAppointmentScheduling">
                 Não desejo
             </material-button>
         </div>

@@ -9,14 +9,14 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
-import 'auto_agendamento_card_component.dart';
-import '../firebase/firestore.dart';
-import '../appointment/consulta/consulta.dart';
-import '../appointment/user/user.dart';
-import '../appointment/dentist/dentist_service.dart';
-import '../appointment/shift/shift_service.dart';
-import '../appointment/agreement/agreement_service.dart';
-import '../appointment/user/user_service.dart';
+import 'auto_appointment_scheduling_card_component.dart';
+import '../../firebase/firestore.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/user/user.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/user/user_service.dart';
 
 @Component(
     selector: 'auto-agendamento-list-card-app',
@@ -40,7 +40,7 @@ import '../appointment/user/user_service.dart';
       ModalComponent,
     ])
 class AutoAgendamentoListCardComponent implements OnInit {
-  final List<Consulta> listConsultas = new List<Consulta>();
+  final List<AppointmentScheduling> listAppointmentScheduling = new List<AppointmentScheduling>();
 
   User _user;
 
@@ -51,7 +51,7 @@ class AutoAgendamentoListCardComponent implements OnInit {
   set user(User user) => _user = user;
 
   @Input()
-  Date dataConsulta;
+  Date dataAppointmentScheduling;
 
   @Input()
   String dentistId;
@@ -97,7 +97,7 @@ class AutoAgendamentoListCardComponent implements OnInit {
 
     fireStoreApp.ref
         .where('dateAppointmentScheduling', '==',
-            new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()))
+            new DateFormat('yyyy-MM-dd').format(dataAppointmentScheduling.asUtcTime()))
         .get()
         .then((querySnapshot) {
           totalResultByDay = 0;
@@ -187,11 +187,11 @@ class AutoAgendamentoListCardComponent implements OnInit {
             querySelector('#total-result-filter-text')
                 .setInnerHtml(totalResult?.toString());
 
-            listConsultas.clear();
+            listAppointmentScheduling.clear();
 
             _listDocumentSnapshot.forEach((doc) {
-              _turnInConsulta(doc).then((consulta) {
-                listConsultas.add(consulta);
+              _turnInAppointmentScheduling(doc).then((appointmentScheduling) {
+                listAppointmentScheduling.add(appointmentScheduling);
               });
             });
 
@@ -199,8 +199,8 @@ class AutoAgendamentoListCardComponent implements OnInit {
         );
   }
 
-  Future<Consulta> _turnInConsulta(Map docSnapshot) async {
-    return new Consulta(
+  Future<AppointmentScheduling> _turnInAppointmentScheduling(Map docSnapshot) async {
+    return new AppointmentScheduling(
       docSnapshot["documentPath"],
       docSnapshot["dateAppointmentScheduling"],
       docSnapshot["hourId"],
@@ -222,15 +222,15 @@ class AutoAgendamentoListCardComponent implements OnInit {
     showDeteleCertification = true;
   }
 
-  void deleteConsulta() {
+  void deleteAppointmentScheduling() {
     FireStoreApp fireStoreApp = new FireStoreApp('appointmentsScheduling');
-    fireStoreApp.deleteItem(listConsultas[deleteIndex].id);
-    listConsultas.removeAt(deleteIndex);
+    fireStoreApp.deleteItem(listAppointmentScheduling[deleteIndex].id);
+    listAppointmentScheduling.removeAt(deleteIndex);
     showDeteleCertification = false;
     deleteIndex = -1;
   }
 
-  void noDeleteConsulta() {
+  void noDeleteAppointmentScheduling() {
     showDeteleCertification = false;
     deleteIndex = -1;
   }
