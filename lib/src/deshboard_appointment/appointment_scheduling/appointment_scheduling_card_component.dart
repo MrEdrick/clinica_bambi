@@ -6,19 +6,19 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 
-import '../../agendamento/consulta/consulta.dart';
-import '../../agendamento/consulta/consulta_service.dart';
-import '../../agendamento/consulta/appointment_scheduling_dao.dart';
-import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_edit_component.template.dart'
-    as agendamento_edit;
+import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
+import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_edit_component.template.dart'
+    as appointment_scheduling_edit;
 
 @Component(
-    selector: 'agendamento_card_component',
+    selector: 'appointment_scheduling_card_component',
     styleUrls: const [
-      'agendamento_card_component.scss.css',
+      'appointment_scheduling_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'agendamento_card_component.html',
+    templateUrl: 'appointment_scheduling_card_component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
@@ -30,11 +30,11 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/agendamento/agendamento_e
       MaterialDialogComponent,
       ModalComponent,
     ])
-class AgendamentoCardComponent implements OnInit {
+class AppointmentSchedulingCardComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  final ConsultaService consultaService = new ConsultaService();
-  Consulta consulta;
+  final AppointmentSchedulingService appointmentSchedulingService = new AppointmentSchedulingService();
+  AppointmentScheduling appointmentScheduling;
 
   bool showEditAgendamentoEditApp = false;
   bool showDeteleCertification = false;
@@ -45,26 +45,26 @@ class AgendamentoCardComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  @ViewChild('containerEditAgendamento', read: ViewContainerRef)
+  @ViewChild('containerEditAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerEdit;
 
-  AgendamentoCardComponent(
+  AppointmentSchedulingCardComponent(
       this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
-    Map map = consultaService
+    Map map = appointmentSchedulingService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
-    consulta = await consultaService.turnMapInConsulta(map);
+    appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
     _changeDetectorRef.markForCheck();
   }
 
   void onEdit() {
-    consultaService.consulta = consulta;
-    ComponentFactory<agendamento_edit.AgendamentoEditComponent>
-        agendamentoEdit = agendamento_edit.AgendamentoEditComponentNgFactory;
+    appointmentSchedulingService.appointmentScheduling = appointmentScheduling;
+    ComponentFactory<appointment_scheduling_edit.AppointmentSchedulingEditComponent>
+        appointmentSchedulingEdit = appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
 
-    ComponentRef agendamentoEditComponent = _loader.loadNextToLocation(agendamentoEdit, materialContainerEdit);
-    agendamentoEditComponent.instance.componentRef = agendamentoEditComponent;
+    ComponentRef appointmentSchedulingEditComponent = _loader.loadNextToLocation(appointmentSchedulingEdit, materialContainerEdit);
+    appointmentSchedulingEditComponent.instance.componentRef = appointmentSchedulingEditComponent;
   }
 
   void onDelete() {
