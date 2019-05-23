@@ -10,14 +10,13 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
 import '../../appointment/user/user_service.dart';
-import '../../appointment/requirement/requirement_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import '../../route_paths.dart' as paths;
 
 import 'package:ClinicaBambi/src/auto_deshboard/auto_appointment_scheduling/auto_appointment_scheduling_list_component.template.dart'
     as auto_appointment_scheduling_list;
 import 'package:ClinicaBambi/src/auto_deshboard/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'
     as auto_appointment_scheduling_edit;
-
 
 @Component(
   selector: 'auto_appointment_scheduling_filter_component',
@@ -32,21 +31,17 @@ import 'package:ClinicaBambi/src/auto_deshboard/auto_appointment_scheduling/auto
     MaterialToggleComponent,
     MaterialFabComponent,
   ],
-  providers: const [
-    materialProviders,
-    windowBindings,
-    popupBindings
-  ],
+  providers: const [materialProviders, windowBindings, popupBindings],
   styleUrls: const [
     'auto_appointment_scheduling_filter_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class AutoAppointmentSchedulingFilterComponent implements OnActivate,  OnInit {
-  RequirementService _requirementService = new RequirementService();
+class AutoAppointmentSchedulingFilterComponent implements OnActivate, OnInit {
+  AutoAppointmentSchedulingService _autoAppointmentSchedulingService = new AutoAppointmentSchedulingService();
   ComponentRef componentRef;
   final ChangeDetectorRef _changeDetectorRef;
-  final ComponentLoader _loader; 
+  final ComponentLoader _loader;
   final Router _router;
 
   String description;
@@ -57,7 +52,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnActivate,  OnInit {
   @ViewChild('containerEditRequirement', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
 
-  AutoAppointmentSchedulingFilterComponent(this._router, this._loader, this._changeDetectorRef);
+  AutoAppointmentSchedulingFilterComponent(
+      this._router, this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
@@ -78,45 +74,48 @@ class AutoAppointmentSchedulingFilterComponent implements OnActivate,  OnInit {
     }
   }
 
-  void onFilter() {   
+  void onFilter() {
     componentRef?.destroy();
 
-    _requirementService.clearAllRequirementList();
+    _autoAppointmentSchedulingService.clearAllAutoAppointmentSchedulingList();
 
-    _requirementService.getAllRequirementAcives().then((onValue) {
-      _requirementService.getRequirementListWithFilterFromList({"description": description});
+    _autoAppointmentSchedulingService.getAllAutoAppointmentSchedulingAcives().then((onValue) {
+      _autoAppointmentSchedulingService
+          .getAutoAppointmentSchedulingListWithFilterFromList({"description": description});
 
       onLoad();
     });
   }
 
   void onLoad() {
-    ComponentFactory<requirement_list.RequirementListComponent> requirementList =
-        requirement_list.RequirementListComponentNgFactory;
+    ComponentFactory<
+            auto_appointment_scheduling_list.AppointmentSchedulingListComponent>
+        appointmentSchedulingList = auto_appointment_scheduling_list.AppointmentSchedulingListComponentNgFactory;
 
-    ComponentRef requirementListComponent =
-        _loader.loadNextToLocation(requirementList, materialContainerList);
+    ComponentRef appointmentSchedulingListComponent =
+        _loader.loadNextToLocation(appointmentSchedulingList, materialContainerList);
 
-    requirementListComponent.instance.componentRef = requirementListComponent;
-    componentRef = requirementListComponent;
+    appointmentSchedulingListComponent.instance.componentRef = appointmentSchedulingListComponent;
+    componentRef = appointmentSchedulingListComponent;
 
     _changeDetectorRef.markForCheck();
   }
 
   void onAdd() {
-    _requirementService.requirement = null;
-    ComponentFactory<requirement_edit.RequirementEditComponent> requirementEdit =
-        requirement_edit.RequirementEditComponentNgFactory;
+    _autoAppointmentSchedulingService.autoAppointmentScheduling = null;
+    ComponentFactory<auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponent>
+        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponentNgFactory;
 
-    ComponentRef requirementEditComponent =
-        _loader.loadNextToLocation(requirementEdit, materialContainerAdd);
-    requirementEditComponent.instance.componentRef = requirementEditComponent;
+    ComponentRef autoAppointmentSchedulingEditComponent =
+        _loader.loadNextToLocation(autoAppointmentSchedulingEdit, materialContainerAdd);
+    autoAppointmentSchedulingEditComponent.instance.componentRef = autoAppointmentSchedulingEditComponent;
   }
 
   void onClear() {
     description = '';
 
-    querySelector('#requirement-total-result-filter-text').setAttribute('value', '0');
-    querySelector('#requirement-total-result-filter-text').setInnerHtml('0');
+    querySelector('#auto-appointment-scheduling-total-result-filter-text')
+        .setAttribute('value', '0');
+    querySelector('#auto-appointment-scheduling-total-result-filter-text').setInnerHtml('0');
   }
 }

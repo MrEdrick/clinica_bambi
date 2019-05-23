@@ -9,7 +9,6 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
-import 'auto_appointment_scheduling_card_component.dart';
 import '../../firebase/firestore.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
 import '../../appointment/user/user.dart';
@@ -31,7 +30,6 @@ import '../../appointment/user/user_service.dart';
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      AutoAgendamentoCardComponent,
       MaterialIconComponent,
       MaterialButtonComponent,
       MaterialInputComponent,
