@@ -31,7 +31,7 @@ import 'package:ClinicaBambi/src/deshboard_agendamento/requirement/requirement_f
     as requirement_filter;
 
 @Component(
-  selector: 'deshboard-app',
+  selector: 'deshboard_component',
   templateUrl: 'deshboard_component.html',
   directives: const [
     coreDirectives,

@@ -1,6 +1,3 @@
-<material-fab raised (click)="onEdit" id="editAgendamento" style="display: none">
-</material-fab>
-
 <div class="container-add-consulta">
     <div class="container-cadastro">
         <div class="titulo">
@@ -10,14 +7,20 @@
         <div class="sub-titulo">
             Paciente: {{paciente}}
         </div>
+        <material-input class="edit-input" id="name" label="Nome..." [ngModel]="consultaService.consulta.paciente" (inputKeyPress)="consultaService.consulta.paciente = $event">
+        </material-input>
+        <material-input class="edit-input" id="email" label="E-mail..." [ngModel]="consultaService.consulta.email" (inputKeyPress)="consultaService.consulta.email = $event">
+        </material-input>
+        <material-input class="edit-input" id="tel" label="Tel..." [ngModel]="telephoneMask.number" (inputKeyPress)="telephoneMask.number = $event">
+        </material-input>
 
-        <material-dropdown-select id="dentistas" class="lista-dentistas" [buttonText]="singleSelectDentistLabel"
-            [selection]="singleSelectModelDentist" [options]="dentistOptions" [itemRenderer]="itemRendererDentist">
-        </material-dropdown-select>
-
-        <material-dropdown-select id="convenios" class="lista-convenios" [buttonText]="singleSelectAgreementLabel"
-            [selection]="singleSelectModelAgreement" [options]="agreementOptions" [itemRenderer]="itemRendererAgreement">
-        </material-dropdown-select>
+        <div class="sub-titulo">
+            Dados para consulta
+        </div>
+        <div #dentistDropdownSelect></div>
+        <div #procedureDropdownSelect></div>
+        <div #agreementDropdownSelect></div>
+            
     </div>
 
     <material-button class="button-close" (click)="onClose()">
