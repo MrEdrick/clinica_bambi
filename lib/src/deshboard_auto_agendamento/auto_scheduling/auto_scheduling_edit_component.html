@@ -5,7 +5,7 @@
         </div>
 
         <div class="sub-titulo">
-            Paciente: {{paciente}}
+            Paciente: {{patientAccountService.patientAccount.name}}
         </div>
         <material-input class="edit-input" id="name" label="Nome..." [ngModel]="consultaService.consulta.paciente" (inputKeyPress)="consultaService.consulta.paciente = $event">
         </material-input>

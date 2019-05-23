@@ -36,6 +36,7 @@ import '../agendamento/consulta/consulta_service.dart';
 
 @Component(
   selector: 'deshboard-auto-agendamento-app',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'deshboard_auto_agendamento_component.html',
   directives: const [
     coreDirectives,

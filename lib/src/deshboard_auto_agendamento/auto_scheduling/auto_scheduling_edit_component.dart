@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
 import '../agendamento/mask/telephone_mask.dart';
+import '../agendamento/patient_account/patient_account_service.dart';
 import '../agendamento/dentist/dentist_service.dart';
 import '../agendamento/procedure/procedure_service.dart';
 import '../agendamento/shift/shift_service.dart';
@@ -63,6 +64,7 @@ class AutoAgendamentoEditComponent implements OnInit {
 
   final List<ComponentRef> listComponentRefDropdownSelect = new List<ComponentRef>();
 
+  PatientAccountService patientAccountService;
   ConsultaService consultaService;
 
   Date dataConsulta = new Date.today();
@@ -113,6 +115,7 @@ class AutoAgendamentoEditComponent implements OnInit {
 
   void onEdit() {
     consultaService = new ConsultaService();
+    patientAccountService = new PatientAccountService();
 
     //_getListDentist();
     //_getListAgreement();
@@ -162,6 +165,7 @@ class AutoAgendamentoEditComponent implements OnInit {
     listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
         agreementDropdownSelectComponent, materialContainerAgreementDropdownSelect));
 
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
