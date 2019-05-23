@@ -1,68 +1,73 @@
 import 'dart:async';
-import 'appointment_scheduling.dart';
+import 'auto_appointment_scheduling.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
-import 'appointment_scheduling_dao.dart';
+import 'auto_appointment_scheduling_dao.dart';
 
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 
-class AppointmentSchedulingService {
-  static AppointmentScheduling _appointmentScheduling;
-  static Map _appointmentSchedulingById = new Map();
-  static Map _appointmentSchedulingByDate = new Map();
-  static Map _appointmentSchedulingByDateWithFilter = new Map();
+class AutoAppointmentSchedulingService {
+  static AutoAppointmentScheduling _autoAppointmentScheduling;
+  static Map _autoAppointmentSchedulingById = new Map();
+  static Map _autoAppointmentSchedulingByDate = new Map();
+  static Map _autoAppointmentSchedulingByDateWithFilter = new Map();
 
-  AppointmentScheduling get appointmentScheduling => _appointmentScheduling;
-  set appointmentScheduling(AppointmentScheduling appointmentScheduling) => _appointmentScheduling = appointmentScheduling;
+  AutoAppointmentScheduling get autoAppointmentScheduling =>
+      _autoAppointmentScheduling;
+  set autoAppointmentScheduling(
+          AutoAppointmentScheduling autoAppointmentScheduling) =>
+      _autoAppointmentScheduling = autoAppointmentScheduling;
 
-  void clearAllAppointmentSchedulingByDate() {
-    _appointmentSchedulingByDate.clear();
-    _appointmentSchedulingByDateWithFilter.clear();
-    _appointmentSchedulingById.clear();
+  void clearAllAutoAppointmentSchedulingByDate() {
+    _autoAppointmentSchedulingByDate.clear();
+    _autoAppointmentSchedulingByDateWithFilter.clear();
+    _autoAppointmentSchedulingById.clear();
   }
 
-  Future<Map> getAllAppointmentSchedulingByDate(Date date) async {
-    if ((_appointmentSchedulingByDate != null) &&
-        (_appointmentSchedulingByDate.length != 0)) {
-      return _appointmentSchedulingByDate;
+  Future<Map> getAllAutoAppointmentSchedulingByDate(Date date) async {
+    if ((_autoAppointmentSchedulingByDate != null) &&
+        (_autoAppointmentSchedulingByDate.length != 0)) {
+      return _autoAppointmentSchedulingByDate;
     }
 
-    await (_appointmentSchedulingByDate[date.toString()] =
-        await new AppointmentSchedulingDAO().getAllAppointmentSchedulingFilter({
+    await (_autoAppointmentSchedulingByDate[date.toString()] =
+        await new AutoAppointmentSchedulingDAO()
+            .getAllAutoAppointmentSchedulingFilter({
       'dateAppointmentScheduling':
           new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
     }));
 
-    _appointmentSchedulingByDate[date.toString()]
-        .forEach((appointmentScheduling) {
-      _appointmentSchedulingById[appointmentScheduling["documentPath"]] =
-          appointmentScheduling;
+    _autoAppointmentSchedulingByDate[date.toString()]
+        .forEach((autoAppointmentScheduling) {
+      _autoAppointmentSchedulingById[
+              autoAppointmentScheduling["documentPath"]] =
+          autoAppointmentScheduling;
     });
 
-    return _appointmentSchedulingByDate;
+    return _autoAppointmentSchedulingByDate;
   }
 
-  Future<List<Map>> getAllAppointmentSchedulingByDateMap(Date date) async {
-    await getAllAppointmentSchedulingByDate(date);
+  Future<List<Map>> getAllAutoAppointmentSchedulingByDateMap(Date date) async {
+    await getAllAutoAppointmentSchedulingByDate(date);
 
-    return _appointmentSchedulingByDate[date.toString()];
+    return _autoAppointmentSchedulingByDate[date.toString()];
   }
 
-  Future<Map> getAllAppointmentSchedulingListMap(Date date) async {
-    return _appointmentSchedulingByDate;
+  Future<Map> getAllAutoAppointmentSchedulingListMap(Date date) async {
+    return _autoAppointmentSchedulingByDate;
   }
 
-  Map getAppointmentSchedulingByIdFromList(String id) {
-    return _appointmentSchedulingById[id];
+  Map getAutoAppointmentSchedulingByIdFromList(String id) {
+    return _autoAppointmentSchedulingById[id];
   }
 
-  Map getAppointmentScheduling() {
-    return _appointmentSchedulingById;
+  Map getAutoAppointmentScheduling() {
+    return _autoAppointmentSchedulingById;
   }
 
-  List<Map> getAppointmentSchedulingWithFilterFromList(
+  List<Map> getAutoAppointmentSchedulingWithFilterFromList(
       String date, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
@@ -78,7 +83,7 @@ class AppointmentSchedulingService {
       }
     }
 
-    _listDocumentSnapshot = _appointmentSchedulingByDate[date.toString()];
+    _listDocumentSnapshot = _autoAppointmentSchedulingByDate[date.toString()];
 
     _listDocumentSnapshotTemp.clear();
 
@@ -132,41 +137,41 @@ class AppointmentSchedulingService {
       ListsApplyFilter();
     }
 
-    _appointmentSchedulingByDateWithFilter[date] = _listDocumentSnapshot;
+    _autoAppointmentSchedulingByDateWithFilter[date] = _listDocumentSnapshot;
 
-    return _appointmentSchedulingByDateWithFilter[date];
+    return _autoAppointmentSchedulingByDateWithFilter[date];
   }
 
-  List<Map> getAppointmentSchedulingFromListWithFilterByDate(String date) {
-    return _appointmentSchedulingByDateWithFilter[date];
+  List<Map> getAutoAppointmentSchedulingFromListWithFilterByDate(String date) {
+    return _autoAppointmentSchedulingByDateWithFilter[date];
   }
 
-  Future<AppointmentScheduling> getAppointmentSchedulingById(String id) async {
+  Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
+      String id) async {
     Map doc;
 
-    doc = _appointmentSchedulingById[id];
+    doc = _autoAppointmentSchedulingById[id];
 
     if (doc == null) {
-      doc = (await new AppointmentSchedulingDAO()
-              .getAllAppointmentSchedulingFilter({'id': id}))
+      doc = (await new AutoAppointmentSchedulingDAO()
+              .getAllAutoAppointmentSchedulingFilter({'id': id}))
           .first;
     }
 
-    return await turnMapInAppointmentScheduling(doc);
+    return await turnMapInAutoAppointmentScheduling(doc);
   }
 
-  Future<AppointmentScheduling> turnMapInAppointmentScheduling(Map map) async {
-    return await (new AppointmentScheduling(
+  Future<AutoAppointmentScheduling> turnMapInAutoAppointmentScheduling(
+      Map map) async {
+    return await (new AutoAppointmentScheduling(
         map["documentPath"],
         map["dateAppointmentScheduling"],
-        map["hourId"],
-        map["minuteId"],
         map["shiftId"],
         map["dentistId"],
         map["patient"],
         map["email"],
         map["tel"],
-        map["userId"],
+        map["patientAccountId"],
         await new ShiftService().getShiftById(map["shiftId"]),
         await new DentistService().getDentistById(map["dentistId"]),
         await new AgreementService().getAgreementById(map["agreementId"])));

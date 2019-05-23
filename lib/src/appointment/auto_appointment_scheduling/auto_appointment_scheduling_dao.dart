@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'appointment_scheduling_constants.dart';
+import 'auto_appointment_scheduling_constants.dart';
 import '../../firebase/firestore.dart';
 
-class AppointmentSchedulingDAO {
-  AppointmentSchedulingDAO();
+class AutoAppointmentSchedulingDAO {
+  AutoAppointmentSchedulingDAO();
 
   Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(AUTO_APPOINTMENT_SCHEDULING_COLLECTION);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
     
@@ -18,7 +18,7 @@ class AppointmentSchedulingDAO {
 
   Future<String> update(String id, Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(AUTO_APPOINTMENT_SCHEDULING_COLLECTION);
 
     if (await _fireStoreApp.updateItem(id, datas)) {
       _fireStoreApp.FireStoreOffLine();
@@ -31,7 +31,7 @@ class AppointmentSchedulingDAO {
 
   Future<String> delete(String id) async {
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(AUTO_APPOINTMENT_SCHEDULING_COLLECTION);
     if (await _fireStoreApp.deleteItem(id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
@@ -41,10 +41,10 @@ class AppointmentSchedulingDAO {
     }
   }
 
-  Future<List<Map>> getAllAppointmentSchedulingFilter(Map filter) async {
+  Future<List<Map>> getAllAutoAppointmentSchedulingFilter(Map filter) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(AUTO_APPOINTMENT_SCHEDULING_COLLECTION);
 
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
