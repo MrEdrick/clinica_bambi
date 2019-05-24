@@ -11,6 +11,10 @@ class ShiftService {
   static Map _shiftListById = new Map();
   static List<Map> _shiftListWithFilter = new List<Map>();
 
+
+  Shift get shift => _shift;
+  set shift(Shift shift) => _shift = shift;
+
   void clearAllShiftList() {
     _list.clear();
     _shiftList.clear();

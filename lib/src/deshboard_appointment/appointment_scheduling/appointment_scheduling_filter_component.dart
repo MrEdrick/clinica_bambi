@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html';
+import 'package:ClinicaBambi/src/appointment/dentist/dentist_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
@@ -24,15 +25,8 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
     as appointment_scheduling_edit;
 
 import '../../appointment/user/user_service.dart';
-
-import '../../appointment/shift/shift.dart';
 import '../../appointment/shift/shift_service.dart';
-import '../../appointment/shift/shift_selection_options.dart';
-
-import '../../appointment/dentist/dentistUI.dart';
-import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentist_selection_options.dart';
-
 import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
@@ -59,9 +53,7 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
     materialProviders,
     windowBindings,
     datepickerBindings,
-    popupBindings,
-    ClassProvider(DentistService),
-    ClassProvider(ShiftService)
+    popupBindings  
   ],
   styleUrls: const [
     'appointment_scheduling_filter_component.scss.css',
@@ -72,6 +64,8 @@ class AgendamentoFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
+  final DentistService dentistService = new DentistService();
+  final ShiftService shiftService = new ShiftService();
 
   AppointmentSchedulingService _appointmentSchedulingService = new AppointmentSchedulingService();
 
@@ -106,114 +100,10 @@ class AgendamentoFilterComponent implements OnInit {
   @ViewChild('containerEditAppointmentscheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
 
-  List<List<Map<String, dynamic>>> listScheduling =
-      new List<List<Map<String, dynamic>>>();
-  final List<AppointmentScheduling> listAppointmentSchedulingByDate = new List<AppointmentScheduling>();
-
-  int totalResultFilter = 0;
-
-  static ItemRenderer<Shift> _displayNameRendererShift =
-      (HasUIDisplayName item) => item.uiDisplayName;
-
-  List<Shift> _listShift;
-  final ShiftService _shiftService;
-
-  static ItemRenderer<Shift> _itemRendererShift =
-      newCachingItemRenderer<Shift>((shift) => "${shift.description}");
-
-  ItemRenderer<Shift> get itemRendererShift =>
-      useItemRenderer ? _itemRendererShift : _displayNameRendererShift;
-
-  ShiftSelectionOptions<Shift> shiftListOptions;
-
-  StringSelectionOptions<Shift> get shiftOptions {
-    if (_listShift == null) {
-      return null;
-    }
-
-    shiftListOptions = ShiftSelectionOptions<Shift>(_listShift);
-
-    return shiftListOptions;
-  }
-
-  final SelectionModel<Shift> singleSelectModelShift = SelectionModel.single();
-
-  String get singleSelectShiftLabel =>
-      singleSelectModelShift.selectedValues.length > 0
-          ? itemRendererShift(singleSelectModelShift.selectedValues.first)
-          : 'Turno';
-
-  String get singleSelectedShift {
-    if (singleSelectModelShift.selectedValues.isNotEmpty) {
-      return singleSelectModelShift.selectedValues.first.uiDisplayName;
-    } else {
-      return null;
-    }
-  }
-
-  final SelectionModel<Shift> multiSelectModelShift =
-      SelectionModel<Shift>.multi();
-
-  Future<void> _getListShift() async {
-    _listShift = await _shiftService.getAllShiftAcives();
-  }
-
-  //----
-  List<DentistUI> _listDentist;
-  final DentistService _dentistService;
-
-  static ItemRenderer<DentistUI> _displayNameRendererDentist =
-      (HasUIDisplayName item) => item.uiDisplayName;
-
-  static ItemRenderer<DentistUI> _itemRendererDentist =
-      newCachingItemRenderer<DentistUI>((dentista) => "${dentista.name}");
-
-  ItemRenderer<DentistUI> get itemRendererDentist =>
-      useItemRenderer ? _itemRendererDentist : _displayNameRendererDentist;
-
-  DentistSelectionOptions<DentistUI> dentistListOptions;
-
-  StringSelectionOptions<DentistUI> get dentistOptions {
-    if (_listDentist == null) {
-      return null;
-    }
-
-    dentistListOptions = DentistSelectionOptions<DentistUI>(_listDentist);
-
-    return dentistListOptions;
-  }
-
-  final SelectionModel<DentistUI> singleSelectModelDentist =
-      SelectionModel.single();
-
-  String get singleSelectDentistLabel =>
-      singleSelectModelDentist.selectedValues.length > 0
-          ? itemRendererDentist(singleSelectModelDentist.selectedValues.first)
-          : 'Dentista da consulta';
-
-  String get singleSelectedDentist {
-    if (singleSelectModelDentist.selectedValues.isNotEmpty) {
-      return singleSelectModelDentist.selectedValues.first.uiDisplayName;
-    } else {
-      return null;
-    }
-  }
-
-  final SelectionModel<DentistUI> multiSelectModel =
-      SelectionModel<DentistUI>.multi();
-
-  Future<void> _getListDentist() async {
-    _listDentist = await _dentistService.getAllDentistUIAcives();
-  }
-
-  AgendamentoFilterComponent(this._dentistService, this._shiftService,
-      this._loader, this._changeDetectorRef);
+  AgendamentoFilterComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
-    _getListDentist();
-    _getListShift();
 
     await onFilter();
   }
@@ -250,17 +140,17 @@ class AgendamentoFilterComponent implements OnInit {
 
     daysDif = finalDate.asUtcTime().difference(initialDate.asUtcTime()).inDays;
 
-    if (singleSelectModelDentist.selectedValues.isNotEmpty) {
-      dentistName = singleSelectModelDentist.selectedValues.first.name;
-      dentistId = singleSelectModelDentist.selectedValues.first.id;
+    if (dentistService.dentist != null) {
+      dentistName = dentistService.dentist.name;
+      dentistId = dentistService.dentist.id;
     } else {
       dentistId = '';
     }
 
-    if (singleSelectModelShift.selectedValues.isNotEmpty) {
+    if (shiftService.shift != null) {
       shiftDescription =
-          singleSelectModelShift.selectedValues.first.description;
-      shiftId = singleSelectModelShift.selectedValues.first.id;
+          shiftService.shift.description;
+      shiftId = shiftService.shift.id;
     } else {
       shiftId = '';
     }
@@ -317,15 +207,6 @@ class AgendamentoFilterComponent implements OnInit {
   }
 
   void onClear() {
-    if (!singleSelectModelDentist.selectedValues.isEmpty) {
-      singleSelectModelDentist
-          ?.deselect(singleSelectModelDentist?.selectedValues?.first);
-    }
-
-    if (!singleSelectModelShift.selectedValues.isEmpty) {
-      singleSelectModelShift
-          ?.deselect(singleSelectModelShift?.selectedValues?.first);
-    }
 
     initialDate = new Date.today();
     finalDate = new Date.today();

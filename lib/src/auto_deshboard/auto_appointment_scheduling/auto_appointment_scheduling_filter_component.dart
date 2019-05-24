@@ -23,23 +23,23 @@ import 'package:ClinicaBambi/src/deshboard_autoAppointment/autoAppointment_sched
 import 'package:ClinicaBambi/src/deshboard_autoAppointment/autoAppointment_scheduling/autoAppointment_scheduling_edit_component.template.dart'
     as autoAppointment_scheduling_edit;
 
-import '../../auto_appointment/user/user_service.dart';
+import '../../appointment/user/user_service.dart';
 
-import '../../auto_appointment/shift/shift.dart';
-import '../../auto_appointment/shift/shift_service.dart';
-import '../../auto_appointment/shift/shift_selection_options.dart';
+import '../../appointment/shift/shift.dart';
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/shift/shift_selection_options.dart';
 
-import '../../auto_appointment/dentist/dentistUI.dart';
-import '../../auto_appointment/dentist/dentist_service.dart';
-import '../../auto_appointment/dentist/dentist_selection_options.dart';
+import '../../appointment/dentist/dentistUI.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentist_selection_options.dart';
 
-import '../../autoAppointment/autoAppointment_scheduling/autoAppointment_scheduling.dart';
-import '../../autoAppointment/autoAppointment_scheduling/autoAppointment_scheduling_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 
 @Component(
-  selector: 'autoAppointment_scheduling_filter_component',
-  templateUrl: 'autoAppointment_scheduling_filter_component.html',
+  selector: 'auto_appointment_scheduling_filter_component',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: 'auto_appointment_scheduling_filter_component.html',
   directives: const [
     coreDirectives,
     materialInputDirectives,
@@ -206,7 +206,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     _listDentist = await _dentistService.getAllDentistUIAcives();
   }
 
-  AutoAutoAppointmentSchedulingFilterComponent(this._dentistService, this._shiftService,
+  AutoAppointmentSchedulingFilterComponent(this._dentistService, this._shiftService,
       this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
