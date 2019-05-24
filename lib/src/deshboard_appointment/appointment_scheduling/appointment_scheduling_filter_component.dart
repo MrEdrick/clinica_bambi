@@ -24,6 +24,12 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
 import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_edit_component.template.dart'
     as appointment_scheduling_edit;
 
+
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
+    as dentist_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
+    as shift_dropdown_select_list_component;
+
 import '../../appointment/user/user_service.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/dentist/dentist_selection_options.dart';
