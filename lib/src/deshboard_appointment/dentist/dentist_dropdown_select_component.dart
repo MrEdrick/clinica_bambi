@@ -71,7 +71,7 @@ class DentistDropdownSelectComponent implements OnInit {
           : singleSelectModelDentist.selectedValues.length > 0
               ? itemRendererDentist(
                   singleSelectModelDentist.selectedValues.first)
-              : 'Procedimento';
+              : 'Dentista';
 
   String get singleSelectedDentist =>
       singleSelectModelDentist.selectedValues.isNotEmpty

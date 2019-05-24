@@ -71,7 +71,7 @@ class ShiftDropdownSelectComponent implements OnInit {
           : singleSelectModelShift.selectedValues.length > 0
               ? itemRendererShift(
                   singleSelectModelShift.selectedValues.first)
-              : 'Procedimento';
+              : 'Turno';
 
   String get singleSelectedShift =>
       singleSelectModelShift.selectedValues.isNotEmpty

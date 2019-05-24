@@ -70,6 +70,7 @@ class AgendamentoFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefDropdownSelect = new List<ComponentRef>();
   final DentistService dentistService = new DentistService();
   final ShiftService shiftService = new ShiftService();
 
@@ -106,10 +107,36 @@ class AgendamentoFilterComponent implements OnInit {
   @ViewChild('containerEditAppointmentscheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
 
+  @ViewChild('dentistDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerDentistDropdownSelect;
+
+  @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerShiftDropdownSelect;
+
   AgendamentoFilterComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    ComponentFactory<
+            dentist_dropdown_select_list_component
+                .DentistDropdownSelectComponent> dentistDropdownSelectComponent =
+        dentist_dropdown_select_list_component
+            .DentistDropdownSelectComponentNgFactory;
+
+    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
+        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect));
+
+    ComponentFactory<
+            shift_dropdown_select_list_component
+                .ShiftDropdownSelectComponent> shiftDropdownSelectComponent =
+        shift_dropdown_select_list_component
+            .ShiftDropdownSelectComponentNgFactory;
+
+    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
+        shiftDropdownSelectComponent, materialContainerShiftDropdownSelect));
+
+    _changeDetectorRef.markForCheck();
 
     await onFilter();
   }

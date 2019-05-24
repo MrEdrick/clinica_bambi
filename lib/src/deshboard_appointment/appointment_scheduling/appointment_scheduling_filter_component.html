@@ -24,18 +24,14 @@
             <span class="filter-title">
                 Turno:
             </span>
-            <material-dropdown-select id="shift" class="shift-list" [buttonText]="singleSelectShiftLabel"
-                [selection]="singleSelectModelShift" [options]="shiftOptions" [itemRenderer]="itemRendererShift">
-            </material-dropdown-select>
+            <div #shiftDropdownSelect></div>
         </div>
 
         <div class="container-filter-title">
             <span class="filter-title">
                 Dentista:
             </span>
-            <material-dropdown-select id="dentist" class="dentist-list" [buttonText]="singleSelectDentistLabel"
-                [selection]="singleSelectModelDentist" [options]="dentistOptions" [itemRenderer]="itemRendererDentist">
-            </material-dropdown-select>
+            <div #dentistDropdownSelect></div>
         </div>
 
         <div class="container-filter-title">

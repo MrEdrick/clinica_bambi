@@ -71,7 +71,7 @@ class AgreementDropdownSelectComponent implements OnInit {
           : singleSelectModelAgreement.selectedValues.length > 0
               ? itemRendererAgreement(
                   singleSelectModelAgreement.selectedValues.first)
-              : 'Procedimento';
+              : 'Convênio';
 
   String get singleSelectedAgreement =>
       singleSelectModelAgreement.selectedValues.isNotEmpty
