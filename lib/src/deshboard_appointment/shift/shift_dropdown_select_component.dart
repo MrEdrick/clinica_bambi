@@ -80,5 +80,7 @@ class ShiftDropdownSelectComponent implements OnInit {
 
   ShiftDropdownSelectComponent(this._shiftService);
 
-  void ngOnInit() {}
+  void ngOnInit() async {
+    _listShift = await _shiftService.getAllShiftAcives();
+  }
 }

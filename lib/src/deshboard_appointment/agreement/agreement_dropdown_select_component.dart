@@ -80,5 +80,8 @@ class AgreementDropdownSelectComponent implements OnInit {
 
   AgreementDropdownSelectComponent(this._agreementService);
 
-  void ngOnInit() {}
+  void ngOnInit() async {
+    _listAgreement = await _agreementService.getAllAgreementAcives();
+  }
+
 }

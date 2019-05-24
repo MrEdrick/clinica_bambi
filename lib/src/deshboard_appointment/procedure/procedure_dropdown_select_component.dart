@@ -80,5 +80,7 @@ class ProcedureDropdownSelectComponent implements OnInit {
 
   ProcedureDropdownSelectComponent(this._procedureService);
 
-  void ngOnInit() {}
+  void ngOnInit() async {
+    _listProcedure = await _procedureService.getAllProcedureAcives();
+  }
 }
