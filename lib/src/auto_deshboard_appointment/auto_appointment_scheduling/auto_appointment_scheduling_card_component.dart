@@ -14,7 +14,7 @@ import 'auto_appointment_scheduling_edit_component.dart';
       'auto_appointment_scheduling_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'auto_agendamento_card_component.html',
+    templateUrl: 'auto_appointment_scheduling_card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
