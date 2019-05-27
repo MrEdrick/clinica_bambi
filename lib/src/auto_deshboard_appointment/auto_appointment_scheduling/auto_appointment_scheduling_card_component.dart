@@ -6,7 +6,8 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 
 import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
-import 'auto_appointment_scheduling_edit_component.dart';
+import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'
+    as auto_appointment_scheduling_edit;
 
 @Component(
     selector: 'auto_appointment_scheduling_card_component',
@@ -20,7 +21,6 @@ import 'auto_appointment_scheduling_edit_component.dart';
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      AutoAgendamentoEditComponent,
       ModalComponent,
     ])
 

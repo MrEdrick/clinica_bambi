@@ -18,12 +18,12 @@ import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/user/user_service.dart';
 
 @Component(
-    selector: 'auto_appointment_scheduling_list_card_component',
+    selector: 'auto_appointment_scheduling_list_component',
     styleUrls: const [
-      'auto_appointment_scheduling_list_card_component.scss.css',
+      'auto_appointment_scheduling_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'auto_appointment_scheduling_list_card_component.html',
+    templateUrl: 'auto_appointment_scheduling_list_component.html',
     directives: const [
       NgFor,
       coreDirectives,
