@@ -27,8 +27,7 @@ import '../../appointment/agreement/agreement_selection_options.dart';
       DropdownSelectValueAccessor
     ],
     providers: [
-      windowBindings,
-      ClassProvider(AgreementService)
+      windowBindings
     ])
 class AgreementDropdownSelectComponent implements OnInit {
 
@@ -36,7 +35,7 @@ class AgreementDropdownSelectComponent implements OnInit {
   ComponentRef componentRef;
   
   List<Agreement> _listAgreement;
-  final AgreementService _agreementService;
+  final AgreementService _agreementService = new AgreementService();
 
   bool useItemRenderer = false;
 
@@ -78,7 +77,7 @@ class AgreementDropdownSelectComponent implements OnInit {
           ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
           : null;
 
-  AgreementDropdownSelectComponent(this._agreementService);
+  AgreementDropdownSelectComponent();
 
   void ngOnInit() async {
     _listAgreement = await _agreementService.getAllAgreementAcives();

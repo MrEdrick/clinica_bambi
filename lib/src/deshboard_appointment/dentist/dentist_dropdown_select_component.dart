@@ -27,8 +27,7 @@ import '../../appointment/dentist/dentist_selection_options.dart';
       DropdownSelectValueAccessor
     ],
     providers: [
-      windowBindings,
-      ClassProvider(DentistService)
+      windowBindings
     ])
 class DentistDropdownSelectComponent implements OnInit {
 
@@ -36,7 +35,7 @@ class DentistDropdownSelectComponent implements OnInit {
   ComponentRef componentRef;
   
   List<Dentist> _listDentist;
-  final DentistService _dentistService;
+  final DentistService _dentistService = new DentistService();
 
   bool useItemRenderer = false;
 
@@ -78,7 +77,7 @@ class DentistDropdownSelectComponent implements OnInit {
           ? singleSelectModelDentist.selectedValues.first.uiDisplayName
           : null;
 
-  DentistDropdownSelectComponent(this._dentistService);
+  DentistDropdownSelectComponent();
 
   void ngOnInit() async {
     _listDentist = await _dentistService.getAllDentistAcives();

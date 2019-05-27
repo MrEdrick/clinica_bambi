@@ -27,8 +27,7 @@ import '../../appointment/shift/shift_selection_options.dart';
       DropdownSelectValueAccessor
     ],
     providers: [
-      windowBindings,
-      ClassProvider(ShiftService)
+      windowBindings
     ])
 class ShiftDropdownSelectComponent implements OnInit {
 
@@ -36,7 +35,7 @@ class ShiftDropdownSelectComponent implements OnInit {
   ComponentRef componentRef;
   
   List<Shift> _listShift;
-  final ShiftService _shiftService;
+  final ShiftService _shiftService = new ShiftService();
 
   bool useItemRenderer = false;
 
@@ -78,7 +77,7 @@ class ShiftDropdownSelectComponent implements OnInit {
           ? singleSelectModelShift.selectedValues.first.uiDisplayName
           : null;
 
-  ShiftDropdownSelectComponent(this._shiftService);
+  ShiftDropdownSelectComponent();
 
   void ngOnInit() async {
     _listShift = await _shiftService.getAllShiftAcives();

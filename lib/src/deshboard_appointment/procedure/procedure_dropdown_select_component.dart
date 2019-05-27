@@ -27,8 +27,7 @@ import '../../appointment/procedure/procedure_selection_options.dart';
       DropdownSelectValueAccessor
     ],
     providers: [
-      windowBindings,
-      ClassProvider(ProcedureService)
+      windowBindings    
     ])
 class ProcedureDropdownSelectComponent implements OnInit {
 
@@ -36,7 +35,7 @@ class ProcedureDropdownSelectComponent implements OnInit {
   ComponentRef componentRef;
   
   List<Procedure> _listProcedure;
-  final ProcedureService _procedureService;
+  final ProcedureService _procedureService = new ProcedureService();
 
   bool useItemRenderer = false;
 
@@ -78,7 +77,7 @@ class ProcedureDropdownSelectComponent implements OnInit {
           ? singleSelectModelProcedure.selectedValues.first.uiDisplayName
           : null;
 
-  ProcedureDropdownSelectComponent(this._procedureService);
+  ProcedureDropdownSelectComponent();
 
   void ngOnInit() async {
     _listProcedure = await _procedureService.getAllProcedureAcives();
