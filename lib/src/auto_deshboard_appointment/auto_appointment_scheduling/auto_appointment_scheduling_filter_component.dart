@@ -18,10 +18,10 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:intl/intl.dart';
 
-import 'package:ClinicaBambi/src/deshboard_autoAppointment/autoAppointment_scheduling/autoAppointment_scheduling_list_card_component.template.dart'
-    as autoAppointment_scheduling_list;
-import 'package:ClinicaBambi/src/deshboard_autoAppointment/autoAppointment_scheduling/autoAppointment_scheduling_edit_component.template.dart'
-    as autoAppointment_scheduling_edit;
+import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_list_component.template.dart'
+    as auto_appointment_scheduling_list;
+import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'
+    as auto_appointment_scheduling_edit;
 
 import '../../appointment/user/user_service.dart';
 
@@ -113,9 +113,9 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   void onLoad() {
     listComponentRef.clear();
     listDate.forEach((date) {
-      ComponentFactory<autoAppointment_scheduling_list.AutoAutoAppointmentSchedulingAutoAppointmentSchedulingListCardComponent>
+      ComponentFactory<auto_appointment_scheduling_list.AutoAppointmentSchedulingListComponent>
           autoAppointmentSchedulingList =
-          autoAppointment_scheduling_list.AutoAppointmentSchedulingListCardComponentNgFactory;
+          auto_appointment_scheduling_list.AutoAppointmentSchedulingListComponentNgFactory;
 
       ComponentRef autoAppointmentSchedulingListComponent =
           _loader.loadNextToLocation(autoAppointmentSchedulingList, materialContainerList);
@@ -185,8 +185,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   void onAdd() {
     autoAppointmentSchedulingService.autoAppointmentScheduling = null;
-    ComponentFactory<autoAppointment_scheduling_edit.AutoAppointmentschedulingEditComponent>
-        autoAppointmentSchedulingEdit = autoAppointment_scheduling_edit.AutoAppointmentSchedulingEditComponentNgFactory;
+    ComponentFactory<auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponent>
+        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponentNgFactory;
 
     ComponentRef autoAppointmentSchedulingEditComponent =
         _loader.loadNextToLocation(autoAppointmentSchedulingEdit, materialContainerAdd);

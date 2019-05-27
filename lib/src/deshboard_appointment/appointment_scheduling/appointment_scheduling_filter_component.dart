@@ -231,7 +231,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
   void onAdd() {
     appointmentSchedulingService.appointmentScheduling = null;
-    ComponentFactory<appointment_scheduling_edit.AppointmentschedulingEditComponent>
+    ComponentFactory<appointment_scheduling_edit.AppointmentSchedulingEditComponent>
         appointmentSchedulingEdit = appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
 
     ComponentRef appointmentSchedulingEditComponent =

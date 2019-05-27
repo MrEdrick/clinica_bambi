@@ -58,7 +58,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_dropd
       AutoDismissDirective,
     ],
     providers: [windowBindings, datepickerBindings])
-class AutoAgendamentoEditComponent implements OnInit {
+class AutoAppointmentSchedulingEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
@@ -101,7 +101,7 @@ class AutoAgendamentoEditComponent implements OnInit {
     }
   }
 
-  AutoAgendamentoEditComponent(this._loader, this._changeDetectorRef);
+  AutoAppointmentSchedulingEditComponent(this._loader, this._changeDetectorRef);
 
   /*Future<void> _getListDentist() async {
     _listDentist = await _dentistService.getAllDentistAcives();

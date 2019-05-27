@@ -18,12 +18,12 @@ import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/user/user_service.dart';
 
 @Component(
-    selector: 'auto-agendamento-list-card-app',
+    selector: 'auto_appointment_scheduling_list_card_component',
     styleUrls: const [
-      'auto_agendamento_list_card_component.scss.css',
+      'auto_appointment_scheduling_list_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'auto_agendamento_list_card_component.html',
+    templateUrl: 'auto_appointment_scheduling_list_card_component.html',
     directives: const [
       NgFor,
       coreDirectives,
@@ -37,12 +37,12 @@ import '../../appointment/user/user_service.dart';
       MaterialDialogComponent,
       ModalComponent,
     ])
-class AutoAgendamentoListCardComponent implements OnInit {
+class AutoAppointmentSchedulingListComponent implements OnInit {
   final List<AppointmentScheduling> listAppointmentScheduling = new List<AppointmentScheduling>();
 
   User _user;
 
-  AutoAgendamentoListCardComponent();
+  AutoAppointmentSchedulingListComponent();
 
   User get user => _user;
   @Input()
