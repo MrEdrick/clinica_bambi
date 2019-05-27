@@ -29,8 +29,6 @@ import '../appointment/dentist/dentistUI.dart';
 import '../appointment/dentist/dentist_service.dart';
 import '../appointment/dentist/dentist_selection_options.dart';
 
-import 'auto_appointment_scheduling/auto_appointment_scheduling_filter_component.dart';
-
 import '../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
 @Component(

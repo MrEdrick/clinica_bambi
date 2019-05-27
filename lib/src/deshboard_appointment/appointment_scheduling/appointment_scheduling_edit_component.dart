@@ -70,7 +70,7 @@ import '../../appointment/mask/telephone_mask.dart';
       ClassProvider(DentistService),
       ClassProvider(AgreementService)
     ])
-class AgendamentoEditComponent implements OnInit {
+class AppointmentSchedulingEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   AppointmentSchedulingService _appointmentSchedulingService;
 
@@ -94,7 +94,7 @@ class AgendamentoEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  String paciente = '';
+  String patient = '';
   String email = '';
 
   onKeydownTelephone(event) {
@@ -227,7 +227,7 @@ class AgendamentoEditComponent implements OnInit {
           ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
           : null;
 
-  AgendamentoEditComponent(this._dentistService, this._shiftService,
+  AppointmentSchedulingEditComponent(this._dentistService, this._shiftService,
       this._agreementService, this._changeDetectorRef);
 
   Future<void> _getListDentist() async {
@@ -257,7 +257,7 @@ class AgendamentoEditComponent implements OnInit {
               .appointmentScheduling.dateAppointmentScheduling,
           new DateFormat('yyyy-MM-dd'));
 
-      paciente = appointmentSchedulingService.appointmentScheduling.patient;
+      patient = appointmentSchedulingService.appointmentScheduling.patient;
       email = appointmentSchedulingService.appointmentScheduling.email;
       telephoneMask.number =
           appointmentSchedulingService.appointmentScheduling.telephone;
@@ -307,7 +307,7 @@ class AgendamentoEditComponent implements OnInit {
           ?.deselect(singleSelectModelAgreement?.selectedValues?.first);
     }
 
-    paciente = '';
+    patient = '';
     email = '';
     telephoneMask.number = '';
 
@@ -340,7 +340,7 @@ class AgendamentoEditComponent implements OnInit {
     if ((singleSelectModelShift.selectedValues.isEmpty) ||
         (singleSelectModelDentist.selectedValues.isEmpty) ||
         (singleSelectModelAgreement.selectedValues.isEmpty) ||
-        (paciente == '') ||
+        (patient == '') ||
         (telephoneMask.number == '') ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
@@ -372,7 +372,7 @@ class AgendamentoEditComponent implements OnInit {
           singleSelectModelAgreement.selectedValues.first.agreementId,
       "dentistId": singleSelectModelDentist
           .selectedValues.first.id, //querySelector('#dentista').text
-      "patient": paciente,
+      "patient": patient,
       "email": email,
       "tel": telephoneMask.number,
       "userId": fb.auth().currentUser.uid

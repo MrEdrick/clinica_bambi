@@ -25,19 +25,12 @@
                 <span class="filter-title">
                     Turno:
                 </span>
-                <material-dropdown-select id="turno" class="lista-turno" [buttonText]="singleSelectShiftLabel"
-                    [selection]="singleSelectModelShift" [options]="shiftOptions" [itemRenderer]="itemRendererShift">
-                </material-dropdown-select>
             </div>
 
             <div class="container-filter-title">
                 <span class="filter-title">
                     Dentista:
                 </span>
-                <material-dropdown-select id="dentista" class="lista-dentistas" [buttonText]="singleSelectDentistLabel"
-                    [selection]="singleSelectModelDentist" [options]="dentistOptions"
-                    [itemRenderer]="itemRendererDentist">
-                </material-dropdown-select>
             </div>
 
             <material-button id="bt-limpar" (trigger)="onClear()">
