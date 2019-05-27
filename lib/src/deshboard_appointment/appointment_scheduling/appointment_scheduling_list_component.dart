@@ -11,13 +11,13 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
     as appointment_scheduling_card;
 
 @Component(
-    selector: 'appointment_scheduling_list_card_component.',
+    selector: 'appointment_scheduling_list_component.',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
-      'appointment_scheduling_list_card_component.scss.css',
+      'appointment_scheduling_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'appointment_scheduling_list_card_component.html',
+    templateUrl: 'appointment_scheduling_list_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -27,13 +27,13 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
       materialInputDirectives,
       ModalComponent,
     ])
-class AppointmentSchedulingListCardComponent implements OnInit {
+class AppointmentSchedulingListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
   final List<String> listAppointmentSchedulingId = new List<String>();
 
-  AppointmentSchedulingListCardComponent(this._loader, this._changeDetectorRef);
+  AppointmentSchedulingListComponent(this._loader, this._changeDetectorRef);
 
   @Input()
   Date date;

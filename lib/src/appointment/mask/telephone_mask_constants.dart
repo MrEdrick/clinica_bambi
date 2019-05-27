@@ -1,1 +1,1 @@
-  final MAX_LENGTH = 14;
+  final int MAX_LENGTH = 14;

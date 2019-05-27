@@ -37,7 +37,9 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
 import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
 
 import '../../appointment/user/user_service.dart';
+
 import '../../appointment/mask/telephone_mask.dart';
+import '../../appointment/mask/telephone_mask_constants.dart';
 
 @Component(
     selector: 'appointment_scheduling_edit_component',
@@ -96,6 +98,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   String patient = '';
   String email = '';
+
+  int maxLength = MAX_LENGTH;
 
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||

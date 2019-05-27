@@ -19,7 +19,7 @@ import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import 'package:intl/intl.dart';
 
-import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_list_card_component.template.dart'
+import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_list_component.template.dart'
     as appointment_scheduling_list;
 import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_edit_component.template.dart'
     as appointment_scheduling_edit;
@@ -66,7 +66,7 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class AgendamentoFilterComponent implements OnInit {
+class AppointmentSchedulingFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
@@ -113,7 +113,7 @@ class AgendamentoFilterComponent implements OnInit {
   @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
   ViewContainerRef materialContainerShiftDropdownSelect;
 
-  AgendamentoFilterComponent(this._loader, this._changeDetectorRef);
+  AppointmentSchedulingFilterComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
@@ -144,9 +144,9 @@ class AgendamentoFilterComponent implements OnInit {
   void onLoad() {
     listComponentRef.clear();
     listDate.forEach((date) {
-      ComponentFactory<appointment_scheduling_list.AgendamentoAppointmentSchedulingListCardComponent>
+      ComponentFactory<appointment_scheduling_list.AppointmentSchedulingListComponent>
           appointmentSchedulingList =
-          appointment_scheduling_list.AppointmentSchedulingListCardComponentNgFactory;
+          appointment_scheduling_list.AppointmentSchedulingListComponentNgFactory;
 
       ComponentRef appointmentSchedulingListComponent =
           _loader.loadNextToLocation(appointmentSchedulingList, materialContainerList);
