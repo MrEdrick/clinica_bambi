@@ -13,7 +13,6 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
-import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
@@ -30,9 +29,8 @@ import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_sele
     as shift_dropdown_select_list_component;
 
 import '../../appointment/user/user_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/shift/shift_service.dart';
-import '../../appointment/dentist/dentist_selection_options.dart';
-import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
 @Component(
@@ -118,11 +116,21 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
   AppointmentSchedulingFilterComponent(this._loader, this._changeDetectorRef);
 
+  void clearListComponentRef(List<ComponentRef> listComponentRef) {
+    listComponentRef.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRef.clear();
+  }
+
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
     await dentistService.getAllDentistAcives();
     await shiftService.getAllShiftAcives();
+
+    clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<
             dentist_dropdown_select_list_component
@@ -148,22 +156,19 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onLoad() {
-    print("t0");
-    listComponentRef.clear();
-    
     listDate.forEach((date) {
       ComponentFactory<
               appointment_scheduling_list.AppointmentSchedulingListComponent>
           appointmentSchedulingList = appointment_scheduling_list
               .AppointmentSchedulingListComponentNgFactory;
-      
+
       ComponentRef appointmentSchedulingListComponent = _loader
           .loadNextToLocation(appointmentSchedulingList, materialContainerList);
-      
+
       appointmentSchedulingListComponent.instance.date = date;
       appointmentSchedulingListComponent.instance.componentRef =
           appointmentSchedulingListComponent;
-       
+
       listComponentRef.add(appointmentSchedulingListComponent);
     });
 
@@ -210,14 +215,12 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   }
 
   Future<void> onFilter() async {
-    listComponentRef.forEach((componentRef) {
-      componentRef.destroy();
-    });
-    
+    clearListComponentRef(listComponentRef);
+
     listDate = onPrepareFilter();
-    
+
     new AppointmentSchedulingService().clearAllAppointmentSchedulingByDate();
-    
+
     await listDate.forEach((date) async {
       int total = 0;
       var total_aux;
@@ -225,7 +228,6 @@ class AppointmentSchedulingFilterComponent implements OnInit {
       await new AppointmentSchedulingService()
           .getAllAppointmentSchedulingByDateMap(date)
           .then((onValue) {
-        
         total_aux = (new AppointmentSchedulingService()
                 .getAppointmentSchedulingWithFilterFromList(date.toString(), {
           "dentistId": dentistId,
@@ -233,7 +235,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
           "patient": patientName
         }))
             ?.length;
-        
+
         total += total_aux == null ? 0 : total_aux;
 
         if (listDate.last == date) {
