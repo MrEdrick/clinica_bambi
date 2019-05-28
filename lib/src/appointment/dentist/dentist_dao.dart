@@ -41,21 +41,16 @@ class DentistDAO {
   }
 
   Future<List<Map>> getAllDentistFilter(Map filter, Map orderBy) async {
-    print("tt0");
     List<Map> _list = new List<Map>();
-    print("tt1");
     FireStoreApp fireStoreApp =
         new FireStoreApp(DENTIST_COLLECTION);
-    print("tt2");
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
             .orderBy(orderBy.keys.first, orderBy.values.first)
             .get())
         .docs
         .forEach((doc) {
-      print("tt3");
       Map map = new Map.from(doc.data());
-      print("tt4");
       map['documentPath'] = doc.id;
       _list.add(map);
     });

@@ -30,17 +30,17 @@ class DentistService {
     if ((_dentistList != null) && (_dentistList.length != 0)) {
       return _list;
     }
-    print("t0");
+
     clearAllDentistList();
-    print("t1");
+
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-    print("t2");
+
     _dentistList.forEach((dentist) {
       _dentistListById[dentist["documentPath"]] = dentist;
       _list.add(turnMapInDentist(dentist));
     });
-    print("t3");
+
     return _list;
   }
 

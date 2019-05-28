@@ -80,6 +80,9 @@ class DentistDropdownSelectComponent implements OnInit {
   DentistDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listDentist = await _dentistService.getAllDentistAcives();
+    _listDentist = new List<Dentist>();
+    await _dentistService.getDentistListWithFilterFromList({}).forEach((map) {
+      _listDentist.add(_dentistService.turnMapInDentist(map));
+    });
   }
 }

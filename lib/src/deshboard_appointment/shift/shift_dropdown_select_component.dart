@@ -80,6 +80,9 @@ class ShiftDropdownSelectComponent implements OnInit {
   ShiftDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listShift = await _shiftService.getAllShiftAcives();
+    _listShift = new List<Shift>();
+    await _shiftService.getShiftListWithFilterFromList({}).forEach((map) {
+      _listShift.add(_shiftService.turnMapInShift(map));
+    });
   }
 }

@@ -24,7 +24,6 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
 import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_edit_component.template.dart'
     as appointment_scheduling_edit;
 
-
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
@@ -59,7 +58,7 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
     materialProviders,
     windowBindings,
     datepickerBindings,
-    popupBindings  
+    popupBindings
   ],
   styleUrls: const [
     'appointment_scheduling_filter_component.scss.css',
@@ -70,14 +69,18 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
-  final List<ComponentRef> listComponentRefDropdownSelect = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefDropdownSelect =
+      new List<ComponentRef>();
   final DentistService dentistService = new DentistService();
   final ShiftService shiftService = new ShiftService();
 
-  AppointmentSchedulingService _appointmentSchedulingService = new AppointmentSchedulingService();
+  AppointmentSchedulingService _appointmentSchedulingService =
+      new AppointmentSchedulingService();
 
-  AppointmentSchedulingService get appointmentSchedulingService => _appointmentSchedulingService;
-  set appointmentSchedulingService(AppointmentSchedulingService appointmentSchedulingService) =>
+  AppointmentSchedulingService get appointmentSchedulingService =>
+      _appointmentSchedulingService;
+  set appointmentSchedulingService(
+          AppointmentSchedulingService appointmentSchedulingService) =>
       _appointmentSchedulingService = appointmentSchedulingService;
 
   bool useItemRenderer = false;
@@ -101,7 +104,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
   String patientName;
 
-  @ViewChild('containerListApoointmentScheduling', read: ViewContainerRef)
+  @ViewChild('containerListAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 
   @ViewChild('containerEditAppointmentscheduling', read: ViewContainerRef)
@@ -118,19 +121,22 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
+    await dentistService.getAllDentistAcives();
+    await shiftService.getAllShiftAcives();
+
     ComponentFactory<
             dentist_dropdown_select_list_component
-                .DentistDropdownSelectComponent> dentistDropdownSelectComponent =
-        dentist_dropdown_select_list_component
+                .DentistDropdownSelectComponent>
+        dentistDropdownSelectComponent = dentist_dropdown_select_list_component
             .DentistDropdownSelectComponentNgFactory;
 
     listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect));
+        dentistDropdownSelectComponent,
+        materialContainerDentistDropdownSelect));
 
     ComponentFactory<
-            shift_dropdown_select_list_component
-                .ShiftDropdownSelectComponent> shiftDropdownSelectComponent =
-        shift_dropdown_select_list_component
+            shift_dropdown_select_list_component.ShiftDropdownSelectComponent>
+        shiftDropdownSelectComponent = shift_dropdown_select_list_component
             .ShiftDropdownSelectComponentNgFactory;
 
     listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
@@ -142,17 +148,22 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onLoad() {
+    print("t0");
     listComponentRef.clear();
+    
     listDate.forEach((date) {
-      ComponentFactory<appointment_scheduling_list.AppointmentSchedulingListComponent>
-          appointmentSchedulingList =
-          appointment_scheduling_list.AppointmentSchedulingListComponentNgFactory;
-
-      ComponentRef appointmentSchedulingListComponent =
-          _loader.loadNextToLocation(appointmentSchedulingList, materialContainerList);
-
+      ComponentFactory<
+              appointment_scheduling_list.AppointmentSchedulingListComponent>
+          appointmentSchedulingList = appointment_scheduling_list
+              .AppointmentSchedulingListComponentNgFactory;
+      
+      ComponentRef appointmentSchedulingListComponent = _loader
+          .loadNextToLocation(appointmentSchedulingList, materialContainerList);
+      
       appointmentSchedulingListComponent.instance.date = date;
-      appointmentSchedulingListComponent.instance.componentRef = appointmentSchedulingListComponent;
+      appointmentSchedulingListComponent.instance.componentRef =
+          appointmentSchedulingListComponent;
+       
       listComponentRef.add(appointmentSchedulingListComponent);
     });
 
@@ -164,7 +175,8 @@ class AppointmentSchedulingFilterComponent implements OnInit {
       finalDate = initialDate;
     }
 
-    querySelector('#appointment-scheduling-result-filter-text').setInnerHtml('0');
+    querySelector('#appointment-scheduling-result-filter-text')
+        .setInnerHtml('0');
 
     initialDateFormated =
         new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
@@ -177,14 +189,15 @@ class AppointmentSchedulingFilterComponent implements OnInit {
       dentistName = dentistService.dentist.name;
       dentistId = dentistService.dentist.id;
     } else {
+      dentistName = '';
       dentistId = '';
     }
 
     if (shiftService.shift != null) {
-      shiftDescription =
-          shiftService.shift.description;
+      shiftDescription = shiftService.shift.description;
       shiftId = shiftService.shift.id;
     } else {
+      shiftDescription = '';
       shiftId = '';
     }
 
@@ -200,23 +213,28 @@ class AppointmentSchedulingFilterComponent implements OnInit {
     listComponentRef.forEach((componentRef) {
       componentRef.destroy();
     });
-
+    
     listDate = onPrepareFilter();
-
+    
     new AppointmentSchedulingService().clearAllAppointmentSchedulingByDate();
-
+    
     await listDate.forEach((date) async {
       int total = 0;
+      var total_aux;
 
-      new AppointmentSchedulingService()
+      await new AppointmentSchedulingService()
           .getAllAppointmentSchedulingByDateMap(date)
           .then((onValue) {
-        total += (new AppointmentSchedulingService().getAppointmentSchedulingWithFilterFromList(
-            date.toString(), {
+        
+        total_aux = (new AppointmentSchedulingService()
+                .getAppointmentSchedulingWithFilterFromList(date.toString(), {
           "dentistId": dentistId,
           "shiftId": shiftId,
           "patient": patientName
-        })).length;
+        }))
+            ?.length;
+        
+        total += total_aux == null ? 0 : total_aux;
 
         if (listDate.last == date) {
           onLoad();
@@ -226,21 +244,24 @@ class AppointmentSchedulingFilterComponent implements OnInit {
         }
       });
     });
+
     return;
   }
 
   void onAdd() {
     appointmentSchedulingService.appointmentScheduling = null;
-    ComponentFactory<appointment_scheduling_edit.AppointmentSchedulingEditComponent>
-        appointmentSchedulingEdit = appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
+    ComponentFactory<
+            appointment_scheduling_edit.AppointmentSchedulingEditComponent>
+        appointmentSchedulingEdit =
+        appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
 
-    ComponentRef appointmentSchedulingEditComponent =
-        _loader.loadNextToLocation(appointmentSchedulingEdit, materialContainerAdd);
-    appointmentSchedulingEditComponent.instance.componentRef = appointmentSchedulingEditComponent;
+    ComponentRef appointmentSchedulingEditComponent = _loader
+        .loadNextToLocation(appointmentSchedulingEdit, materialContainerAdd);
+    appointmentSchedulingEditComponent.instance.componentRef =
+        appointmentSchedulingEditComponent;
   }
 
   void onClear() {
-
     initialDate = new Date.today();
     finalDate = new Date.today();
 

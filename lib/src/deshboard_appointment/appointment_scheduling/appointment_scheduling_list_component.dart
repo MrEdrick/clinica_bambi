@@ -51,10 +51,11 @@ class AppointmentSchedulingListComponent implements OnInit {
   ViewContainerRef materialContainerCard;
 
   void ngOnInit() {
+    
     if (new UserService().user == null) return;
-
+    
     dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
-
+    
     List<Map> _list = new AppointmentSchedulingService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
     
     _list.forEach((appointmentScheduling) {
