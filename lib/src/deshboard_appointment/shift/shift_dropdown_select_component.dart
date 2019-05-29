@@ -34,7 +34,7 @@ class ShiftDropdownSelectComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
   
-  List<Shift> _listShift;
+  List<ShiftUI> _listShift;
   final ShiftService _shiftService = new ShiftService();
 
   bool useItemRenderer = false;
@@ -44,19 +44,19 @@ class ShiftDropdownSelectComponent implements OnInit {
 
   static ItemRenderer<ShiftUI> _itemRendererShift =
       newCachingItemRenderer<ShiftUI>(
-          (shift) => "${shift.description}");
+          (shift) => "${shift.uiDisplayName}");
 
   ItemRenderer<ShiftUI> get itemRendererShift =>
       useItemRenderer ? _itemRendererShift : _displayNameRenderer;
 
-  ShiftSelectionOptions<Shift> shiftListOptions;
+  ShiftSelectionOptions<ShiftUI> shiftListOptions;
 
-  StringSelectionOptions<Shift> get shiftOptions {
+  StringSelectionOptions<ShiftUI> get shiftOptions {
     if (_listShift == null) {
       return null;
     }
 
-    shiftListOptions = ShiftSelectionOptions<Shift>(_listShift);
+    shiftListOptions = ShiftSelectionOptions<ShiftUI>(_listShift);
 
     return shiftListOptions;
   }
@@ -80,9 +80,10 @@ class ShiftDropdownSelectComponent implements OnInit {
   ShiftDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listShift = new List<Shift>();
+    _listShift = new List<ShiftUI>();
     await _shiftService.getShiftListWithFilterFromList({}).forEach((map) {
-      _listShift.add(_shiftService.turnMapInShift(map));
+      _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id, 
+                                 _shiftService.turnMapInShift(map).description));
     });
   }
 }

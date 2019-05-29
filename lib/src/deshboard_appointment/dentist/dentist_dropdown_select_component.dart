@@ -34,7 +34,7 @@ class DentistDropdownSelectComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
   
-  List<Dentist> _listDentist;
+  List<DentistUI> _listDentist;
   final DentistService _dentistService = new DentistService();
 
   bool useItemRenderer = false;
@@ -44,19 +44,19 @@ class DentistDropdownSelectComponent implements OnInit {
 
   static ItemRenderer<DentistUI> _itemRendererDentist =
       newCachingItemRenderer<DentistUI>(
-          (dentist) => "${dentist.name}");
+          (dentist) => "${dentist.uiDisplayName}");
 
   ItemRenderer<DentistUI> get itemRendererDentist =>
       useItemRenderer ? _itemRendererDentist : _displayNameRenderer;
 
-  DentistSelectionOptions<Dentist> dentistListOptions;
+  DentistSelectionOptions<DentistUI> dentistListOptions;
 
-  StringSelectionOptions<Dentist> get dentistOptions {
+  StringSelectionOptions<DentistUI> get dentistOptions {
     if (_listDentist == null) {
       return null;
     }
 
-    dentistListOptions = DentistSelectionOptions<Dentist>(_listDentist);
+    dentistListOptions = DentistSelectionOptions<DentistUI>(_listDentist);
 
     return dentistListOptions;
   }
@@ -80,9 +80,10 @@ class DentistDropdownSelectComponent implements OnInit {
   DentistDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listDentist = new List<Dentist>();
+    _listDentist = new List<DentistUI>();
     await _dentistService.getDentistListWithFilterFromList({}).forEach((map) {
-      _listDentist.add(_dentistService.turnMapInDentist(map));
+      _listDentist.add(new DentistUI(_dentistService.turnMapInDentist(map).id,
+                                     _dentistService.turnMapInDentist(map).name));
     });
   }
 }

@@ -24,6 +24,7 @@ import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentist_selection_options.dart';
 
 import '../../appointment/shift/shift.dart';
+import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shift_selection_options.dart';
 
@@ -163,7 +164,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   static ItemRenderer<Shift> _itemRendererShift =
       newCachingItemRenderer<Shift>((shift) => "${shift.description}");
 
-  ItemRenderer<Shift> get itemRendererShift =>
+  ItemRenderer<ShiftUI> get itemRendererShift =>
       useItemRenderer ? _itemRendererShift : _displayNameRenderer;
 
   ShiftSelectionOptions<Shift> shiftListOptions;
@@ -178,7 +179,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
     return shiftListOptions;
   }
 
-  final SelectionModel<Shift> singleSelectModelShift = SelectionModel.single();
+  final SelectionModel<ShiftUI> singleSelectModelShift = SelectionModel.single();
 
   String get singleSelectShiftLabel => singleSelectModelShift.selectedValues ==
           null
@@ -268,7 +269,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
       if (appointmentSchedulingService.appointmentScheduling.shift != null) {
         singleSelectModelShift
-            .select(appointmentSchedulingService.appointmentScheduling.shift);
+            .select(new ShiftUI(appointmentSchedulingService.appointmentScheduling.shift.id,
+                                appointmentSchedulingService.appointmentScheduling.shift.description));
       }
 
       if (appointmentSchedulingService.appointmentScheduling.dentist != null) {
