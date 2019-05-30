@@ -67,7 +67,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   final List<ComponentRef> listComponentRefDropdownSelect =
       new List<ComponentRef>();
 
-  AppointmentSchedulingService _appointmentSchedulingService;
+  AppointmentSchedulingService appointmentSchedulingService;
 
   ComponentRef dentistDropdownSelectComponentRef;
   ComponentRef agreementDropdownSelectComponentRef;
@@ -81,12 +81,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   @Input()
   ComponentRef componentRef;
-
-  AppointmentSchedulingService get appointmentSchedulingService =>
-      _appointmentSchedulingService;
-  set appointmentSchedulingService(
-          AppointmentSchedulingService appointmentSchedulingService) =>
-      _appointmentSchedulingService = appointmentSchedulingService;
 
   Date dateAppointmentScheduling = new Date.today();
 
@@ -222,9 +216,9 @@ class AppointmentSchedulingEditComponent implements OnInit {
         shiftDropdownSelectComponent, materialContainerDentistDropdownSelect);
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
-
+    print("t0");
     onEdit();
-
+    print("t1");
     _changeDetectorRef.markForCheck();
   }
 
