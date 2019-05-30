@@ -1,0 +1,1 @@
+final AGREEMENT_COLLECTION = 'agreement';

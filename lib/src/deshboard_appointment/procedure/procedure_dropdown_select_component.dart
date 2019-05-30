@@ -6,7 +6,6 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../appointment/procedure/procedure.dart';
 import '../../appointment/procedure/procedureUI.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/procedure/procedure_selection_options.dart';
@@ -86,6 +85,5 @@ class ProcedureDropdownSelectComponent implements OnInit {
       _listProcedure.add(new ProcedureUI(_procedureService.turnMapInProcedure(map).id,
                                          _procedureService.turnMapInProcedure(map).description));
     });
-
   }
 }

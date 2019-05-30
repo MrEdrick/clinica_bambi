@@ -6,7 +6,6 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../appointment/agreement/agreement.dart';
 import '../../appointment/agreement/agreementUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/agreement/agreement_selection_options.dart';
@@ -34,7 +33,7 @@ class AgreementDropdownSelectComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
   
-  List<Agreement> _listAgreement;
+  List<AgreementUI> _listAgreement;
   final AgreementService _agreementService = new AgreementService();
 
   bool useItemRenderer = false;
@@ -49,19 +48,20 @@ class AgreementDropdownSelectComponent implements OnInit {
   ItemRenderer<AgreementUI> get itemRendererAgreement =>
       useItemRenderer ? _itemRendererAgreement : _displayNameRenderer;
 
-  AgreementSelectionOptions<Agreement> agreementListOptions;
+  AgreementSelectionOptions<AgreementUI> agreementListOptions;
 
-  StringSelectionOptions<Agreement> get agreementOptions {
+  StringSelectionOptions<AgreementUI> get agreementOptions {
     if (_listAgreement == null) {
       return null;
     }
 
-    agreementListOptions = AgreementSelectionOptions<Agreement>(_listAgreement);
+    agreementListOptions = AgreementSelectionOptions<AgreementUI>(_listAgreement);
 
     return agreementListOptions;
   }
 
-  final SelectionModel<AgreementUI> singleSelectModelAgreement =
+  @Input()
+  SelectionModel<AgreementUI> singleSelectModelAgreement =
       SelectionModel.single();
 
   String get singleSelectAgreementLabel =>
@@ -80,7 +80,11 @@ class AgreementDropdownSelectComponent implements OnInit {
   AgreementDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listAgreement = await _agreementService.getAllAgreementAcives();
+    _listAgreement = new List<AgreementUI>();
+    await _agreementService.getAgreementListWithFilterFromList({}).forEach((map) {
+      _listAgreement.add(new AgreementUI(_agreementService.turnMapInAgreement(map).id,
+                                         _agreementService.turnMapInAgreement(map).description));
+    });
   }
 
 }

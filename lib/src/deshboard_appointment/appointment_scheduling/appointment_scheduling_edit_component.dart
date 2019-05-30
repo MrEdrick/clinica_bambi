@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -14,23 +13,7 @@ import 'package:angular_components/material_datepicker/material_datepicker.dart'
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
-import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:intl/intl.dart';
-
-import '../../appointment/dentist/dentistUI.dart';
-import '../../appointment/dentist/dentist_service.dart';
-import '../../appointment/dentist/dentist_selection_options.dart';
-
-import '../../appointment/shift/shift.dart';
-import '../../appointment/shift/shiftUI.dart';
-import '../../appointment/shift/shift_service.dart';
-import '../../appointment/shift/shift_selection_options.dart';
-
-import '../../appointment/agreement/agreement.dart';
-import '../../appointment/agreement/agreement_service.dart';
-import '../../appointment/agreement/agreement_selection_options.dart';
 
 import 'package:firebase/firebase.dart' as fb;
 
@@ -60,22 +43,21 @@ import '../../appointment/mask/telephone_mask_constants.dart';
       materialInputDirectives,
       MaterialDatepickerComponent,
       DateRangeInputComponent,
-      MaterialDropdownSelectComponent,
-      DropdownSelectValueAccessor,
       MaterialDialogComponent,
       ModalComponent,
       AutoDismissDirective,
     ],
     providers: [
       windowBindings,
-      datepickerBindings,
-      ClassProvider(ShiftService),
-      ClassProvider(DentistService),
-      ClassProvider(AgreementService)
+      datepickerBindings
     ])
 class AppointmentSchedulingEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   AppointmentSchedulingService _appointmentSchedulingService;
+
+  ComponentRef dentistDropdownSelectComponentRef;
+  ComponentRef agreementDropdownSelectComponentRef;
+  ComponentRef shiftDropdownSelectComponentRef;
 
   TelephoneMask telephoneMask = new TelephoneMask("");
 

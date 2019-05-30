@@ -1,46 +1,120 @@
 import 'dart:async';
+
 import 'agreement.dart';
-import '../../firebase/firestore.dart';
+import 'agreement_dao.dart';
+import 'agreementUI.dart';
 
 class AgreementService {
-  static List<Agreement> _list;
+  static List<Agreement> _list = new List<Agreement>();
+  static Agreement _agreement;
+  static List<Map> _agreementList = new List<Map>();
+  static Map _agreementListById = new Map();
+  static List<Map> _agreementListWithFilter = new List<Map>();
+
+
+  Agreement get agreement => _agreement;
+  set agreement(Agreement agreement) => _agreement = agreement;
+
+  void clearAllAgreementList() {
+    _list.clear();
+    _agreementList.clear();
+    _agreementListById.clear();
+    _agreementListWithFilter.clear();
+  }
 
   Future<List<Agreement>> getAllAgreementAcives() async {
-    if (_list != null) {
+    if ((_agreementList != null) && (_agreementList.length != 0)) {
       return _list;
     }
+
+    clearAllAgreementList();
     
-    FireStoreApp fireStoreApp = new FireStoreApp('agreement');
-
-    await fireStoreApp.ref
-      .where('state', '==', 'A')
-      .orderBy('description', 'asc')
-      .get().then((querySnapshot) {
-        int i = 0;
-        _list = new List<Agreement>(querySnapshot.size);
-        querySnapshot.forEach((doc) {
-          _list[i] = new Agreement(doc.id, doc.data()["description"], doc.data()["state"]);
-          i++;
-        });
-      }).then((onValue) {
-        fireStoreApp.FireStoreOffLine();
-      });
-
+    await (_agreementList = await new AgreementDAO()
+        .getAllAgreementFilter({"state": "A"}, {"description": "asc"}));
+    
+    _agreementList.forEach((agreement) {
+      _agreementListById[agreement["documentPath"]] = agreement;
+      _list.add(turnMapInAgreement(agreement));
+    });
+    
     return _list;
   }
 
-  Future<Agreement> getAgreementById(String agreementId) async {
-    if (_list == null) {
+  Future<List<AgreementUI>> getAllAgreementUIAcives() async {
+    if ((_agreementList == null) || (_agreementList.length == 0)) {
       await getAllAgreementAcives();
     }
 
-    for (var i = 0; i < _list.length; i++) {
-      if (_list[i].agreementId == agreementId) {
-        return _list[i];
-      }
-    };
+    List<AgreementUI> _listAgreementUI = new List<AgreementUI>();
 
-     return null;
+    for (Agreement _agreement in _list) {
+      _listAgreementUI.add(new AgreementUI(_agreement.id, _agreement.description));
+    }
+
+    return _listAgreementUI;
   }
 
+  Future<Agreement> getAgreementById(String id) async {
+    Map doc;
+
+    if ((_agreementList == null) || (_agreementList.length == 0)) {
+      await getAllAgreementAcives();
+    }
+
+    doc = _agreementListById[id];
+
+    if (doc == null) {
+      doc = (await new AgreementDAO()
+              .getAllAgreementFilter({'id': id}, {"description": "asc"}))
+          .first;
+    }
+
+    return turnMapInAgreement(doc);
+  }
+
+  List<Map> getAgreementListWithFilterFromList(Map filter) {
+    List<Map> _listDocumentSnapshot = new List<Map>();
+
+    List<Map> _listDocumentSnapshotTemp = new List<Map>();
+
+    void ListsApplyFilter() {
+      if (_listDocumentSnapshotTemp.length > 0) {
+        _listDocumentSnapshotTemp.forEach((doc) {
+          _listDocumentSnapshot.add(new Map.from(doc));
+        });
+
+        _listDocumentSnapshotTemp.clear();
+      }
+    }
+
+    _listDocumentSnapshot = _agreementList;
+
+    _listDocumentSnapshotTemp.clear();
+
+    if ((filter["description"] != null) && (filter["description"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["description"].toString().indexOf(filter["description"]) > -1) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
+
+    if ((filter["description"] != null) && (filter["description"] != '')) {
+      _listDocumentSnapshot.clear();
+    }
+
+    ListsApplyFilter();
+
+    _agreementListWithFilter = _listDocumentSnapshot;
+    
+    return _agreementListWithFilter;
+  }
+
+  List<Map> getAgreementListWithFilter() {
+    return _agreementListWithFilter;
+  }
+
+  Agreement turnMapInAgreement(Map map) {
+    return new Agreement(map["documentPath"], map["description"], map["state"]);
+  }
 }

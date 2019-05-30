@@ -1,5 +1,4 @@
 import 'package:angular_components/model/ui/display_name.dart';
-import 'shift.dart';
 
 class ShiftUI implements HasUIDisplayName {
   final String _id;

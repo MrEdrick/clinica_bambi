@@ -1,12 +1,16 @@
-import 'package:angular_components/model/ui/display_name.dart';
-
-class Agreement implements HasUIDisplayName {
-  final String agreementId;
-  final String description;
-  final String state;
+class Agreement {
+  String _id;
+  String _description;
+  bool _state;
   
-  const Agreement(this.agreementId, this.description, this.state);
+  Agreement(this._id, this._description, this._state);
 
-  @override
-  String get uiDisplayName => description;
+  String get id => _id;
+  set id(String id) => _id = id;
+
+  String get description => _description;
+  set description(String description) => _description = description;
+
+  bool get state => _state;
+  set state(bool state) => _state = state;
 }
