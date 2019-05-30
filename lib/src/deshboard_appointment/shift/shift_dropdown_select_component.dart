@@ -61,7 +61,8 @@ class ShiftDropdownSelectComponent implements OnInit {
     return shiftListOptions;
   }
 
-  final SelectionModel<ShiftUI> singleSelectModelShift =
+  @Input()
+  SelectionModel<ShiftUI> singleSelectModelShift =
       SelectionModel.single();
 
   String get singleSelectShiftLabel =>

@@ -1,9 +1,3 @@
-.group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
-  border-top: 0px !important;
-  margin-top: 7px !important;
-  padding-top: 8px !important;
-}
-
 material-dropdown-select {
   margin: 1%;
   margin-top: 10px;
@@ -16,4 +10,30 @@ material-dropdown-select {
 
 ::ng-deep .label-text {
   color: #616161;
+}
+
+::ng-deep material-input .label-text {
+  color: #616161 !important;
+}
+
+::ng-deep .focused.label-text {
+  color: #616161 !important;
+}
+
+::ng-deep .focused-underline, .cursor {
+  background-color: #616161 !important;
+}
+
+::ng-deep .disabled-underline {
+  color: #616161 !important;
+}
+
+::ng-deep .unfocused-underline {
+  background: #616161 !important;
+  border-bottom-color: #616161 !important;
+}
+
+::ng-deep material-input .input-container {
+  margin-top: 0 !important;
+  color: #616161 !important;
 }

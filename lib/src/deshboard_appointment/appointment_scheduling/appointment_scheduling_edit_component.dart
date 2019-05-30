@@ -116,145 +116,10 @@ class AppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  static ItemRenderer<DentistUI> _displayNameRenderer =
-      (HasUIDisplayName item) => item.uiDisplayName;
-
-  List<DentistUI> _listDentist;
-  final DentistService _dentistService;
-
-  static ItemRenderer<DentistUI> _itemRendererDentist =
-      newCachingItemRenderer<DentistUI>((dentista) => "${dentista.name}");
-
-  ItemRenderer<DentistUI> get itemRendererDentist =>
-      useItemRenderer ? _itemRendererDentist : _displayNameRenderer;
-
-  DentistSelectionOptions<DentistUI> dentistListOptions;
-
-  StringSelectionOptions<DentistUI> get dentistOptions {
-    if (_listDentist == null) {
-      return null;
-    }
-
-    dentistListOptions = DentistSelectionOptions<DentistUI>(_listDentist);
-
-    return dentistListOptions;
-  }
-
-  final SelectionModel<DentistUI> singleSelectModelDentist =
-      SelectionModel.single();
-
-  String get singleSelectDentistLabel => singleSelectModelDentist
-              .selectedValues ==
-          null
-      ? 'Dentista'
-      : singleSelectModelDentist.selectedValues.length > 0
-          ? itemRendererDentist(singleSelectModelDentist.selectedValues.first)
-          : 'Dentista';
-
-  String get singleSelectedDentist =>
-      singleSelectModelDentist.selectedValues.isNotEmpty
-          ? singleSelectModelDentist.selectedValues.first.uiDisplayName
-          : null;
-
-//----
-
-  List<Shift> _listShift;
-  final ShiftService _shiftService;
-
-  static ItemRenderer<Shift> _itemRendererShift =
-      newCachingItemRenderer<Shift>((shift) => "${shift.description}");
-
-  ItemRenderer<ShiftUI> get itemRendererShift =>
-      useItemRenderer ? _itemRendererShift : _displayNameRenderer;
-
-  ShiftSelectionOptions<Shift> shiftListOptions;
-
-  StringSelectionOptions<Shift> get shiftOptions {
-    if (_listShift == null) {
-      return null;
-    }
-
-    shiftListOptions = ShiftSelectionOptions<Shift>(_listShift);
-
-    return shiftListOptions;
-  }
-
-  final SelectionModel<ShiftUI> singleSelectModelShift = SelectionModel.single();
-
-  String get singleSelectShiftLabel => singleSelectModelShift.selectedValues ==
-          null
-      ? '  '
-      : singleSelectModelShift.selectedValues.length > 0
-          ? itemRendererShift(singleSelectModelShift.selectedValues.first)
-          : 'Turno';
-
-  String get singleSelectedShift =>
-      singleSelectModelShift.selectedValues.isNotEmpty
-          ? singleSelectModelShift.selectedValues.first.uiDisplayName
-          : null;
-//----
-
-  List<Agreement> _listAgreement;
-  final AgreementService _agreementService;
-
-  static ItemRenderer<Agreement> _itemRendererAgreement =
-      newCachingItemRenderer<Agreement>(
-          (agreement) => "${agreement.description}");
-
-  ItemRenderer<Agreement> get itemRendererAgreement =>
-      useItemRenderer ? _itemRendererAgreement : _displayNameRenderer;
-
-  AgreementSelectionOptions<Agreement> agreementListOptions;
-
-  StringSelectionOptions<Agreement> get agreementOptions {
-    if (_listAgreement == null) {
-      return null;
-    }
-
-    agreementListOptions = AgreementSelectionOptions<Agreement>(_listAgreement);
-
-    return agreementListOptions;
-  }
-
-  final SelectionModel<Agreement> singleSelectModelAgreement =
-      SelectionModel.single();
-
-  String get singleSelectAgreementLabel =>
-      singleSelectModelAgreement.selectedValues == null
-          ? 'Convênios'
-          : singleSelectModelAgreement.selectedValues.length > 0
-              ? itemRendererAgreement(
-                  singleSelectModelAgreement.selectedValues.first)
-              : 'Convênios';
-
-  String get singleSelectedAgreement =>
-      singleSelectModelAgreement.selectedValues.isNotEmpty
-          ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
-          : null;
-
-  AppointmentSchedulingEditComponent(this._dentistService, this._shiftService,
-      this._agreementService, this._changeDetectorRef);
-
-  Future<void> _getListDentist() async {
-    _listDentist = await _dentistService.getAllDentistUIAcives();
-  }
-
-  Future<void> _getListShift() async {
-    _listShift = await _shiftService.getAllShiftAcives();
-  }
-
-  Future<void> _getListAgreement() async {
-    if (_listAgreement == null) {
-      _listAgreement = await _agreementService.getAllAgreementAcives();
-    }
-  }
+  AppointmentSchedulingEditComponent(this._changeDetectorRef);
 
   void onEdit() {
     appointmentSchedulingService = new AppointmentSchedulingService();
-
-    _getListShift();
-    _getListDentist();
-    _getListAgreement();
 
     if (appointmentSchedulingService.appointmentScheduling != null) {
       dateAppointmentScheduling = new Date.parse(
@@ -267,23 +132,11 @@ class AppointmentSchedulingEditComponent implements OnInit {
       telephoneMask.number =
           appointmentSchedulingService.appointmentScheduling.telephone;
 
-      if (appointmentSchedulingService.appointmentScheduling.shift != null) {
+      /*if (appointmentSchedulingService.appointmentScheduling.shift != null) {
         singleSelectModelShift
             .select(new ShiftUI(appointmentSchedulingService.appointmentScheduling.shift.id,
                                 appointmentSchedulingService.appointmentScheduling.shift.description));
-      }
-
-      if (appointmentSchedulingService.appointmentScheduling.dentist != null) {
-        singleSelectModelDentist.select(new DentistUI(
-            appointmentSchedulingService.appointmentScheduling.dentist.id,
-            appointmentSchedulingService.appointmentScheduling.dentist.name));
-      }
-
-      if (appointmentSchedulingService.appointmentScheduling.agreement !=
-          null) {
-        singleSelectModelAgreement.select(
-            appointmentSchedulingService.appointmentScheduling.agreement);
-      }
+      }*/
     } else {
       dateAppointmentScheduling = new Date.today();
     }
@@ -298,20 +151,10 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onClose() {
-    if (!singleSelectModelShift.selectedValues.isEmpty) {
+    /*if (!singleSelectModelShift.selectedValues.isEmpty) {
       singleSelectModelShift
           ?.deselect(singleSelectModelShift?.selectedValues?.first);
-    }
-
-    if (!singleSelectModelDentist.selectedValues.isEmpty) {
-      singleSelectModelDentist
-          ?.deselect(singleSelectModelDentist?.selectedValues?.first);
-    }
-
-    if (!singleSelectModelAgreement.selectedValues.isEmpty) {
-      singleSelectModelAgreement
-          ?.deselect(singleSelectModelAgreement?.selectedValues?.first);
-    }
+    }*/
 
     patient = '';
     email = '';
@@ -343,9 +186,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((singleSelectModelShift.selectedValues.isEmpty) ||
-        (singleSelectModelDentist.selectedValues.isEmpty) ||
-        (singleSelectModelAgreement.selectedValues.isEmpty) ||
+    if (//(singleSelectModelShift.selectedValues.isEmpty) ||
         (patient == '') ||
         (telephoneMask.number == '') ||
         (dateAppointmentScheduling == null)) {
@@ -373,11 +214,11 @@ class AppointmentSchedulingEditComponent implements OnInit {
     datas = {
       "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd')
           .format(dateAppointmentScheduling.asUtcTime()),
-      "shiftId": singleSelectModelShift.selectedValues.first.id,
-      "agreementId":
-          singleSelectModelAgreement.selectedValues.first.agreementId,
-      "dentistId": singleSelectModelDentist
-          .selectedValues.first.id, //querySelector('#dentista').text
+      //"shiftId": singleSelectModelShift.selectedValues.first.id,
+      //"agreementId":
+      //    singleSelectModelAgreement.selectedValues.first.agreementId,
+      //"dentistId": singleSelectModelDentist
+      //    .selectedValues.first.id, //querySelector('#dentista').text
       "patient": patient,
       "email": email,
       "tel": telephoneMask.number,

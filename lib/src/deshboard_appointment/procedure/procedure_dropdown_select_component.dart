@@ -34,7 +34,7 @@ class ProcedureDropdownSelectComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
   
-  List<Procedure> _listProcedure;
+  List<ProcedureUI> _listProcedure;
   final ProcedureService _procedureService = new ProcedureService();
 
   bool useItemRenderer = false;
@@ -44,24 +44,25 @@ class ProcedureDropdownSelectComponent implements OnInit {
 
   static ItemRenderer<ProcedureUI> _itemRendererProcedure =
       newCachingItemRenderer<ProcedureUI>(
-          (procedure) => "${procedure.description}");
+          (procedure) => "${procedure.uiDisplayName}");
 
   ItemRenderer<ProcedureUI> get itemRendererProcedure =>
       useItemRenderer ? _itemRendererProcedure : _displayNameRenderer;
 
-  ProcedureSelectionOptions<Procedure> procedureListOptions;
+  ProcedureSelectionOptions<ProcedureUI> procedureListOptions;
 
-  StringSelectionOptions<Procedure> get procedureOptions {
+  StringSelectionOptions<ProcedureUI> get procedureOptions {
     if (_listProcedure == null) {
       return null;
     }
 
-    procedureListOptions = ProcedureSelectionOptions<Procedure>(_listProcedure);
+    procedureListOptions = ProcedureSelectionOptions<ProcedureUI>(_listProcedure);
 
     return procedureListOptions;
   }
 
-  final SelectionModel<ProcedureUI> singleSelectModelProcedure =
+  @Input()
+  SelectionModel<ProcedureUI> singleSelectModelProcedure =
       SelectionModel.single();
 
   String get singleSelectProcedureLabel =>
@@ -80,6 +81,11 @@ class ProcedureDropdownSelectComponent implements OnInit {
   ProcedureDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listProcedure = await _procedureService.getAllProcedureAcives();
+    _listProcedure = new List<ProcedureUI>();
+    await _procedureService.getProcedureListWithFilterFromList({}).forEach((map) {
+      _listProcedure.add(new ProcedureUI(_procedureService.turnMapInProcedure(map).id,
+                                         _procedureService.turnMapInProcedure(map).description));
+    });
+
   }
 }

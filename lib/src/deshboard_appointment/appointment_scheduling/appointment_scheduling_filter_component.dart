@@ -66,9 +66,14 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
 class AppointmentSchedulingFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
+
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
   final List<ComponentRef> listComponentRefDropdownSelect =
       new List<ComponentRef>();
+
+  ComponentRef dentistDropdownSelectComponentRef;
+  ComponentRef shiftDropdownSelectComponentRef;
+
   final DentistService dentistService = new DentistService();
   final ShiftService shiftService = new ShiftService();
 
@@ -133,22 +138,26 @@ class AppointmentSchedulingFilterComponent implements OnInit {
     clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<
-            dentist_dropdown_select_list_component
-                .DentistDropdownSelectComponent>
-        dentistDropdownSelectComponent = dentist_dropdown_select_list_component
-            .DentistDropdownSelectComponentNgFactory;
+        dentist_dropdown_select_list_component
+            .DentistDropdownSelectComponent> dentistDropdownSelectComponent;
 
-    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        dentistDropdownSelectComponent,
-        materialContainerDentistDropdownSelect));
+    dentistDropdownSelectComponent = dentist_dropdown_select_list_component
+        .DentistDropdownSelectComponentNgFactory;
+
+    dentistDropdownSelectComponentRef = _loader.loadNextToLocation(
+        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect);
+
+    listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
 
     ComponentFactory<
             shift_dropdown_select_list_component.ShiftDropdownSelectComponent>
         shiftDropdownSelectComponent = shift_dropdown_select_list_component
             .ShiftDropdownSelectComponentNgFactory;
 
-    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        shiftDropdownSelectComponent, materialContainerShiftDropdownSelect));
+    shiftDropdownSelectComponentRef = _loader.loadNextToLocation(
+        shiftDropdownSelectComponent, materialContainerShiftDropdownSelect);
+
+    listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
     _changeDetectorRef.markForCheck();
 
@@ -264,6 +273,20 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onClear() {
+    if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+      dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+          ?.deselect(dentistDropdownSelectComponentRef
+              .instance.singleSelectModelDentist?.selectedValues?.first);
+    }
+
+    if (!shiftDropdownSelectComponentRef
+        .instance.singleSelectModelShift.selectedValues.isEmpty) {
+      shiftDropdownSelectComponentRef.instance.singleSelectModelShift
+          ?.deselect(shiftDropdownSelectComponentRef
+              .instance.singleSelectModelShift?.selectedValues?.first);
+    }
+
     initialDate = new Date.today();
     finalDate = new Date.today();
 

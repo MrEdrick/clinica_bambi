@@ -61,7 +61,8 @@ class DentistDropdownSelectComponent implements OnInit {
     return dentistListOptions;
   }
 
-  final SelectionModel<DentistUI> singleSelectModelDentist =
+  @Input()
+  SelectionModel<DentistUI> singleSelectModelDentist =
       SelectionModel.single();
 
   String get singleSelectDentistLabel =>
