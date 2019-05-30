@@ -21,9 +21,19 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
 import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
 
 import '../../appointment/user/user_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/shift/shift_service.dart';
 
 import '../../appointment/mask/telephone_mask.dart';
 import '../../appointment/mask/telephone_mask_constants.dart';
+
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
+    as dentist_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/agreement/agreement_dropdown_select_component.template.dart'
+    as agreement_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
+    as shift_dropdown_select_list_component;
 
 @Component(
     selector: 'appointment_scheduling_edit_component',
@@ -47,17 +57,22 @@ import '../../appointment/mask/telephone_mask_constants.dart';
       ModalComponent,
       AutoDismissDirective,
     ],
-    providers: [
-      windowBindings,
-      datepickerBindings
-    ])
+    providers: [windowBindings, datepickerBindings])
 class AppointmentSchedulingEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
+  final ComponentLoader _loader;
+  final List<ComponentRef> listComponentRefDropdownSelect =
+      new List<ComponentRef>();
+
   AppointmentSchedulingService _appointmentSchedulingService;
 
   ComponentRef dentistDropdownSelectComponentRef;
   ComponentRef agreementDropdownSelectComponentRef;
   ComponentRef shiftDropdownSelectComponentRef;
+
+  final DentistService dentistService = new DentistService();
+  final AgreementService agreementService = new AgreementService();
+  final ShiftService shiftService = new ShiftService();
 
   TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -84,6 +99,15 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   int maxLength = MAX_LENGTH;
 
+  @ViewChild('dentistDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerDentistDropdownSelect;
+
+  @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerShiftDropdownSelect;
+
+  @ViewChild('agreementDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerAgreementDropdownSelect;
+
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
         (event.keyCode == KeyCode.RIGHT) ||
@@ -98,7 +122,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  AppointmentSchedulingEditComponent(this._changeDetectorRef);
+  AppointmentSchedulingEditComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
     appointmentSchedulingService = new AppointmentSchedulingService();
@@ -124,8 +148,59 @@ class AppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void ngOnInit() {
+  void clearListComponentRef(List<ComponentRef> listComponentRef) {
+    listComponentRef.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRef.clear();
+  }
+
+  void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    await dentistService.getAllDentistAcives();
+    await agreementService.getAllAgreementAcives();
+    await shiftService.getAllShiftAcives();
+
+    clearListComponentRef(listComponentRefDropdownSelect);
+
+    ComponentFactory<
+        dentist_dropdown_select_list_component
+            .DentistDropdownSelectComponent> dentistDropdownSelectComponent;
+
+    dentistDropdownSelectComponent = dentist_dropdown_select_list_component
+        .DentistDropdownSelectComponentNgFactory;
+
+    dentistDropdownSelectComponentRef = _loader.loadNextToLocation(
+        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect);
+
+    listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
+
+    ComponentFactory<
+        agreement_dropdown_select_list_component
+            .AgreementDropdownSelectComponent> agreementDropdownSelectComponent;
+
+    agreementDropdownSelectComponent = agreement_dropdown_select_list_component
+        .AgreementDropdownSelectComponentNgFactory;
+
+    agreementDropdownSelectComponentRef = _loader.loadNextToLocation(
+        agreementDropdownSelectComponent,
+        materialContainerDentistDropdownSelect);
+
+    listComponentRefDropdownSelect.add(agreementDropdownSelectComponentRef);
+
+    ComponentFactory<
+            shift_dropdown_select_list_component.ShiftDropdownSelectComponent>
+        shiftDropdownSelectComponent;
+
+    shiftDropdownSelectComponent = shift_dropdown_select_list_component
+        .ShiftDropdownSelectComponentNgFactory;
+
+    shiftDropdownSelectComponentRef = _loader.loadNextToLocation(
+        shiftDropdownSelectComponent, materialContainerDentistDropdownSelect);
+
+    listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
     onEdit();
 
@@ -133,10 +208,26 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onClose() {
-    /*if (!singleSelectModelShift.selectedValues.isEmpty) {
-      singleSelectModelShift
-          ?.deselect(singleSelectModelShift?.selectedValues?.first);
-    }*/
+    if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+      dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+          ?.deselect(dentistDropdownSelectComponentRef
+              .instance.singleSelectModelDentist?.selectedValues?.first);
+    }
+
+    if (!agreementDropdownSelectComponentRef
+        .instance.singleSelectModelAgreement.selectedValues.isEmpty) {
+      agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
+          ?.deselect(agreementDropdownSelectComponentRef
+              .instance.singleSelectModelAgreement?.selectedValues?.first);
+    }
+
+    if (!shiftDropdownSelectComponentRef
+        .instance.singleSelectModelShift.selectedValues.isEmpty) {
+      shiftDropdownSelectComponentRef.instance.singleSelectModelShift
+          ?.deselect(shiftDropdownSelectComponentRef
+              .instance.singleSelectModelShift?.selectedValues?.first);
+    }
 
     patient = '';
     email = '';
@@ -168,7 +259,12 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if (//(singleSelectModelShift.selectedValues.isEmpty) ||
+    if ((dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
+        (agreementDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
+        (shiftDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
         (patient == '') ||
         (telephoneMask.number == '') ||
         (dateAppointmentScheduling == null)) {
@@ -196,11 +292,12 @@ class AppointmentSchedulingEditComponent implements OnInit {
     datas = {
       "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd')
           .format(dateAppointmentScheduling.asUtcTime()),
-      //"shiftId": singleSelectModelShift.selectedValues.first.id,
-      //"agreementId":
-      //    singleSelectModelAgreement.selectedValues.first.agreementId,
-      //"dentistId": singleSelectModelDentist
-      //    .selectedValues.first.id, //querySelector('#dentista').text
+      "shiftId": shiftDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.first.id,
+      "agreementId": agreementDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.first.id,
+      "dentistId": dentistDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.first.id,
       "patient": patient,
       "email": email,
       "tel": telephoneMask.number,
