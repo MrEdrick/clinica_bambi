@@ -22,8 +22,11 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart
 
 import '../../appointment/user/user_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentistUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/agreement/agreementUI.dart';
 import '../../appointment/shift/shift_service.dart';
+import '../../appointment/shift/shiftUI.dart';
 
 import '../../appointment/mask/telephone_mask.dart';
 import '../../appointment/mask/telephone_mask_constants.dart';
@@ -138,11 +141,29 @@ class AppointmentSchedulingEditComponent implements OnInit {
       telephoneMask.number =
           appointmentSchedulingService.appointmentScheduling.telephone;
 
-      /*if (appointmentSchedulingService.appointmentScheduling.shift != null) {
-        singleSelectModelShift
-            .select(new ShiftUI(appointmentSchedulingService.appointmentScheduling.shift.id,
-                                appointmentSchedulingService.appointmentScheduling.shift.description));
-      }*/
+      if (appointmentSchedulingService.appointmentScheduling.dentist != null) {
+        dentistDropdownSelectComponentRef.instance.singleSelectModelDentist.select(
+            new DentistUI(
+                appointmentSchedulingService.appointmentScheduling.dentist.id,
+                appointmentSchedulingService
+                    .appointmentScheduling.dentist.name));
+      }
+
+      if (appointmentSchedulingService.appointmentScheduling.agreement != null) {
+        agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement.select(
+            new AgreementUI(
+                appointmentSchedulingService.appointmentScheduling.agreement.id,
+                appointmentSchedulingService
+                    .appointmentScheduling.agreement.description));
+      }
+
+      if (appointmentSchedulingService.appointmentScheduling.shift != null) {
+        shiftDropdownSelectComponentRef.instance.singleSelectModelShift.select(
+            new ShiftUI(
+                appointmentSchedulingService.appointmentScheduling.shift.id,
+                appointmentSchedulingService
+                    .appointmentScheduling.shift.description));
+      }
     } else {
       dateAppointmentScheduling = new Date.today();
     }
@@ -224,8 +245,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
     if (!shiftDropdownSelectComponentRef
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
-      shiftDropdownSelectComponentRef.instance.singleSelectModelShift
-          ?.deselect(shiftDropdownSelectComponentRef
+      shiftDropdownSelectComponentRef.instance.singleSelectModelShift?.deselect(
+          shiftDropdownSelectComponentRef
               .instance.singleSelectModelShift?.selectedValues?.first);
     }
 
