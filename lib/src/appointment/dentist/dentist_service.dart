@@ -10,11 +10,15 @@ import '../dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_
 import '../dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 
 class DentistService {
-  static List<Dentist> _list = new List<Dentist>();
+  static String _id;
   static Dentist _dentist;
-  static List<Map> _dentistList = new List<Map>();
   static Map _dentistListById = new Map();
+  static List<Dentist> _list = new List<Dentist>();
+  static List<Map> _dentistList = new List<Map>();
   static List<Map> _dentistListWithFilter = new List<Map>();
+
+  String get id => _id;
+  set id(String id) => _id = id;
 
   Dentist get dentist => _dentist;
   set dentist(Dentist dentist) => _dentist = dentist;
@@ -124,7 +128,8 @@ class DentistService {
 
   Future<bool> save() async {
     bool saved = true;
-
+    Map<bool, String> result = new Map<bool, String>();
+    
     if (_dentist == null) {
       return saved;
     }
@@ -133,8 +138,6 @@ class DentistService {
       "name": _dentist.name,
       "state": _dentist.state ? "A" : "I"
     };
-
-    Map<bool, String> result = new Map<bool, String>();
 
     if (_dentist.id != "") {
       result[await new DentistDAO().update(_dentist.id, datas) == ""] =

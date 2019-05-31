@@ -180,10 +180,23 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void ngOnInit() {
+  void clearListComponentRef(List<ComponentRef> listComponentRef) {
+    listComponentRef.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRef.clear();
+  }
+
+  void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    onEdit();
+    await dentistService.getAllDentistAcives();
+    await procedureService.getAllProcedureAcives();
+    await agreementService.getAllAgreementAcives();
+    await shiftService.getAllShiftAcives();
+
+    clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<
             dentist_dropdown_select_list_component
@@ -191,9 +204,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         dentistDropdownSelectComponent = dentist_dropdown_select_list_component
             .DentistDropdownSelectComponentNgFactory;
 
-    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        dentistDropdownSelectComponent,
-        materialContainerDentistDropdownSelect));
+    dentistDropdownSelectComponentRef = _loader.loadNextToLocation(
+        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect);
+
+    listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
 
     ComponentFactory<
             procedure_dropdown_select_list_component
@@ -202,9 +216,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         procedure_dropdown_select_list_component
             .ProcedureDropdownSelectComponentNgFactory;
 
-    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
+    procedureDropdownSelectComponentRef = _loader.loadNextToLocation(
         procedureDropdownSelectComponent,
-        materialContainerProcedureDropdownSelect));
+        materialContainerProcedureDropdownSelect);
+
+    listComponentRefDropdownSelect.add(procedureDropdownSelectComponentRef);
 
     ComponentFactory<
             agreement_dropdown_select_list_component
@@ -213,23 +229,57 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         agreement_dropdown_select_list_component
             .AgreementDropdownSelectComponentNgFactory;
 
-    listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
+    agreementDropdownSelectComponentRef = _loader.loadNextToLocation(
         agreementDropdownSelectComponent,
-        materialContainerAgreementDropdownSelect));
+        materialContainerAgreementDropdownSelect);
+
+    listComponentRefDropdownSelect.add(agreementDropdownSelectComponentRef);
+
+    ComponentFactory<
+            shift_dropdown_select_list_component.ShiftDropdownSelectComponent>
+        shiftDropdownSelectComponent = shift_dropdown_select_list_component
+            .ShiftDropdownSelectComponentNgFactory;
+
+    shiftDropdownSelectComponentRef = _loader.loadNextToLocation(
+        shiftDropdownSelectComponent, materialContainerProcedureDropdownSelect);
+
+    listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
+
+    onEdit();
 
     _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
-    /*if (!singleSelectModelDentist.selectedValues.isEmpty) {
-      singleSelectModelDentist
-          ?.deselect(singleSelectModelDentist?.selectedValues?.first);
+    if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+      dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+          ?.deselect(dentistDropdownSelectComponentRef
+              .instance.singleSelectModelDentist?.selectedValues?.first);
     }
 
-    if (!singleSelectModelAgreement.selectedValues.isEmpty) {
-      singleSelectModelAgreement
-          ?.deselect(singleSelectModelAgreement?.selectedValues?.first);
-    }*/
+    if (!procedureDropdownSelectComponentRef
+        .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
+      procedureDropdownSelectComponentRef.instance.singleSelectModelProcedure
+          ?.deselect(procedureDropdownSelectComponentRef
+              .instance.singleSelectModelProcedure?.selectedValues?.first);
+    }
+
+    if (!agreementDropdownSelectComponentRef
+        .instance.singleSelectModelAgreement.selectedValues.isEmpty) {
+      agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
+          ?.deselect(agreementDropdownSelectComponentRef
+              .instance.singleSelectModelAgreement?.selectedValues?.first);
+    }
+
+    if (!shiftDropdownSelectComponentRef
+        .instance.singleSelectModelShift.selectedValues.isEmpty) {
+      shiftDropdownSelectComponentRef.instance.singleSelectModelShift?.deselect(
+          shiftDropdownSelectComponentRef
+              .instance.singleSelectModelShift?.selectedValues?.first);
+    }
+
+    autoAppointmentSchedulingService.autoAppointmentScheduling = null;
   }
 
   bool asserts() {
@@ -254,17 +304,21 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ( //(singleSelectModelDentist.selectedValues.isEmpty)
-        //|| (singleSelectModelAgreement.selectedValues.isEmpty)
-        (appointmentSchedulingService.appointmentScheduling.patient == '') ||
-            (telephoneMask.number == '') ||
-            (dateAppointmentScheduling == null)) {
+    if ((dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
+        (procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.isEmpty) ||
+        (shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.isEmpty) ||
+        (agreementDropdownSelectComponentRef
+                .instance.singleSelectModelAgreement.selectedValues.isEmpty)(
+            autoAppointmentSchedulingService
+                .autoAppointmentScheduling.patient.isEmpty) ||
+        ((telephoneMask.number == '') &&
+            (autoAppointmentSchedulingService
+                .autoAppointmentScheduling.email.isEmpty)) ||
+        (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
-      return;
-    }
-
-    if (appointmentSchedulingService.appointmentScheduling.email == '') {
-      showAssertMessageAlert = true;
       return;
     }
 
@@ -276,31 +330,35 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onSave() async {
-    /*  showAssertMessageAlert = false;
+    showAssertMessageAlert = false;
 
-    datas = new Map<String, dynamic>();
+    autoAppointmentSchedulingService
+            .autoAppointmentScheduling.dateAppointmentScheduling =
+        new DateFormat('yyyy-MM-dd')
+            .format(dateAppointmentScheduling.asUtcTime());
 
-    datas = {
-      "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd').format(dataConsulta.asUtcTime()),
-      //"agreementId": singleSelectModelAgreement.selectedValues.first.agreementId,
-      //"dentistId": singleSelectModelDentist
-      //    .selectedValues.first.id, //querySelector('#dentista').text
-      "patient": paciente,
-      "email": email,
-      "tel": telefone,
-      "userId": fb.auth().currentUser.uid
-    };
+    autoAppointmentSchedulingService
+            .autoAppointmentScheduling.dentistId = dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.first.id;
 
-    FireStoreApp _fireStoreApp = new FireStoreApp('appointmentsScheduling');
+    autoAppointmentSchedulingService
+            .autoAppointmentScheduling.agreementId = agreementDropdownSelectComponentRef
+        .instance.singleSelectModelAgreement.selectedValues.first.id;
 
-    if (consultaService.consulta != null
-        ? await _fireStoreApp.updateItem(consultaService.consulta?.id, datas)
-        : await _fireStoreApp.addItem(datas)) {
+    autoAppointmentSchedulingService
+            .autoAppointmentScheduling.procedureId = procedureDropdownSelectComponentRef
+        .instance.singleSelectModelProcedure.selectedValues.first.id;
+
+    autoAppointmentSchedulingService
+            .autoAppointmentScheduling.shiftId = shiftDropdownSelectComponentRef
+        .instance.singleSelectModelShift.selectedValues.first.id;
+
+    if (await autoAppointmentSchedulingService.save()) {
       showSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
     } else {
       showNotSuccessfullySave = true;
-      _fireStoreApp.FireStoreOffLine();
-    }*/
+    }
+
+    _changeDetectorRef.markForCheck();
   }
 }

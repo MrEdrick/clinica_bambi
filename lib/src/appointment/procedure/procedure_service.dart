@@ -5,11 +5,15 @@ import '../procedure_requirement/procedure_requirement.dart';
 import '../procedure_requirement/procedure_requirement_service.dart';
 
 class ProcedureService {
-  static List<Procedure> _list = new List<Procedure>();
+  static String _id;
   static Procedure _procedure;
-  static List<Map> _procedureList = new List<Map>();
   static Map _procedureListById = new Map();
+  static List<Procedure> _list = new List<Procedure>();
+  static List<Map> _procedureList = new List<Map>();
   static List<Map> _procedureListWithFilter = new List<Map>();
+
+  String get id => _id;
+  set id(String id) => _id = id;
 
   Procedure get procedure => _procedure;
   set procedure(Procedure procedure) => _procedure = procedure;

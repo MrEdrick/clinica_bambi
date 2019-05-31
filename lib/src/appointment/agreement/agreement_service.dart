@@ -5,12 +5,15 @@ import 'agreement_dao.dart';
 import 'agreementUI.dart';
 
 class AgreementService {
-  static List<Agreement> _list = new List<Agreement>();
+  static String _id;
   static Agreement _agreement;
-  static List<Map> _agreementList = new List<Map>();
   static Map _agreementListById = new Map();
+  static List<Agreement> _list = new List<Agreement>();
+  static List<Map> _agreementList = new List<Map>();
   static List<Map> _agreementListWithFilter = new List<Map>();
 
+  String get id => _id;
+  set id(String id) => _id = id;
 
   Agreement get agreement => _agreement;
   set agreement(Agreement agreement) => _agreement = agreement;

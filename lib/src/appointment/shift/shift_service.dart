@@ -5,12 +5,15 @@ import 'shift_dao.dart';
 import 'shiftUI.dart';
 
 class ShiftService {
-  static List<Shift> _list = new List<Shift>();
+  static String _id;
   static Shift _shift;
-  static List<Map> _shiftList = new List<Map>();
   static Map _shiftListById = new Map();
+  static List<Shift> _list = new List<Shift>();
+  static List<Map> _shiftList = new List<Map>();
   static List<Map> _shiftListWithFilter = new List<Map>();
 
+  String get id => _id;
+  set id(String id) => _id = id;
 
   Shift get shift => _shift;
   set shift(Shift shift) => _shift = shift;

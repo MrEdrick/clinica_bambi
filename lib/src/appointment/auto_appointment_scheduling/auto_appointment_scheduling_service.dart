@@ -8,6 +8,7 @@ import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 
 class AutoAppointmentSchedulingService {
   static AutoAppointmentScheduling _autoAppointmentScheduling;
@@ -169,6 +170,8 @@ class AutoAppointmentSchedulingService {
         map["dateAppointmentScheduling"],
         map["shiftId"],
         map["dentistId"],
+        map["agreemetId"],
+        map["procedureId"],
         map["patient"],
         map["email"],
         map["tel"],
@@ -177,5 +180,35 @@ class AutoAppointmentSchedulingService {
         await new DentistService().getDentistById(map["dentistId"]),
         await new AgreementService().getAgreementById(map["agreementId"]),
         await new ProcedureService().getProcedureById(map["procedureId"])));
+  }
+
+  Future<bool> save() async {
+    bool saved = true;
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_autoAppointmentScheduling == null) {
+      return saved;
+    }
+
+    Map<String, dynamic> datas = {
+      "dateAppointmentScheduling": _autoAppointmentScheduling.dateAppointmentScheduling,
+      "agreementId":  _autoAppointmentScheduling.agreementId,
+      "dentistId": _autoAppointmentScheduling.dentistId,
+      "shiftId": _autoAppointmentScheduling.shiftId,
+      "procedureId": _autoAppointmentScheduling.procedureId,
+      "patient": _autoAppointmentScheduling.patient,
+      "email": _autoAppointmentScheduling.email,
+      "tel": _autoAppointmentScheduling.telephone,
+      "patientAccountId": _autoAppointmentScheduling.patientAccountId
+    };
+
+    if (_autoAppointmentScheduling.id != "") {
+      result[await new AutoAppointmentSchedulingDAO().update(_autoAppointmentScheduling.id, datas) == ""] =
+          _autoAppointmentScheduling.id;
+    } else {
+      result = await new AutoAppointmentSchedulingDAO().save(datas);
+    }
+
+    return saved;
   }
 }

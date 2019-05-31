@@ -7,11 +7,16 @@
         <div class="sub-titulo">
             Paciente: {{patientAccountService.patientAccount.name}}
         </div>
-        <material-input class="edit-input" id="name" label="Nome..." [ngModel]="consultaService.consulta.paciente" (inputKeyPress)="consultaService.consulta.paciente = $event">
+        <material-input class="edit-input" id="name" label="Nome..."
+            [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.patient"
+            (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.patient = $event">
         </material-input>
-        <material-input class="edit-input" id="email" label="E-mail..." [ngModel]="consultaService.consulta.email" (inputKeyPress)="consultaService.consulta.email = $event">
+        <material-input class="edit-input" id="email" label="E-mail..."
+            [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.email"
+            (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.email = $event">
         </material-input>
-        <material-input class="edit-input" id="tel" label="Tel..." [ngModel]="telephoneMask.number" (inputKeyPress)="telephoneMask.number = $event">
+        <material-input class="edit-input" id="tel" label="Tel..." [ngModel]="telephoneMask.number"
+            (inputKeyPress)="telephoneMask.number = $event">
         </material-input>
 
         <div class="sub-titulo">
@@ -20,8 +25,12 @@
         <div #procedureDropdownSelect></div>
         <div #shiftDropdownSelect></div>
         <div #dentistDropdownSelect></div>
+
+        <material-datepicker id="date" class="list-date" [(date)]="dateAppointmentScheduling" [required]="true">
+        </material-datepicker>
+
         <div #agreementDropdownSelect></div>
-            
+
     </div>
 
     <material-button class="button-close" (click)="onClose()">
@@ -36,7 +45,8 @@
 </div>
 
 <modal [(visible)]="showNotSuccessfullySave">
-    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave" (dismiss)="onDismissNotSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave"
+        (dismiss)="onDismissNotSuccessfullySave">
 
         <div header>
             <h1>Opps...</h1>
@@ -48,7 +58,8 @@
 </modal>
 
 <modal [(visible)]="showSuccessfullySave">
-    <material-dialog info class="info-dialog" [autoDismissable]="showSuccessfullySave" (dismiss)="onDismissSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showSuccessfullySave"
+        (dismiss)="onDismissSuccessfullySave">
 
         <div header>
 
@@ -82,7 +93,8 @@
 </modal>
 
 <modal [(visible)]="showAssertMessageSave">
-    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSave" (dismiss)="onDismissAssertMessage">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSave"
+        (dismiss)="onDismissAssertMessage">
 
         <div header>
 
