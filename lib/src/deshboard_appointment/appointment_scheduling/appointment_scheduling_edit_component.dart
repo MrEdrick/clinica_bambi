@@ -277,9 +277,9 @@ class AppointmentSchedulingEditComponent implements OnInit {
     if ((dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
-            .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
+            .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
         (shiftDropdownSelectComponentRef
-            .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
+            .instance.singleSelectModelShift.selectedValues.isEmpty) ||
         (patient == '') ||
         (telephoneMask.number == '') ||
         (dateAppointmentScheduling == null)) {
@@ -301,16 +301,16 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSave() async {
     showAssertMessageAlert = false;
-
     Map datas = new Map<String, dynamic>();
+    Map<bool, String> result;
 
     datas = {
       "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd')
           .format(dateAppointmentScheduling.asUtcTime()),
       "shiftId": shiftDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.first.id,
+          .instance.singleSelectModelShift.selectedValues.first.id,
       "agreementId": agreementDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.first.id,
+          .instance.singleSelectModelAgreement.selectedValues.first.id,
       "dentistId": dentistDropdownSelectComponentRef
           .instance.singleSelectModelDentist.selectedValues.first.id,
       "patient": patient,
@@ -318,8 +318,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
       "tel": telephoneMask.number,
       "userId": fb.auth().currentUser.uid
     };
-
-    Map<bool, String> result;
 
     if (appointmentSchedulingService.appointmentScheduling != null) {
       result[await new AppointmentSchedulingDAO().update(

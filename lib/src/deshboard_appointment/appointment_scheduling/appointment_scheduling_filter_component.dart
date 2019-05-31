@@ -199,17 +199,23 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
     daysDif = finalDate.asUtcTime().difference(initialDate.asUtcTime()).inDays;
 
-    if (dentistService.dentist != null) {
-      dentistName = dentistService.dentist.name;
-      dentistId = dentistService.dentist.id;
+    if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+      dentistName = dentistDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.first.name;
+      dentistId = dentistDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.first.id;
     } else {
       dentistName = '';
       dentistId = '';
     }
 
-    if (shiftService.shift != null) {
-      shiftDescription = shiftService.shift.description;
-      shiftId = shiftService.shift.id;
+    if (!shiftDropdownSelectComponentRef
+        .instance.singleSelectModelShift.selectedValues.isEmpty) {
+      shiftDescription = shiftDropdownSelectComponentRef
+          .instance.singleSelectModelShift.selectedValues.first.description;
+      shiftId = shiftDropdownSelectComponentRef
+          .instance.singleSelectModelShift.selectedValues.first.id;
     } else {
       shiftDescription = '';
       shiftId = '';
@@ -260,20 +266,18 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onAdd() {
-    
     appointmentSchedulingService.appointmentScheduling = null;
-    
+
     ComponentFactory<
             appointment_scheduling_edit.AppointmentSchedulingEditComponent>
         appointmentSchedulingEdit =
         appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
-    
+
     ComponentRef appointmentSchedulingEditComponent = _loader
         .loadNextToLocation(appointmentSchedulingEdit, materialContainerAdd);
-    
+
     appointmentSchedulingEditComponent.instance.componentRef =
         appointmentSchedulingEditComponent;
-    
   }
 
   void onClear() {
@@ -286,8 +290,8 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
     if (!shiftDropdownSelectComponentRef
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
-      shiftDropdownSelectComponentRef.instance.singleSelectModelShift
-          ?.deselect(shiftDropdownSelectComponentRef
+      shiftDropdownSelectComponentRef.instance.singleSelectModelShift?.deselect(
+          shiftDropdownSelectComponentRef
               .instance.singleSelectModelShift?.selectedValues?.first);
     }
 
