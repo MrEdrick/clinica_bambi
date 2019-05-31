@@ -110,7 +110,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   @ViewChild('containerListAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 
-  @ViewChild('containerEditAppointmentscheduling', read: ViewContainerRef)
+  @ViewChild('containerEditAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
 
   @ViewChild('dentistDropdownSelect', read: ViewContainerRef)
@@ -260,16 +260,20 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onAdd() {
+    
     appointmentSchedulingService.appointmentScheduling = null;
+    
     ComponentFactory<
             appointment_scheduling_edit.AppointmentSchedulingEditComponent>
         appointmentSchedulingEdit =
         appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
-
+    
     ComponentRef appointmentSchedulingEditComponent = _loader
         .loadNextToLocation(appointmentSchedulingEdit, materialContainerAdd);
+    
     appointmentSchedulingEditComponent.instance.componentRef =
         appointmentSchedulingEditComponent;
+    
   }
 
   void onClear() {

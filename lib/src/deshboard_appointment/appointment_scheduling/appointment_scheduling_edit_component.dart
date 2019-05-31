@@ -173,13 +173,13 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
+    
     await dentistService.getAllDentistAcives();
     await agreementService.getAllAgreementAcives();
     await shiftService.getAllShiftAcives();
-
+    
     clearListComponentRef(listComponentRefDropdownSelect);
-
+    
     ComponentFactory<
         dentist_dropdown_select_list_component
             .DentistDropdownSelectComponent> dentistDropdownSelectComponent;
@@ -216,9 +216,9 @@ class AppointmentSchedulingEditComponent implements OnInit {
         shiftDropdownSelectComponent, materialContainerDentistDropdownSelect);
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
-    print("t0");
+    
     onEdit();
-    print("t1");
+    
     _changeDetectorRef.markForCheck();
   }
 
