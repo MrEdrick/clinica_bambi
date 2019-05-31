@@ -202,7 +202,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
     if (!dentistDropdownSelectComponentRef
         .instance.singleSelectModelDentist.selectedValues.isEmpty) {
       dentistName = dentistDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.first.name;
+          .instance.singleSelectModelDentist.selectedValues.first.uiDisplayName;
       dentistId = dentistDropdownSelectComponentRef
           .instance.singleSelectModelDentist.selectedValues.first.id;
     } else {
@@ -213,7 +213,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
     if (!shiftDropdownSelectComponentRef
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
       shiftDescription = shiftDropdownSelectComponentRef
-          .instance.singleSelectModelShift.selectedValues.first.description;
+          .instance.singleSelectModelShift.selectedValues.first.uiDisplayName;
       shiftId = shiftDropdownSelectComponentRef
           .instance.singleSelectModelShift.selectedValues.first.id;
     } else {
