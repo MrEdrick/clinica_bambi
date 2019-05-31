@@ -1,6 +1,7 @@
 import '../shift/shift.dart';
 import '../dentist/dentist.dart';
 import '../agreement/agreement.dart';
+import '../procedure/procedure.dart';
 import 'package:intl/intl.dart';
 
 class AutoAppointmentScheduling {
@@ -15,11 +16,12 @@ class AutoAppointmentScheduling {
   Shift _shift;
   Dentist _dentist;
   Agreement _agreement;
+  Procedure _procedure;
 
   AutoAppointmentScheduling( this._id, this._dateAppointmentScheduling, 
             this._shiftId, this._dentistId, 
             this._patient, this._email, this._telephone, this._patientAccountId,
-            this._shift, this._dentist, this._agreement);
+            this._shift, this._dentist, this._agreement, this._procedure);
 
   String get id => _id;
   set id(String id) => _id = id;
@@ -60,4 +62,6 @@ class AutoAppointmentScheduling {
   Agreement get agreement => _agreement;
   set agreement(Agreement agreement) => _agreement = agreement;
 
+  Procedure get procedure => _procedure;
+  set procedure(Procedure procedure) => _procedure = procedure;
 }

@@ -7,6 +7,7 @@ import 'auto_appointment_scheduling_dao.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/procedure/procedure_service.dart';
 
 class AutoAppointmentSchedulingService {
   static AutoAppointmentScheduling _autoAppointmentScheduling;
@@ -174,6 +175,7 @@ class AutoAppointmentSchedulingService {
         map["patientAccountId"],
         await new ShiftService().getShiftById(map["shiftId"]),
         await new DentistService().getDentistById(map["dentistId"]),
-        await new AgreementService().getAgreementById(map["agreementId"])));
+        await new AgreementService().getAgreementById(map["agreementId"]),
+        await new ProcedureService().getProcedureById(map["procedureId"])));
   }
 }

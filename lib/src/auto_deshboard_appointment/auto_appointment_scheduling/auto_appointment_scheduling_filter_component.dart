@@ -12,7 +12,6 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
-import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';

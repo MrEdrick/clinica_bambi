@@ -20,15 +20,22 @@ import 'package:angular_router/angular_router.dart';
 import '../../appointment/mask/telephone_mask.dart';
 import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/dentist/dentistUI.dart';
 import '../../appointment/procedure/procedure_service.dart';
+import '../../appointment/procedure/procedureUI.dart';
 import '../../appointment/shift/shift_service.dart';
+import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
+import '../../appointment/agreement/agreementUI.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 
 import '../../appointment/user/user_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
+    as shift_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/agreement/agreement_dropdown_select_component.template.dart'
     as agreement_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_dropdown_select_component.template.dart'
@@ -62,10 +69,24 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
-  final List<ComponentRef> listComponentRefDropdownSelect = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefDropdownSelect =
+      new List<ComponentRef>();
 
-  PatientAccountService patientAccountService;
-  AppointmentSchedulingService appointmentSchedulingService;
+  ComponentRef dentistDropdownSelectComponentRef;
+  ComponentRef procedureDropdownSelectComponentRef;
+  ComponentRef agreementDropdownSelectComponentRef;
+  ComponentRef shiftDropdownSelectComponentRef;
+
+  final DentistService dentistService = new DentistService();
+  final ProcedureService procedureService = new ProcedureService();
+  final AgreementService agreementService = new AgreementService();
+  final ShiftService shiftService = new ShiftService();
+  final PatientAccountService patientAccountService =
+      new PatientAccountService();
+  final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
+      new AutoAppointmentSchedulingService();
+  final AppointmentSchedulingService appointmentSchedulingService =
+      new AppointmentSchedulingService();
 
   Date dateAppointmentScheduling = new Date.today();
 
@@ -87,6 +108,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   @ViewChild('agreementDropdownSelect', read: ViewContainerRef)
   ViewContainerRef materialContainerAgreementDropdownSelect;
 
+  @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerShiftDropdownSelect;
+
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
         (event.keyCode == KeyCode.RIGHT) ||
@@ -103,31 +127,54 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   AutoAppointmentSchedulingEditComponent(this._loader, this._changeDetectorRef);
 
-  /*Future<void> _getListDentist() async {
-    _listDentist = await _dentistService.getAllDentistAcives();
-  }
-
-  Future<void> _getListAgreement() async {
-    if (_listAgreement == null) {
-      _listAgreement = await _agreementService.getAllAgreementAcives();
-    }
-  }*/
-
   void onEdit() {
-    appointmentSchedulingService = new AppointmentSchedulingService();
-    patientAccountService = new PatientAccountService();
-
-    //_getListDentist();
-    //_getListAgreement();
-
-    if (appointmentSchedulingService.appointmentScheduling != null) {
+    if (autoAppointmentSchedulingService.autoAppointmentScheduling != null) {
       dateAppointmentScheduling = new Date.parse(
-          appointmentSchedulingService.appointmentScheduling.dateAppointmentScheduling,
+          autoAppointmentSchedulingService
+              .autoAppointmentScheduling.dateAppointmentScheduling,
           new DateFormat('yyyy-MM-dd'));
 
-      //singleSelectModelDentist.select(new DentistUI(consultaService.consulta.dentist.id,
-      //                                              consultaService.consulta.dentist.name));
-      //singleSelectModelAgreement.select(consultaService.consulta.agreement);
+      if (autoAppointmentSchedulingService.autoAppointmentScheduling.dentist !=
+          null) {
+        dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+            .select(new DentistUI(
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.dentist.id,
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.dentist.name));
+      }
+
+      if (autoAppointmentSchedulingService
+              .autoAppointmentScheduling.agreement !=
+          null) {
+        agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
+            .select(new AgreementUI(
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.agreement.id,
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.agreement.description));
+      }
+
+      if (autoAppointmentSchedulingService.autoAppointmentScheduling.shift !=
+          null) {
+        shiftDropdownSelectComponentRef.instance.singleSelectModelShift.select(
+            new ShiftUI(
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.shift.id,
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.shift.description));
+      }
+
+      if (autoAppointmentSchedulingService
+              .autoAppointmentScheduling.procedure !=
+          null) {
+        procedureDropdownSelectComponentRef.instance.singleSelectModelProcedure
+            .select(new ShiftUI(
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.procedure.id,
+                autoAppointmentSchedulingService
+                    .autoAppointmentScheduling.procedure.description));
+      }
     } else {
       dateAppointmentScheduling = new Date.today();
     }
@@ -140,30 +187,35 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     ComponentFactory<
             dentist_dropdown_select_list_component
-                .DentistDropdownSelectComponent> dentistDropdownSelectComponent =
-        dentist_dropdown_select_list_component
+                .DentistDropdownSelectComponent>
+        dentistDropdownSelectComponent = dentist_dropdown_select_list_component
             .DentistDropdownSelectComponentNgFactory;
 
     listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect));
+        dentistDropdownSelectComponent,
+        materialContainerDentistDropdownSelect));
 
     ComponentFactory<
             procedure_dropdown_select_list_component
-                .ProcedureDropdownSelectComponent> procedureDropdownSelectComponent =
+                .ProcedureDropdownSelectComponent>
+        procedureDropdownSelectComponent =
         procedure_dropdown_select_list_component
             .ProcedureDropdownSelectComponentNgFactory;
 
     listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        procedureDropdownSelectComponent, materialContainerProcedureDropdownSelect));
+        procedureDropdownSelectComponent,
+        materialContainerProcedureDropdownSelect));
 
     ComponentFactory<
             agreement_dropdown_select_list_component
-                .AgreementDropdownSelectComponent> agreementDropdownSelectComponent =
+                .AgreementDropdownSelectComponent>
+        agreementDropdownSelectComponent =
         agreement_dropdown_select_list_component
             .AgreementDropdownSelectComponentNgFactory;
 
     listComponentRefDropdownSelect.add(_loader.loadNextToLocation(
-        agreementDropdownSelectComponent, materialContainerAgreementDropdownSelect));
+        agreementDropdownSelectComponent,
+        materialContainerAgreementDropdownSelect));
 
     _changeDetectorRef.markForCheck();
   }
