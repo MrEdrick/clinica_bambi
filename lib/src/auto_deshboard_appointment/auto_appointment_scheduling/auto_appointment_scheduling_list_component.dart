@@ -205,6 +205,7 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
       docSnapshot["minuteId"],
       docSnapshot["shiftId"],
       docSnapshot["dentistId"],
+      docSnapshot["agreementId"],
       docSnapshot["patient"],
       docSnapshot["email"],
       docSnapshot["tel"],

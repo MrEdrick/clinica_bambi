@@ -337,21 +337,24 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         new DateFormat('yyyy-MM-dd')
             .format(dateAppointmentScheduling.asUtcTime());
 
-    autoAppointmentSchedulingService
-            .autoAppointmentScheduling.dentistId = dentistDropdownSelectComponentRef
-        .instance.singleSelectModelDentist.selectedValues.first.id;
+    autoAppointmentSchedulingService.autoAppointmentScheduling.telephone =
+        telephoneMask.number;
 
-    autoAppointmentSchedulingService
-            .autoAppointmentScheduling.agreementId = agreementDropdownSelectComponentRef
-        .instance.singleSelectModelAgreement.selectedValues.first.id;
+    autoAppointmentSchedulingService.autoAppointmentScheduling.dentistId =
+        dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.first.id;
 
-    autoAppointmentSchedulingService
-            .autoAppointmentScheduling.procedureId = procedureDropdownSelectComponentRef
-        .instance.singleSelectModelProcedure.selectedValues.first.id;
+    autoAppointmentSchedulingService.autoAppointmentScheduling.agreementId =
+        agreementDropdownSelectComponentRef
+            .instance.singleSelectModelAgreement.selectedValues.first.id;
 
-    autoAppointmentSchedulingService
-            .autoAppointmentScheduling.shiftId = shiftDropdownSelectComponentRef
-        .instance.singleSelectModelShift.selectedValues.first.id;
+    autoAppointmentSchedulingService.autoAppointmentScheduling.procedureId =
+        procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.first.id;
+
+    autoAppointmentSchedulingService.autoAppointmentScheduling.shiftId =
+        shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.first.id;
 
     if (await autoAppointmentSchedulingService.save()) {
       showSuccessfullySave = true;

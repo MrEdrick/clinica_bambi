@@ -15,10 +15,7 @@ import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:intl/intl.dart';
 
-import 'package:firebase/firebase.dart' as fb;
-
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
-import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
 
 import '../../appointment/user/user_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
@@ -91,9 +88,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  String patient = '';
-  String email = '';
-
   int maxLength = MAX_LENGTH;
 
   @ViewChild('dentistDropdownSelect', read: ViewContainerRef)
@@ -130,22 +124,21 @@ class AppointmentSchedulingEditComponent implements OnInit {
               .appointmentScheduling.dateAppointmentScheduling,
           new DateFormat('yyyy-MM-dd'));
 
-      patient = appointmentSchedulingService.appointmentScheduling.patient;
-      email = appointmentSchedulingService.appointmentScheduling.email;
       telephoneMask.number =
           appointmentSchedulingService.appointmentScheduling.telephone;
 
       if (appointmentSchedulingService.appointmentScheduling.dentist != null) {
-        dentistDropdownSelectComponentRef.instance.singleSelectModelDentist.select(
-            new DentistUI(
+        dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+            .select(new DentistUI(
                 appointmentSchedulingService.appointmentScheduling.dentist.id,
                 appointmentSchedulingService
                     .appointmentScheduling.dentist.name));
       }
 
-      if (appointmentSchedulingService.appointmentScheduling.agreement != null) {
-        agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement.select(
-            new AgreementUI(
+      if (appointmentSchedulingService.appointmentScheduling.agreement !=
+          null) {
+        agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
+            .select(new AgreementUI(
                 appointmentSchedulingService.appointmentScheduling.agreement.id,
                 appointmentSchedulingService
                     .appointmentScheduling.agreement.description));
@@ -173,13 +166,13 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-    
+
     await dentistService.getAllDentistAcives();
     await agreementService.getAllAgreementAcives();
     await shiftService.getAllShiftAcives();
-    
+
     clearListComponentRef(listComponentRefDropdownSelect);
-    
+
     ComponentFactory<
         dentist_dropdown_select_list_component
             .DentistDropdownSelectComponent> dentistDropdownSelectComponent;
@@ -216,9 +209,9 @@ class AppointmentSchedulingEditComponent implements OnInit {
         shiftDropdownSelectComponent, materialContainerDentistDropdownSelect);
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
-    
+
     onEdit();
-    
+
     _changeDetectorRef.markForCheck();
   }
 
@@ -244,8 +237,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
               .instance.singleSelectModelShift?.selectedValues?.first);
     }
 
-    patient = '';
-    email = '';
     telephoneMask.number = '';
 
     componentRef.destroy();
@@ -280,15 +271,11 @@ class AppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
         (shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
-        (patient == '') ||
+        (appointmentSchedulingService.appointmentScheduling.patient == '') ||
+        (appointmentSchedulingService.appointmentScheduling.email == '') ||
         (telephoneMask.number == '') ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
-      return;
-    }
-
-    if (email == '') {
-      showAssertMessageAlert = true;
       return;
     }
 
@@ -301,33 +288,28 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSave() async {
     showAssertMessageAlert = false;
-    Map datas = new Map<String, dynamic>();
-    Map<bool, String> result;
 
-    datas = {
-      "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd')
-          .format(dateAppointmentScheduling.asUtcTime()),
-      "shiftId": shiftDropdownSelectComponentRef
-          .instance.singleSelectModelShift.selectedValues.first.id,
-      "agreementId": agreementDropdownSelectComponentRef
-          .instance.singleSelectModelAgreement.selectedValues.first.id,
-      "dentistId": dentistDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.first.id,
-      "patient": patient,
-      "email": email,
-      "tel": telephoneMask.number,
-      "userId": fb.auth().currentUser.uid
-    };
+    appointmentSchedulingService
+            .appointmentScheduling.dateAppointmentScheduling =
+        new DateFormat('yyyy-MM-dd')
+            .format(dateAppointmentScheduling.asUtcTime());
 
-    if (appointmentSchedulingService.appointmentScheduling != null) {
-      result[await new AppointmentSchedulingDAO().update(
-              appointmentSchedulingService.appointmentScheduling?.id, datas) ==
-          ""] = appointmentSchedulingService.appointmentScheduling?.id;
-    } else {
-      result = await new AppointmentSchedulingDAO().save(datas);
-    }
+    appointmentSchedulingService.appointmentScheduling.telephone =
+        telephoneMask.number;
 
-    if (result.keys.first) {
+    appointmentSchedulingService.appointmentScheduling.dentistId =
+        dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.first.id;
+
+    appointmentSchedulingService.appointmentScheduling.agreementId =
+        agreementDropdownSelectComponentRef
+            .instance.singleSelectModelAgreement.selectedValues.first.id;
+
+    appointmentSchedulingService.appointmentScheduling.shiftId =
+        shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.first.id;
+
+    if (await appointmentSchedulingService.save()) {
       showSuccessfullySave = true;
     } else {
       showNotSuccessfullySave = true;

@@ -13,11 +13,13 @@
 
         <div #dentistDropdownSelect></div>
 
-        <material-input class="edit-input" id="patient" label="Paciente..." [ngModel]="patient"
-            (inputKeyPress)="patient = $event"></material-input>
+        <material-input class="edit-input" id="patient" label="Paciente..."
+            [ngModel]="appointmentSchedulingService.appointmentScheduling.patient"
+            (inputKeyPress)="appointmentSchedulingService.appointmentScheduling.patient = $event"></material-input>
 
-        <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email"
-            (inputKeyPress)="email = $event"></material-input>
+        <material-input class="edit-input" type="email" id="email" label="E-mail..."
+            [ngModel]="appointmentSchedulingService.appointmentScheduling.email"
+            (inputKeyPress)="appointmentSchedulingService.appointmentScheduling.email = $event"></material-input>
 
         <material-input class="edit-input" type="number" id="telephone" label="Telefone..."
             [ngModel]="telephoneMask.number" [maxlength]="maxLength" (inputKeyPress)="telephoneMask.number = $event"

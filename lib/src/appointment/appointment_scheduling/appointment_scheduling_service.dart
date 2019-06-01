@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
 import 'appointment_scheduling_dao.dart';
 
+import 'package:firebase/firebase.dart' as fb;
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
@@ -163,6 +164,7 @@ class AppointmentSchedulingService {
         map["minuteId"],
         map["shiftId"],
         map["dentistId"],
+        map["agreementId"],
         map["patient"],
         map["email"],
         map["tel"],
@@ -171,4 +173,35 @@ class AppointmentSchedulingService {
         await new DentistService().getDentistById(map["dentistId"]),
         await new AgreementService().getAgreementById(map["agreementId"])));
   }
+
+  Future<bool> save() async {
+    bool saved = true;
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_appointmentScheduling == null) {
+      return saved;
+    }
+
+     Map<String, dynamic> datas = {
+      "dateAppointmentScheduling": _appointmentScheduling.dateAppointmentScheduling,
+      "shiftId": _appointmentScheduling.shiftId,
+      "agreementId": _appointmentScheduling.agreementId,
+      "dentistId": _appointmentScheduling.dentistId,
+      "patient": _appointmentScheduling.patient,
+      "email": _appointmentScheduling.email,
+      "tel": _appointmentScheduling.telephone,
+      "userId": fb.auth().currentUser.uid
+    };
+
+    if (_appointmentScheduling.id != '') {
+      result[await new AppointmentSchedulingDAO().update(
+              _appointmentScheduling.id, datas) ==
+          ""] = _appointmentScheduling.id;
+    } else {
+      result = await new AppointmentSchedulingDAO().save(datas);
+    }
+
+    return saved;
+  }
+
 }
