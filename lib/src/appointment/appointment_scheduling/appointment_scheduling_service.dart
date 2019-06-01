@@ -8,6 +8,7 @@ import 'package:firebase/firebase.dart' as fb;
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 
 class AppointmentSchedulingService {
   static AppointmentScheduling _appointmentScheduling;
@@ -165,13 +166,16 @@ class AppointmentSchedulingService {
         map["shiftId"],
         map["dentistId"],
         map["agreementId"],
+        map["autoAppointmentSchedulingId"] == null ? '' : map["autoAppointmentSchedulingId"],
         map["patient"],
         map["email"],
         map["tel"],
         map["userId"],
         await new ShiftService().getShiftById(map["shiftId"]),
         await new DentistService().getDentistById(map["dentistId"]),
-        await new AgreementService().getAgreementById(map["agreementId"])));
+        await new AgreementService().getAgreementById(map["agreementId"]),
+        await new AutoAppointmentSchedulingService().getAutoAppointmentSchedulingById(map["autoAppointmentSchedulingId"])
+        ));
   }
 
   Future<bool> save() async {

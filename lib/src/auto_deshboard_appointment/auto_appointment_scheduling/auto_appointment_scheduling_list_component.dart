@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:async';
+import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -38,7 +39,8 @@ import '../../appointment/user/user_service.dart';
       ModalComponent,
     ])
 class AutoAppointmentSchedulingListComponent implements OnInit {
-  final List<AppointmentScheduling> listAppointmentScheduling = new List<AppointmentScheduling>();
+  final List<AppointmentScheduling> listAppointmentScheduling =
+      new List<AppointmentScheduling>();
 
   User _user;
 
@@ -53,7 +55,7 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
 
   @Input()
   String dentistId;
-  
+
   @Input()
   String shiftId;
 
@@ -70,8 +72,7 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
   int deleteIndex = -1;
 
   void ngOnInit() {
-    if (new UserService().user == null) 
-      return;
+    if (new UserService().user == null) return;
 
     selectItensFireBase();
   }
@@ -94,126 +95,110 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
     FireStoreApp fireStoreApp = new FireStoreApp('appointmentsScheduling');
 
     fireStoreApp.ref
-        .where('dateAppointmentScheduling', '==',
-            new DateFormat('yyyy-MM-dd').format(dataAppointmentScheduling.asUtcTime()))
+        .where(
+            'dateAppointmentScheduling',
+            '==',
+            new DateFormat('yyyy-MM-dd')
+                .format(dataAppointmentScheduling.asUtcTime()))
         .get()
         .then((querySnapshot) {
-          totalResultByDay = 0;
+      totalResultByDay = 0;
 
-          querySnapshot.forEach((doc) {
-            Map map = new Map.from(doc.data());
-            map['documentPath'] = doc.id;
-            _listDocumentSnapshot.add(map);
-          });
+      querySnapshot.forEach((doc) {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _listDocumentSnapshot.add(map);
+      });
 
-          fireStoreApp.FireStoreOffLine();
-        }).then((result) {
-            _listDocumentSnapshotTemp.clear();
+      fireStoreApp.FireStoreOffLine();
+    }).then((result) {
+      _listDocumentSnapshotTemp.clear();
 
-            _listDocumentSnapshot.forEach((doc) {
-              if ((dentistId != null) && (dentistId != '')) {
-                if (dentistId == doc["dentistId"]) {
-                  _listDocumentSnapshotTemp.add(new Map.from(doc));
-                }
-              } else {
-                _listDocumentSnapshotTemp.add(new Map.from(doc));
-              }
-            });
-
-            if ((dentistId != null) && (dentistId != '')) {
-              _listDocumentSnapshot.clear();
-            }            
-
-            ListsApplyFilter();
-  
-            if ((shiftId != null) && (shiftId != '')) {
-              _listDocumentSnapshot.forEach((doc) {
-                if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
-                  if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0')
-                      || (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO')
-                      || (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB')
-                      || (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
-                      doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
-                  } else {
-                      doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
-                  }
-                }
-
-                if (shiftId == doc["shiftId"]) {
-                  _listDocumentSnapshotTemp.add(new Map.from(doc));
-                }
-              });
-            }
-
-            if ((shiftId != null) && (shiftId != '')) {
-              _listDocumentSnapshot.clear();
-            }            
-
-            ListsApplyFilter();
-
-            _listDocumentSnapshot.forEach((doc) {
-              if (doc["id"].toString().indexOf(patientId) > -1) {
-                _listDocumentSnapshotTemp.add(new Map.from(doc));
-              }
-            });
-            
-            ListsApplyFilter();
-
-            totalResultByDay = _listDocumentSnapshot.length;
-
-            if (totalResultByDay == 0) {
-              querySelector("#auot-agendamento-list-card-app-" + index.toString())
-                  ?.parent
-                  ?.remove();
-              return;
-            }
-
-            int totalResult;
-
-            if (querySelector('#total-result-filter-text').getAttribute('value') ==
-                null) {
-              totalResult = 0;
-            } else {
-              totalResult = int.parse(querySelector('#total-result-filter-text')
-                  .getAttribute('value')
-                  .toString());
-            }
-
-            totalResult = totalResult + totalResultByDay;
-            querySelector('#total-result-filter-text')
-                .setAttribute('value', totalResult?.toString());
-            querySelector('#total-result-filter-text')
-                .setInnerHtml(totalResult?.toString());
-
-            listAppointmentScheduling.clear();
-
-            _listDocumentSnapshot.forEach((doc) {
-              _turnInAppointmentScheduling(doc).then((appointmentScheduling) {
-                listAppointmentScheduling.add(appointmentScheduling);
-              });
-            });
-
+      _listDocumentSnapshot.forEach((doc) {
+        if ((dentistId != null) && (dentistId != '')) {
+          if (dentistId == doc["dentistId"]) {
+            _listDocumentSnapshotTemp.add(new Map.from(doc));
           }
-        );
-  }
+        } else {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
 
-  Future<AppointmentScheduling> _turnInAppointmentScheduling(Map docSnapshot) async {
-    return new AppointmentScheduling(
-      docSnapshot["documentPath"],
-      docSnapshot["dateAppointmentScheduling"],
-      docSnapshot["hourId"],
-      docSnapshot["minuteId"],
-      docSnapshot["shiftId"],
-      docSnapshot["dentistId"],
-      docSnapshot["agreementId"],
-      docSnapshot["patient"],
-      docSnapshot["email"],
-      docSnapshot["tel"],
-      user.id,
-      await new ShiftService().getShiftById(docSnapshot["id"]),
-      await new DentistService().getDentistById(docSnapshot["dentistId"]),
-      await new AgreementService().getAgreementById(docSnapshot["agreementId"]),
-    );
+      if ((dentistId != null) && (dentistId != '')) {
+        _listDocumentSnapshot.clear();
+      }
+
+      ListsApplyFilter();
+
+      if ((shiftId != null) && (shiftId != '')) {
+        _listDocumentSnapshot.forEach((doc) {
+          if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
+            if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0') ||
+                (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO') ||
+                (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB') ||
+                (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
+              doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
+            } else {
+              doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
+            }
+          }
+
+          if (shiftId == doc["shiftId"]) {
+            _listDocumentSnapshotTemp.add(new Map.from(doc));
+          }
+        });
+      }
+
+      if ((shiftId != null) && (shiftId != '')) {
+        _listDocumentSnapshot.clear();
+      }
+
+      ListsApplyFilter();
+
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["id"].toString().indexOf(patientId) > -1) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+
+      ListsApplyFilter();
+
+      totalResultByDay = _listDocumentSnapshot.length;
+
+      if (totalResultByDay == 0) {
+        querySelector("#auot-agendamento-list-card-app-" + index.toString())
+            ?.parent
+            ?.remove();
+        return;
+      }
+
+      int totalResult;
+
+      if (querySelector('#total-result-filter-text').getAttribute('value') ==
+          null) {
+        totalResult = 0;
+      } else {
+        totalResult = int.parse(querySelector('#total-result-filter-text')
+            .getAttribute('value')
+            .toString());
+      }
+
+      totalResult = totalResult + totalResultByDay;
+      querySelector('#total-result-filter-text')
+          .setAttribute('value', totalResult?.toString());
+      querySelector('#total-result-filter-text')
+          .setInnerHtml(totalResult?.toString());
+
+      listAppointmentScheduling.clear();
+
+      _listDocumentSnapshot.forEach((map) {
+        new AppointmentSchedulingService()
+            .turnMapInAppointmentScheduling(map)
+            .then((appointmentScheduling) {
+          listAppointmentScheduling.add(appointmentScheduling);
+        });
+      });
+    });
   }
 
   void onDelete(int index) {
