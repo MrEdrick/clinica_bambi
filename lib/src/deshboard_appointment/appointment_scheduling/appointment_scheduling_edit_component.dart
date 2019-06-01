@@ -160,7 +160,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
       }
     } else {
       dateAppointmentScheduling = new Date.today();
-      appointmentSchedulingService.returnEmptyAppointmentShceduling();
+      appointmentSchedulingService.appointmentScheduling =
+          appointmentSchedulingService.returnEmptyAppointmentShceduling();
     }
   }
 
@@ -298,7 +299,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSave() async {
     showAssertMessageAlert = false;
-    
+
     appointmentSchedulingService.appointmentScheduling.patient = patient;
 
     appointmentSchedulingService.appointmentScheduling.email = email;
