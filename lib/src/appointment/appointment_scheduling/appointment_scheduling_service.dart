@@ -190,7 +190,7 @@ class AppointmentSchedulingService {
         new GenericService().returnStringEmptyIfNull(map["dentistId"]),
         new GenericService().returnStringEmptyIfNull(map["agreementId"]),
         new GenericService()
-            .returnStringEmptyIfNull(["autoAppointmentSchedulingId"]),
+            .returnStringEmptyIfNull(map["autoAppointmentSchedulingId"]),
         map["patient"],
         map["email"],
         map["tel"],
