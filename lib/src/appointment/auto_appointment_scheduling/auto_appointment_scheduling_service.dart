@@ -1,5 +1,9 @@
 import 'dart:async';
-import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/dentist/dentist.dart';
+import '../../appointment/procedure/procedure.dart';
+import '../../appointment/shift/shift.dart';
+import '../../appointment/agreement/agreement.dart';
 
 import 'auto_appointment_scheduling.dart';
 import 'package:intl/intl.dart';
@@ -153,6 +157,24 @@ class AutoAppointmentSchedulingService {
   Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
       String id) async {
     Map doc;
+
+    if (id.isEmpty) {
+      return new AutoAppointmentScheduling(
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          new Shift('', '', false),
+          new Dentist('', '', false),
+          new Agreement('', '', false),
+          new Procedure('', '', false));
+    }
 
     doc = _autoAppointmentSchedulingById[id];
 

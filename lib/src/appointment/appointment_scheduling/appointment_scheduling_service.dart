@@ -191,6 +191,7 @@ class AppointmentSchedulingService {
       "shiftId": _appointmentScheduling.shiftId,
       "agreementId": _appointmentScheduling.agreementId,
       "dentistId": _appointmentScheduling.dentistId,
+      "autoAppointmentSchedulingId": _appointmentScheduling.autoAppointmentSchedulingId,
       "patient": _appointmentScheduling.patient,
       "email": _appointmentScheduling.email,
       "tel": _appointmentScheduling.telephone,
