@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling.dart';
+
 import 'auto_appointment_scheduling.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
@@ -191,8 +193,9 @@ class AutoAppointmentSchedulingService {
     }
 
     Map<String, dynamic> datas = {
-      "dateAppointmentScheduling": _autoAppointmentScheduling.dateAppointmentScheduling,
-      "agreementId":  _autoAppointmentScheduling.agreementId,
+      "dateAppointmentScheduling":
+          _autoAppointmentScheduling.dateAppointmentScheduling,
+      "agreementId": _autoAppointmentScheduling.agreementId,
       "dentistId": _autoAppointmentScheduling.dentistId,
       "shiftId": _autoAppointmentScheduling.shiftId,
       "procedureId": _autoAppointmentScheduling.procedureId,
@@ -203,10 +206,34 @@ class AutoAppointmentSchedulingService {
     };
 
     if (_autoAppointmentScheduling.id != "") {
-      result[await new AutoAppointmentSchedulingDAO().update(_autoAppointmentScheduling.id, datas) == ""] =
-          _autoAppointmentScheduling.id;
+      result[await new AutoAppointmentSchedulingDAO()
+              .update(_autoAppointmentScheduling.id, datas) ==
+          ""] = _autoAppointmentScheduling.id;
     } else {
       result = await new AutoAppointmentSchedulingDAO().save(datas);
+    }
+
+    saved = result.keys.first;
+
+    if (saved) {
+      new AppointmentSchedulingService().appointmentScheduling =
+          new AppointmentScheduling(
+              '',
+              _autoAppointmentScheduling.dateAppointmentScheduling,
+              '',
+              '',
+              _autoAppointmentScheduling.shiftId,
+              _autoAppointmentScheduling.dentistId,
+              _autoAppointmentScheduling.agreementId,
+              result.values.first,
+              _autoAppointmentScheduling.patient,
+              _autoAppointmentScheduling.email,
+              _autoAppointmentScheduling.telephone,
+              '',
+              null,
+              null,
+              null,
+              null);
     }
 
     return saved;
