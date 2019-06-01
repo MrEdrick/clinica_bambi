@@ -1,11 +1,10 @@
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
-import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'
     as auto_appointment_scheduling_edit;
 
@@ -23,21 +22,39 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
       materialInputDirectives,
       ModalComponent,
     ])
-
 class AutoAppointmentSchedulingCardComponent {
-  AppointmentScheduling _appointmentScheduling;
-  AppointmentSchedulingService appointmentSchedulingService;
+  final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
+  final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
+      new AutoAppointmentSchedulingService();
+  AutoAppointmentScheduling autoAppointmentScheduling;
 
   bool showEditAppointmentSchedulingEditApp = false;
 
-  AppointmentScheduling get appointmentScheduling => _appointmentScheduling;
   @Input()
-  set appointmentScheduling(AppointmentScheduling appointmentScheduling) => _appointmentScheduling = appointmentScheduling; 
+  String autoAppointmentSchedulerId;
 
-  AutoAppointmentSchedulingCardComponent();
+  @Input()
+  ComponentRef componentRef;
+
+  @ViewChild('containerEditAutoAppointmentScheduling', read: ViewContainerRef)
+  ViewContainerRef materialContainerEdit;
+
+  AutoAppointmentSchedulingCardComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
-    appointmentSchedulingService = new AppointmentSchedulingService();
-    appointmentSchedulingService.appointmentScheduling = appointmentScheduling;
+    autoAppointmentSchedulingService.autoAppointmentScheduling =
+        autoAppointmentScheduling;
+    ComponentFactory<
+            auto_appointment_scheduling_edit
+                .AutoAppointmentSchedulingEditComponent>
+        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit
+            .AutoAppointmentSchedulingEditComponentNgFactory;
+
+    ComponentRef autoAppointmentSchedulingEditComponent =
+        _loader.loadNextToLocation(
+            autoAppointmentSchedulingEdit, materialContainerEdit);
+    autoAppointmentSchedulingEditComponent.instance.componentRef =
+        autoAppointmentSchedulingEditComponent;
   }
 }

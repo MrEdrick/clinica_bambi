@@ -52,12 +52,9 @@ class AppointmentSchedulingCardComponent implements OnInit {
       this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
-    print("t0");
     Map map = appointmentSchedulingService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
-    print("t1");
     appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
-    print("t2");
     _changeDetectorRef.markForCheck();
   }
 
