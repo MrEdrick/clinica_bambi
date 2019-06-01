@@ -65,7 +65,11 @@ class DentistService {
   Future<Dentist> getDentistById(String id) async {
     Map doc;
 
-    if ((_dentistList == null) || (_dentistList.length == 0)) {
+    if (id.isEmpty) {
+      return new Dentist('', '', false);
+    }
+
+    if ((_dentistList == null) || (_dentistList?.length == 0)) {
       await getAllDentistAcives();
     }
 
@@ -129,7 +133,7 @@ class DentistService {
   Future<bool> save() async {
     bool saved = true;
     Map<bool, String> result = new Map<bool, String>();
-    
+
     if (_dentist == null) {
       return saved;
     }
@@ -155,31 +159,35 @@ class DentistService {
 
     _dentistProcedureService.dentistProcedure = null;
 
-    _dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek = null;
+    _dentistQuantityPerShiftByDayOfWeekService
+        .dentistQuantityPerShiftByDayOfWeek = null;
 
     for (DentistProcedure dentistProcedure in _dentistProcedureService
         .dentistProcedureListByDentistIdProcedureId.values) {
       _dentistProcedureService.dentistProcedure = dentistProcedure;
       saved = await (_dentistProcedureService.save(result.values.first));
     }
-    
+
     if (!saved) {
       return saved;
     } else {
-      _dentistProcedureService.clearAllDentistProcedureList();      
+      _dentistProcedureService.clearAllDentistProcedureList();
     }
 
     for (DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek
         in _dentistQuantityPerShiftByDayOfWeekService
-            .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId.values) {
-      _dentistQuantityPerShiftByDayOfWeekService.dentistQuantityPerShiftByDayOfWeek =
+            .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId
+            .values) {
+      _dentistQuantityPerShiftByDayOfWeekService
+              .dentistQuantityPerShiftByDayOfWeek =
           dentistQuantityPerShiftByDayOfWeek;
-          
+
       saved = await (_dentistQuantityPerShiftByDayOfWeekService.save());
     }
 
     if (saved) {
-      _dentistQuantityPerShiftByDayOfWeekService.clearAllDentistQuantityPerShiftByDayOfWeekList();
+      _dentistQuantityPerShiftByDayOfWeekService
+          .clearAllDentistQuantityPerShiftByDayOfWeekList();
     }
 
     return saved;

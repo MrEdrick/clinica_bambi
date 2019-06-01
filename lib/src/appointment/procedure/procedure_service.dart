@@ -31,22 +31,26 @@ class ProcedureService {
     }
 
     clearAllProcedureList();
-    
+
     await (_procedureList = await new ProcedureDAO()
         .getAllProcedureFilter({"state": "A"}, {"description": "asc"}));
-    
+
     _procedureList.forEach((procedure) {
       _procedureListById[procedure["documentPath"]] = procedure;
       _list.add(turnMapInProcedure(procedure));
     });
-    
+
     return _list;
   }
 
   Future<Procedure> getProcedureById(String id) async {
     Map doc;
 
-    if ((_procedureList == null) || (_procedureList.length == 0)) {
+    if (id.isEmpty) {
+      return new Procedure('', '', false);
+    }
+
+    if ((_procedureList == null) || (_procedureList?.length == 0)) {
       await getAllProcedureAcives();
     }
 
@@ -95,14 +99,13 @@ class ProcedureService {
     ListsApplyFilter();
 
     _procedureListWithFilter = _listDocumentSnapshot;
-    
+
     return _procedureListWithFilter;
   }
 
   List<Map> getProcedureListWithFilter() {
     return _procedureListWithFilter;
   }
-
 
   Procedure turnMapInProcedure(Map map) {
     return new Procedure(
@@ -135,13 +138,13 @@ class ProcedureService {
 
     _procedureRequirementService.procedureRequirement = null;
 
-    for (ProcedureRequirement procedureRequirement in _procedureRequirementService
-        .procedureRequirementListByProcedureIdRequirementId.values) {
+    for (ProcedureRequirement procedureRequirement
+        in _procedureRequirementService
+            .procedureRequirementListByProcedureIdRequirementId.values) {
       _procedureRequirementService.procedureRequirement = procedureRequirement;
       saved = await (_procedureRequirementService.save(result.values.first));
     }
- 
+
     return saved;
   }
-
 }

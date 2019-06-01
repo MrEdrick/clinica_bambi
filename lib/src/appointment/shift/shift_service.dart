@@ -31,15 +31,15 @@ class ShiftService {
     }
 
     clearAllShiftList();
-    
+
     await (_shiftList = await new ShiftDAO()
         .getAllShiftFilter({"state": "A"}, {"description": "asc"}));
-    
+
     _shiftList.forEach((shift) {
       _shiftListById[shift["documentPath"]] = shift;
       _list.add(turnMapInShift(shift));
     });
-    
+
     return _list;
   }
 
@@ -60,7 +60,11 @@ class ShiftService {
   Future<Shift> getShiftById(String id) async {
     Map doc;
 
-    if ((_shiftList == null) || (_shiftList.length == 0)) {
+    if (id.isEmpty) {
+      return new Shift('', '', false);
+    }
+
+    if ((_shiftList == null) || (_shiftList?.length == 0)) {
       await getAllShiftAcives();
     }
 
@@ -109,7 +113,7 @@ class ShiftService {
     ListsApplyFilter();
 
     _shiftListWithFilter = _listDocumentSnapshot;
-    
+
     return _shiftListWithFilter;
   }
 

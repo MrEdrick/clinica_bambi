@@ -31,15 +31,15 @@ class AgreementService {
     }
 
     clearAllAgreementList();
-    
+
     await (_agreementList = await new AgreementDAO()
         .getAllAgreementFilter({"state": "A"}, {"description": "asc"}));
-    
+
     _agreementList.forEach((agreement) {
       _agreementListById[agreement["documentPath"]] = agreement;
       _list.add(turnMapInAgreement(agreement));
     });
-    
+
     return _list;
   }
 
@@ -51,7 +51,8 @@ class AgreementService {
     List<AgreementUI> _listAgreementUI = new List<AgreementUI>();
 
     for (Agreement _agreement in _list) {
-      _listAgreementUI.add(new AgreementUI(_agreement.id, _agreement.description));
+      _listAgreementUI
+          .add(new AgreementUI(_agreement.id, _agreement.description));
     }
 
     return _listAgreementUI;
@@ -60,7 +61,11 @@ class AgreementService {
   Future<Agreement> getAgreementById(String id) async {
     Map doc;
 
-    if ((_agreementList == null) || (_agreementList.length == 0)) {
+    if (id.isEmpty) {
+      return new Agreement('', '', false);
+    }
+
+    if ((_agreementList == null) || (_agreementList?.length == 0)) {
       await getAllAgreementAcives();
     }
 
@@ -109,7 +114,7 @@ class AgreementService {
     ListsApplyFilter();
 
     _agreementListWithFilter = _listDocumentSnapshot;
-    
+
     return _agreementListWithFilter;
   }
 
