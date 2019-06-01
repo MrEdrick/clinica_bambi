@@ -26,7 +26,7 @@ class ProcedureService {
   }
 
   Future<List<Procedure>> getAllProcedureAcives() async {
-    if ((_procedureList != null) && (_procedureList.length != 0)) {
+    if ((_procedureList != null) && (_procedureList?.length != 0)) {
       return _list;
     }
 

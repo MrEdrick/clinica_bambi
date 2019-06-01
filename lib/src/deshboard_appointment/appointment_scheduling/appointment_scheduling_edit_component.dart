@@ -64,7 +64,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
   final List<ComponentRef> listComponentRefDropdownSelect =
       new List<ComponentRef>();
 
-  AppointmentSchedulingService appointmentSchedulingService;
+  final AppointmentSchedulingService appointmentSchedulingService =
+      new AppointmentSchedulingService();
 
   ComponentRef dentistDropdownSelectComponentRef;
   ComponentRef agreementDropdownSelectComponentRef;
@@ -116,8 +117,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
   AppointmentSchedulingEditComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
-    appointmentSchedulingService = new AppointmentSchedulingService();
-
     if (appointmentSchedulingService.appointmentScheduling != null) {
       dateAppointmentScheduling = new Date.parse(
           appointmentSchedulingService
@@ -166,7 +165,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-
     await dentistService.getAllDentistAcives();
     await agreementService.getAllAgreementAcives();
     await shiftService.getAllShiftAcives();

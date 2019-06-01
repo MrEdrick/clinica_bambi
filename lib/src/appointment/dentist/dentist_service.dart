@@ -31,15 +31,15 @@ class DentistService {
   }
 
   Future<List<Dentist>> getAllDentistAcives() async {
-    if ((_dentistList != null) && (_dentistList.length != 0)) {
+    if ((_dentistList != null) && (_dentistList?.length != 0)) {
       return _list;
     }
-
+  
     clearAllDentistList();
-
+  
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-
+  
     _dentistList.forEach((dentist) {
       _dentistListById[dentist["documentPath"]] = dentist;
       _list.add(turnMapInDentist(dentist));
@@ -49,7 +49,7 @@ class DentistService {
   }
 
   Future<List<DentistUI>> getAllDentistUIAcives() async {
-    if ((_dentistList == null) || (_dentistList.length == 0)) {
+    if ((_dentistList == null) || (_dentistList?.length == 0)) {
       await getAllDentistAcives();
     }
 
