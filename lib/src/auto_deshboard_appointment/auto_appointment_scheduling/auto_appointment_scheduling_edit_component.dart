@@ -311,9 +311,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         (shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
-                .instance.singleSelectModelAgreement.selectedValues.isEmpty)(
-            autoAppointmentSchedulingService
-                .autoAppointmentScheduling.patient.isEmpty) ||
+            .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
+        (autoAppointmentSchedulingService
+            .autoAppointmentScheduling.patient.isEmpty) ||
         ((telephoneMask.number == '') &&
             (autoAppointmentSchedulingService
                 .autoAppointmentScheduling.email.isEmpty)) ||

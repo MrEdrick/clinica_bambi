@@ -80,6 +80,9 @@ class AppointmentSchedulingEditComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
+  String patient;
+  String email;
+
   Date dateAppointmentScheduling = new Date.today();
 
   bool showSuccessfullySave = false;
@@ -118,6 +121,10 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onEdit() {
     if (appointmentSchedulingService.appointmentScheduling != null) {
+      patient = appointmentSchedulingService.appointmentScheduling.patient;
+
+      email = appointmentSchedulingService.appointmentScheduling.email;
+
       dateAppointmentScheduling = new Date.parse(
           appointmentSchedulingService
               .appointmentScheduling.dateAppointmentScheduling,
@@ -165,6 +172,10 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    patient = "";
+    email = "";
+
     await dentistService.getAllDentistAcives();
     await agreementService.getAllAgreementAcives();
     await shiftService.getAllShiftAcives();
@@ -269,9 +280,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
         (shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
-        (appointmentSchedulingService.appointmentScheduling.patient == '') ||
-        (appointmentSchedulingService.appointmentScheduling.email == '') ||
-        (telephoneMask.number == '') ||
+        (patient == '') ||
+        ((email == '') && (telephoneMask.number == '')) ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
       return;
@@ -286,6 +296,10 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSave() async {
     showAssertMessageAlert = false;
+
+    appointmentSchedulingService.appointmentScheduling.patient = patient;
+
+    appointmentSchedulingService.appointmentScheduling.email = email;
 
     appointmentSchedulingService
             .appointmentScheduling.dateAppointmentScheduling =
