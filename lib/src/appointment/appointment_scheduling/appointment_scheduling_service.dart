@@ -9,6 +9,7 @@ import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
+import '../../appointment/generic/generic_service.dart';
 
 class AppointmentSchedulingService {
   static AppointmentScheduling _appointmentScheduling;
@@ -17,7 +18,8 @@ class AppointmentSchedulingService {
   static Map _appointmentSchedulingByDateWithFilter = new Map();
 
   AppointmentScheduling get appointmentScheduling => _appointmentScheduling;
-  set appointmentScheduling(AppointmentScheduling appointmentScheduling) => _appointmentScheduling = appointmentScheduling;
+  set appointmentScheduling(AppointmentScheduling appointmentScheduling) =>
+      _appointmentScheduling = appointmentScheduling;
 
   void clearAllAppointmentSchedulingByDate() {
     _appointmentSchedulingByDate.clear();
@@ -161,21 +163,26 @@ class AppointmentSchedulingService {
     return await (new AppointmentScheduling(
         map["documentPath"],
         map["dateAppointmentScheduling"],
-        map["hourId"],
-        map["minuteId"],
-        map["shiftId"],
-        map["dentistId"],
-        map["agreementId"],
-        map["autoAppointmentSchedulingId"] == null ? '' : map["autoAppointmentSchedulingId"],
+        new GenericService().returnStringEmptyIfNull(map["hourId"]),
+        new GenericService().returnStringEmptyIfNull(map["minuteId"]),
+        new GenericService().returnStringEmptyIfNull(map["shiftId"]),
+        new GenericService().returnStringEmptyIfNull(map["dentistId"]),
+        new GenericService().returnStringEmptyIfNull(map["agreementId"]),
+        new GenericService()
+            .returnStringEmptyIfNull(["autoAppointmentSchedulingId"]),
         map["patient"],
         map["email"],
         map["tel"],
         map["userId"],
-        await new ShiftService().getShiftById(map["shiftId"]),
-        await new DentistService().getDentistById(map["dentistId"]),
-        await new AgreementService().getAgreementById(map["agreementId"]),
-        await new AutoAppointmentSchedulingService().getAutoAppointmentSchedulingById(map["autoAppointmentSchedulingId"])
-        ));
+        await new ShiftService().getShiftById(
+            new GenericService().returnStringEmptyIfNull(map["shiftId"])),
+        await new DentistService().getDentistById(
+            new GenericService().returnStringEmptyIfNull(map["dentistId"])),
+        await new AgreementService().getAgreementById(
+            new GenericService().returnStringEmptyIfNull(map["agreementId"])),
+        await new AutoAppointmentSchedulingService()
+            .getAutoAppointmentSchedulingById(new GenericService()
+                .returnStringEmptyIfNull(map["autoAppointmentSchedulingId"]))));
   }
 
   Future<bool> save() async {
@@ -186,12 +193,14 @@ class AppointmentSchedulingService {
       return saved;
     }
 
-     Map<String, dynamic> datas = {
-      "dateAppointmentScheduling": _appointmentScheduling.dateAppointmentScheduling,
+    Map<String, dynamic> datas = {
+      "dateAppointmentScheduling":
+          _appointmentScheduling.dateAppointmentScheduling,
       "shiftId": _appointmentScheduling.shiftId,
       "agreementId": _appointmentScheduling.agreementId,
       "dentistId": _appointmentScheduling.dentistId,
-      "autoAppointmentSchedulingId": _appointmentScheduling.autoAppointmentSchedulingId,
+      "autoAppointmentSchedulingId":
+          _appointmentScheduling.autoAppointmentSchedulingId,
       "patient": _appointmentScheduling.patient,
       "email": _appointmentScheduling.email,
       "tel": _appointmentScheduling.telephone,
@@ -199,8 +208,8 @@ class AppointmentSchedulingService {
     };
 
     if (_appointmentScheduling.id != '') {
-      result[await new AppointmentSchedulingDAO().update(
-              _appointmentScheduling.id, datas) ==
+      result[await new AppointmentSchedulingDAO()
+              .update(_appointmentScheduling.id, datas) ==
           ""] = _appointmentScheduling.id;
     } else {
       result = await new AppointmentSchedulingDAO().save(datas);
@@ -208,5 +217,4 @@ class AppointmentSchedulingService {
 
     return saved;
   }
-
 }

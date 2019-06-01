@@ -157,7 +157,7 @@ class AutoAppointmentSchedulingService {
   Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
       String id) async {
     Map doc;
-
+    
     if (id.isEmpty) {
       return new AutoAppointmentScheduling(
           '',

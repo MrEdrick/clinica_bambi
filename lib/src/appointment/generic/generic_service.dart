@@ -21,4 +21,8 @@ class GenericService {
     new RequirementService().clearAllRequirementList();
     new ShiftService().clearAllShiftList();
   }
+
+  String returnStringEmptyIfNull(var variable) {
+    return variable == null ? '' : variable; 
+  }
 }
