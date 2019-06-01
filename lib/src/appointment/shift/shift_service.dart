@@ -61,7 +61,7 @@ class ShiftService {
     Map doc;
 
     if (id.isEmpty) {
-      return new Shift('', '', false);
+      return returnEmptyShift();
     }
 
     if ((_shiftList == null) || (_shiftList?.length == 0)) {
@@ -119,6 +119,11 @@ class ShiftService {
 
   List<Map> getShiftListWithFilter() {
     return _shiftListWithFilter;
+  }
+
+
+  Shift returnEmptyShift() {
+    return new Shift("", "", false);
   }
 
   Shift turnMapInShift(Map map) {

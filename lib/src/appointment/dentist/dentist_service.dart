@@ -66,7 +66,7 @@ class DentistService {
     Map doc;
 
     if (id.isEmpty) {
-      return new Dentist('', '', false);
+      return returnEmptyDentist();
     }
 
     if ((_dentistList == null) || (_dentistList?.length == 0)) {
@@ -124,6 +124,11 @@ class DentistService {
 
   List<Map> getDentistListWithFilter() {
     return _dentistListWithFilter;
+  }
+
+
+  Dentist returnEmptyDentist() {
+    return new Dentist("", "", false);
   }
 
   Dentist turnMapInDentist(Map map) {

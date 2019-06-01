@@ -47,7 +47,7 @@ class ProcedureService {
     Map doc;
 
     if (id.isEmpty) {
-      return new Procedure('', '', false);
+      return returnEmptyProcedure();
     }
 
     if ((_procedureList == null) || (_procedureList?.length == 0)) {
@@ -105,6 +105,11 @@ class ProcedureService {
 
   List<Map> getProcedureListWithFilter() {
     return _procedureListWithFilter;
+  }
+
+
+  Procedure returnEmptyProcedure() {
+    return new Procedure("", "", false);
   }
 
   Procedure turnMapInProcedure(Map map) {

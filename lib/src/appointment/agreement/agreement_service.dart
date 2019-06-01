@@ -62,7 +62,7 @@ class AgreementService {
     Map doc;
 
     if (id.isEmpty) {
-      return new Agreement('', '', false);
+      return returnEmptyAgreement();
     }
 
     if ((_agreementList == null) || (_agreementList?.length == 0)) {
@@ -120,6 +120,10 @@ class AgreementService {
 
   List<Map> getAgreementListWithFilter() {
     return _agreementListWithFilter;
+  }
+
+  Agreement returnEmptyAgreement() {
+    return new Agreement("", "", false);
   }
 
   Agreement turnMapInAgreement(Map map) {

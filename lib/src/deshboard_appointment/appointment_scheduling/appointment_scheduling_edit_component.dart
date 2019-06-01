@@ -15,8 +15,9 @@ import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:intl/intl.dart';
 
-import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
 
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import '../../appointment/user/user_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
@@ -159,6 +160,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
       }
     } else {
       dateAppointmentScheduling = new Date.today();
+      appointmentSchedulingService.returnEmptyAppointmentShceduling();
     }
   }
 
@@ -296,7 +298,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSave() async {
     showAssertMessageAlert = false;
-
+    
     appointmentSchedulingService.appointmentScheduling.patient = patient;
 
     appointmentSchedulingService.appointmentScheduling.email = email;

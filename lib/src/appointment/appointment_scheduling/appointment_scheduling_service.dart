@@ -159,6 +159,27 @@ class AppointmentSchedulingService {
     return await turnMapInAppointmentScheduling(doc);
   }
 
+  AppointmentScheduling returnEmptyAppointmentShceduling() {
+    return new AppointmentScheduling(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        new ShiftService().returnEmptyShift(),
+        new DentistService().returnEmptyDentist(),
+        new AgreementService().returnEmptyAgreement(),
+        new AutoAppointmentSchedulingService()
+            .returnEmptyAutoAppointmentScheduling());
+  }
+
   Future<AppointmentScheduling> turnMapInAppointmentScheduling(Map map) async {
     return await (new AppointmentScheduling(
         map["documentPath"],

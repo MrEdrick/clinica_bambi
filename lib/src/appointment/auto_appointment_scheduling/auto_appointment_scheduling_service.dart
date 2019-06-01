@@ -157,23 +157,9 @@ class AutoAppointmentSchedulingService {
   Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
       String id) async {
     Map doc;
-    
+
     if (id.isEmpty) {
-      return new AutoAppointmentScheduling(
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          '',
-          new Shift('', '', false),
-          new Dentist('', '', false),
-          new Agreement('', '', false),
-          new Procedure('', '', false));
+      return returnEmptyAutoAppointmentScheduling();
     }
 
     doc = _autoAppointmentSchedulingById[id];
@@ -185,6 +171,24 @@ class AutoAppointmentSchedulingService {
     }
 
     return await turnMapInAutoAppointmentScheduling(doc);
+  }
+
+  AutoAppointmentScheduling returnEmptyAutoAppointmentScheduling() {
+    return new AutoAppointmentScheduling(
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        new Shift('', '', false),
+        new Dentist('', '', false),
+        new Agreement('', '', false),
+        new Procedure('', '', false));
   }
 
   Future<AutoAppointmentScheduling> turnMapInAutoAppointmentScheduling(
