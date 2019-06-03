@@ -238,7 +238,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           "shiftId": shiftId,
           "patient": patientName
         }))
-            .length;
+            ?.length;
 
         if (listDate.last == date) {
           onLoad();
