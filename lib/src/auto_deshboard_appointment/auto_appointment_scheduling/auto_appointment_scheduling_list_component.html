@@ -3,24 +3,3 @@
     </div>
     <div #containerCardAutoAppointmentScheduling></div>
 </div>
-
-<modal [(visible)]="showDeteleCertification">
-    <material-dialog info class="max-height-dialog">
-
-        <div header>
-            <h1>Stop... wait a minute!</h1>
-        </div>
-
-        <p>Tem certeza que deseja apagar esta appointmentScheduling?</p>
-
-        <div footer>
-            <material-button (trigger)="deleteAppointmentScheduling">
-                Tenho sim
-            </material-button>
-            <material-button (trigger)="noDeleteAppointmentScheduling">
-                Não desejo
-            </material-button>
-        </div>
-
-    </material-dialog>
-</modal>

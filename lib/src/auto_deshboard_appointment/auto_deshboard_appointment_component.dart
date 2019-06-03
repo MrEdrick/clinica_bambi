@@ -1,18 +1,11 @@
 import 'dart:async';
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/content/deferred_content.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_toggle/material_toggle.dart';
-import 'package:angular_components/material_datepicker/date_range_input.dart';
-import 'package:angular_components/material_datepicker/material_datepicker.dart';
-import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_select/material_dropdown_select.dart';
-import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import '../appointment/user/user.dart';
 import '../appointment/user/user_service.dart';
@@ -30,21 +23,15 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
   directives: const [
     coreDirectives,
     materialInputDirectives,
-    NgFor,
+
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
-    MaterialToggleComponent,
-    MaterialDatepickerComponent,
-    DateRangeInputComponent,
-    MaterialDropdownSelectComponent,
-    MultiDropdownSelectValueAccessor,
     MaterialFabComponent
   ],
   providers: const [
     materialProviders,
     windowBindings,
-    datepickerBindings,
     popupBindings
   ],
   styleUrls: const [

@@ -1,5 +1,3 @@
-import 'dart:html';
-import 'dart:async';
 import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -10,16 +8,13 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
-import '../../firebase/firestore.dart';
-import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
-import '../../appointment/user/user.dart';
-import '../../appointment/dentist/dentist_service.dart';
-import '../../appointment/shift/shift_service.dart';
-import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/user/user_service.dart';
+import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_card_component.template.dart'
+    as auto_appointment_scheduling_card;
 
 @Component(
     selector: 'auto_appointment_scheduling_list_component',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: const [
       'auto_appointment_scheduling_list_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -39,183 +34,44 @@ import '../../appointment/user/user_service.dart';
       ModalComponent,
     ])
 class AutoAppointmentSchedulingListComponent implements OnInit {
-  final List<AppointmentScheduling> listAppointmentScheduling =
-      new List<AppointmentScheduling>();
+  final ChangeDetectorRef _changeDetectorRef; 
+  final ComponentLoader _loader;
 
-  User _user;
+  @ViewChild('containerCardAutoAppointmentScheduling', read: ViewContainerRef)
+  ViewContainerRef materialContainerCard;
 
-  AutoAppointmentSchedulingListComponent();
-
-  User get user => _user;
-  @Input()
-  set user(User user) => _user = user;
+  AutoAppointmentSchedulingListComponent(this._loader, this._changeDetectorRef);
 
   @Input()
-  Date dataAppointmentScheduling;
+  ComponentRef componentRef;
 
   @Input()
-  String dentistId;
+  Date date;
 
-  @Input()
-  String shiftId;
-
-  @Input()
-  String patientId;
-
-  @Input()
-  int index;
+  String dateFormated;
 
   int totalResultByDay;
 
-  bool showDeteleCertification = false;
-
-  int deleteIndex = -1;
-
   void ngOnInit() {
     if (new UserService().user == null) return;
+    
+    dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
+    
+    List<Map> _list = new AppointmentSchedulingService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
+    
+    _list.forEach((appointmentScheduling) {
+      ComponentFactory<auto_appointment_scheduling_card.AutoAppointmentSchedulingCardComponent>
+          autoAppointmentSchedulingCard =
+          auto_appointment_scheduling_card.AutoAppointmentSchedulingCardComponentNgFactory;
 
-    selectItensFireBase();
-  }
+      ComponentRef autoAppointmentSchedulingListComponent =
+        _loader.loadNextToLocation(autoAppointmentSchedulingCard, materialContainerCard);
 
-  void selectItensFireBase() {
-    List<Map> _listDocumentSnapshot = new List<Map>();
-
-    List<Map> _listDocumentSnapshotTemp = new List<Map>();
-
-    void ListsApplyFilter() {
-      if (_listDocumentSnapshotTemp.length > 0) {
-        _listDocumentSnapshotTemp.forEach((doc) {
-          _listDocumentSnapshot.add(new Map.from(doc));
-        });
-
-        _listDocumentSnapshotTemp.clear();
-      }
-    }
-
-    FireStoreApp fireStoreApp = new FireStoreApp('appointmentsScheduling');
-
-    fireStoreApp.ref
-        .where(
-            'dateAppointmentScheduling',
-            '==',
-            new DateFormat('yyyy-MM-dd')
-                .format(dataAppointmentScheduling.asUtcTime()))
-        .get()
-        .then((querySnapshot) {
-      totalResultByDay = 0;
-
-      querySnapshot.forEach((doc) {
-        Map map = new Map.from(doc.data());
-        map['documentPath'] = doc.id;
-        _listDocumentSnapshot.add(map);
-      });
-
-      fireStoreApp.FireStoreOffLine();
-    }).then((result) {
-      _listDocumentSnapshotTemp.clear();
-
-      _listDocumentSnapshot.forEach((doc) {
-        if ((dentistId != null) && (dentistId != '')) {
-          if (dentistId == doc["dentistId"]) {
-            _listDocumentSnapshotTemp.add(new Map.from(doc));
-          }
-        } else {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      });
-
-      if ((dentistId != null) && (dentistId != '')) {
-        _listDocumentSnapshot.clear();
-      }
-
-      ListsApplyFilter();
-
-      if ((shiftId != null) && (shiftId != '')) {
-        _listDocumentSnapshot.forEach((doc) {
-          if ((doc["shiftId"] == '') || (doc["shiftId"] == null)) {
-            if ((doc["hourId"] == 'JVWNJdwwqjFXCbmuGWf0') ||
-                (doc["hourId"] == 'Q14M2Diimon1ksVLO3TO') ||
-                (doc["hourId"] == 'hql4fUJfU8vhoxaF7IkB') ||
-                (doc["hourId"] == 'mUFFpnp6CP53gnEuS9DU')) {
-              doc["shiftId"] = '1a5XNjDT8qfLQ53KSSxh';
-            } else {
-              doc["shiftId"] = 'fBXihJRGPTPepfkfbxSs';
-            }
-          }
-
-          if (shiftId == doc["shiftId"]) {
-            _listDocumentSnapshotTemp.add(new Map.from(doc));
-          }
-        });
-      }
-
-      if ((shiftId != null) && (shiftId != '')) {
-        _listDocumentSnapshot.clear();
-      }
-
-      ListsApplyFilter();
-
-      _listDocumentSnapshot.forEach((doc) {
-        if (doc["id"].toString().indexOf(patientId) > -1) {
-          _listDocumentSnapshotTemp.add(new Map.from(doc));
-        }
-      });
-
-      ListsApplyFilter();
-
-      totalResultByDay = _listDocumentSnapshot.length;
-
-      if (totalResultByDay == 0) {
-        querySelector("#auot-agendamento-list-card-app-" + index.toString())
-            ?.parent
-            ?.remove();
-        return;
-      }
-
-      int totalResult;
-
-      if (querySelector('#total-result-filter-text').getAttribute('value') ==
-          null) {
-        totalResult = 0;
-      } else {
-        totalResult = int.parse(querySelector('#total-result-filter-text')
-            .getAttribute('value')
-            .toString());
-      }
-
-      totalResult = totalResult + totalResultByDay;
-      querySelector('#total-result-filter-text')
-          .setAttribute('value', totalResult?.toString());
-      querySelector('#total-result-filter-text')
-          .setInnerHtml(totalResult?.toString());
-
-      listAppointmentScheduling.clear();
-
-      _listDocumentSnapshot.forEach((map) {
-        new AppointmentSchedulingService()
-            .turnMapInAppointmentScheduling(map)
-            .then((appointmentScheduling) {
-          listAppointmentScheduling.add(appointmentScheduling);
-        });
-      });
+      autoAppointmentSchedulingListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
+      autoAppointmentSchedulingListComponent.instance.componentRef = autoAppointmentSchedulingListComponent;
     });
+    
+    _changeDetectorRef.markForCheck();
   }
 
-  void onDelete(int index) {
-    deleteIndex = index;
-    showDeteleCertification = true;
-  }
-
-  void deleteAppointmentScheduling() {
-    FireStoreApp fireStoreApp = new FireStoreApp('appointmentsScheduling');
-    fireStoreApp.deleteItem(listAppointmentScheduling[deleteIndex].id);
-    listAppointmentScheduling.removeAt(deleteIndex);
-    showDeteleCertification = false;
-    deleteIndex = -1;
-  }
-
-  void noDeleteAppointmentScheduling() {
-    showDeteleCertification = false;
-    deleteIndex = -1;
-  }
 }

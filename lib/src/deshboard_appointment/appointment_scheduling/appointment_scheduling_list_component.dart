@@ -30,8 +30,6 @@ class AppointmentSchedulingListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
-  final List<String> listAppointmentSchedulingId = new List<String>();
-
   AppointmentSchedulingListComponent(this._loader, this._changeDetectorRef);
 
   @Input()

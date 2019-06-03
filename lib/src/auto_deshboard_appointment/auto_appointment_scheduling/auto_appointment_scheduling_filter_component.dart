@@ -53,7 +53,7 @@ import '../../appointment/auto_appointment_scheduling/auto_appointment_schedulin
     popupBindings
   ],
   styleUrls: const [
-    'autoAppointment_scheduling_filter_component.scss.css',
+    'auto_appointment_scheduling_filter_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
