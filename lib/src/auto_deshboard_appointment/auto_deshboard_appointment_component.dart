@@ -11,8 +11,6 @@ import '../appointment/user/user.dart';
 import '../appointment/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
-import '../appointment/appointment_scheduling/appointment_scheduling_service.dart';
-
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_filter_component.template.dart'
     as auto_appointment_scheduling_filter;
 
@@ -23,7 +21,6 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
   directives: const [
     coreDirectives,
     materialInputDirectives,
-
     DeferredContentDirective,
     MaterialButtonComponent,
     MaterialIconComponent,
@@ -43,15 +40,6 @@ class AutoDeshboardAppointmentComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
   ComponentRef componentRef;
-
-  AppointmentSchedulingService _appointmentSchedulingService =
-      new AppointmentSchedulingService();
-
-  AppointmentSchedulingService get appointmentSchedulingService =>
-      _appointmentSchedulingService;
-  set appointmentSchedulingService(
-          AppointmentSchedulingService appointmentSchedulingService) =>
-      _appointmentSchedulingService = appointmentSchedulingService;
 
   User user;
 
