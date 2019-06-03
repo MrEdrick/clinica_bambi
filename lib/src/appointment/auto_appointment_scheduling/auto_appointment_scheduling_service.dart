@@ -77,7 +77,7 @@ class AutoAppointmentSchedulingService {
   }
 
   List<Map> getAutoAppointmentSchedulingWithFilterFromList(
-      Date date, String patientAccountId, Map filter) {
+      String patientAccountId, Date date, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();

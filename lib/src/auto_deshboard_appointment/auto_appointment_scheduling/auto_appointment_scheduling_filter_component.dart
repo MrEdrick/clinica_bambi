@@ -233,7 +233,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           .then((onValue) {
         total += (new AutoAppointmentSchedulingService()
                 .getAutoAppointmentSchedulingWithFilterFromList(
-                    date, patientAccountService.patientAccount.id, {
+                    patientAccountService.patientAccount.id, date, {
           "dentistId": dentistId,
           "shiftId": shiftId,
           "patient": patientName
