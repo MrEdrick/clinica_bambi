@@ -38,7 +38,6 @@ class AppointmentSchedulingCardComponent implements OnInit {
   final AppointmentSchedulingService appointmentSchedulingService = new AppointmentSchedulingService();
   AppointmentScheduling appointmentScheduling;
 
-  bool showEditAgendamentoEditApp = false;
   bool showDeteleCertification = false;
 
   @Input()
@@ -62,7 +61,7 @@ class AppointmentSchedulingCardComponent implements OnInit {
     if (!appointmentScheduling.autoAppointmentSchedulingId.isEmpty) {
       querySelector('#tag-auto-appointment-scheduling').style.display = "block";
     }
-    
+
     _changeDetectorRef.markForCheck();
   }
 
