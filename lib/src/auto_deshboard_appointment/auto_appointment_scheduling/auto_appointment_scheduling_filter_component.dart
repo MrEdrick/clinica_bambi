@@ -22,10 +22,16 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'
     as auto_appointment_scheduling_edit;
 
-import '../../appointment/user/user_service.dart';
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
+    as dentist_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
+    as shift_dropdown_select_list_component;
 
-import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
+import '../../appointment/user/user_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/shift/shift_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
 
 @Component(
   selector: 'auto_appointment_scheduling_filter_component',
@@ -60,7 +66,16 @@ import '../../appointment/auto_appointment_scheduling/auto_appointment_schedulin
 class AutoAppointmentSchedulingFilterComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
+
   final List<ComponentRef> listComponentRef = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefDropdownSelect =
+      new List<ComponentRef>();
+
+  final DentistService dentistService = new DentistService();
+  final ShiftService shiftService = new ShiftService();
+
+  ComponentRef dentistDropdownSelectComponentRef;
+  ComponentRef shiftDropdownSelectComponentRef;
 
   AutoAppointmentSchedulingService _autoAppointmentSchedulingService = new AutoAppointmentSchedulingService();
 
@@ -95,6 +110,12 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   @ViewChild('containerEditAutoAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
 
+  @ViewChild('dentistDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerDentistDropdownSelect;
+
+  @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerShiftDropdownSelect;
+
   List<List<Map<String, dynamic>>> listScheduling =
       new List<List<Map<String, dynamic>>>();
   final List<AutoAppointmentScheduling> listAutoAppointmentSchedulingByDate = new List<AutoAppointmentScheduling>();
@@ -103,8 +124,45 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   AutoAppointmentSchedulingFilterComponent(this._loader, this._changeDetectorRef);
 
+  void clearListComponentRef(List<ComponentRef> listComponentRef) {
+    listComponentRef.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRef.clear();
+  }
+
   void ngOnInit() async {
     if (new UserService().user == null) return;
+ 
+    await dentistService.getAllDentistAcives();
+    await shiftService.getAllShiftAcives();
+
+    clearListComponentRef(listComponentRefDropdownSelect);
+
+    ComponentFactory<
+        dentist_dropdown_select_list_component
+            .DentistDropdownSelectComponent> dentistDropdownSelectComponent;
+
+    dentistDropdownSelectComponent = dentist_dropdown_select_list_component
+        .DentistDropdownSelectComponentNgFactory;
+
+    dentistDropdownSelectComponentRef = _loader.loadNextToLocation(
+        dentistDropdownSelectComponent, materialContainerDentistDropdownSelect);
+
+    listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
+
+    ComponentFactory<
+            shift_dropdown_select_list_component.ShiftDropdownSelectComponent>
+        shiftDropdownSelectComponent = shift_dropdown_select_list_component
+            .ShiftDropdownSelectComponentNgFactory;
+
+    shiftDropdownSelectComponentRef = _loader.loadNextToLocation(
+        shiftDropdownSelectComponent, materialContainerShiftDropdownSelect);
+
+    listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
+
+    _changeDetectorRef.markForCheck();
 
     await onFilter();
   }
@@ -132,7 +190,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
       finalDate = initialDate;
     }
 
-    querySelector('#autoAppointment-scheduling-result-filter-text').setInnerHtml('0');
+    querySelector('#auto-appointment-scheduling-result-filter-text').setInnerHtml('0');
 
     initialDateFormated =
         new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
@@ -174,7 +232,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
         if (listDate.last == date) {
           onLoad();
 
-          querySelector('#autoAppointment-scheduling-result-filter-text')
+          querySelector('#auto-appointment-scheduling-result-filter-text')
               .setInnerHtml(total.toString());
         }
       });
