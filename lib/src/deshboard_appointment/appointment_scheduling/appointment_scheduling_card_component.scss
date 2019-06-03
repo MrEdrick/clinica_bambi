@@ -50,7 +50,7 @@ label {
   display: block;
 }
 
-.label-tag {
+.tag {
   position: absolute;
   left: 50%;
   bottom: 5px;
@@ -58,6 +58,10 @@ label {
   background: #00B0FF;
   text-align: center;
   color: rgb(255,255,255);
+}
+
+#tag-auto-appointment-scheduling {
+  display: none;
 }
 
 #delete {

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -54,7 +56,13 @@ class AppointmentSchedulingCardComponent implements OnInit {
   void ngOnInit() async {
     Map map = appointmentSchedulingService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
+    
     appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
+    
+    if (!appointmentScheduling.autoAppointmentSchedulingId.isEmpty) {
+      querySelector('#tag-auto-appointment-scheduling').style.display = "block";
+    }
+    
     _changeDetectorRef.markForCheck();
   }
 

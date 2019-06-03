@@ -27,7 +27,6 @@ import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/agreement/agreementUI.dart';
-import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 
 import '../../appointment/user/user_service.dart';
@@ -85,8 +84,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new PatientAccountService();
   final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
       new AutoAppointmentSchedulingService();
-  final AppointmentSchedulingService appointmentSchedulingService =
-      new AppointmentSchedulingService();
 
   Date dateAppointmentScheduling = new Date.today();
 
@@ -169,7 +166,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .autoAppointmentScheduling.procedure !=
           null) {
         procedureDropdownSelectComponentRef.instance.singleSelectModelProcedure
-            .select(new ShiftUI(
+            .select(new ProcedureUI(
                 autoAppointmentSchedulingService
                     .autoAppointmentScheduling.procedure.id,
                 autoAppointmentSchedulingService
