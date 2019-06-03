@@ -32,6 +32,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_f
 
 @Component(
   selector: 'deshboard_appointment_component',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'deshboard_appointment_component.html',
   directives: const [
     coreDirectives,
@@ -62,6 +63,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_f
 )
 class DeshboardAppointmentComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
   ComponentRef componentRef;
 
   final UserService userService;
@@ -77,7 +79,7 @@ class DeshboardAppointmentComponent implements OnActivate, OnInit {
   @ViewChild('materialContentFilter', read: ViewContainerRef)
   ViewContainerRef materialContentFilter;
 
-  DeshboardAppointmentComponent(this._router, this._loader) //, this._location
+  DeshboardAppointmentComponent(this._router, this._loader, this._changeDetectorRef) //, this._location
       : userService = new UserService();
 
   @override
@@ -150,5 +152,7 @@ class DeshboardAppointmentComponent implements OnActivate, OnInit {
         loadRequirementFilter();
         break;
     }
+
+    _changeDetectorRef.checkNoChanges();
   }
 }

@@ -13,23 +13,15 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_select/material_dropdown_select.dart';
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
-import 'package:angular_components/model/selection/selection_model.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 import '../appointment/user/user.dart';
 import '../appointment/user/user_service.dart';
 import '../route_paths.dart' as paths;
-import 'package:intl/intl.dart';
-
-import '../appointment/shift/shift.dart';
-import '../appointment/shift/shift_service.dart';
-import '../appointment/shift/shift_selection_options.dart';
-
-import '../appointment/dentist/dentist.dart';
-import '../appointment/dentist/dentistUI.dart';
-import '../appointment/dentist/dentist_service.dart';
-import '../appointment/dentist/dentist_selection_options.dart';
 
 import '../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+
+import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_filter_component.template.dart'
+    as auto_appointment_scheduling_filter;
 
 @Component(
   selector: 'auto_deshboard_appointment_component',
@@ -61,35 +53,60 @@ import '../appointment/appointment_scheduling/appointment_scheduling_service.dar
   ],
 )
 class AutoDeshboardAppointmentComponent implements OnActivate, OnInit {
-  AppointmentSchedulingService _appointmentSchedulingService = new AppointmentSchedulingService();
+  final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
+  ComponentRef componentRef;
 
-  AppointmentSchedulingService get appointmentSchedulingService => _appointmentSchedulingService;
-  set appointmentSchedulingService(AppointmentSchedulingService appointmentSchedulingService) => _appointmentSchedulingService = appointmentSchedulingService;
+  AppointmentSchedulingService _appointmentSchedulingService =
+      new AppointmentSchedulingService();
+
+  AppointmentSchedulingService get appointmentSchedulingService =>
+      _appointmentSchedulingService;
+  set appointmentSchedulingService(
+          AppointmentSchedulingService appointmentSchedulingService) =>
+      _appointmentSchedulingService = appointmentSchedulingService;
 
   User user;
-  
+
   bool useItemRenderer = false;
   bool useOptionGroup = false;
 
   final Router _router;
 
-  AutoDeshboardAppointmentComponent(this._router);
+  @ViewChild('materialContentFilter', read: ViewContainerRef)
+  ViewContainerRef materialContentFilter;
+
+  AutoDeshboardAppointmentComponent(
+      this._router, this._loader, this._changeDetectorRef);
 
   @override
-  void onActivate(_, RouterState current) async {
-  }
+  void onActivate(_, RouterState current) async {}
 
-  Future<NavigationResult>  goAutoHome() => _router.navigate(
-    paths.deshboard.toUrl()
-  );
+  Future<NavigationResult> goAutoHome() =>
+      _router.navigate(paths.deshboard.toUrl());
 
-  void ngOnInit() { 
-    if (new UserService().user == null)
+  void ngOnInit() {
+    if (new UserService().user == null) {
       return;
+    } else {
+      loadAutoAppointmentSchedulingFilter();
+    }
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
     goAutoHome();
+    onClose();
   }
 
+  void loadAutoAppointmentSchedulingFilter() {
+    ComponentFactory<
+            auto_appointment_scheduling_filter
+                .AutoAppointmentSchedulingFilterComponent>
+        autoAppointmentSchedulingFilter = auto_appointment_scheduling_filter
+            .AutoAppointmentSchedulingFilterComponentNgFactory;
+    componentRef = _loader.loadNextToLocation(
+        autoAppointmentSchedulingFilter, materialContentFilter);
+  }
 }

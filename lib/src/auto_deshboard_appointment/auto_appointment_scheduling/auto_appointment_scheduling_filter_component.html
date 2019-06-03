@@ -9,7 +9,7 @@
                 <span class="filter-title">
                     De:
                 </span>
-                <material-datepicker [(date)]="dataInicial" [required]="true">
+                <material-datepicker [(date)]="initialDate" [required]="true">
                 </material-datepicker>
             </div>
 
@@ -17,7 +17,7 @@
                 <span class="filter-title">
                     Até:
                 </span>
-                <material-datepicker [(date)]="dataFinal" [required]="true">
+                <material-datepicker [(date)]="finalDate" [required]="true">
                 </material-datepicker>
             </div>
 
@@ -47,13 +47,13 @@
                     Período da filtragem:
                 </span>
                 <span class="total-result-filter-text">
-                    {{dataInicialFormatada}}
+                    {{initialDateFormated}}
                 </span>
                 <span class="total-result-filter-title">
                     Até
                 </span>
                 <span class="total-result-filter-text">
-                    {{dataFinalFormatada}}
+                    {{finalDateFormated}}
                 </span>
             </div>
 
@@ -62,7 +62,7 @@
                     Turno da filtragem:
                 </span>
                 <span class="total-result-filter-text">
-                    {{turnoDescription}}
+                    {{shiftDescription}}
                 </span>
             </div>
 

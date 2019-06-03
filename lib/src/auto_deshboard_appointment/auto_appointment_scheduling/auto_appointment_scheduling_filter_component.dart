@@ -89,7 +89,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   String patientName;
 
-  @ViewChild('containerListAutoApoointmentScheduling', read: ViewContainerRef)
+  @ViewChild('containerListAutoAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
 
   @ViewChild('containerEditAutoAppointmentScheduling', read: ViewContainerRef)
