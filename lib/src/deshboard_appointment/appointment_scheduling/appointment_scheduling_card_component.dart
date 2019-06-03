@@ -41,7 +41,7 @@ class AppointmentSchedulingCardComponent implements OnInit {
   bool showDeteleCertification = false;
 
   @Input()
-  String appointmentSchedulerId;
+  String appointmentSchedulingId;
 
   @Input()
   ComponentRef componentRef;
@@ -54,7 +54,7 @@ class AppointmentSchedulingCardComponent implements OnInit {
 
   void ngOnInit() async {
     Map map = appointmentSchedulingService
-        .getAppointmentSchedulingByIdFromList(appointmentSchedulerId);
+        .getAppointmentSchedulingByIdFromList(appointmentSchedulingId);
     
     appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
     
@@ -79,7 +79,7 @@ class AppointmentSchedulingCardComponent implements OnInit {
   }
 
   void deleteConsulta() {
-    new AppointmentSchedulingDAO().delete(appointmentSchedulerId);   
+    new AppointmentSchedulingDAO().delete(appointmentSchedulingId);   
     showDeteleCertification = false;
     componentRef.destroy();
   }

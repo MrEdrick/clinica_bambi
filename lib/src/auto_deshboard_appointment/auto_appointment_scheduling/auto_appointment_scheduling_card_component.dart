@@ -32,7 +32,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   AutoAppointmentScheduling autoAppointmentScheduling;
 
   @Input()
-  String autoAppointmentSchedulerId;
+  String autoAppointmentSchedulingId;
 
   @Input()
   ComponentRef componentRef;
@@ -45,7 +45,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
 
   void ngOnInit() async {
     Map map = autoAppointmentSchedulingService
-        .getAutoAppointmentSchedulingByIdFromList(autoAppointmentSchedulerId);
+        .getAutoAppointmentSchedulingByIdFromList(autoAppointmentSchedulingId);
     
     autoAppointmentScheduling = await autoAppointmentSchedulingService.turnMapInAutoAppointmentScheduling(map);
   

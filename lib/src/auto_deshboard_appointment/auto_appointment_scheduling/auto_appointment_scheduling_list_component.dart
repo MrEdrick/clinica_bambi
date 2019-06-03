@@ -59,16 +59,16 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
     
     List<Map> _list = new AppointmentSchedulingService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
     
-    _list.forEach((appointmentScheduling) {
+    _list.forEach((autoAppointmentScheduling) {
       ComponentFactory<auto_appointment_scheduling_card.AutoAppointmentSchedulingCardComponent>
           autoAppointmentSchedulingCard =
           auto_appointment_scheduling_card.AutoAppointmentSchedulingCardComponentNgFactory;
 
-      ComponentRef autoAppointmentSchedulingListComponent =
+      ComponentRef autoAppointmentSchedulingCardComponent =
         _loader.loadNextToLocation(autoAppointmentSchedulingCard, materialContainerCard);
 
-      autoAppointmentSchedulingListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
-      autoAppointmentSchedulingListComponent.instance.componentRef = autoAppointmentSchedulingListComponent;
+      autoAppointmentSchedulingCardComponent.instance.autoAppointmentSchedulingId = autoAppointmentScheduling["documentPath"];
+      autoAppointmentSchedulingCardComponent.instance.componentRef = autoAppointmentSchedulingCardComponent;
     });
     
     _changeDetectorRef.markForCheck();

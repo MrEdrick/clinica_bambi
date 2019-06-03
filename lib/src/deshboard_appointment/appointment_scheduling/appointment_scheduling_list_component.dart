@@ -60,11 +60,11 @@ class AppointmentSchedulingListComponent implements OnInit {
           appointmentSchedulingCard =
           appointment_scheduling_card.AppointmentSchedulingCardComponentNgFactory;
 
-      ComponentRef appointmentSchedulingListComponent =
+      ComponentRef appointmentSchedulingCardComponent =
         _loader.loadNextToLocation(appointmentSchedulingCard, materialContainerCard);
 
-      appointmentSchedulingListComponent.instance.appointmentSchedulerId = appointmentScheduling["documentPath"];
-      appointmentSchedulingListComponent.instance.componentRef = appointmentSchedulingListComponent;
+      appointmentSchedulingCardComponent.instance.appointmentSchedulingId = appointmentScheduling["documentPath"];
+      appointmentSchedulingCardComponent.instance.componentRef = appointmentSchedulingCardComponent;
     });
     
     _changeDetectorRef.markForCheck();
