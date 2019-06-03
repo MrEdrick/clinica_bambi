@@ -28,7 +28,7 @@ class AutoAppointmentSchedulingService {
           AutoAppointmentScheduling autoAppointmentScheduling) =>
       _autoAppointmentScheduling = autoAppointmentScheduling;
 
-  void clearAllAutoAppointmentSchedulingByDate() {
+  void clearAllAutoAppointmentScheduling() {
     _autoAppointmentSchedulingByPatientAccountIdDate.clear();
     _autoAppointmentSchedulingByPatientAccountIdDateWithFilter.clear();
     _autoAppointmentSchedulingById.clear();

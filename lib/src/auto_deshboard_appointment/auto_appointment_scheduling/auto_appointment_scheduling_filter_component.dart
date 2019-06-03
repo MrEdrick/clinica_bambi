@@ -221,8 +221,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     listDate = onPrepareFilter();
 
-    new AutoAppointmentSchedulingService()
-        .clearAllAutoAppointmentSchedulingByDate();
+    autoAppointmentSchedulingService
+        .clearAllAutoAppointmentScheduling();
 
     await listDate.forEach((date) async {
       int total = 0;
