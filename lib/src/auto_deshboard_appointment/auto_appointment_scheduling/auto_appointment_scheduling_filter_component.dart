@@ -171,7 +171,6 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onLoad() {
-    listComponentRef.clear();
     listDate.forEach((date) {
       ComponentFactory<
               auto_appointment_scheduling_list
@@ -216,10 +215,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   }
 
   Future<void> onFilter() async {
-    listComponentRef.forEach((componentRef) {
-      componentRef.destroy();
-    });
-
+    clearListComponentRef(listComponentRef);
+    
     listDate = onPrepareFilter();
 
     autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
