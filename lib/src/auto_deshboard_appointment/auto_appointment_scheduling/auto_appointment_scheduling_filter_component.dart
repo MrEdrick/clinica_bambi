@@ -135,8 +135,9 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void ngOnInit() async {
-    if (new UserService().user == null) return;
-    
+    if ((new UserService().user == null) ||
+        (patientAccountService.patientAccount == null)) return;
+
     await dentistService.getAllDentistAcives();
     await shiftService.getAllShiftAcives();
 
@@ -165,7 +166,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
     _changeDetectorRef.markForCheck();
-    
+
     await onFilter();
   }
 
@@ -221,8 +222,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     listDate = onPrepareFilter();
 
-    autoAppointmentSchedulingService
-        .clearAllAutoAppointmentScheduling();
+    autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
 
     await listDate.forEach((date) async {
       int total = 0;

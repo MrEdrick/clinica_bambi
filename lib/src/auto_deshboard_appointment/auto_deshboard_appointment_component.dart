@@ -11,6 +11,7 @@ import '../appointment/user/user.dart';
 import '../appointment/user/user_service.dart';
 import '../route_paths.dart' as paths;
 
+import '../appointment/patient_account/patient_account_service.dart';
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_filter_component.template.dart'
     as auto_appointment_scheduling_filter;
 
@@ -26,11 +27,7 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
     MaterialIconComponent,
     MaterialFabComponent
   ],
-  providers: const [
-    materialProviders,
-    windowBindings,
-    popupBindings
-  ],
+  providers: const [materialProviders, windowBindings, popupBindings],
   styleUrls: const [
     'auto_deshboard_appointment_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
@@ -61,7 +58,8 @@ class AutoDeshboardAppointmentComponent implements OnActivate, OnInit {
       _router.navigate(paths.deshboard.toUrl());
 
   void ngOnInit() {
-    if (new UserService().user == null) {
+    if ((new UserService().user == null) ||
+        (new PatientAccountService().patientAccount == null)) {
       return;
     } else {
       loadAutoAppointmentSchedulingFilter();

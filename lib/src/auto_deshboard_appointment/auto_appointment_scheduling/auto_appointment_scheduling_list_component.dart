@@ -55,7 +55,8 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
   int totalResultByDay;
 
   void ngOnInit() {
-    if (new UserService().user == null) return;
+    if ((new UserService().user == null) ||
+        (new PatientAccountService().patientAccount == null)) return;
 
     dateFormated =
         new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());

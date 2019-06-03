@@ -186,7 +186,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void ngOnInit() async {
-    if (new UserService().user == null) return;
+    if ((new UserService().user == null) ||
+        (patientAccountService.patientAccount == null)) return;
 
     await dentistService.getAllDentistAcives();
     await procedureService.getAllProcedureAcives();
