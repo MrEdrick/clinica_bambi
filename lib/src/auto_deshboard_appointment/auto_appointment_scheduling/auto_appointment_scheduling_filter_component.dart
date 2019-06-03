@@ -30,6 +30,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_sele
 import '../../appointment/user/user_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/shift/shift_service.dart';
+import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
 
@@ -77,11 +78,10 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   ComponentRef dentistDropdownSelectComponentRef;
   ComponentRef shiftDropdownSelectComponentRef;
 
-  AutoAppointmentSchedulingService _autoAppointmentSchedulingService = new AutoAppointmentSchedulingService();
-
-  AutoAppointmentSchedulingService get autoAppointmentSchedulingService => _autoAppointmentSchedulingService;
-  set autoAppointmentSchedulingService(AutoAppointmentSchedulingService autoAppointmentSchedulingService) =>
-      _autoAppointmentSchedulingService = autoAppointmentSchedulingService;
+  final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
+      new AutoAppointmentSchedulingService();
+  final PatientAccountService patientAccountService =
+      new PatientAccountService();
 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -118,11 +118,13 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   List<List<Map<String, dynamic>>> listScheduling =
       new List<List<Map<String, dynamic>>>();
-  final List<AutoAppointmentScheduling> listAutoAppointmentSchedulingByDate = new List<AutoAppointmentScheduling>();
+  final List<AutoAppointmentScheduling> listAutoAppointmentSchedulingByDate =
+      new List<AutoAppointmentScheduling>();
 
   int totalResultFilter = 0;
 
-  AutoAppointmentSchedulingFilterComponent(this._loader, this._changeDetectorRef);
+  AutoAppointmentSchedulingFilterComponent(
+      this._loader, this._changeDetectorRef);
 
   void clearListComponentRef(List<ComponentRef> listComponentRef) {
     listComponentRef.forEach((componentRef) {
@@ -134,7 +136,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
- 
+
     await dentistService.getAllDentistAcives();
     await shiftService.getAllShiftAcives();
 
@@ -170,15 +172,19 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   void onLoad() {
     listComponentRef.clear();
     listDate.forEach((date) {
-      ComponentFactory<auto_appointment_scheduling_list.AutoAppointmentSchedulingListComponent>
-          autoAppointmentSchedulingList =
-          auto_appointment_scheduling_list.AutoAppointmentSchedulingListComponentNgFactory;
+      ComponentFactory<
+              auto_appointment_scheduling_list
+                  .AutoAppointmentSchedulingListComponent>
+          autoAppointmentSchedulingList = auto_appointment_scheduling_list
+              .AutoAppointmentSchedulingListComponentNgFactory;
 
       ComponentRef autoAppointmentSchedulingListComponent =
-          _loader.loadNextToLocation(autoAppointmentSchedulingList, materialContainerList);
+          _loader.loadNextToLocation(
+              autoAppointmentSchedulingList, materialContainerList);
 
       autoAppointmentSchedulingListComponent.instance.date = date;
-      autoAppointmentSchedulingListComponent.instance.componentRef = autoAppointmentSchedulingListComponent;
+      autoAppointmentSchedulingListComponent.instance.componentRef =
+          autoAppointmentSchedulingListComponent;
       listComponentRef.add(autoAppointmentSchedulingListComponent);
     });
 
@@ -190,7 +196,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
       finalDate = initialDate;
     }
 
-    querySelector('#auto-appointment-scheduling-result-filter-text').setInnerHtml('0');
+    querySelector('#auto-appointment-scheduling-result-filter-text')
+        .setInnerHtml('0');
 
     initialDateFormated =
         new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
@@ -214,20 +221,24 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     listDate = onPrepareFilter();
 
-    new AutoAppointmentSchedulingService().clearAllAutoAppointmentSchedulingByDate();
+    new AutoAppointmentSchedulingService()
+        .clearAllAutoAppointmentSchedulingByDate();
 
     await listDate.forEach((date) async {
       int total = 0;
 
-      new AutoAppointmentSchedulingService()
-          .getAllAutoAppointmentSchedulingByDateMap(date)
+      autoAppointmentSchedulingService
+          .getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
+              patientAccountService.patientAccount.id, date)
           .then((onValue) {
-        total += (new AutoAppointmentSchedulingService().getAutoAppointmentSchedulingWithFilterFromList(
-            date.toString(), {
+        total += (new AutoAppointmentSchedulingService()
+                .getAutoAppointmentSchedulingWithFilterFromList(
+                    date, patientAccountService.patientAccount.id, {
           "dentistId": dentistId,
           "shiftId": shiftId,
           "patient": patientName
-        })).length;
+        }))
+            .length;
 
         if (listDate.last == date) {
           onLoad();
@@ -242,12 +253,17 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   void onAdd() {
     autoAppointmentSchedulingService.autoAppointmentScheduling = null;
-    ComponentFactory<auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponent>
-        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponentNgFactory;
+    ComponentFactory<
+            auto_appointment_scheduling_edit
+                .AutoAppointmentSchedulingEditComponent>
+        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit
+            .AutoAppointmentSchedulingEditComponentNgFactory;
 
     ComponentRef autoAppointmentSchedulingEditComponent =
-        _loader.loadNextToLocation(autoAppointmentSchedulingEdit, materialContainerAdd);
-    autoAppointmentSchedulingEditComponent.instance.componentRef = autoAppointmentSchedulingEditComponent;
+        _loader.loadNextToLocation(
+            autoAppointmentSchedulingEdit, materialContainerAdd);
+    autoAppointmentSchedulingEditComponent.instance.componentRef =
+        autoAppointmentSchedulingEditComponent;
   }
 
   void onClear() {

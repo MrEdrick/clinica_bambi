@@ -1,4 +1,3 @@
-import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -8,7 +7,10 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
+
 import '../../appointment/user/user_service.dart';
+import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
+import '../../appointment/patient_account/patient_account_service.dart';
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_card_component.template.dart'
     as auto_appointment_scheduling_card;
 
@@ -34,7 +36,7 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
       ModalComponent,
     ])
 class AutoAppointmentSchedulingListComponent implements OnInit {
-  final ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
 
   @ViewChild('containerCardAutoAppointmentScheduling', read: ViewContainerRef)
@@ -54,24 +56,32 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
 
   void ngOnInit() {
     if (new UserService().user == null) return;
-    
-    dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
-    
-    List<Map> _list = new AppointmentSchedulingService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
-    
+
+    dateFormated =
+        new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
+
+    List<Map> _list = new AutoAppointmentSchedulingService()
+        .getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(
+            date.toString(), new PatientAccountService().patientAccount.id);
+
     _list.forEach((autoAppointmentScheduling) {
-      ComponentFactory<auto_appointment_scheduling_card.AutoAppointmentSchedulingCardComponent>
-          autoAppointmentSchedulingCard =
-          auto_appointment_scheduling_card.AutoAppointmentSchedulingCardComponentNgFactory;
+      ComponentFactory<
+              auto_appointment_scheduling_card
+                  .AutoAppointmentSchedulingCardComponent>
+          autoAppointmentSchedulingCard = auto_appointment_scheduling_card
+              .AutoAppointmentSchedulingCardComponentNgFactory;
 
       ComponentRef autoAppointmentSchedulingCardComponent =
-        _loader.loadNextToLocation(autoAppointmentSchedulingCard, materialContainerCard);
+          _loader.loadNextToLocation(
+              autoAppointmentSchedulingCard, materialContainerCard);
 
-      autoAppointmentSchedulingCardComponent.instance.autoAppointmentSchedulingId = autoAppointmentScheduling["documentPath"];
-      autoAppointmentSchedulingCardComponent.instance.componentRef = autoAppointmentSchedulingCardComponent;
+      autoAppointmentSchedulingCardComponent
+              .instance.autoAppointmentSchedulingId =
+          autoAppointmentScheduling["documentPath"];
+      autoAppointmentSchedulingCardComponent.instance.componentRef =
+          autoAppointmentSchedulingCardComponent;
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
-
 }

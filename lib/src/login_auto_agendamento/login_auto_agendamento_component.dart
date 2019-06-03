@@ -16,6 +16,7 @@ import 'cadastro_login_auto_agendamento_component.dart';
 import 'recover_password_login_auto_agendamento_component.dart';
 import '../appointment/patient_account/patient_account.dart';
 import '../appointment/patient_account/patient_account_dao.dart';
+import '../appointment/patient_account/patient_account_service.dart';
 
 @Component(
   selector: 'login-auto-agendamento-app',
@@ -44,6 +45,7 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
 
   PatientAccount patientAccount;
 
+  final PatientAccountService patientAccountService = new PatientAccountService();
   final Router _router;
 
   @override
@@ -60,8 +62,10 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
     PatientAccount patientAccount = await patientAccountDAO.getPatiantAccount(email.trim(), 
                                         sha1.convert(utf8.encode(password)).toString().trim());
     if (patientAccount == null) {
+      patientAccountService.patientAccount = null;
       showLoginNotFinded = true;
     } else {
+      patientAccountService.patientAccount = patientAccount;
       goAutoAppointment();
     }  
   }

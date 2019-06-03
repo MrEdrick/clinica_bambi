@@ -19,8 +19,8 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
 class AutoAppointmentSchedulingService {
   static AutoAppointmentScheduling _autoAppointmentScheduling;
   static Map _autoAppointmentSchedulingById = new Map();
-  static Map _autoAppointmentSchedulingByDate = new Map();
-  static Map _autoAppointmentSchedulingByDateWithFilter = new Map();
+  static Map _autoAppointmentSchedulingByPatientAccountIdDate = new Map();
+  static Map _autoAppointmentSchedulingByPatientAccountIdDateWithFilter = new Map();
 
   AutoAppointmentScheduling get autoAppointmentScheduling =>
       _autoAppointmentScheduling;
@@ -29,42 +29,43 @@ class AutoAppointmentSchedulingService {
       _autoAppointmentScheduling = autoAppointmentScheduling;
 
   void clearAllAutoAppointmentSchedulingByDate() {
-    _autoAppointmentSchedulingByDate.clear();
-    _autoAppointmentSchedulingByDateWithFilter.clear();
+    _autoAppointmentSchedulingByPatientAccountIdDate.clear();
+    _autoAppointmentSchedulingByPatientAccountIdDateWithFilter.clear();
     _autoAppointmentSchedulingById.clear();
   }
 
-  Future<Map> getAllAutoAppointmentSchedulingByDate(Date date) async {
-    if ((_autoAppointmentSchedulingByDate != null) &&
-        (_autoAppointmentSchedulingByDate.length != 0)) {
-      return _autoAppointmentSchedulingByDate;
+  Future<Map> getAllAutoAppointmentSchedulingByPatientAccountIdDate(String patientAccountId, Date date) async {
+    if ((_autoAppointmentSchedulingByPatientAccountIdDate != null) &&
+        (_autoAppointmentSchedulingByPatientAccountIdDate.length != 0)) {
+      return _autoAppointmentSchedulingByPatientAccountIdDate;
     }
 
-    await (_autoAppointmentSchedulingByDate[date.toString()] =
+    await (_autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId + date.toString()] =
         await new AutoAppointmentSchedulingDAO()
             .getAllAutoAppointmentSchedulingFilter({
       'dateAppointmentScheduling':
-          new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
+          new DateFormat('yyyy-MM-dd').format(date.asUtcTime()),
+      'patientAccountId': patientAccountId
     }));
 
-    _autoAppointmentSchedulingByDate[date.toString()]
+    _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId + date.toString()]
         .forEach((autoAppointmentScheduling) {
       _autoAppointmentSchedulingById[
               autoAppointmentScheduling["documentPath"]] =
           autoAppointmentScheduling;
     });
 
-    return _autoAppointmentSchedulingByDate;
+    return _autoAppointmentSchedulingByPatientAccountIdDate;
   }
 
-  Future<List<Map>> getAllAutoAppointmentSchedulingByDateMap(Date date) async {
-    await getAllAutoAppointmentSchedulingByDate(date);
+  Future<List<Map>> getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(String patientAccountId, Date date) async {
+    await getAllAutoAppointmentSchedulingByPatientAccountIdDate(patientAccountId, date);
 
-    return _autoAppointmentSchedulingByDate[date.toString()];
+    return _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId + date.toString()];
   }
 
-  Future<Map> getAllAutoAppointmentSchedulingListMap(Date date) async {
-    return _autoAppointmentSchedulingByDate;
+  Future<Map> getAllAutoAppointmentSchedulingListMap() async {
+    return _autoAppointmentSchedulingByPatientAccountIdDate;
   }
 
   Map getAutoAppointmentSchedulingByIdFromList(String id) {
@@ -76,7 +77,7 @@ class AutoAppointmentSchedulingService {
   }
 
   List<Map> getAutoAppointmentSchedulingWithFilterFromList(
-      String date, Map filter) {
+      Date date, String patientAccountId, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -91,7 +92,7 @@ class AutoAppointmentSchedulingService {
       }
     }
 
-    _listDocumentSnapshot = _autoAppointmentSchedulingByDate[date.toString()];
+    _listDocumentSnapshot = _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId + date.toString()];
 
     _listDocumentSnapshotTemp.clear();
 
@@ -145,13 +146,13 @@ class AutoAppointmentSchedulingService {
       ListsApplyFilter();
     }
 
-    _autoAppointmentSchedulingByDateWithFilter[date] = _listDocumentSnapshot;
+    _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[patientAccountId + date.toString()] = _listDocumentSnapshot;
 
-    return _autoAppointmentSchedulingByDateWithFilter[date];
+    return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[date];
   }
 
-  List<Map> getAutoAppointmentSchedulingFromListWithFilterByDate(String date) {
-    return _autoAppointmentSchedulingByDateWithFilter[date];
+  List<Map> getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(String date, String patientAccountId) {
+    return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[date];
   }
 
   Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
