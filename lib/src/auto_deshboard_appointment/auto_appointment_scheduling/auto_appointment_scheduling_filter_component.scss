@@ -143,6 +143,17 @@ material-fab {
   color: #616161;
 }
 
+
+#bt-add {
+  position: fixed;
+  background-color: #00B0FF;
+  color: #ffffff;
+  z-index: 999;
+  right: 10px;
+  bottom: 10px;
+  @include shadow-elevation(8);
+}
+
 #requirement {
   width: 320px;
 }
