@@ -88,11 +88,11 @@
         </div>
     </div>
 
-    <div id="container-list-auto-scheduling" class="container-list-auto-scheduling" (click)="onAdd()">
+    <div id="container-list-auto-scheduling" class="container-list-auto-scheduling">
         <div #containerListAutoAppointmentScheduling></div>
     </div>
 
-    <material-button id="bt-add">Agendar consulta</material-button>
+    <material-button id="bt-add" (click)="onAdd()">Agendar consulta</material-button>
 </div>
 
 <div #containerEditAutoAppointmentScheduling></div>

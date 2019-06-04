@@ -151,7 +151,7 @@ material-fab {
   z-index: 999;
   right: 10px;
   bottom: 10px;
-  @include shadow-elevation(8);
+  @include shadow-elevation(4);
 }
 
 #requirement {
