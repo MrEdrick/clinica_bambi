@@ -38,6 +38,7 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
 class AutoAppointmentSchedulingListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
+  final PatientAccountService patientAccountService = new PatientAccountService();
 
   @ViewChild('containerCardAutoAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerCard;
@@ -56,14 +57,14 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
 
   void ngOnInit() {
     if ((new UserService().user == null) ||
-        (new PatientAccountService().patientAccount == null)) return;
+        (patientAccountService.patientAccount == null)) return;
 
     dateFormated =
         new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
 
     List<Map> _list = new AutoAppointmentSchedulingService()
         .getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(
-            date.toString(), new PatientAccountService().patientAccount.id);
+            patientAccountService.patientAccount.id, date);
 
     _list.forEach((autoAppointmentScheduling) {
       ComponentFactory<

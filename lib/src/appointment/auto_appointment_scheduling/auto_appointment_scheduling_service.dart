@@ -151,8 +151,8 @@ class AutoAppointmentSchedulingService {
     return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[date];
   }
 
-  List<Map> getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(String date, String patientAccountId) {
-    return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[date];
+  List<Map> getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(String patientAccountId, Date date) {
+    return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[patientAccountId + date.toString()];
   }
 
   Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
