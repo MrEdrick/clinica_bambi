@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -85,9 +84,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
       new AutoAppointmentSchedulingService();
 
+  final TelephoneMask telephoneMask = new TelephoneMask("");
+  
   Date dateAppointmentScheduling = new Date.today();
-
-  TelephoneMask telephoneMask = new TelephoneMask("");
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -174,6 +173,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       }
     } else {
       dateAppointmentScheduling = new Date.today();
+      autoAppointmentSchedulingService.autoAppointmentScheduling = autoAppointmentSchedulingService.returnEmptyAutoAppointmentScheduling();
     }
   }
 

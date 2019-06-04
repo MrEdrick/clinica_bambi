@@ -162,7 +162,7 @@ class AppointmentSchedulingService {
   AppointmentScheduling returnEmptyAppointmentShceduling() {
     return new AppointmentScheduling(
         "",
-        "",
+        Date.today().toString(),
         "",
         "",
         "",

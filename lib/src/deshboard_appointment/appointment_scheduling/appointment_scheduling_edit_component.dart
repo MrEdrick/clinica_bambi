@@ -121,7 +121,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   AppointmentSchedulingEditComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
-    if (appointmentSchedulingService.appointmentScheduling != null) {
+    if (appointmentSchedulingService.appointmentScheduling.id != "") {
       patient = appointmentSchedulingService.appointmentScheduling.patient;
 
       email = appointmentSchedulingService.appointmentScheduling.email;
@@ -160,8 +160,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
       }
     } else {
       dateAppointmentScheduling = new Date.today();
-      appointmentSchedulingService.appointmentScheduling =
-          appointmentSchedulingService.returnEmptyAppointmentShceduling();
     }
   }
 

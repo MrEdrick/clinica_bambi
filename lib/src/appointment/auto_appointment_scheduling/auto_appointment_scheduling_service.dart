@@ -177,7 +177,7 @@ class AutoAppointmentSchedulingService {
   AutoAppointmentScheduling returnEmptyAutoAppointmentScheduling() {
     return new AutoAppointmentScheduling(
         '',
-        '',
+        Date.today().toString(),
         '',
         '',
         '',
