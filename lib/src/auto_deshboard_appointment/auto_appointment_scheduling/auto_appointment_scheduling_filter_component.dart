@@ -216,7 +216,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   Future<void> onFilter() async {
     clearListComponentRef(listComponentRef);
-    
+
     listDate = onPrepareFilter();
 
     autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
@@ -229,7 +229,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           .getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
               patientAccountService.patientAccount.id, date)
           .then((onValue) {
-        total_aux += (autoAppointmentSchedulingService
+            
+        total_aux = (autoAppointmentSchedulingService
                 .getAutoAppointmentSchedulingWithFilterFromList(
                     patientAccountService.patientAccount.id, date, {
           "dentistId": dentistId,
@@ -237,7 +238,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           "patient": patientName
         }))
             ?.length;
-
+        
         total += total_aux == null ? 0 : total_aux;
 
         if (listDate.last == date) {
