@@ -1,11 +1,18 @@
 @import 'package:angular_components/css/material/shadow';
 
-.container-deshboard-agendamento {
+:host {
+  width: 100%;
+  z-index: 2 !important;
+}
+
+#container-filter-auto-appointment-scheduling {
   top: 0;
   position: relative;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
+  z-index: 2 !important;
+  margin-bottom: 1%;
 }
 
 .controls {
@@ -20,33 +27,10 @@
   padding-top: 8px !important;
 }
 
-.material-header, .material-header-row {
-  flex: 0 0 48px;
-  padding-left: 5px;
-  padding-right: 5px;
-  max-height: 48px !important;
-  min-height: 48px !important;
-  height: 48px !important;  color: #ffffff;
-}
-
-.material-header * {
-  background: rgba(#00B0FF, 1);
-}
-
-.material-header-title {
-  width: 50%;
-  font-size: 3vh;
-  display: inline-table; 
-}
-
 i {
   position: absolute;
   left: 1%;
   top: 78px;
-}
-
-::ng-deep .material-header .material-header-row{
-  margin: 0 !important;
 }
 
 .container-filter {
@@ -59,10 +43,10 @@ i {
   display: inline-block;
   width: 100%;
   min-height: 48px;
-  z-index: 100 !important;
   background-color: #ffffff;
   border-bottom: rgba(#616161, 0.12) 2px dashed;
   padding: 1% 0.5% 0 0.5%;
+  z-index: 2 !important;
 }
 
 .container-filter material-icon {
@@ -94,7 +78,7 @@ i {
   background-color: #ffffff;
   width: 100%;
   min-height: 48px;
-  z-index: 50 !important;
+  z-index: 2 !important;
 }
 
 .total-result-filtered {
@@ -111,6 +95,21 @@ i {
   font-weight: 600;
 }
 
+#container-list-appointment-scheduling {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  top: 162px;
+}
+
+.list-day-appointment-scheduling {
+  display: inline-block;
+  position: relative;
+  background-color: #ffffff;
+  width: 100%;
+  z-index: 1 !important;
+}
+
 material-fab {
   position: fixed;
   color: #ffffff;
@@ -120,8 +119,54 @@ material-fab {
   z-index: 999;
 }
 
+#container-filter-auto-appointment-scheduling ::ng-deep .label-text {
+  color: #616161;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep #wh-widget-send-button {
+  display: none !important;
+}
+
+material-datepicker {
+  margin: 1% 1%;
+  position: relative;
+  color: #616161;
+}
+
+material-dropdown-select {
+  margin: 1% 1%;
+  position: relative;
+  color: #616161;
+}
+
 .filter-input {
   padding: 0;
+  color: #616161 !important;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep material-input .label-text {
+  color: #616161 !important;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep .focused.label-text {
+  color: #616161 !important;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep .focused-underline, .cursor {
+  background-color: #616161 !important;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep .disabled-underline {
+  color: #616161 !important;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep .unfocused-underline {
+  background: #616161 !important;
+  border-bottom-color: #616161 !important;
+}
+
+#container-filter-auto-appointment-scheduling ::ng-deep material-input .input-container {
+  margin-top: 0 !important;
   color: #616161 !important;
 }
 
@@ -136,13 +181,10 @@ material-fab {
 
 #bt-limpar {
   position: relative;
-  float: right;
   margin-top: 0.50%;
-  margin-right: 1%;
   font-weight: 500;
   color: #616161;
 }
-
 
 #bt-add {
   position: fixed;
@@ -154,17 +196,13 @@ material-fab {
   @include shadow-elevation(4);
 }
 
-#requirement {
-  width: 320px;
-}
-
 @media screen and (min-width: 769px) {
-  .material-header-title {
-    font-size: 2vw;
+  .container-deshboard-appointment-scheduling {
+    top: 0px;
+    position: unset;
   }
-
 }
 
 @media screen and (min-width: 1100px) {
-  
+   
 }
