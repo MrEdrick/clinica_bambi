@@ -95,6 +95,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
+  @Input()
+  ComponentRef componentRef;
+
   @ViewChild('dentistDropdownSelect', read: ViewContainerRef)
   ViewContainerRef materialContainerDentistDropdownSelect;
 
@@ -276,7 +279,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .instance.singleSelectModelShift?.selectedValues?.first);
     }
 
-    autoAppointmentSchedulingService.autoAppointmentScheduling = null;
+    telephoneMask.number = '';
+
+    componentRef.destroy();
   }
 
   bool asserts() {
