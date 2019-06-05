@@ -175,6 +175,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                     .autoAppointmentScheduling.procedure.description));
       }
     } else {
+      autoAppointmentSchedulingService.autoAppointmentScheduling.email =
+          patientAccountService.patientAccount.email;
       dateAppointmentScheduling = new Date.today();
     }
   }
