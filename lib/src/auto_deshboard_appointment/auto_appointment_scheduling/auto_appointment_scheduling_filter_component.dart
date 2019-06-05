@@ -229,7 +229,6 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           .getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
               patientAccountService.patientAccount.id, date)
           .then((onValue) {
-            
         total_aux = (autoAppointmentSchedulingService
                 .getAutoAppointmentSchedulingWithFilterFromList(
                     patientAccountService.patientAccount.id, date, {
@@ -238,7 +237,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           "patient": patientName
         }))
             ?.length;
-        
+
         total += total_aux == null ? 0 : total_aux;
 
         if (listDate.last == date) {
@@ -253,7 +252,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onAdd() {
-    autoAppointmentSchedulingService.autoAppointmentScheduling = null;
+    autoAppointmentSchedulingService.autoAppointmentScheduling =
+        autoAppointmentSchedulingService.returnEmptyAutoAppointmentScheduling();
     ComponentFactory<
             auto_appointment_scheduling_edit
                 .AutoAppointmentSchedulingEditComponent>

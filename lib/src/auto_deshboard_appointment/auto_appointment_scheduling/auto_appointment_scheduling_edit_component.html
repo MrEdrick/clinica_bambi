@@ -7,10 +7,6 @@
         <div class="sub-titulo">
             Paciente: {{patientAccountService.patientAccount.name}}
         </div>
-        <material-input class="edit-input" id="name" label="Nome..."
-            [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.patient"
-            (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.patient = $event">
-        </material-input>
         <material-input class="edit-input" id="email" label="E-mail..."
             [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.email"
             (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.email = $event">

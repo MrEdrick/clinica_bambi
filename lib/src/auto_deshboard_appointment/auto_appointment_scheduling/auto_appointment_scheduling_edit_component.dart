@@ -85,7 +85,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new AutoAppointmentSchedulingService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
-  
+
   Date dateAppointmentScheduling = new Date.today();
 
   bool showSuccessfullySave = false;
@@ -124,7 +124,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   AutoAppointmentSchedulingEditComponent(this._loader, this._changeDetectorRef);
 
   void onEdit() {
-    if (autoAppointmentSchedulingService.autoAppointmentScheduling != null) {
+    if (autoAppointmentSchedulingService.autoAppointmentScheduling.id != "") {
       dateAppointmentScheduling = new Date.parse(
           autoAppointmentSchedulingService
               .autoAppointmentScheduling.dateAppointmentScheduling,
@@ -173,7 +173,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       }
     } else {
       dateAppointmentScheduling = new Date.today();
-      autoAppointmentSchedulingService.autoAppointmentScheduling = autoAppointmentSchedulingService.returnEmptyAutoAppointmentScheduling();
     }
   }
 
@@ -188,12 +187,15 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void ngOnInit() async {
     if ((new UserService().user == null) ||
         (patientAccountService.patientAccount == null)) return;
-
+    print("t0");
     await dentistService.getAllDentistAcives();
+    print("t1");
     await procedureService.getAllProcedureAcives();
+    print("t2");
     await agreementService.getAllAgreementAcives();
+    print("t3");
     await shiftService.getAllShiftAcives();
-
+    print("t4");
     clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<
@@ -310,8 +312,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
-        (autoAppointmentSchedulingService
-            .autoAppointmentScheduling.patient.isEmpty) ||
         ((telephoneMask.number == '') &&
             (autoAppointmentSchedulingService
                 .autoAppointmentScheduling.email.isEmpty)) ||
@@ -334,6 +334,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .autoAppointmentScheduling.dateAppointmentScheduling =
         new DateFormat('yyyy-MM-dd')
             .format(dateAppointmentScheduling.asUtcTime());
+
+    autoAppointmentSchedulingService.autoAppointmentScheduling.patient =
+        patientAccountService.patientAccount.name;
 
     autoAppointmentSchedulingService.autoAppointmentScheduling.telephone =
         telephoneMask.number;
