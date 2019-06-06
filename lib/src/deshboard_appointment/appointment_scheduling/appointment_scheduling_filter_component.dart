@@ -159,9 +159,9 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
-    _changeDetectorRef.markForCheck();
-
     await onFilter();
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onLoad() {
