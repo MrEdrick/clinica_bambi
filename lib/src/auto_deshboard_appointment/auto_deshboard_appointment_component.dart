@@ -36,6 +36,8 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
 class AutoDeshboardAppointmentComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
+  final PatientAccountService patientAccountService =  new PatientAccountService();
+  
   ComponentRef componentRef;
 
   User user;
@@ -59,7 +61,8 @@ class AutoDeshboardAppointmentComponent implements OnActivate, OnInit {
 
   void ngOnInit() {
     if ((new UserService().user == null) ||
-        (new PatientAccountService().patientAccount == null)) {
+        (patientAccountService.patientAccount == null)) {
+      onClose();
       return;
     } else {
       loadAutoAppointmentSchedulingFilter();
@@ -69,8 +72,8 @@ class AutoDeshboardAppointmentComponent implements OnActivate, OnInit {
   }
 
   void onClose() {
+    patientAccountService.patientAccount = null;
     goAutoHome();
-    onClose();
   }
 
   void loadAutoAppointmentSchedulingFilter() {

@@ -18,14 +18,14 @@
         <div class="sub-titulo">
             Dados para consulta
         </div>
-        <div #procedureDropdownSelect></div>
-        <div #shiftDropdownSelect></div>
-        <div #dentistDropdownSelect></div>
+        <div id="procedure-select" #procedureDropdownSelect></div>
+        <div id="shift-select" #shiftDropdownSelect></div>
+        <div id="dentist-select" #dentistDropdownSelect></div>
 
-        <material-datepicker id="date" class="list-date" [(date)]="dateAppointmentScheduling" [required]="true">
+        <material-datepicker id="date-select" [(date)]="dateAppointmentScheduling" [required]="true">
         </material-datepicker>
 
-        <div #agreementDropdownSelect></div>
+        <div id="agreement-select" #agreementDropdownSelect></div>
 
     </div>
 
