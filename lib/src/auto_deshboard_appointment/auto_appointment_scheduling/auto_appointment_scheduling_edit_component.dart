@@ -237,7 +237,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     agreementDropdownSelectComponentRef = _loader.loadNextToLocation(
         agreementDropdownSelectComponent,
         materialContainerAgreementDropdownSelect);
-
+    
     listComponentRefDropdownSelect.add(agreementDropdownSelectComponentRef);
 
     ComponentFactory<

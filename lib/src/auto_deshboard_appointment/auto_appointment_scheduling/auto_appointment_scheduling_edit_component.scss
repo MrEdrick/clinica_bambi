@@ -50,7 +50,7 @@
   margin-left: 1% !important;
 }
 
-::ng-deep #dentist-select material-dropdown-select {
+#dentist-select {
   position: relative;
   display: inline-block;
   width: 50%;
@@ -58,7 +58,7 @@
   margin-left: 1% !important;
 }
 
-::ng-deep #agreement-select material-dropdown-select {
+#agreement-select {
   position: relative;
   display: inline-block;
   width: 50%;
@@ -66,7 +66,7 @@
   margin-left: 1% !important;
 }
 
-::ng-deep #shift-select material-dropdown-select {
+#shift-select {
   position: relative;
   display: inline-block;
   width: 10%;
@@ -78,21 +78,6 @@
   width: 10%;
   margin-bottom: 3%;
   margin-left: 1% !important;
-}
-
-#dentistas {
-  width: 50%;
-  margin-bottom: 3%;
-}
-
-#convenios {
-  width: 50%;
-  margin-bottom: 3%;
-}
-
-#shift {
-  width: 20%;
-  margin-bottom: 3%;
 }
 
 material-datepicker {
@@ -131,7 +116,7 @@ material-input {
   color: #616161 !important; 
 }
 
-#telefone {
+#telephone {
   width: 20%;
 }
 
@@ -182,10 +167,10 @@ material-dialog {
 @media screen and (min-width: 769px) {
   .container-add-auto-appointment-scheduling {
     position: relative;
-    top: 10%;
+    top: 8%;
     margin-left: 29%;
     width: 42%;
-    height: 80%;
+    height: 85%;
     background-color: rgba(#ffffff, 1);
     border-radius: 5px;
     display: flex;

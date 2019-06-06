@@ -11,21 +11,31 @@
             [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.email"
             (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.email = $event">
         </material-input>
-        <material-input class="edit-input" id="tel" label="Tel..." [ngModel]="telephoneMask.number"
+        <material-input class="edit-input" id="telephone" label="Tel..." [ngModel]="telephoneMask.number"
             (inputKeyPress)="telephoneMask.number = $event">
         </material-input>
 
         <div class="sub-titulo">
             Dados para consulta
         </div>
-        <div id="procedure-select" #procedureDropdownSelect></div>
-        <div id="shift-select" #shiftDropdownSelect></div>
-        <div id="dentist-select" #dentistDropdownSelect></div>
+        <div id="procedure-select">
+            <div #procedureDropdownSelect></div>
+        </div>
+
+        <div id="shift-select">
+            <div #shiftDropdownSelect></div>
+        </div>
+
+        <div id="dentist-select">
+            <div #dentistDropdownSelect></div>
+        </div>
 
         <material-datepicker id="date-select" [(date)]="dateAppointmentScheduling" [required]="true">
         </material-datepicker>
 
-        <div id="agreement-select" #agreementDropdownSelect></div>
+        <div id="agreement-select">
+            <div #agreementDropdownSelect></div>
+        </div>
 
     </div>
 
