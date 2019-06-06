@@ -133,6 +133,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .autoAppointmentScheduling.dateAppointmentScheduling,
           new DateFormat('yyyy-MM-dd'));
 
+      telephoneMask.number =
+          autoAppointmentSchedulingService.autoAppointmentScheduling.telephone;
+
       if (autoAppointmentSchedulingService.autoAppointmentScheduling.dentist !=
           null) {
         dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
