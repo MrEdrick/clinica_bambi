@@ -221,6 +221,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
 
+    listDate = listDate.reversed.toList();
+
     await listDate.forEach((date) async {
       int total = 0;
       var total_aux;
@@ -248,6 +250,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
         }
       });
     });
+
     return;
   }
 

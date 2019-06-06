@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -38,7 +40,8 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
 class AutoAppointmentSchedulingListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
-  final PatientAccountService patientAccountService = new PatientAccountService();
+  final PatientAccountService patientAccountService =
+      new PatientAccountService();
 
   @ViewChild('containerCardAutoAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerCard;
@@ -50,6 +53,8 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
 
   @Input()
   Date date;
+
+  Date today = new Date.today();
 
   String dateFormated;
 

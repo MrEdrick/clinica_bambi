@@ -1,5 +1,5 @@
 <div class="list-day">
-    <div class="total-result-by-day">
+    <div [ngClass]="date.toString() == today.toString() ? 'today': 'not-today'" class="total-result-by-day-auto-appointment-scheduling">
         {{dateFormated}}
     </div>
     <div #containerCardAutoAppointmentScheduling></div>
