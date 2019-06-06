@@ -42,6 +42,8 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
   final ComponentLoader _loader;
   final PatientAccountService patientAccountService =
       new PatientAccountService();
+  final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
+      new AutoAppointmentSchedulingService();
 
   @ViewChild('containerCardAutoAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerCard;
@@ -56,6 +58,9 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
 
   Date today = new Date.today();
 
+  @Input()
+  List<Map> list = new List<Map>();
+
   String dateFormated;
 
   int totalResultByDay;
@@ -67,11 +72,7 @@ class AutoAppointmentSchedulingListComponent implements OnInit {
     dateFormated =
         new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
 
-    List<Map> _list = new AutoAppointmentSchedulingService()
-        .getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(
-            patientAccountService.patientAccount.id, date);
-
-    _list.forEach((autoAppointmentScheduling) {
+    list.forEach((autoAppointmentScheduling) {
       ComponentFactory<
               auto_appointment_scheduling_card
                   .AutoAppointmentSchedulingCardComponent>

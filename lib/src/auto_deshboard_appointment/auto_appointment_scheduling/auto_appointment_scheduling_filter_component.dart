@@ -172,20 +172,26 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   void onLoad() {
     listDate.forEach((date) {
-      ComponentFactory<
-              auto_appointment_scheduling_list
-                  .AutoAppointmentSchedulingListComponent>
-          autoAppointmentSchedulingList = auto_appointment_scheduling_list
-              .AutoAppointmentSchedulingListComponentNgFactory;
+      List<Map> _list = autoAppointmentSchedulingService
+          .getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(
+              patientAccountService.patientAccount.id, date);
+      if (_list.length > 0) {
+        ComponentFactory<
+                auto_appointment_scheduling_list
+                    .AutoAppointmentSchedulingListComponent>
+            autoAppointmentSchedulingList = auto_appointment_scheduling_list
+                .AutoAppointmentSchedulingListComponentNgFactory;
 
-      ComponentRef autoAppointmentSchedulingListComponent =
-          _loader.loadNextToLocation(
-              autoAppointmentSchedulingList, materialContainerList);
+        ComponentRef autoAppointmentSchedulingListComponent =
+            _loader.loadNextToLocation(
+                autoAppointmentSchedulingList, materialContainerList);
 
-      autoAppointmentSchedulingListComponent.instance.date = date;
-      autoAppointmentSchedulingListComponent.instance.componentRef =
-          autoAppointmentSchedulingListComponent;
-      listComponentRef.add(autoAppointmentSchedulingListComponent);
+        autoAppointmentSchedulingListComponent.instance.date = date;
+        autoAppointmentSchedulingListComponent.instance.list = _list;
+        autoAppointmentSchedulingListComponent.instance.componentRef =
+            autoAppointmentSchedulingListComponent;
+        listComponentRef.add(autoAppointmentSchedulingListComponent);
+      }
     });
 
     _changeDetectorRef.markForCheck();
