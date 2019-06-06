@@ -149,20 +149,20 @@ material-dropdown-select {
 }
 
 #container-filter-appointment-scheduling ::ng-deep .focused.label-text {
-  color: #616161 !important;
+  color: rgba(#515151, 0.2) !important;
 }
 
 #container-filter-appointment-scheduling ::ng-deep .focused-underline, .cursor {
-  background-color: #616161 !important;
+  background-color: rgba(#515151, 0.2) !important;
 }
 
 #container-filter-appointment-scheduling ::ng-deep .disabled-underline {
-  color: #616161 !important;
+  color: rgba(#515151, 0.2) !important;
 }
 
 #container-filter-appointment-scheduling ::ng-deep .unfocused-underline {
-  background: #616161 !important;
-  border-bottom-color: #616161 !important;
+  background: rgba(#515151, 0.2) !important;
+  border-bottom-color: rgba(#515151, 0.2) !important;
 }
 
 #container-filter-appointment-scheduling ::ng-deep material-input .input-container {
