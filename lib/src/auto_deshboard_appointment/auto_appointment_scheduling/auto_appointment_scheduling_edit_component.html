@@ -30,11 +30,13 @@
             <div #dentistDropdownSelect></div>
         </div>
 
-        <material-datepicker id="date-select" [(date)]="dateAppointmentScheduling" [required]="true">
-        </material-datepicker>
-
         <div id="agreement-select">
             <div #agreementDropdownSelect></div>
+        </div>
+
+        <div id="date-select">
+            <material-datepicker [(date)]="dateAppointmentScheduling" [required]="true">
+            </material-datepicker>
         </div>
 
     </div>

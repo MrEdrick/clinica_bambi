@@ -246,7 +246,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .ShiftDropdownSelectComponentNgFactory;
 
     shiftDropdownSelectComponentRef = _loader.loadNextToLocation(
-        shiftDropdownSelectComponent, materialContainerProcedureDropdownSelect);
+        shiftDropdownSelectComponent, materialContainerShiftDropdownSelect);
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
