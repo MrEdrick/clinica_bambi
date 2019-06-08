@@ -260,7 +260,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  void onClickProcedureSelectDropdown() async {
+  void onSelectProcedureSelectDropdown() async {
     List<String> listDentisitId = new List<String>();
 
     if (!procedureDropdownSelectComponentRef
@@ -270,9 +270,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .instance.singleSelectModelProcedure?.selectedValues?.first);
     }
 
-    listDentisitId.forEach((dentistId) {
+    dentistDropdownSelectComponentRef
+        .instance.listDentisitIdToShow = listDentisitId;
 
-    });
+    dentistDropdownSelectComponentRef
+        .instance.disabled = false;
   }
 
   void onClose() {

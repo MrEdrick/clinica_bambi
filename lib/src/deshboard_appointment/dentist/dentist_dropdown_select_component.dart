@@ -25,19 +25,29 @@ import '../../appointment/dentist/dentist_selection_options.dart';
       MaterialDropdownSelectComponent,
       DropdownSelectValueAccessor
     ],
-    providers: [
-      windowBindings
-    ])
+    providers: [windowBindings])
 class DentistDropdownSelectComponent implements OnInit {
-
   @Input()
   ComponentRef componentRef;
 
   @Input()
   bool disabled = false;
-  
+
+  List<String> _listDentisitIdToShow;
+
+  @Input()
+  set listDentisitIdToShow(List<String> listDentisitIdToShow) {
+    _listDentisitIdToShow = listDentisitIdToShow;
+    listDentist.clear();
+    _listDentisitIdToShow.forEach((dentistId) {
+      toListDentistList({"dentistId": dentistId});
+    });
+  }
+
   List<DentistUI> _listDentist;
+
   final DentistService _dentistService = new DentistService();
+  final List<DentistUI> listDentist = new List<DentistUI>();
 
   bool useItemRenderer = false;
 
@@ -64,16 +74,15 @@ class DentistDropdownSelectComponent implements OnInit {
   }
 
   @Input()
-  SelectionModel<DentistUI> singleSelectModelDentist =
-      SelectionModel.single();
+  SelectionModel<DentistUI> singleSelectModelDentist = SelectionModel.single();
 
-  String get singleSelectDentistLabel =>
-      singleSelectModelDentist.selectedValues == null
-          ? '  '
-          : singleSelectModelDentist.selectedValues.length > 0
-              ? itemRendererDentist(
-                  singleSelectModelDentist.selectedValues.first)
-              : 'Dentista';
+  String get singleSelectDentistLabel => singleSelectModelDentist
+              .selectedValues ==
+          null
+      ? '  '
+      : singleSelectModelDentist.selectedValues.length > 0
+          ? itemRendererDentist(singleSelectModelDentist.selectedValues.first)
+          : 'Dentista';
 
   String get singleSelectedDentist =>
       singleSelectModelDentist.selectedValues.isNotEmpty
@@ -83,10 +92,16 @@ class DentistDropdownSelectComponent implements OnInit {
   DentistDropdownSelectComponent();
 
   void ngOnInit() async {
-    _listDentist = new List<DentistUI>();
-    await _dentistService.getDentistListWithFilterFromList({}).forEach((map) {
-      _listDentist.add(new DentistUI(_dentistService.turnMapInDentist(map).id,
-                                     _dentistService.turnMapInDentist(map).name));
+    listDentist.clear();
+    toListDentistList({});
+  }
+
+  void toListDentistList(Map filter) async {
+    await _dentistService
+        .getDentistListWithFilterFromList(filter)
+        .forEach((map) {
+      listDentist.add(new DentistUI(_dentistService.turnMapInDentist(map).id,
+          _dentistService.turnMapInDentist(map).name));
     });
   }
 }
