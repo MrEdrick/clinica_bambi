@@ -34,7 +34,7 @@ class DentistDropdownSelectComponent implements OnInit {
   ComponentRef componentRef;
 
   @Input()
-  bool disabled = true;
+  bool disabled = false;
   
   List<DentistUI> _listDentist;
   final DentistService _dentistService = new DentistService();

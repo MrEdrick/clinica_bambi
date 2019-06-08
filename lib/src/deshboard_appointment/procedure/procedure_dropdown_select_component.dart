@@ -34,7 +34,7 @@ class ProcedureDropdownSelectComponent implements OnInit {
   ComponentRef componentRef;
 
   @Input()
-  bool disabled = true;
+  bool disabled = false;
   
   List<ProcedureUI> _listProcedure;
   final ProcedureService _procedureService = new ProcedureService();
