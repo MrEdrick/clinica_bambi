@@ -135,6 +135,23 @@ class DentistProcedureService {
     return _dentistProcedureListWithFilter;
   }
 
+  Future<List<String>> returnDentistIdListByProcedureId(
+      String procedureId) async {
+    if ((_dentistProcedureList != null) &&
+        (_dentistProcedureList?.length != 0)) {
+      await getAllDentistProcedureAcives();
+    }
+
+    List<String> listId = new List<String>();
+    listId.clear();
+    getDentistProcedureListWithFilterFromList({"procedureId": procedureId})
+        .forEach((map) {
+      listId.add(map["dentistId"]);
+    });
+
+    return listId;
+  }
+
   DentistProcedure turnMapInDentistProcedure(Map map) {
     if (map == null) {
       return null;
@@ -168,7 +185,8 @@ class DentistProcedureService {
     }
 
     if (saved) {
-      _dentistProcedureByDayOfWeekService.clearAllDentistProcedureByDayOfWeekList();
+      _dentistProcedureByDayOfWeekService
+          .clearAllDentistProcedureByDayOfWeekList();
     }
 
     return saved;
@@ -234,10 +252,8 @@ class DentistProcedureService {
             result.values.first, dentistProcedure.procedureId);
       }
     } else {
-      
       if ((_dentistProcedure.dentistId != "") &&
           (_dentistProcedure.procedureId != "")) {
-            
         result = await new DentistProcedureDAO().save(datas);
 
         saved = await saveDentistProcedureByDayOfWeekList(
