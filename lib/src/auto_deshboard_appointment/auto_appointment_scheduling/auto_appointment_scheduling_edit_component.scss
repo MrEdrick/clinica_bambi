@@ -148,9 +148,9 @@ material-input {
   @include shadow-elevation(8);       
 }
 
-.titulo {
+.title {
   font-family: 'Montserrat';
-  flex: 1;
+  display: block;
   width: 100%;
   max-height: 48px;
   color: #DB3813;
@@ -161,16 +161,15 @@ material-input {
   margin-bottom: 3%;
 }
 
-.sub-titulo {
+.sub-title {
+  display: block;
   font-family: 'Montserrat';
-  flex: 1;
   width: 100%;
   max-height: 48px;
-  color: #616161;
+  color: #DB3813;
   font-size: 2.5vh;
   text-align: left;
   font-weight: 500;
-  padding: 10px;
   margin-bottom: 2%;
 }
 

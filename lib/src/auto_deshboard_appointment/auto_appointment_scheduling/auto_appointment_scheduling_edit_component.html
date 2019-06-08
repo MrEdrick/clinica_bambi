@@ -1,10 +1,10 @@
 <div class="container-add-auto-appointment-scheduling">
     <div class="container-register">
-        <div class="titulo">
+        <div class="title">
             Agendamento
         </div>
 
-        <div class="sub-titulo">
+        <div class="sub-title">
             Paciente: {{patientAccountService.patientAccount.name}}
         </div>
         <material-input class="edit-input" id="email" label="E-mail..."
@@ -15,20 +15,20 @@
             (inputKeyPress)="telephoneMask.number = $event">
         </material-input>
 
-        <div class="sub-titulo">
+        <div class="sub-title">
             Dados para consulta
         </div>
         <div id="procedure-select">
             <div #procedureDropdownSelect></div>
         </div>
 
-        <div id="shift-select">
-            <div #shiftDropdownSelect></div>
-        </div>
-
         <div id="date-select">
             <material-datepicker [(date)]="dateAppointmentScheduling" [required]="true">
             </material-datepicker>
+        </div>
+
+        <div id="shift-select">
+            <div #shiftDropdownSelect></div>
         </div>
 
         <div id="dentist-select">
