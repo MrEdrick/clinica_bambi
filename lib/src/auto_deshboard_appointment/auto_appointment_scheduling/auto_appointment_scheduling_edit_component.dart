@@ -212,6 +212,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     dentistDropdownSelectComponentRef = _loader.loadNextToLocation(
         dentistDropdownSelectComponent, materialContainerDentistDropdownSelect);
 
+    dentistDropdownSelectComponentRef.instance.disabled = true;
+    
     listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
 
     ComponentFactory<

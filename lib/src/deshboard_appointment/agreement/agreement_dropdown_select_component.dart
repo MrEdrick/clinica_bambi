@@ -32,6 +32,9 @@ class AgreementDropdownSelectComponent implements OnInit {
 
   @Input()
   ComponentRef componentRef;
+
+  @Input()
+  bool disabled = true;
   
   List<AgreementUI> _listAgreement;
   final AgreementService _agreementService = new AgreementService();

@@ -33,6 +33,9 @@ class ShiftDropdownSelectComponent implements OnInit {
 
   @Input()
   ComponentRef componentRef;
+
+  @Input()
+  bool disabled = true;
   
   List<ShiftUI> _listShift;
   final ShiftService _shiftService = new ShiftService();
