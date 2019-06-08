@@ -20,6 +20,7 @@ import '../../appointment/mask/telephone_mask.dart';
 import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
+import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/procedure/procedureUI.dart';
 import '../../appointment/shift/shift_service.dart';
@@ -76,6 +77,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   ComponentRef shiftDropdownSelectComponentRef;
 
   final DentistService dentistService = new DentistService();
+  final DentistProcedureService dentistProcedureService =
+      new DentistProcedureService();
   final ProcedureService procedureService = new ProcedureService();
   final AgreementService agreementService = new AgreementService();
   final ShiftService shiftService = new ShiftService();
@@ -213,7 +216,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         dentistDropdownSelectComponent, materialContainerDentistDropdownSelect);
 
     dentistDropdownSelectComponentRef.instance.disabled = true;
-    
+
     listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
 
     ComponentFactory<
@@ -239,7 +242,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     agreementDropdownSelectComponentRef = _loader.loadNextToLocation(
         agreementDropdownSelectComponent,
         materialContainerAgreementDropdownSelect);
-    
+
     listComponentRefDropdownSelect.add(agreementDropdownSelectComponentRef);
 
     ComponentFactory<
@@ -255,6 +258,21 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     onEdit();
 
     _changeDetectorRef.markForCheck();
+  }
+
+  void onClickProcedureSelectDropdown() async {
+    List<String> listDentisitId = new List<String>();
+
+    if (!procedureDropdownSelectComponentRef
+        .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
+       listDentisitId = await dentistProcedureService
+          .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
+              .instance.singleSelectModelProcedure?.selectedValues?.first);
+    }
+
+    listDentisitId.forEach((dentistId) {
+
+    });
   }
 
   void onClose() {
