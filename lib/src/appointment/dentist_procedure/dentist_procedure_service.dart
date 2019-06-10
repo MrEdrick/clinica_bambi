@@ -102,9 +102,6 @@ class DentistProcedureService {
 
     _listDocumentSnapshot = _dentistProcedureList;
 
-    print(_listDocumentSnapshot);
-    print(filter);
-
     _listDocumentSnapshotTemp.clear();
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
@@ -150,7 +147,7 @@ class DentistProcedureService {
         .forEach((map) {
       listId.add(map["dentistId"]);
     });
-
+    print(listId);
     return listId;
   }
 

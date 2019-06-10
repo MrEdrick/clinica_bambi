@@ -270,7 +270,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
       listDentisitId = await dentistProcedureService
           .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
-              .instance.singleSelectModelProcedure?.selectedValues?.first);
+              .instance.singleSelectModelProcedure.selectedValues.first.id);
     }
 
     dentistDropdownSelectComponentRef.instance.disabled = false;
