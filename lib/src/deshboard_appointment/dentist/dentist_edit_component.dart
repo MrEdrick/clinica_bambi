@@ -105,7 +105,7 @@ class DentistEditComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    querySelector('deshboard-app').style.overflowY = "hidden";
+    querySelector('deshboard_appointment_component').style.overflowY = "hidden";
 
     onEdit();
 
@@ -160,8 +160,9 @@ class DentistEditComponent implements OnInit {
   }
 
   void onClose() {
-    dentistService.dentist = null;
-    querySelector('deshboard-app').style.overflowY = "scroll";
+    dentistService.dentist = dentistService.returnEmptyDentist();
+    querySelector('deshboard_appointment_component').style.overflowY = "scroll";
+    onClearListsOfComponentRef();
     componentRef.destroy();
   }
 
