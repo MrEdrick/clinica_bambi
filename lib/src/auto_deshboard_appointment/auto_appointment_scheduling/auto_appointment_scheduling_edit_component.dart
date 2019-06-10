@@ -230,6 +230,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         procedureDropdownSelectComponent,
         materialContainerProcedureDropdownSelect);
 
+    procedureDropdownSelectComponentRef.instance.selectionChanges
+        .listen((_) => onSelectProcedureSelectDropdown());
+
     listComponentRefDropdownSelect.add(procedureDropdownSelectComponentRef);
 
     ComponentFactory<
@@ -265,16 +268,17 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     if (!procedureDropdownSelectComponentRef
         .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
-       listDentisitId = await dentistProcedureService
+      listDentisitId = await dentistProcedureService
           .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
               .instance.singleSelectModelProcedure?.selectedValues?.first);
     }
 
-    dentistDropdownSelectComponentRef
-        .instance.listDentisitIdToShow = listDentisitId;
+    dentistDropdownSelectComponentRef.instance.disabled = false;
 
-    dentistDropdownSelectComponentRef
-        .instance.disabled = false;
+    dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
+        listDentisitId;
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {

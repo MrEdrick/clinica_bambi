@@ -4,7 +4,6 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
-import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_dao.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'

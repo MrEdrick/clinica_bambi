@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -29,6 +31,8 @@ import '../../appointment/procedure/procedure_selection_options.dart';
       windowBindings    
     ])
 class ProcedureDropdownSelectComponent implements OnInit {
+  List<ProcedureUI> _listProcedure;
+  final ProcedureService _procedureService = new ProcedureService();
 
   @Input()
   ComponentRef componentRef;
@@ -36,9 +40,6 @@ class ProcedureDropdownSelectComponent implements OnInit {
   @Input()
   bool disabled = false;
   
-  List<ProcedureUI> _listProcedure;
-  final ProcedureService _procedureService = new ProcedureService();
-
   bool useItemRenderer = false;
 
   static ItemRenderer<ProcedureUI> _displayNameRenderer =
@@ -66,6 +67,11 @@ class ProcedureDropdownSelectComponent implements OnInit {
   @Input()
   SelectionModel<ProcedureUI> singleSelectModelProcedure =
       SelectionModel.single();
+
+  @Output()
+  Stream get selectionChanges {
+    return singleSelectModelProcedure.selectionChanges;  
+  }
 
   String get singleSelectProcedureLabel =>
       singleSelectModelProcedure.selectedValues == null
