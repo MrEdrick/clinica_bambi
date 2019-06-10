@@ -102,6 +102,9 @@ class DentistProcedureService {
 
     _listDocumentSnapshot = _dentistProcedureList;
 
+    print(_listDocumentSnapshot);
+    print(filter);
+
     _listDocumentSnapshotTemp.clear();
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
@@ -137,8 +140,7 @@ class DentistProcedureService {
 
   Future<List<String>> returnDentistIdListByProcedureId(
       String procedureId) async {
-    if ((_dentistProcedureList == null) &&
-        (_dentistProcedureList?.length == 0)) {
+    if (_dentistProcedureList.isEmpty) {
       await getAllDentistProcedureAcives();
     }
 
