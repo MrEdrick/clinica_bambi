@@ -38,7 +38,7 @@ class DentistDropdownSelectComponent implements OnInit {
   set disabled(bool disabled) {
     _disabled = disabled;
 
-    _changeDetectorRef.checkNoChanges();
+    _changeDetectorRef.markForCheck();
   }
 
   List<String> _listDentisitIdToShow;
