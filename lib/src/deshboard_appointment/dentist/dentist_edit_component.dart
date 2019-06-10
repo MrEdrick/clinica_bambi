@@ -62,7 +62,7 @@ class DentistEditComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  DentistService _dentistService;
+  final DentistService dentistService = new DentistService();
 
   ComponentRef procedureCheckboxGroupComponent;
 
@@ -73,10 +73,6 @@ class DentistEditComponent implements OnInit {
   @ViewChild('quantityPerShiftByDayGroupCheckboxComponent',
       read: ViewContainerRef)
   ViewContainerRef materialContainerDayGroupCheckbox;
-
-  DentistService get dentistService => _dentistService;
-  set dentistService(DentistService dentistService) =>
-      _dentistService = dentistService;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -90,11 +86,6 @@ class DentistEditComponent implements OnInit {
   DentistEditComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
-    dentistService = new DentistService();
-
-    if (dentistService.dentist == null) {
-      dentistService.dentist = new Dentist("", "", true);
-    }
   }
 
   void onClearListsOfComponentRef() {

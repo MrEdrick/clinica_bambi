@@ -117,7 +117,7 @@ class DentistFilterComponent implements OnActivate, OnInit {
   }
 
   void onAdd() {
-    dentistService.dentist = null;
+    dentistService.dentist = dentistService.returnEmptyDentist();
     ComponentFactory<dentist_edit.DentistEditComponent> dentistEdit =
         dentist_edit.DentistEditComponentNgFactory;
 
