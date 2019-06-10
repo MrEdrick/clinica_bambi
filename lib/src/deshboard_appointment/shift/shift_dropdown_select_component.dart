@@ -30,12 +30,19 @@ import '../../appointment/shift/shift_selection_options.dart';
       windowBindings
     ])
 class ShiftDropdownSelectComponent implements OnInit {
+  final ChangeDetectorRef _changeDetectorRef;
 
   @Input()
   ComponentRef componentRef;
 
+  bool _disabled = false;
+  bool get disabled => _disabled; 
   @Input()
-  bool disabled = false;
+  set disabled(bool disabled) {
+    _disabled = disabled;
+
+    _changeDetectorRef.markForCheck();
+  }
   
   List<ShiftUI> _listShift;
   final ShiftService _shiftService = new ShiftService();
@@ -68,6 +75,11 @@ class ShiftDropdownSelectComponent implements OnInit {
   SelectionModel<ShiftUI> singleSelectModelShift =
       SelectionModel.single();
 
+  @Output()
+  Stream get selectionChanges {
+    return singleSelectModelShift.selectionChanges;  
+  }
+
   String get singleSelectShiftLabel =>
       singleSelectModelShift.selectedValues == null
           ? '  '
@@ -81,7 +93,7 @@ class ShiftDropdownSelectComponent implements OnInit {
           ? singleSelectModelShift.selectedValues.first.uiDisplayName
           : null;
 
-  ShiftDropdownSelectComponent();
+  ShiftDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _listShift = new List<ShiftUI>();

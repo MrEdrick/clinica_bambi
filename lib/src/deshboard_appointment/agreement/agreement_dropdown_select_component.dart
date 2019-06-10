@@ -29,12 +29,19 @@ import '../../appointment/agreement/agreement_selection_options.dart';
       windowBindings
     ])
 class AgreementDropdownSelectComponent implements OnInit {
+  final ChangeDetectorRef _changeDetectorRef;
 
   @Input()
   ComponentRef componentRef;
 
+  bool _disabled = false;
+  bool get disabled => _disabled; 
   @Input()
-  bool disabled = false;
+  set disabled(bool disabled) {
+    _disabled = disabled;
+
+    _changeDetectorRef.markForCheck();
+  }
   
   List<AgreementUI> _listAgreement;
   final AgreementService _agreementService = new AgreementService();
@@ -67,6 +74,11 @@ class AgreementDropdownSelectComponent implements OnInit {
   SelectionModel<AgreementUI> singleSelectModelAgreement =
       SelectionModel.single();
 
+  @Output()
+  Stream get selectionChanges {
+    return singleSelectModelAgreement.selectionChanges;  
+  }
+
   String get singleSelectAgreementLabel =>
       singleSelectModelAgreement.selectedValues == null
           ? '  '
@@ -80,7 +92,7 @@ class AgreementDropdownSelectComponent implements OnInit {
           ? singleSelectModelAgreement.selectedValues.first.uiDisplayName
           : null;
 
-  AgreementDropdownSelectComponent();
+  AgreementDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _listAgreement = new List<AgreementUI>();

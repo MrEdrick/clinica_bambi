@@ -31,14 +31,22 @@ import '../../appointment/procedure/procedure_selection_options.dart';
       windowBindings    
     ])
 class ProcedureDropdownSelectComponent implements OnInit {
-  List<ProcedureUI> _listProcedure;
+  final ChangeDetectorRef _changeDetectorRef;
   final ProcedureService _procedureService = new ProcedureService();
-
+  
+  List<ProcedureUI> _listProcedure;
+  
   @Input()
   ComponentRef componentRef;
 
+  bool _disabled = false;
+  bool get disabled => _disabled; 
   @Input()
-  bool disabled = false;
+  set disabled(bool disabled) {
+    _disabled = disabled;
+
+    _changeDetectorRef.markForCheck();
+  }
   
   bool useItemRenderer = false;
 
@@ -86,7 +94,7 @@ class ProcedureDropdownSelectComponent implements OnInit {
           ? singleSelectModelProcedure.selectedValues.first.uiDisplayName
           : null;
 
-  ProcedureDropdownSelectComponent();
+  ProcedureDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _listProcedure = new List<ProcedureUI>();

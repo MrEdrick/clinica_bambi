@@ -83,6 +83,11 @@ class DentistDropdownSelectComponent implements OnInit {
 
   @Input()
   SelectionModel<DentistUI> singleSelectModelDentist = SelectionModel.single();
+  
+  @Output()
+  Stream get selectionChanges {
+    return singleSelectModelDentist.selectionChanges;  
+  }
 
   String get singleSelectDentistLabel => singleSelectModelDentist
               .selectedValues ==
