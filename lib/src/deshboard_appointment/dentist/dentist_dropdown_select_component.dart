@@ -27,11 +27,19 @@ import '../../appointment/dentist/dentist_selection_options.dart';
     ],
     providers: [windowBindings])
 class DentistDropdownSelectComponent implements OnInit {
+  final ChangeDetectorRef _changeDetectorRef;
+
   @Input()
   ComponentRef componentRef;
 
+  bool _disabled = false;
+  bool get disabled => _disabled; 
   @Input()
-  bool disabled = false;
+  set disabled(bool disabled) {
+    _disabled = disabled;
+
+    _changeDetectorRef.checkNoChanges();
+  }
 
   List<String> _listDentisitIdToShow;
 
@@ -89,7 +97,7 @@ class DentistDropdownSelectComponent implements OnInit {
           ? singleSelectModelDentist.selectedValues.first.uiDisplayName
           : null;
 
-  DentistDropdownSelectComponent();
+  DentistDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     listDentist.clear();

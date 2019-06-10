@@ -277,8 +277,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
         listDentisitId;
-
-    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
