@@ -137,8 +137,8 @@ class DentistProcedureService {
 
   Future<List<String>> returnDentistIdListByProcedureId(
       String procedureId) async {
-    if ((_dentistProcedureList != null) &&
-        (_dentistProcedureList?.length != 0)) {
+    if ((_dentistProcedureList == null) &&
+        (_dentistProcedureList?.length == 0)) {
       await getAllDentistProcedureAcives();
     }
 
