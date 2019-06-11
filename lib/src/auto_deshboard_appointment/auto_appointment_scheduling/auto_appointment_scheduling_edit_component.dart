@@ -217,6 +217,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await procedureService.getAllProcedureAcives();
     await agreementService.getAllAgreementAcives();
     await shiftService.getAllShiftAcives();
+    await requirementService.getAllRequirementAcives();
     await procedureRequirementService.getAllProcedureRequirementAcives();
 
     clearListComponentRef(listComponentRefDropdownSelect);
@@ -308,9 +309,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       querySelector("#sub-title-requirement").style.display = "none";
       
       requirementService.requirement = requirementService.turnMapInRequirement(
-          (await requirementService.getRequirementListWithFilterFromList(
+          (requirementService.getRequirementListWithFilterFromList(
               {"requirementId": requirement["requirementId"].toString()})).first);
-
+      
       ComponentFactory<
               procedure_requirement_checkbox_component
                   .ProcedureRequirementCheckboxComponent>
