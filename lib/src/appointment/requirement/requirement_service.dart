@@ -5,7 +5,8 @@ class RequirementService {
   static List<Requirement> _list = new List<Requirement>();
   static Requirement _requirement;
   static List<Map> _requirementList = new List<Map>();
-  static Map<String, Requirement> _requirementListById = new Map<String, Requirement>();
+  static Map<String, Requirement> _requirementListById =
+      new Map<String, Requirement>();
   static List<Map> _requirementListWithFilter = new List<Map>();
 
   Requirement get requirement => _requirement;
@@ -22,20 +23,20 @@ class RequirementService {
     if ((_requirementList != null) && (_requirementList.length != 0)) {
       return _list;
     }
-    
+
     clearAllRequirementList();
-    
+
     await (_requirementList = await new RequirementDAO()
         .getAllRequirementFilter({"state": "A"}, {"description": "asc"}));
-    
+
     _requirementList.forEach((requirement) {
-      _requirementListById[requirement["documentPath"]] = turnMapInRequirement(requirement);
+      _requirementListById[requirement["documentPath"]] =
+          turnMapInRequirement(requirement);
       _list.add(turnMapInRequirement(requirement));
     });
-    
+
     return _list;
   }
-
 
   Future<Requirement> getRequirementById(String id) async {
     Requirement _requirement;
@@ -74,6 +75,19 @@ class RequirementService {
 
     _listDocumentSnapshotTemp.clear();
 
+    if ((filter["requirementId"] != null) && (filter["requirementId"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["documentPath"].toString() == filter["requirementId"].toString()) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
+
+    if ((filter["requirementId"] != null) && (filter["requirementId"] != '')) {
+      _listDocumentSnapshot.clear();
+      ListsApplyFilter();
+    }
+
     if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if (doc["description"].toString().indexOf(filter["description"]) > -1) {
@@ -84,12 +98,11 @@ class RequirementService {
 
     if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
 
-    ListsApplyFilter();
-
     _requirementListWithFilter = _listDocumentSnapshot;
-    
+
     return _requirementListWithFilter;
   }
 
@@ -98,8 +111,18 @@ class RequirementService {
   }
 
   Requirement turnMapInRequirement(Map map) {
-    return new Requirement(map["documentPath"], map["description"], map["state"] == "A");
+    if (map.isEmpty) {
+      return returnEmptyRequirement();
+    }
+
+    return new Requirement(
+        map["documentPath"], map["description"], map["state"] == "A");
   }
+
+  Requirement returnEmptyRequirement() {
+    return new Requirement("", "", false);
+  }
+
 
   Future<bool> save() async {
     bool saved = true;
@@ -121,8 +144,7 @@ class RequirementService {
     } else {
       result = await new RequirementDAO().save(datas);
     }
- 
+
     return saved;
   }
-
 }

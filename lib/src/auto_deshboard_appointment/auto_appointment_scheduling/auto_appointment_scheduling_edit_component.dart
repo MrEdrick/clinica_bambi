@@ -90,6 +90,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final ProcedureService procedureService = new ProcedureService();
   final AgreementService agreementService = new AgreementService();
   final ShiftService shiftService = new ShiftService();
+  final ProcedureRequirementService procedureRequirementService =
+      new ProcedureRequirementService();
   final RequirementService requirementService = new RequirementService();
   final PatientAccountService patientAccountService =
       new PatientAccountService();
@@ -215,6 +217,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await procedureService.getAllProcedureAcives();
     await agreementService.getAllAgreementAcives();
     await shiftService.getAllShiftAcives();
+    await procedureRequirementService.getAllProcedureRequirementAcives();
 
     clearListComponentRef(listComponentRefDropdownSelect);
 
@@ -276,27 +279,38 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onSelectProcedureSelectDropdown() async {
-    List<String> listDentisitId = new List<String>();
-
     if (!procedureDropdownSelectComponentRef
         .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
-      listDentisitId = await dentistProcedureService
+      await dentistProcedureService
           .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
-              .instance.singleSelectModelProcedure.selectedValues.first.id);
+              .instance.singleSelectModelProcedure.selectedValues.first.id)
+          .then((listDentisitId) {
+        dentistDropdownSelectComponentRef.instance.disabled = false;
+
+        dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
+            listDentisitId;
+      });
+
+      await toListRequirementList(procedureDropdownSelectComponentRef
+          .instance.singleSelectModelProcedure.selectedValues.first.id);
     }
-
-    dentistDropdownSelectComponentRef.instance.disabled = false;
-
-    dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
-        listDentisitId;
   }
 
   void toListRequirementList(String procedureId) async {
-    //List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
-    (await new ProcedureRequirementService()
+    querySelector("#sub-title-requirement").style.display = "block";
+
+    clearListComponentRef(listComponentRefProcedureRequirement);
+
+    (await procedureRequirementService
             .getProcedureRequirementListWithFilterFromList(
                 {"procedureId": procedureId}))
-        .forEach((requirement) {
+        .forEach((requirement) async {
+      querySelector("#sub-title-requirement").style.display = "none";
+      
+      requirementService.requirement = requirementService.turnMapInRequirement(
+          (await requirementService.getRequirementListWithFilterFromList(
+              {"requirementId": requirement["requirementId"].toString()})).first);
+
       ComponentFactory<
               procedure_requirement_checkbox_component
                   .ProcedureRequirementCheckboxComponent>
@@ -308,18 +322,17 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
           procedureRequirementComponent,
           materialContainerProcedureRequirementCheckBox);
 
-      procedureRequirementCheckboxComponent.instance.procedureId =
-          procedureService.procedure.id;
+      procedureRequirementCheckboxComponent.instance.procedureId = procedureId;
       procedureRequirementCheckboxComponent.instance.requirementId =
-          requirement.id;
+          requirementService.requirement.id;
       procedureRequirementCheckboxComponent.instance.requirement =
-          requirement.description;
+          requirementService.requirement.description;
 
       listComponentRefProcedureRequirement
           .add(procedureRequirementCheckboxComponent);
-    });
 
-    _changeDetectorRef.markForCheck();
+      _changeDetectorRef.markForCheck();
+    });
   }
 
   void onClose() {
