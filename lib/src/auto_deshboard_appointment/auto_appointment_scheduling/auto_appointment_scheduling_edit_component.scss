@@ -96,6 +96,11 @@ material-datepicker {
   color: #616161;
 }
 
+#container-requirement-checkbox {
+  display: inline-block;
+  position: relative;
+}
+
 .container-add-consulta ::ng-deep material-datepicker .main-content {
   margin: 1% 0 3% 0%;
   display: inline !important;

@@ -27,6 +27,8 @@ import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/agreement/agreementUI.dart';
+import '../../appointment/requirement/requirement_service.dart';
+import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 
 import '../../appointment/user/user_service.dart';
@@ -39,6 +41,8 @@ import 'package:ClinicaBambi/src/deshboard_appointment/agreement/agreement_dropd
     as agreement_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_dropdown_select_component.template.dart'
     as procedure_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
+    as procedure_requirement_checkbox_component;
 
 @Component(
     selector: 'auto_appointment_scheduling_edit_component',
@@ -71,10 +75,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final List<ComponentRef> listComponentRefDropdownSelect =
       new List<ComponentRef>();
 
+  final List<ComponentRef> listComponentRefProcedureRequirement =
+      new List<ComponentRef>();
+
   ComponentRef dentistDropdownSelectComponentRef;
   ComponentRef procedureDropdownSelectComponentRef;
   ComponentRef agreementDropdownSelectComponentRef;
   ComponentRef shiftDropdownSelectComponentRef;
+  ComponentRef procedureRequirementCheckboxComponent;
 
   final DentistService dentistService = new DentistService();
   final DentistProcedureService dentistProcedureService =
@@ -82,6 +90,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final ProcedureService procedureService = new ProcedureService();
   final AgreementService agreementService = new AgreementService();
   final ShiftService shiftService = new ShiftService();
+  final RequirementService requirementService = new RequirementService();
   final PatientAccountService patientAccountService =
       new PatientAccountService();
   final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
@@ -112,6 +121,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
   ViewContainerRef materialContainerShiftDropdownSelect;
+
+  @ViewChild('procedureRequirementCheckboxComponent', read: ViewContainerRef)
+  ViewContainerRef materialContainerProcedureRequirementCheckBox;
 
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
@@ -277,6 +289,37 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
         listDentisitId;
+  }
+
+  void toListRequirementList(String procedureId) async {
+    //List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
+    (await new ProcedureRequirementService()
+            .getProcedureRequirementListWithFilterFromList(
+                {"procedureId": procedureId}))
+        .forEach((requirement) {
+      ComponentFactory<
+              procedure_requirement_checkbox_component
+                  .ProcedureRequirementCheckboxComponent>
+          procedureRequirementComponent =
+          procedure_requirement_checkbox_component
+              .ProcedureRequirementCheckboxComponentNgFactory;
+
+      procedureRequirementCheckboxComponent = _loader.loadNextToLocation(
+          procedureRequirementComponent,
+          materialContainerProcedureRequirementCheckBox);
+
+      procedureRequirementCheckboxComponent.instance.procedureId =
+          procedureService.procedure.id;
+      procedureRequirementCheckboxComponent.instance.requirementId =
+          requirement.id;
+      procedureRequirementCheckboxComponent.instance.requirement =
+          requirement.description;
+
+      listComponentRefProcedureRequirement
+          .add(procedureRequirementCheckboxComponent);
+    });
+
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {

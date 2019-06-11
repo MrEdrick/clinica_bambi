@@ -99,7 +99,7 @@ class ProcedureEditComponent implements OnInit {
 
     onClearListsOfComponentRef();
 
-    querySelector('deshboard-app').style.overflowY = "hidden";
+    querySelector('deshboard_appointment_component').style.overflowY = "hidden";
     onEdit();
 
     List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
@@ -127,7 +127,7 @@ class ProcedureEditComponent implements OnInit {
 
   void onClose() {
     procedureService.procedure = null;
-    querySelector('deshboard-app').style.overflowY = "scroll";
+    querySelector('deshboard_appointment_component').style.overflowY = "scroll";
     componentRef.destroy();
   }
 
