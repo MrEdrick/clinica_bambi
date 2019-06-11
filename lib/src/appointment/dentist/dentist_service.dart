@@ -105,7 +105,7 @@ class DentistService {
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["dentistId"].toString() == filter["dentistId"].toString()) {
+        if (doc["documentPath"].toString() == filter["dentistId"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });

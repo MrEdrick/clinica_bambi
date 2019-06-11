@@ -112,7 +112,5 @@ class DentistDropdownSelectComponent implements OnInit {
       listDentist.add(new DentistUI(_dentistService.turnMapInDentist(map).id,
           _dentistService.turnMapInDentist(map).name));
     });
-
-    print(listDentist);
   }
 }
