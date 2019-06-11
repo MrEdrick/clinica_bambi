@@ -328,7 +328,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
           requirementService.requirement.id;
       procedureRequirementCheckboxComponent.instance.requirement =
           requirementService.requirement.description;
-
+      procedureRequirementCheckboxComponent.instance.checked = false;
+      
       listComponentRefProcedureRequirement
           .add(procedureRequirementCheckboxComponent);
 

@@ -39,6 +39,7 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
   @Input()
   String requirement;
 
+  @Input()
   bool checked = false;
 
   ProcedureRequirementCheckboxComponent(this._changeDetectorRef);
