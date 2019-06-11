@@ -147,7 +147,7 @@ class DentistProcedureService {
         .forEach((map) {
       listId.add(map["dentistId"]);
     });
-    print(listId);
+    
     return listId;
   }
 

@@ -28,6 +28,8 @@ import '../../appointment/dentist/dentist_selection_options.dart';
     providers: [windowBindings])
 class DentistDropdownSelectComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
+  final DentistService _dentistService = new DentistService();
+  final List<DentistUI> listDentist = new List<DentistUI>();
 
   @Input()
   ComponentRef componentRef;
@@ -42,7 +44,6 @@ class DentistDropdownSelectComponent implements OnInit {
   }
 
   List<String> _listDentisitIdToShow;
-
   @Input()
   set listDentisitIdToShow(List<String> listDentisitIdToShow) {
     _listDentisitIdToShow = listDentisitIdToShow;
@@ -51,11 +52,6 @@ class DentistDropdownSelectComponent implements OnInit {
       toListDentistList({"dentistId": dentistId});
     });
   }
-
-  List<DentistUI> _listDentist;
-
-  final DentistService _dentistService = new DentistService();
-  final List<DentistUI> listDentist = new List<DentistUI>();
 
   bool useItemRenderer = false;
 
@@ -72,11 +68,11 @@ class DentistDropdownSelectComponent implements OnInit {
   DentistSelectionOptions<DentistUI> dentistListOptions;
 
   StringSelectionOptions<DentistUI> get dentistOptions {
-    if (_listDentist == null) {
+    if (listDentist == null) {
       return null;
     }
 
-    dentistListOptions = DentistSelectionOptions<DentistUI>(_listDentist);
+    dentistListOptions = DentistSelectionOptions<DentistUI>(listDentist);
 
     return dentistListOptions;
   }
@@ -116,5 +112,7 @@ class DentistDropdownSelectComponent implements OnInit {
       listDentist.add(new DentistUI(_dentistService.turnMapInDentist(map).id,
           _dentistService.turnMapInDentist(map).name));
     });
+
+    print(listDentist);
   }
 }

@@ -103,6 +103,19 @@ class DentistService {
 
     _listDocumentSnapshotTemp.clear();
 
+    if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["dentistId"].toString() == filter["dentistId"].toString()) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
+
+    if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
+      _listDocumentSnapshot.clear();
+      ListsApplyFilter();
+    }
+
     if ((filter["name"] != null) && (filter["name"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if (doc["name"].toString().indexOf(filter["name"]) > -1) {
@@ -113,9 +126,8 @@ class DentistService {
 
     if ((filter["name"] != null) && (filter["name"] != '')) {
       _listDocumentSnapshot.clear();
+      ListsApplyFilter();
     }
-
-    ListsApplyFilter();
 
     _dentistListWithFilter = _listDocumentSnapshot;
 
