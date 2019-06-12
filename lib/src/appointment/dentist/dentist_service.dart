@@ -99,7 +99,10 @@ class DentistService {
       }
     }
 
-    _listDocumentSnapshot = _dentistList;
+    _listDocumentSnapshot.clear();
+    _dentistList.forEach((dentist) {
+      _listDocumentSnapshot.add(dentist);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

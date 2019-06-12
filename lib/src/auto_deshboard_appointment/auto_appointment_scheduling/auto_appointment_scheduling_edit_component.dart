@@ -302,10 +302,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     clearListComponentRef(listComponentRefProcedureRequirement);
 
-    (await procedureRequirementService
+    procedureRequirementService
             .getProcedureRequirementListWithFilterFromList(
-                {"procedureId": procedureId}))
-        .forEach((requirement) async {
+                {"procedureId": procedureId})
+        .forEach((requirement) {
       querySelector("#sub-title-requirement").style.display = "none";
       
       requirementService.requirement = requirementService.turnMapInRequirement(

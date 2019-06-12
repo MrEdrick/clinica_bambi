@@ -118,7 +118,10 @@ class DentistProcedureByDayOfWeekByShiftService {
       }
     }
 
-    _listDocumentSnapshot = _dentistProcedureByDayOfWeekByShiftList;
+    _listDocumentSnapshot.clear();
+    _dentistProcedureByDayOfWeekByShiftList.forEach((dentistProcedureByDayOfWeekByShift) {
+      _listDocumentSnapshot.add(dentistProcedureByDayOfWeekByShift);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

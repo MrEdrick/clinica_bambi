@@ -80,7 +80,10 @@ class ProcedureService {
       }
     }
 
-    _listDocumentSnapshot = _procedureList;
+    _listDocumentSnapshot.clear();
+    _procedureList.forEach((procedure) {
+      _listDocumentSnapshot.add(procedure);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

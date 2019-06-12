@@ -94,7 +94,10 @@ class ShiftService {
       }
     }
 
-    _listDocumentSnapshot = _shiftList;
+    _listDocumentSnapshot.clear();
+    _shiftList.forEach((shift) {
+      _listDocumentSnapshot.add(shift);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

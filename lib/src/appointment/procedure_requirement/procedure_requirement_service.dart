@@ -98,7 +98,10 @@ class ProcedureRequirementService {
       }
     }
 
-    _listDocumentSnapshot = _procedureRequirementList;
+    _listDocumentSnapshot.clear();
+    _procedureRequirementList.forEach((procedureRequirement) {
+      _listDocumentSnapshot.add(procedureRequirement);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

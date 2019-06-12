@@ -71,13 +71,17 @@ class RequirementService {
       }
     }
 
-    _listDocumentSnapshot = _requirementList;
+    _listDocumentSnapshot.clear();
+    _requirementList.forEach((requirement) {
+      _listDocumentSnapshot.add(requirement);
+    });
 
     _listDocumentSnapshotTemp.clear();
 
     if ((filter["requirementId"] != null) && (filter["requirementId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
-        if (doc["documentPath"].toString() == filter["requirementId"].toString()) {
+        if (doc["documentPath"].toString() ==
+            filter["requirementId"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
       });
@@ -122,7 +126,6 @@ class RequirementService {
   Requirement returnEmptyRequirement() {
     return new Requirement("", "", false);
   }
-
 
   Future<bool> save() async {
     bool saved = true;

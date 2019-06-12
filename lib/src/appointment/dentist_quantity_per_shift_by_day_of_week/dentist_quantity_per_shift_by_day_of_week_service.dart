@@ -131,7 +131,10 @@ class DentistQuantityPerShiftByDayOfWeekService {
       }
     }
 
-    _listDocumentSnapshot = _dentistQuantityPerShiftByDayOfWeekList;
+    _listDocumentSnapshot.clear();
+    _dentistQuantityPerShiftByDayOfWeekList.forEach((dentistQuantityPerShiftByDayOfWeek) {
+      _listDocumentSnapshot.add(dentistQuantityPerShiftByDayOfWeek);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

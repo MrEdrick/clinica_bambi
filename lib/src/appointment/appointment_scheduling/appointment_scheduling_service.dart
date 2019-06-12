@@ -82,7 +82,12 @@ class AppointmentSchedulingService {
       }
     }
 
-    _listDocumentSnapshot = _appointmentSchedulingByDate[date.toString()];
+    _listDocumentSnapshot.clear();
+    _appointmentSchedulingByDate[date.toString()]
+        .forEach((appointmentSchedulingByDate) {
+      _listDocumentSnapshot
+          .add(appointmentSchedulingByDate);
+    });
 
     _listDocumentSnapshotTemp.clear();
 

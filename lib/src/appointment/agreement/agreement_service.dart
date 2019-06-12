@@ -95,7 +95,10 @@ class AgreementService {
       }
     }
 
-    _listDocumentSnapshot = _agreementList;
+    _listDocumentSnapshot.clear();
+    _agreementList.forEach((_agreement) {
+      _listDocumentSnapshot.add(_agreement);
+    });
 
     _listDocumentSnapshotTemp.clear();
 
