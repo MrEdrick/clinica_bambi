@@ -233,6 +233,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     dentistDropdownSelectComponentRef.instance.disabled = true;
 
+    dentistDropdownSelectComponentRef.instance.selectionChanges
+        .listen((_) => onSelectDentistSelectDropdown());
+
     listComponentRefDropdownSelect.add(dentistDropdownSelectComponentRef);
 
     ComponentFactory<
@@ -272,6 +275,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     shiftDropdownSelectComponentRef = _loader.loadNextToLocation(
         shiftDropdownSelectComponent, materialContainerShiftDropdownSelect);
 
+    shiftDropdownSelectComponentRef.instance.selectionChanges
+        .listen((_) => onSelectShiftSelectDropdown());
+
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
     onEdit();
@@ -296,6 +302,15 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
           .instance.singleSelectModelProcedure.selectedValues.first.id);
     }
   }
+
+  void onSelectDentistSelectDropdown() {
+
+  }
+
+  void onSelectShiftSelectDropdown() {
+    
+  }
+
 
   void toListRequirementList(String procedureId) async {
     querySelector("#sub-title-requirement").style.display = "block";
