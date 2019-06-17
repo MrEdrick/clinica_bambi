@@ -148,6 +148,22 @@ class DentistProcedureByDayOfWeekService {
     return _dentistProcedureByDayOfWeekListWithFilter;
   }
 
+  Future<List<String>> returnDaysOfWeekListByDentistProcedureId(
+      String dentistProcedureId) async {
+    if (_dentistProcedureByDayOfWeekList.isEmpty) {
+      await getAllDentistProcedureByDayOfWeekAcives();
+    }
+
+    List<String> listDayOfWeek = new List<String>();
+    listDayOfWeek.clear();
+    getDentistProcedureByDayOfWeekListWithFilterFromList(
+        {"dentistProcedureId": dentistProcedureId}).forEach((map) {
+      listDayOfWeek.add(map["dayOfWeek"]);
+    });
+
+    return listDayOfWeek;
+  }
+
   DentistProcedureByDayOfWeek turnMapInDentistProcedureByDayOfWeek(Map map) {
     if (map == null) {
       return null;
@@ -193,7 +209,8 @@ class DentistProcedureByDayOfWeekService {
     }
 
     if (saved) {
-      _dentistProcedureByDayOfWeekByShiftService.clearAllDentistProcedureByDayOfWeekByShiftList();
+      _dentistProcedureByDayOfWeekByShiftService
+          .clearAllDentistProcedureByDayOfWeekByShiftList();
     }
     return saved;
   }

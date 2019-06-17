@@ -21,6 +21,7 @@ import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
 import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
+import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/procedure/procedureUI.dart';
 import '../../appointment/shift/shift_service.dart';
@@ -97,6 +98,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new PatientAccountService();
   final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
       new AutoAppointmentSchedulingService();
+  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService =
+      new DentistProcedureByDayOfWeekService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -108,6 +111,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool useOptionGroup = false;
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
+  bool disabled = true;
 
   @Input()
   ComponentRef componentRef;
@@ -303,30 +307,39 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void onSelectDentistSelectDropdown() {
+  void onFindVacancy() {}
 
+  void onSelectDentistSelectDropdown() {
+    if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+      dentistProcedureByDayOfWeekService
+          .returnDaysOfWeekListByDentistProcedureId(
+              procedureDropdownSelectComponentRef
+                  .instance.singleSelectModelProcedure.selectedValues.first.id)
+          .then((listDentisitId) {});
+    }
+
+    onFindVacancy();
   }
 
   void onSelectShiftSelectDropdown() {
-    
+    onFindVacancy();
   }
-
 
   void toListRequirementList(String procedureId) async {
     querySelector("#sub-title-requirement").style.display = "block";
 
     clearListComponentRef(listComponentRefProcedureRequirement);
 
-    procedureRequirementService
-            .getProcedureRequirementListWithFilterFromList(
-                {"procedureId": procedureId})
-        .forEach((requirement) {
+    procedureRequirementService.getProcedureRequirementListWithFilterFromList(
+        {"procedureId": procedureId}).forEach((requirement) {
       querySelector("#sub-title-requirement").style.display = "none";
-      
+
       requirementService.requirement = requirementService.turnMapInRequirement(
           (requirementService.getRequirementListWithFilterFromList(
-              {"requirementId": requirement["requirementId"].toString()})).first);
-      
+                  {"requirementId": requirement["requirementId"].toString()}))
+              .first);
+
       ComponentFactory<
               procedure_requirement_checkbox_component
                   .ProcedureRequirementCheckboxComponent>
@@ -344,7 +357,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       procedureRequirementCheckboxComponent.instance.requirement =
           requirementService.requirement.description;
       procedureRequirementCheckboxComponent.instance.checked = false;
-      
+
       listComponentRefProcedureRequirement
           .add(procedureRequirementCheckboxComponent);
 
