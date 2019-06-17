@@ -3,7 +3,8 @@ import 'dentist_quantity_per_shift_by_day_of_week_dao.dart';
 
 class DentistQuantityPerShiftByDayOfWeekService {
   static DentistQuantityPerShiftByDayOfWeek _dentistQuantityPerShiftByDayOfWeek;
-  static Map _dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId =
+  static Map
+      _dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId =
       new Map();
   static List<DentistQuantityPerShiftByDayOfWeek> _list =
       new List<DentistQuantityPerShiftByDayOfWeek>();
@@ -41,7 +42,8 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     await (_dentistQuantityPerShiftByDayOfWeekList =
         await new DentistQuantityPerShiftByDayOfWeekDAO()
-            .getAllDentistQuantityPerShiftByDayOfWeekFilter({"isReal": "Y"}, ["=="]));
+            .getAllDentistQuantityPerShiftByDayOfWeekFilter(
+                {"isReal": "Y"}, ["=="]));
 
     _dentistQuantityPerShiftByDayOfWeekList
         .forEach((dentistQuantityPerShiftByDayOfWeek) {
@@ -56,7 +58,7 @@ class DentistQuantityPerShiftByDayOfWeekService {
                   dentistQuantityPerShiftByDayOfWeek["shiftId"]] =
           turnMapInDentistQuantityPerShiftByDayOfWeek(
               dentistQuantityPerShiftByDayOfWeek);
-              
+
       _list.add(turnMapInDentistQuantityPerShiftByDayOfWeek(
           dentistQuantityPerShiftByDayOfWeek));
     });
@@ -132,7 +134,8 @@ class DentistQuantityPerShiftByDayOfWeekService {
     }
 
     _listDocumentSnapshot.clear();
-    _dentistQuantityPerShiftByDayOfWeekList.forEach((dentistQuantityPerShiftByDayOfWeek) {
+    _dentistQuantityPerShiftByDayOfWeekList
+        .forEach((dentistQuantityPerShiftByDayOfWeek) {
       _listDocumentSnapshot.add(dentistQuantityPerShiftByDayOfWeek);
     });
 
@@ -182,6 +185,26 @@ class DentistQuantityPerShiftByDayOfWeekService {
     return _dentistQuantityPerShiftByDayOfWeekListWithFilter;
   }
 
+  Future<List<Map>> returnQuantityPerShiftByDayOfWeekListByDentistId(
+      String dentistId) async {
+    if (_dentistQuantityPerShiftByDayOfWeekList.isEmpty) {
+      await getAllDentistQuantityPerShiftByDayOfWeekAcives();
+    }
+
+    List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
+    listQuantityPerShiftByDayOfWeek.clear();
+    getDentistQuantityPerShiftByDayOfWeekListWithFilterFromList(
+        {"dentistId": dentistId}).forEach((map) {
+      listQuantityPerShiftByDayOfWeek.add({
+        "dayOfWeek": map["dayOfWeek"],
+        "shiftId": map["shiftId"],
+        "quantity": map["quantity"]
+      });
+    });
+
+    return listQuantityPerShiftByDayOfWeek;
+  }
+
   DentistQuantityPerShiftByDayOfWeek
       turnMapInDentistQuantityPerShiftByDayOfWeek(Map map) {
     if (map == null) {
@@ -217,7 +240,6 @@ class DentistQuantityPerShiftByDayOfWeekService {
         result[await new DentistQuantityPerShiftByDayOfWeekDAO()
                 .delete(_dentistQuantityPerShiftByDayOfWeek.id) ==
             ""] = _dentistQuantityPerShiftByDayOfWeek.id;
-            
       } else {
         result[await new DentistQuantityPerShiftByDayOfWeekDAO()
                 .update(_dentistQuantityPerShiftByDayOfWeek.id, datas) ==
@@ -229,5 +251,4 @@ class DentistQuantityPerShiftByDayOfWeekService {
 
     return result.keys.first;
   }
-
 }
