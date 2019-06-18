@@ -327,13 +327,15 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       }))
                   .id)
           .then((listDaysOfWeek) {
-        print(listDaysOfWeek);
         listDaysOfWeek = listDaysOfWeek.reversed;
         listDaysOfWeekOfAppointment = "";
         if (!listDaysOfWeek.isEmpty) {
           querySelector("#sub-title-days-of-week").style.display = "none";
           listDaysOfWeek.forEach((dayOfWeek) {
-            listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + dayOfWeek + ' ';
+            listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + dayOfWeek;
+            if (dayOfWeek != listDaysOfWeek.last) {
+              listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + ' -- ';
+            }
           });
         } else {
           querySelector("#sub-title-days-of-week").style.display = "block";
