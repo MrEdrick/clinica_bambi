@@ -114,6 +114,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool disabled = true;
 
   String listDaysOfWeekOfAppointment = "";
+  String vacancyAlert = "";
 
   @Input()
   ComponentRef componentRef;
@@ -309,7 +310,16 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void onFindVacancy() {}
+  void onFindVacancy() {
+    if ((!dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
+        (!procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.isEmpty) &&
+        (!shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.isEmpty)) {
+              
+            }
+  }
 
   void onSelectDentistSelectDropdown() async {
     if ((!dentistDropdownSelectComponentRef
@@ -332,9 +342,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         if (!listDaysOfWeek.isEmpty) {
           querySelector("#sub-title-days-of-week").style.display = "none";
           listDaysOfWeek.forEach((dayOfWeek) {
-            listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + dayOfWeek;
+            listDaysOfWeekOfAppointment =
+                listDaysOfWeekOfAppointment + dayOfWeek;
             if (dayOfWeek != listDaysOfWeek.last) {
-              listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + ' -- ';
+              listDaysOfWeekOfAppointment =
+                  listDaysOfWeekOfAppointment + ' -- ';
             }
           });
         } else {
