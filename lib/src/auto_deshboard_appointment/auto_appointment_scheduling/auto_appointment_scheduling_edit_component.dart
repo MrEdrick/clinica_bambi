@@ -113,6 +113,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool showAssertMessageAlert = false;
   bool disabled = true;
 
+  String listDaysOfWeekOfAppointment = "";
+
   @Input()
   ComponentRef componentRef;
 
@@ -309,14 +311,34 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   void onFindVacancy() {}
 
-  void onSelectDentistSelectDropdown() {
-    if (!dentistDropdownSelectComponentRef
-        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+  void onSelectDentistSelectDropdown() async {
+    if ((!dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
+        (!procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
       dentistProcedureByDayOfWeekService
           .returnDaysOfWeekListByDentistProcedureId(
-              procedureDropdownSelectComponentRef
-                  .instance.singleSelectModelProcedure.selectedValues.first.id)
-          .then((listDentisitId) {});
+              (await dentistProcedureService
+                      .getOneDentistProcedureByFilterFromList({
+        "dentistId": dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.first.id,
+        "procedureId": procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.first.id
+      }))
+                  .id)
+          .then((listDaysOfWeek) {
+        print(listDaysOfWeek);
+        listDaysOfWeek = listDaysOfWeek.reversed;
+        listDaysOfWeekOfAppointment = "";
+        if (!listDaysOfWeek.isEmpty) {
+          querySelector("#sub-title-days-of-week").style.display = "none";
+          listDaysOfWeek.forEach((dayOfWeek) {
+            listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + dayOfWeek + ' ';
+          });
+        } else {
+          querySelector("#sub-title-days-of-week").style.display = "block";
+        }
+      });
     }
 
     onFindVacancy();
