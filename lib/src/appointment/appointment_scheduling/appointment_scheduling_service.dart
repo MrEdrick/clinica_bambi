@@ -161,7 +161,7 @@ class AppointmentSchedulingService {
           .first;
     }
 
-    return await turnMapInAppointmentScheduling(doc);
+    // return await turnMapInAppointmentScheduling(doc);
   }
 
   AppointmentScheduling returnEmptyAppointmentShceduling() {
@@ -183,6 +183,10 @@ class AppointmentSchedulingService {
         new AgreementService().returnEmptyAgreement(),
         new AutoAppointmentSchedulingService()
             .returnEmptyAutoAppointmentScheduling());
+  }
+
+  Future<int> returnQuantityOfAppointmentSchedulingByDateDentistIdShiftId(int dentistId, Date date) async {
+
   }
 
   Future<AppointmentScheduling> turnMapInAppointmentScheduling(Map map) async {

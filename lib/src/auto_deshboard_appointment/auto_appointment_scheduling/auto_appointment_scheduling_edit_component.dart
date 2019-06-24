@@ -332,6 +332,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                 .returnQuantityPerShiftByDayOfWeekListByDentistId(
                     dentistDropdownSelectComponentRef.instance
                         .singleSelectModelDentist.selectedValues.first.id);
+        listQuantityPerShiftByDayOfWeek.forEach((quantityPerShiftByDayOfWeek) {
+          if (DateFormat('EEEE').format(dateAppointmentScheduling.asUtcTime()) == quantityPerShiftByDayOfWeek["dayOfWeek"]) {
+
+          }
+        });
       }
     }
   }
