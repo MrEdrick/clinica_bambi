@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:ClinicaBambi/src/appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -22,6 +23,7 @@ import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
 import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
 import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
+import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/procedure/procedureUI.dart';
 import '../../appointment/shift/shift_service.dart';
@@ -100,6 +102,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new AutoAppointmentSchedulingService();
   final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService =
       new DentistProcedureByDayOfWeekService();
+  final DentistQuantityPerShiftByDayOfWeekService
+      dentistQuantityPerShiftByDayOfWeekService =
+      new DentistQuantityPerShiftByDayOfWeekService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -112,6 +117,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
   bool disabled = true;
+
+  List<String> listDaysOfWeekOfDentist = new List<String>();
+  List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
 
   String listDaysOfWeekOfAppointment = "";
   String vacancyAlert = "";
@@ -310,15 +318,22 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void onFindVacancy() {
+  void onFindVacancy() async {
     if ((!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
             .instance.singleSelectModelProcedure.selectedValues.isEmpty) &&
         (!shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty)) {
-              
-            }
+      if (listDaysOfWeekOfDentist.contains(
+          DateFormat('EEEE').format(dateAppointmentScheduling.asUtcTime()))) {
+        listQuantityPerShiftByDayOfWeek =
+            await dentistQuantityPerShiftByDayOfWeekService
+                .returnQuantityPerShiftByDayOfWeekListByDentistId(
+                    dentistDropdownSelectComponentRef.instance
+                        .singleSelectModelDentist.selectedValues.first.id);
+      }
+    }
   }
 
   void onSelectDentistSelectDropdown() async {
@@ -336,15 +351,15 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelProcedure.selectedValues.first.id
       }))
                   .id)
-          .then((listDaysOfWeek) {
-        listDaysOfWeek = listDaysOfWeek.reversed;
+          .then((listDaysOfWeekOfDentist) {
+        listDaysOfWeekOfDentist = listDaysOfWeekOfDentist.reversed;
         listDaysOfWeekOfAppointment = "";
-        if (!listDaysOfWeek.isEmpty) {
+        if (!listDaysOfWeekOfDentist.isEmpty) {
           querySelector("#sub-title-days-of-week").style.display = "none";
-          listDaysOfWeek.forEach((dayOfWeek) {
+          listDaysOfWeekOfDentist.forEach((dayOfWeek) {
             listDaysOfWeekOfAppointment =
                 listDaysOfWeekOfAppointment + dayOfWeek;
-            if (dayOfWeek != listDaysOfWeek.last) {
+            if (dayOfWeek != listDaysOfWeekOfDentist.last) {
               listDaysOfWeekOfAppointment =
                   listDaysOfWeekOfAppointment + ' -- ';
             }
