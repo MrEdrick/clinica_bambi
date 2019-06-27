@@ -39,9 +39,9 @@
         <div id="shift-select">
             <div #shiftDropdownSelect></div>
         </div>
-        {{vacancyAlert}}    
+        {{vacancyAlert}}
         <div class="sub-title">
-            Dias da semana de atendimento do dentista 
+            Dias da semana de atendimento do dentista
         </div>
         <div id="container-days-of-week">
             <div id="sub-title-days-of-week">
@@ -61,6 +61,10 @@
             </div>
             <div #procedureRequirementCheckboxComponent></div>
         </div>
+    </div>
+
+    <div id="sub-title-vacancy">
+        {{vacancyMessage}}
     </div>
 
     <material-button class="button-close" (click)="onClose()">

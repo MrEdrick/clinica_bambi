@@ -125,7 +125,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
 
   String listDaysOfWeekOfAppointment = "";
-  String vacancyAlert = "";
+  String vacancyMessage = "Informe todos os dados para a consulta da vaga";
 
   @Input()
   ComponentRef componentRef;
@@ -353,6 +353,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   .instance.singleSelectModelShift.selectedValues.first.id,
               "dateAppointmentScheduling": dateAppointmentScheduling
             });
+
+            if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"] ) {
+              disabledButtonSave = false;
+              vacancyMessage = "Há " + (quantityPerShiftByDayOfWeek["quantity"] - quantityScheduled).toString() + " vagas disponíveis";
+            } else {
+              disabledButtonSave = true;
+              vacancyMessage = "Infelizmente não há vagas disponíveis";
+            }
           }
         });
       }
