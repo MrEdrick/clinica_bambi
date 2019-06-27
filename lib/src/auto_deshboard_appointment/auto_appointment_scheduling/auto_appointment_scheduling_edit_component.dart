@@ -119,7 +119,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool useOptionGroup = false;
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
-  bool disabled = true;
+  bool disabledButtonSave = true;
 
   List<String> listDaysOfWeekOfDentist = new List<String>();
   List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
@@ -337,9 +337,12 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                         .singleSelectModelDentist.selectedValues.first.id);
         listQuantityPerShiftByDayOfWeek
             .forEach((quantityPerShiftByDayOfWeek) async {
-          if (DateFormat('EEEE')
-                  .format(dateAppointmentScheduling.asUtcTime()) ==
-              quantityPerShiftByDayOfWeek["dayOfWeek"]) {
+          if ((DateFormat('EEEE')
+                      .format(dateAppointmentScheduling.asUtcTime()) ==
+                  quantityPerShiftByDayOfWeek["dayOfWeek"]) &&
+              (shiftDropdownSelectComponentRef.instance.singleSelectModelShift
+                      .selectedValues.first.id ==
+                  quantityPerShiftByDayOfWeek["shiftId"])) {
             int quantityScheduled = await appointmentSchedulingService
                 .returnQuantityAppointmentSchedulingByFilterFromDataBase({
               "dentistId": dentistDropdownSelectComponentRef
