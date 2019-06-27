@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import 'package:ClinicaBambi/src/appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -105,6 +106,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final DentistQuantityPerShiftByDayOfWeekService
       dentistQuantityPerShiftByDayOfWeekService =
       new DentistQuantityPerShiftByDayOfWeekService();
+  final AppointmentSchedulingService appointmentSchedulingService =
+      new AppointmentSchedulingService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -332,9 +335,21 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                 .returnQuantityPerShiftByDayOfWeekListByDentistId(
                     dentistDropdownSelectComponentRef.instance
                         .singleSelectModelDentist.selectedValues.first.id);
-        listQuantityPerShiftByDayOfWeek.forEach((quantityPerShiftByDayOfWeek) {
-          if (DateFormat('EEEE').format(dateAppointmentScheduling.asUtcTime()) == quantityPerShiftByDayOfWeek["dayOfWeek"]) {
-
+        listQuantityPerShiftByDayOfWeek
+            .forEach((quantityPerShiftByDayOfWeek) async {
+          if (DateFormat('EEEE')
+                  .format(dateAppointmentScheduling.asUtcTime()) ==
+              quantityPerShiftByDayOfWeek["dayOfWeek"]) {
+            int quantityScheduled = await appointmentSchedulingService
+                .returnQuantityAppointmentSchedulingByFilterFromDataBase({
+              "dentistId": dentistDropdownSelectComponentRef
+                  .instance.singleSelectModelDentist.selectedValues.first.id,
+              "procedureId": procedureDropdownSelectComponentRef
+                  .instance.singleSelectModelProcedure.selectedValues.first.id,
+              "shiftId": shiftDropdownSelectComponentRef
+                  .instance.singleSelectModelShift.selectedValues.first.id,
+              "dateAppointmentScheduling": dateAppointmentScheduling
+            });
           }
         });
       }

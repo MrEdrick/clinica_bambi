@@ -85,8 +85,7 @@ class AppointmentSchedulingService {
     _listDocumentSnapshot.clear();
     _appointmentSchedulingByDate[date.toString()]
         .forEach((appointmentSchedulingByDate) {
-      _listDocumentSnapshot
-          .add(appointmentSchedulingByDate);
+      _listDocumentSnapshot.add(appointmentSchedulingByDate);
     });
 
     _listDocumentSnapshotTemp.clear();
@@ -185,8 +184,11 @@ class AppointmentSchedulingService {
             .returnEmptyAutoAppointmentScheduling());
   }
 
-  Future<int> returnQuantityOfAppointmentSchedulingByDateDentistIdShiftId(int dentistId, Date date) async {
-
+  Future<int> returnQuantityAppointmentSchedulingByFilterFromDataBase(
+      Map filter) async {
+    return (await (new AppointmentSchedulingDAO()
+            .getAllAppointmentSchedulingFilter(filter)))
+        .length;
   }
 
   Future<AppointmentScheduling> turnMapInAppointmentScheduling(Map map) async {
