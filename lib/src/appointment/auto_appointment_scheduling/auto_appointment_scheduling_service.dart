@@ -88,9 +88,10 @@ class AutoAppointmentSchedulingService {
 
   Future<List<Map>> getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
       String patientAccountId, Date date) async {
+    
     await getAllAutoAppointmentSchedulingByPatientAccountIdDate(
         patientAccountId);
-
+    
     return _autoAppointmentSchedulingByPatientAccountIdDate[
         patientAccountId + date.toString()];
   }
