@@ -311,7 +311,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .instance.singleSelectModelProcedure.selectedValues.first.id)
           .then((listDentisitId) {
         dentistDropdownSelectComponentRef.instance.disabled = false;
-
+        print(listDentisitId);
         dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
             listDentisitId;
       });
@@ -356,10 +356,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
             if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"] ) {
               disabledButtonSave = false;
-              vacancyMessage = "Há " + (quantityPerShiftByDayOfWeek["quantity"] - quantityScheduled).toString() + " vagas disponíveis";
+              vacancyMessage = "Temos " + (quantityPerShiftByDayOfWeek["quantity"] - quantityScheduled).toString() + " vagas";
             } else {
               disabledButtonSave = true;
-              vacancyMessage = "Infelizmente não há vagas disponíveis";
+              vacancyMessage = "Infelizmente nÃ£o temos vagas";
             }
           }
         });

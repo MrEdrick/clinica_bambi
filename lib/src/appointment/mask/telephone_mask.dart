@@ -22,13 +22,13 @@ class TelephoneMask {
       }
     }
 
-    if (valueLocal.length >= 14) {
+    if (valueLocal.length >= 11) {
       _number = '(' +
           valueLocal.substring(0, 2) +
           ')' +
           valueLocal.substring(2, 6) +
           '-' +
-          valueLocal.substring(6, 13);
+          valueLocal.substring(6, 10);
       return;
     }
 

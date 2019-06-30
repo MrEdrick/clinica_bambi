@@ -148,9 +148,11 @@ class DentistProcedureService {
     listId.clear();
     getDentistProcedureListWithFilterFromList({"procedureId": procedureId})
         .forEach((map) {
-      listId.add(map["dentistId"]);
+      if (!listId.contains(map["dentistId"])) {
+        listId.add(map["dentistId"]);
+      }
     });
-    
+
     return listId;
   }
 
