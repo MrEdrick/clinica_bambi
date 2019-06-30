@@ -4,6 +4,10 @@
             Agendamento
         </div>
 
+        <div id="sub-title-vacancy">
+            {{vacancyMessage}}
+        </div>
+
         <div class="sub-title">
             Paciente: {{patientAccountService.patientAccount.name}}
         </div>
@@ -39,7 +43,7 @@
         <div id="shift-select">
             <div #shiftDropdownSelect></div>
         </div>
-    
+
         <div class="sub-title">
             Dias da semana de atendimento do dentista
         </div>
@@ -61,10 +65,6 @@
             </div>
             <div #procedureRequirementCheckboxComponent></div>
         </div>
-    </div>
-
-    <div id="sub-title-vacancy">
-        {{vacancyMessage}}
     </div>
 
     <material-button class="button-close" (click)="onClose()">
