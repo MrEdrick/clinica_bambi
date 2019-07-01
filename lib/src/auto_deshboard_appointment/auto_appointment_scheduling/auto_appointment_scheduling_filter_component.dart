@@ -87,8 +87,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   bool useOptionGroup = false;
   bool overlay = true;
 
-  Date initialDate = new Date.today().add(days: -30);
-  Date finalDate = new Date.today().add(days: 30);
+  Date initialDate = new Date.today();
+  Date finalDate = new Date.today().add(days: 365);
   List<Date> listDate = new List<Date>();
 
   String initialDateFormated;

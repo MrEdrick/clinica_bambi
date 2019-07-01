@@ -327,22 +327,21 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelProcedure.selectedValues.isEmpty) &&
         (!shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty)) {
-              print(listDaysOfWeekOfDentist);
-      if (listDaysOfWeekOfDentist.contains(
-          DateFormat('EEEE').format(dateAppointmentScheduling.asUtcTime()))) {
+      if (listDaysOfWeekOfDentist.contains(DateFormat('EEEE')
+          .format(dateAppointmentScheduling.asUtcTime())
+          .toUpperCase())) {
         listQuantityPerShiftByDayOfWeek =
             await dentistQuantityPerShiftByDayOfWeekService
                 .returnQuantityPerShiftByDayOfWeekListByDentistId(
                     dentistDropdownSelectComponentRef.instance
                         .singleSelectModelDentist.selectedValues.first.id);
-        print(listQuantityPerShiftByDayOfWeek);
+
         listQuantityPerShiftByDayOfWeek
             .forEach((quantityPerShiftByDayOfWeek) async {
-          print(
-              DateFormat('EEEE').format(dateAppointmentScheduling.asUtcTime()));
+
           if ((DateFormat('EEEE')
-                      .format(dateAppointmentScheduling.asUtcTime()) ==
-                  quantityPerShiftByDayOfWeek["dayOfWeek"]) &&
+                      .format(dateAppointmentScheduling.asUtcTime()).toUpperCase() ==
+                  quantityPerShiftByDayOfWeek["dayOfWeek"].toUpperCase()) &&
               (shiftDropdownSelectComponentRef.instance.singleSelectModelShift
                       .selectedValues.first.id ==
                   quantityPerShiftByDayOfWeek["shiftId"])) {
@@ -357,7 +356,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               "dateAppointmentScheduling": dateAppointmentScheduling
             });
 
-            if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"]) {
+            if (quantityScheduled < int.parse(quantityPerShiftByDayOfWeek["quantity"])) {
               disabledButtonSave = false;
               vacancyMessage = "Temos " +
                   (quantityPerShiftByDayOfWeek["quantity"] - quantityScheduled)
@@ -389,7 +388,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       }))
                   .id)
           .then((daysOfWeekOfDentist) {
-        listDaysOfWeekOfDentist = daysOfWeekOfDentist.reversed;
+        listDaysOfWeekOfDentist.clear();
+        daysOfWeekOfDentist.reversed.forEach((dayOfWeek) {
+          listDaysOfWeekOfDentist.add(dayOfWeek.toUpperCase());
+        });
+
         listDaysOfWeekOfAppointment = "";
         if (!listDaysOfWeekOfDentist.isEmpty) {
           querySelector("#sub-title-days-of-week").style.display = "none";
