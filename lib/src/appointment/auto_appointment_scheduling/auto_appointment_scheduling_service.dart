@@ -258,7 +258,7 @@ class AutoAppointmentSchedulingService {
     }
 
     saved = result.keys.first;
-
+  
     if (saved) {
       new AppointmentSchedulingService().appointmentScheduling =
           new AppointmentScheduling(
@@ -278,6 +278,8 @@ class AutoAppointmentSchedulingService {
               null,
               null,
               null);
+
+      saved = await (new AppointmentSchedulingService().save());
     }
 
     return saved;

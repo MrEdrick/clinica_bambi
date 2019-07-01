@@ -314,9 +314,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
             listDentisitId;
       });
-
+      _changeDetectorRef.markForCheck();
       await toListRequirementList(procedureDropdownSelectComponentRef
           .instance.singleSelectModelProcedure.selectedValues.first.id);
+      _changeDetectorRef.markForCheck();
     }
   }
 
@@ -409,8 +410,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         }
       });
     }
-
+    _changeDetectorRef.markForCheck();
     onFindVacancy();
+    _changeDetectorRef.markForCheck();
   }
 
   void onSelectShiftSelectDropdown() {
