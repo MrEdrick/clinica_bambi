@@ -11,7 +11,7 @@ class AppointmentSchedulingDAO {
         new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
-    
+
     _fireStoreApp.FireStoreOffLine();
     return result;
   }
@@ -42,6 +42,7 @@ class AppointmentSchedulingDAO {
   }
 
   Future<List<Map>> getAllAppointmentSchedulingFilter(Map filter) async {
+    bool toAdd;
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
@@ -52,8 +53,18 @@ class AppointmentSchedulingDAO {
         .docs
         .forEach((doc) {
       Map map = new Map.from(doc.data());
-      map['documentPath'] = doc.id;
-      _list.add(map);
+      toAdd = true;
+      
+      filter.forEach((key, value) {
+        if (map[key] != value) {
+          toAdd = false;
+        }
+      });
+
+      if (toAdd) {
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      }
     });
 
     fireStoreApp.FireStoreOffLine();

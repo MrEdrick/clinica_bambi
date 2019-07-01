@@ -355,8 +355,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   .instance.singleSelectModelShift.selectedValues.first.id,
               "dateAppointmentScheduling": dateAppointmentScheduling
             });
-
-            if (quantityScheduled < int.parse(quantityPerShiftByDayOfWeek["quantity"])) {
+            
+            if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"]) {
               disabledButtonSave = false;
               vacancyMessage = "Temos " +
                   (quantityPerShiftByDayOfWeek["quantity"] - quantityScheduled)
