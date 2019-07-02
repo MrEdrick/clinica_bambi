@@ -49,9 +49,9 @@ class AutoAppointmentSchedulingService {
             patientAccountId + date.toString()] =
         await new AutoAppointmentSchedulingDAO()
             .getAllAutoAppointmentSchedulingFilter({
+      'patientAccountId': patientAccountId,
       'dateAppointmentScheduling':
-          new DateFormat('yyyy-MM-dd').format(date.asUtcTime()),
-      'patientAccountId': patientAccountId
+          new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
     }));
 
     _autoAppointmentSchedulingByPatientAccountIdDate[
