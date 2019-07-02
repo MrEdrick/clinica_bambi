@@ -339,9 +339,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
         listQuantityPerShiftByDayOfWeek
             .forEach((quantityPerShiftByDayOfWeek) async {
-
           if ((DateFormat('EEEE')
-                      .format(dateAppointmentScheduling.asUtcTime()).toUpperCase() ==
+                      .format(dateAppointmentScheduling.asUtcTime())
+                      .toUpperCase() ==
                   quantityPerShiftByDayOfWeek["dayOfWeek"].toUpperCase()) &&
               (shiftDropdownSelectComponentRef.instance.singleSelectModelShift
                       .selectedValues.first.id ==
@@ -356,7 +356,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   .instance.singleSelectModelShift.selectedValues.first.id,
               "dateAppointmentScheduling": dateAppointmentScheduling
             });
-            
+
             if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"]) {
               disabledButtonSave = false;
               vacancyMessage = "Temos " +
@@ -367,6 +367,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               disabledButtonSave = true;
               vacancyMessage = "Infelizmente não temos vagas";
             }
+
+            _changeDetectorRef.markForCheck();
           }
         });
       }
@@ -410,13 +412,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         }
       });
     }
-    _changeDetectorRef.markForCheck();
+
     onFindVacancy();
     _changeDetectorRef.markForCheck();
   }
 
   void onSelectShiftSelectDropdown() {
     onFindVacancy();
+    _changeDetectorRef.markForCheck();
   }
 
   void toListRequirementList(String procedureId) async {
