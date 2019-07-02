@@ -51,7 +51,7 @@
             <label id="telephone">{{appointmentScheduling?.telephone}}</label>
         </div>
 
-        <div class="tag" id="tag-auto-appointment-scheduling">
+        <div *ngIf="appointmentScheduling?.autoAppointmentSchedulingId?.isNotEmpty" class="tag">
             <label id="auto-appointment-scheduling">Auto Agendamento</label>
         </div>
     </div>
