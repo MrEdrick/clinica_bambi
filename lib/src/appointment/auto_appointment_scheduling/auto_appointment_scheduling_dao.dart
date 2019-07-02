@@ -45,7 +45,7 @@ class AutoAppointmentSchedulingDAO {
     bool toAdd;
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
-        new FireStoreApp(APPOINTMENT_SCHEDULING_COLLECTION);
+        new FireStoreApp(AUTO_APPOINTMENT_SCHEDULING_COLLECTION);
 
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
