@@ -56,10 +56,20 @@ class AppointmentSchedulingCardComponent implements OnInit {
     Map map = appointmentSchedulingService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulingId);
     
-    appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
+    if (map["documentPath"].toString() == "CTB6tbLGSu7pDjHVeJSZ") {
+      print(map);
+    }
     
+    appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
+
+   if (map["documentPath"].toString() == "CTB6tbLGSu7pDjHVeJSZ") {
+      print("t0");
+    }
+
     if (!appointmentScheduling.autoAppointmentSchedulingId.isEmpty) {
       querySelector('#tag-auto-appointment-scheduling').style.display = "block";
+    } else {
+      querySelector('#tag-auto-appointment-scheduling').style.display = "none";
     }
 
     _changeDetectorRef.markForCheck();

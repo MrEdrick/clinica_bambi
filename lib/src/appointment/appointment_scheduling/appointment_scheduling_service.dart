@@ -216,7 +216,7 @@ class AppointmentSchedulingService {
             .returnStringEmptyIfNull(map["autoAppointmentSchedulingId"]),
         map["patient"],
         map["email"],
-        map["tel"],
+        new GenericService().returnStringEmptyIfNull(map["tel"]),
         map["userId"],
         await new ShiftService().getShiftById(
             new GenericService().returnStringEmptyIfNull(map["shiftId"])),
@@ -224,9 +224,7 @@ class AppointmentSchedulingService {
             new GenericService().returnStringEmptyIfNull(map["dentistId"])),
         await new AgreementService().getAgreementById(
             new GenericService().returnStringEmptyIfNull(map["agreementId"])),
-        await new AutoAppointmentSchedulingService()
-            .getAutoAppointmentSchedulingById(new GenericService()
-                .returnStringEmptyIfNull(map["autoAppointmentSchedulingId"]))));
+        await new AutoAppointmentSchedulingService().returnEmptyAutoAppointmentScheduling()));
   }
 
   Future<bool> save() async {

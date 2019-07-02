@@ -183,7 +183,9 @@ class AutoAppointmentSchedulingService {
       return returnEmptyAutoAppointmentScheduling();
     }
 
-    doc = _autoAppointmentSchedulingById[id];
+    if (_autoAppointmentSchedulingById.isNotEmpty) {
+      doc = _autoAppointmentSchedulingById[id];
+    }
 
     if (doc == null) {
       doc = (await new AutoAppointmentSchedulingDAO()
