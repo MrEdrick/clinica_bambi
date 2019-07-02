@@ -23,6 +23,9 @@ class AutoAppointmentSchedulingService {
   static Map _autoAppointmentSchedulingByPatientAccountIdDateWithFilter =
       new Map();
 
+  final AppointmentSchedulingService appointmentSchedulingService =
+      new AppointmentSchedulingService();
+
   AutoAppointmentScheduling get autoAppointmentScheduling =>
       _autoAppointmentScheduling;
   set autoAppointmentScheduling(
@@ -258,28 +261,37 @@ class AutoAppointmentSchedulingService {
     }
 
     saved = result.keys.first;
-  
-    if (saved) {
-      new AppointmentSchedulingService().appointmentScheduling =
-          new AppointmentScheduling(
-              '',
-              _autoAppointmentScheduling.dateAppointmentScheduling,
-              '',
-              '',
-              _autoAppointmentScheduling.shiftId,
-              _autoAppointmentScheduling.dentistId,
-              _autoAppointmentScheduling.agreementId,
-              result.values.first,
-              _autoAppointmentScheduling.patient,
-              _autoAppointmentScheduling.email,
-              _autoAppointmentScheduling.telephone,
-              '',
-              null,
-              null,
-              null,
-              null);
 
-      saved = await (new AppointmentSchedulingService().save());
+    if (saved) {
+      if (_autoAppointmentScheduling.id != "") {
+        appointmentSchedulingService.appointmentScheduling =
+            await (appointmentSchedulingService
+                .getAppointmentSchedulingByFilterFromDB(
+                    {'autoAppointmentSchedulingId': result.values.first}));
+      } else {
+        appointmentSchedulingService.appointmentScheduling =
+            appointmentSchedulingService.returnEmptyAppointmentShceduling();
+        appointmentSchedulingService.appointmentScheduling
+            .autoAppointmentSchedulingId = result.values.first;
+      }
+
+      appointmentSchedulingService
+              .appointmentScheduling.dateAppointmentScheduling =
+          _autoAppointmentScheduling.dateAppointmentScheduling;
+      appointmentSchedulingService.appointmentScheduling.shiftId =
+          _autoAppointmentScheduling.shiftId;
+      appointmentSchedulingService.appointmentScheduling.dentistId =
+          _autoAppointmentScheduling.dentistId;
+      appointmentSchedulingService.appointmentScheduling.agreementId =
+          _autoAppointmentScheduling.agreementId;
+      appointmentSchedulingService.appointmentScheduling.patient =
+          _autoAppointmentScheduling.patient;
+      appointmentSchedulingService.appointmentScheduling.email =
+          _autoAppointmentScheduling.email;
+      appointmentSchedulingService.appointmentScheduling.telephone =
+          _autoAppointmentScheduling.telephone;
+
+      saved = await appointmentSchedulingService.save();
     }
 
     return saved;

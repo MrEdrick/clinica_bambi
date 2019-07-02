@@ -160,7 +160,19 @@ class AppointmentSchedulingService {
           .first;
     }
 
-    // return await turnMapInAppointmentScheduling(doc);
+    return await turnMapInAppointmentScheduling(doc);
+  }
+
+  Future<AppointmentScheduling>
+      getAppointmentSchedulingByFilterFromDB(
+          Map filter) async {
+    Map doc;
+
+    doc = (await new AppointmentSchedulingDAO()
+            .getAllAppointmentSchedulingFilter(filter))
+        .first;
+
+    return await turnMapInAppointmentScheduling(doc);
   }
 
   AppointmentScheduling returnEmptyAppointmentShceduling() {
