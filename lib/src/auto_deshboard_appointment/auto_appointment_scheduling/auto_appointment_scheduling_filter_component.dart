@@ -219,23 +219,28 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
         listDate.add(initialDate.add(days: i));
       }
     } else {
-      Map listMapautoAppointmentScheduling =
-          (await autoAppointmentSchedulingService
-              .getAllAutoAppointmentSchedulingByPatientAccountId(
-                  patientAccountService.patientAccount.id));
+      await autoAppointmentSchedulingService
+          .getAllAutoAppointmentSchedulingByPatientAccountIdDate(
+              patientAccountService.patientAccount.id);
 
-      listMapautoAppointmentScheduling.values
-          .forEach((autoAppointmentScheduling) {
-        if (!listDate.contains(
-            autoAppointmentScheduling["dateAutoAppointmentScheduling"])) {
-          listDate
-              .add(autoAppointmentScheduling["dateAutoAppointmentScheduling"]);
-        }
+      autoAppointmentSchedulingService
+          .autoAppointmentSchedulingByPatientAccountId.values
+          .forEach((listAutoAppointmentScheduling) {
+        listAutoAppointmentScheduling.forEach((autoAppointmentScheduling) {
+          if (autoAppointmentScheduling.isNotEmpty) {
+            if (!listDate.contains(new Date.parse(
+                autoAppointmentScheduling["dateAppointmentScheduling"],
+                new DateFormat("yyyy-MM-dd")))) {
+              listDate.add(new Date.parse(
+                  autoAppointmentScheduling["dateAppointmentScheduling"],
+                  new DateFormat("yyyy-MM-dd")));
+            }
+          }
+        });
       });
 
       listDate.sort();
     }
-
     return listDate;
   }
 
@@ -246,7 +251,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
 
-    listDate = listDate.reversed.toList();
+    listDate = listDate.toList();
 
     await listDate.forEach((date) async {
       int total = 0;

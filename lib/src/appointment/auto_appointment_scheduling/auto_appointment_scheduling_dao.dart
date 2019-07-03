@@ -55,8 +55,6 @@ class AutoAppointmentSchedulingDAO {
         .forEach((doc) {
       Map map = new Map.from(doc.data());
       toAdd = true;
-      
-      print(map);
 
       filter.forEach((key, value) {
         if (map[key] != value) {

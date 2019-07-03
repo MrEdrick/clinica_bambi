@@ -40,6 +40,9 @@ class AutoAppointmentSchedulingService {
     _autoAppointmentSchedulingById.clear();
   }
 
+  Map get autoAppointmentSchedulingByPatientAccountId =>
+      _autoAppointmentSchedulingByPatientAccountId;
+
   Future<Map> getAllAutoAppointmentSchedulingByPatientAccountId(
       String patientAccountId) async {
     if ((_autoAppointmentSchedulingByPatientAccountId != null) &&
@@ -75,8 +78,9 @@ class AutoAppointmentSchedulingService {
 
     _autoAppointmentSchedulingByPatientAccountId[patientAccountId]
         .forEach((autoAppointmentScheduling) {
-      _autoAppointmentSchedulingByPatientAccountIdDate[
-              patientAccountId + autoAppointmentScheduling.dateAppointmentScheduling].add(autoAppointmentScheduling);
+      _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
+              autoAppointmentScheduling.dateAppointmentScheduling]
+          .add(autoAppointmentScheduling);
     });
 
     return _autoAppointmentSchedulingByPatientAccountIdDate;

@@ -551,6 +551,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     autoAppointmentSchedulingService.autoAppointmentScheduling.patient =
         patientAccountService.patientAccount.name;
 
+    autoAppointmentSchedulingService.autoAppointmentScheduling.patientAccountId =
+        patientAccountService.patientAccount.id;
+
     autoAppointmentSchedulingService.autoAppointmentScheduling.telephone =
         telephoneMask.number;
 
