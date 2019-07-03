@@ -86,9 +86,10 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
+  bool filter = false;
 
   Date initialDate = new Date.today();
-  Date finalDate = new Date.today().add(days: 365);
+  Date finalDate = new Date.today();
   List<Date> listDate = new List<Date>();
 
   String initialDateFormated;
@@ -286,5 +287,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     shiftDescription = '';
 
     patientName = '';
+
+    filter = false;
   }
 }

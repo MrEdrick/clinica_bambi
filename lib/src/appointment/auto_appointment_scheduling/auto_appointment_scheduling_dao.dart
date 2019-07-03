@@ -43,6 +43,7 @@ class AutoAppointmentSchedulingDAO {
 
   Future<List<Map>> getAllAutoAppointmentSchedulingFilter(Map filter) async {
     bool toAdd;
+    
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(AUTO_APPOINTMENT_SCHEDULING_COLLECTION);
@@ -55,6 +56,8 @@ class AutoAppointmentSchedulingDAO {
       Map map = new Map.from(doc.data());
       toAdd = true;
       
+      print(map);
+
       filter.forEach((key, value) {
         if (map[key] != value) {
           toAdd = false;
@@ -66,6 +69,7 @@ class AutoAppointmentSchedulingDAO {
         _list.add(map);
       }
     });
+    
 
     fireStoreApp.FireStoreOffLine();
 

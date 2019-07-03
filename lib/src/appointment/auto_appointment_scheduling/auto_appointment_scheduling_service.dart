@@ -19,6 +19,7 @@ import '../../appointment/appointment_scheduling/appointment_scheduling_service.
 class AutoAppointmentSchedulingService {
   static AutoAppointmentScheduling _autoAppointmentScheduling;
   static Map _autoAppointmentSchedulingById = new Map();
+  static Map _autoAppointmentSchedulingByPatientAccountId = new Map();
   static Map _autoAppointmentSchedulingByPatientAccountIdDate = new Map();
   static Map _autoAppointmentSchedulingByPatientAccountIdDateWithFilter =
       new Map();
@@ -33,33 +34,49 @@ class AutoAppointmentSchedulingService {
       _autoAppointmentScheduling = autoAppointmentScheduling;
 
   void clearAllAutoAppointmentScheduling() {
+    _autoAppointmentSchedulingByPatientAccountId.clear();
     _autoAppointmentSchedulingByPatientAccountIdDate.clear();
     _autoAppointmentSchedulingByPatientAccountIdDateWithFilter.clear();
     _autoAppointmentSchedulingById.clear();
   }
 
+  Future<Map> getAllAutoAppointmentSchedulingByPatientAccountId(
+      String patientAccountId) async {
+    if ((_autoAppointmentSchedulingByPatientAccountId != null) &&
+        (_autoAppointmentSchedulingByPatientAccountId.length != 0)) {
+      return _autoAppointmentSchedulingByPatientAccountId;
+    }
+
+    clearAllAutoAppointmentScheduling();
+
+    await (_autoAppointmentSchedulingByPatientAccountId[patientAccountId] =
+        await new AutoAppointmentSchedulingDAO()
+            .getAllAutoAppointmentSchedulingFilter(
+                {'patientAccountId': patientAccountId}));
+
+    _autoAppointmentSchedulingByPatientAccountId[patientAccountId]
+        .forEach((autoAppointmentScheduling) {
+      _autoAppointmentSchedulingById[
+              autoAppointmentScheduling["documentPath"]] =
+          autoAppointmentScheduling;
+    });
+
+    return _autoAppointmentSchedulingByPatientAccountId;
+  }
+
   Future<Map> getAllAutoAppointmentSchedulingByPatientAccountIdDate(
-      String patientAccountId, Date date) async {
+      String patientAccountId) async {
     if ((_autoAppointmentSchedulingByPatientAccountIdDate != null) &&
         (_autoAppointmentSchedulingByPatientAccountIdDate.length != 0)) {
       return _autoAppointmentSchedulingByPatientAccountIdDate;
     }
 
-    await (_autoAppointmentSchedulingByPatientAccountIdDate[
-            patientAccountId + date.toString()] =
-        await new AutoAppointmentSchedulingDAO()
-            .getAllAutoAppointmentSchedulingFilter({
-      'patientAccountId': patientAccountId,
-      'dateAppointmentScheduling':
-          new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
-    }));
+    await getAllAutoAppointmentSchedulingByPatientAccountId(patientAccountId);
 
-    _autoAppointmentSchedulingByPatientAccountIdDate[
-            patientAccountId + date.toString()]
+    _autoAppointmentSchedulingByPatientAccountId[patientAccountId]
         .forEach((autoAppointmentScheduling) {
-      _autoAppointmentSchedulingById[
-              autoAppointmentScheduling["documentPath"]] =
-          autoAppointmentScheduling;
+      _autoAppointmentSchedulingByPatientAccountIdDate[
+              patientAccountId + autoAppointmentScheduling.dateAppointmentScheduling].add(autoAppointmentScheduling);
     });
 
     return _autoAppointmentSchedulingByPatientAccountIdDate;
@@ -68,7 +85,7 @@ class AutoAppointmentSchedulingService {
   Future<List<Map>> getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
       String patientAccountId, Date date) async {
     await getAllAutoAppointmentSchedulingByPatientAccountIdDate(
-        patientAccountId, date);
+        patientAccountId);
 
     return _autoAppointmentSchedulingByPatientAccountIdDate[
         patientAccountId + date.toString()];
