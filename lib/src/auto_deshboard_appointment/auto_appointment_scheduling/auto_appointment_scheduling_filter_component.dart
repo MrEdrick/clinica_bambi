@@ -86,7 +86,6 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
-  bool filter = false;
 
   Date initialDate = new Date.today();
   Date finalDate = new Date.today();
@@ -168,7 +167,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     _changeDetectorRef.markForCheck();
 
-    await onFilter();
+    await onFilter(false);
   }
 
   void onLoad() {
@@ -198,7 +197,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  List<Date> onPrepareFilter() {
+  Future<List<Date>> onPrepareFilter(bool toFilterDate) async {
     if (finalDate.isBefore(initialDate)) {
       finalDate = initialDate;
     }
@@ -206,25 +205,44 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     querySelector('#auto-appointment-scheduling-result-filter-text')
         .setInnerHtml('0');
 
-    initialDateFormated =
-        new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
-    finalDateFormated =
-        new DateFormat('dd/MM/yyyy').format(finalDate.asUtcTime());
-
-    daysDif = finalDate.asUtcTime().difference(initialDate.asUtcTime()).inDays;
-
     listDate.clear();
-    for (var i = 0; i <= daysDif; i++) {
-      listDate.add(initialDate.add(days: i));
+    if (toFilterDate) {
+      initialDateFormated =
+          new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
+      finalDateFormated =
+          new DateFormat('dd/MM/yyyy').format(finalDate.asUtcTime());
+
+      daysDif =
+          finalDate.asUtcTime().difference(initialDate.asUtcTime()).inDays;
+
+      for (var i = 0; i <= daysDif; i++) {
+        listDate.add(initialDate.add(days: i));
+      }
+    } else {
+      Map listMapautoAppointmentScheduling =
+          (await autoAppointmentSchedulingService
+              .getAllAutoAppointmentSchedulingByPatientAccountId(
+                  patientAccountService.patientAccount.id));
+
+      listMapautoAppointmentScheduling.values
+          .forEach((autoAppointmentScheduling) {
+        if (!listDate.contains(
+            autoAppointmentScheduling["dateAutoAppointmentScheduling"])) {
+          listDate
+              .add(autoAppointmentScheduling["dateAutoAppointmentScheduling"]);
+        }
+      });
+
+      listDate.sort();
     }
 
     return listDate;
   }
 
-  Future<void> onFilter() async {
+  Future<void> onFilter(bool toFilterDate) async {
     clearListComponentRef(listComponentRef);
 
-    listDate = onPrepareFilter();
+    listDate = await onPrepareFilter(toFilterDate);
 
     autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
 
@@ -277,7 +295,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
         autoAppointmentSchedulingEditComponent;
   }
 
-  void onClear() {
+  void onClear() async {
     initialDate = new Date.today();
     finalDate = new Date.today();
 
@@ -288,6 +306,6 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     patientName = '';
 
-    filter = false;
+    await onFilter(false);
   }
 }
