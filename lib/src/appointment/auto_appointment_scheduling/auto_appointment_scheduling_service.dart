@@ -76,6 +76,11 @@ class AutoAppointmentSchedulingService {
     await getAllAutoAppointmentSchedulingByPatientAccountId(patientAccountId);
     _autoAppointmentSchedulingByPatientAccountId[patientAccountId]
         .forEach((autoAppointmentScheduling) {
+      if (_autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
+              autoAppointmentScheduling["dateAppointmentScheduling"]] == null) {
+          _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
+              autoAppointmentScheduling["dateAppointmentScheduling"]] = new List<Map>();      
+              }
       _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
               autoAppointmentScheduling["dateAppointmentScheduling"]]
           .add(autoAppointmentScheduling);
@@ -124,7 +129,7 @@ class AutoAppointmentSchedulingService {
 
     _listDocumentSnapshot.clear();
     _autoAppointmentSchedulingByPatientAccountIdDate[
-            patientAccountId + date.toString()]
+            patientAccountId + (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))]
         .forEach((autoAppointmentSchedulingByPatientAccountIdDate) {
       _listDocumentSnapshot
           .add(autoAppointmentSchedulingByPatientAccountIdDate);
