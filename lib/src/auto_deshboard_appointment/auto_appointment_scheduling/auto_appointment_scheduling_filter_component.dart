@@ -201,10 +201,8 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     if (finalDate.isBefore(initialDate)) {
       finalDate = initialDate;
     }
-
     querySelector('#auto-appointment-scheduling-result-filter-text')
         .setInnerHtml('0');
-
     listDate.clear();
     if (toFilterDate) {
       initialDateFormated =
@@ -224,7 +222,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
       await autoAppointmentSchedulingService
           .getAllAutoAppointmentSchedulingByPatientAccountIdDate(
               patientAccountService.patientAccount.id);
-    print("tt0");
+    
     print(autoAppointmentSchedulingService
           .autoAppointmentSchedulingByPatientAccountId);
     print(autoAppointmentSchedulingService

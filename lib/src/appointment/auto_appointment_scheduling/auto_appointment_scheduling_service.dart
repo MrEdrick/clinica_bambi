@@ -73,13 +73,11 @@ class AutoAppointmentSchedulingService {
         (_autoAppointmentSchedulingByPatientAccountIdDate.length != 0)) {
       return _autoAppointmentSchedulingByPatientAccountIdDate;
     }
-
     await getAllAutoAppointmentSchedulingByPatientAccountId(patientAccountId);
-
     _autoAppointmentSchedulingByPatientAccountId[patientAccountId]
         .forEach((autoAppointmentScheduling) {
       _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
-              autoAppointmentScheduling.dateAppointmentScheduling]
+              autoAppointmentScheduling["dateAppointmentScheduling"]]
           .add(autoAppointmentScheduling);
     });
 
