@@ -246,7 +246,7 @@ class AutoAppointmentSchedulingService {
         map["dateAppointmentScheduling"],
         map["shiftId"],
         map["dentistId"],
-        map["agreemetId"],
+        map["agreementId"],
         map["procedureId"],
         map["patient"],
         map["email"],

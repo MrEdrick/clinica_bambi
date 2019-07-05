@@ -268,7 +268,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           "patient": patientName
         }))
             ?.length;
-        print("t2");
+            
         total += total_aux == null ? 0 : total_aux;
 
         if (listDate.last == date) {

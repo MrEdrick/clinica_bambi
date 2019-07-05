@@ -47,7 +47,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
         .getAutoAppointmentSchedulingByIdFromList(autoAppointmentSchedulingId);
     
     autoAppointmentScheduling = await autoAppointmentSchedulingService.turnMapInAutoAppointmentScheduling(map);
-  
+    print(autoAppointmentScheduling);
     _changeDetectorRef.markForCheck();
   }
 
