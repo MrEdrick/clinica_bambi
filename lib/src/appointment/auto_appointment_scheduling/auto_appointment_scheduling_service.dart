@@ -15,6 +15,7 @@ import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/generic/generic_service.dart';
 
 class AutoAppointmentSchedulingService {
   static AutoAppointmentScheduling _autoAppointmentScheduling;
@@ -77,10 +78,12 @@ class AutoAppointmentSchedulingService {
     _autoAppointmentSchedulingByPatientAccountId[patientAccountId]
         .forEach((autoAppointmentScheduling) {
       if (_autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
-              autoAppointmentScheduling["dateAppointmentScheduling"]] == null) {
-          _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
-              autoAppointmentScheduling["dateAppointmentScheduling"]] = new List<Map>();      
-              }
+              autoAppointmentScheduling["dateAppointmentScheduling"]] ==
+          null) {
+        _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
+                autoAppointmentScheduling["dateAppointmentScheduling"]] =
+            new List<Map>();
+      }
       _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
               autoAppointmentScheduling["dateAppointmentScheduling"]]
           .add(autoAppointmentScheduling);
@@ -91,10 +94,9 @@ class AutoAppointmentSchedulingService {
 
   Future<List<Map>> getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
       String patientAccountId, Date date) async {
-    
     await getAllAutoAppointmentSchedulingByPatientAccountIdDate(
         patientAccountId);
-    
+
     return _autoAppointmentSchedulingByPatientAccountIdDate[
         patientAccountId + date.toString()];
   }
@@ -128,8 +130,8 @@ class AutoAppointmentSchedulingService {
     }
 
     _listDocumentSnapshot.clear();
-    _autoAppointmentSchedulingByPatientAccountIdDate[
-            patientAccountId + (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))]
+    _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
+            (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))]
         .forEach((autoAppointmentSchedulingByPatientAccountIdDate) {
       _listDocumentSnapshot
           .add(autoAppointmentSchedulingByPatientAccountIdDate);
@@ -244,18 +246,22 @@ class AutoAppointmentSchedulingService {
     return await (new AutoAppointmentScheduling(
         map["documentPath"],
         map["dateAppointmentScheduling"],
-        map["shiftId"],
-        map["dentistId"],
-        map["agreementId"],
-        map["procedureId"],
+        new GenericService().returnStringEmptyIfNull(map["shiftId"]),
+        new GenericService().returnStringEmptyIfNull(map["dentistId"]),
+        new GenericService().returnStringEmptyIfNull(map["agreementId"]),
+        new GenericService().returnStringEmptyIfNull(map["procedureId"]),
         map["patient"],
         map["email"],
         map["tel"],
         map["patientAccountId"],
-        await new ShiftService().getShiftById(map["shiftId"]),
-        await new DentistService().getDentistById(map["dentistId"]),
-        await new AgreementService().getAgreementById(map["agreementId"]),
-        await new ProcedureService().getProcedureById(map["procedureId"])));
+        await new ShiftService().getShiftById(
+            new GenericService().returnStringEmptyIfNull(map["shiftId"])),
+        await new DentistService().getDentistById(
+            new GenericService().returnStringEmptyIfNull(map["dentistId"])),
+        await new AgreementService().getAgreementById(
+            new GenericService().returnStringEmptyIfNull(map["agreementId"])),
+        await new ProcedureService().getProcedureById(
+            new GenericService().returnStringEmptyIfNull(map["procedureId"]))));
   }
 
   Future<bool> save() async {
