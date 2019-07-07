@@ -45,7 +45,7 @@ class ProcedureService {
 
   Future<Procedure> getProcedureById(String id) async {
     Map doc;
-
+    
     if (id.isEmpty) {
       return returnEmptyProcedure();
     }

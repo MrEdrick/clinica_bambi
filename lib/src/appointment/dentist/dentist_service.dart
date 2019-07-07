@@ -64,7 +64,7 @@ class DentistService {
 
   Future<Dentist> getDentistById(String id) async {
     Map doc;
-
+    
     if (id.isEmpty) {
       return returnEmptyDentist();
     }

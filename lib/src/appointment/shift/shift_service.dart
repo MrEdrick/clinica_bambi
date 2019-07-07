@@ -59,7 +59,7 @@ class ShiftService {
 
   Future<Shift> getShiftById(String id) async {
     Map doc;
-
+    
     if (id.isEmpty) {
       return returnEmptyShift();
     }

@@ -60,15 +60,15 @@ class AgreementService {
 
   Future<Agreement> getAgreementById(String id) async {
     Map doc;
-
+    
     if (id.isEmpty) {
       return returnEmptyAgreement();
     }
-
+      
     if ((_agreementList == null) || (_agreementList?.length == 0)) {
       await getAllAgreementAcives();
     }
-
+    
     doc = _agreementListById[id];
 
     if (doc == null) {
@@ -76,7 +76,7 @@ class AgreementService {
               .getAllAgreementFilter({'id': id}, {"description": "asc"}))
           .first;
     }
-
+    
     return turnMapInAgreement(doc);
   }
 

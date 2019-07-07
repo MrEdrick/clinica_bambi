@@ -30,6 +30,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_sele
 import '../../appointment/user/user_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/shift/shift_service.dart';
+import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
@@ -74,6 +75,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   final DentistService dentistService = new DentistService();
   final ShiftService shiftService = new ShiftService();
+  final AgreementService agreementService = new AgreementService();
 
   ComponentRef dentistDropdownSelectComponentRef;
   ComponentRef shiftDropdownSelectComponentRef;
@@ -140,6 +142,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     await dentistService.getAllDentistAcives();
     await shiftService.getAllShiftAcives();
+    await agreementService.getAllAgreementAcives();
 
     clearListComponentRef(listComponentRefDropdownSelect);
 
