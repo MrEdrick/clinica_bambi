@@ -77,7 +77,7 @@ header {
   overflow: hidden !important;
 }
 
-.deshboard-menu-item .drawer-content * {
+::ng-deep .drawer-content * {
   overflow: hidden !important;
 }
 
