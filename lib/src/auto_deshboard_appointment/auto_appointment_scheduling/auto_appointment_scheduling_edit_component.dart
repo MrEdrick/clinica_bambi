@@ -321,7 +321,13 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
+  void onDataClick() {
+    onFindVacancy();
+    _changeDetectorRef.markForCheck();
+  }
+
   void onFindVacancy() async {
+    
     if ((!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
@@ -356,7 +362,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   .instance.singleSelectModelShift.selectedValues.first.id,
               "dateAppointmentScheduling": dateAppointmentScheduling
             });
-
+            print("t1");
             if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"]) {
               disabledButtonSave = false;
               vacancyMessage = "Temos " +
@@ -371,6 +377,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             _changeDetectorRef.markForCheck();
           }
         });
+      } else {
+        disabledButtonSave = true;
+        vacancyMessage = "Infelizmente não temos vagas para este dia.";
       }
     }
   }
@@ -551,8 +560,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     autoAppointmentSchedulingService.autoAppointmentScheduling.patient =
         patientAccountService.patientAccount.name;
 
-    autoAppointmentSchedulingService.autoAppointmentScheduling.patientAccountId =
-        patientAccountService.patientAccount.id;
+    autoAppointmentSchedulingService.autoAppointmentScheduling
+        .patientAccountId = patientAccountService.patientAccount.id;
 
     autoAppointmentSchedulingService.autoAppointmentScheduling.telephone =
         telephoneMask.number;
