@@ -242,7 +242,7 @@ class CadastroLoginAutoAgendamentoComponent {
       "userId": fb.auth().currentUser.uid
     };
         
-    if (await new PatientAccountDAO().save(datas) == '') {
+    if ((await new PatientAccountDAO().save(datas)).keys.first) {
       showSuccessfullySave = true;
     } else {
       showNotSuccessfullySave = true;
