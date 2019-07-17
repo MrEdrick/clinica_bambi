@@ -154,7 +154,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
 
     if ((int.tryParse(event.key) == null) ||
-        (telephoneMask.number.length > 13)) {
+        (telephoneMask.number.length > 14)) {
       event.preventDefault();
     }
   }
