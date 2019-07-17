@@ -74,11 +74,6 @@ class AgreementDropdownSelectComponent implements OnInit {
   SelectionModel<AgreementUI> singleSelectModelAgreement =
       SelectionModel.single();
 
-  @Output()
-  Stream get selectionChanges {
-    return singleSelectModelAgreement.selectionChanges;  
-  }
-
   String get singleSelectAgreementLabel =>
       singleSelectModelAgreement.selectedValues == null
           ? '  '
