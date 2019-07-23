@@ -12,5 +12,5 @@ class Dentist {
   set name(String name) => _name = name;
 
   bool get state => _state;
-  set state(bool name) => _state = state;
+  set state(bool state) => _state = state;
 }

@@ -154,7 +154,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
 
     if ((int.tryParse(event.key) == null) ||
-        (telephoneMask.number.length > 13)) {
+        (telephoneMask.number.length > 14)) {
       event.preventDefault();
     }
   }
@@ -461,6 +461,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
           requirementService.requirement.id;
       procedureRequirementCheckboxComponent.instance.requirement =
           requirementService.requirement.description;
+      procedureRequirementCheckboxComponent.instance.checkedColor = "#DB3813";
+      procedureRequirementCheckboxComponent.instance.loadCheckedById  = false;
       procedureRequirementCheckboxComponent.instance.checked = false;
 
       listComponentRefProcedureRequirement

@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:angular_components/utils/color/color.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
@@ -25,11 +26,12 @@ import '../../appointment/procedure_requirement/procedure_requirement_service.da
       MaterialCheckboxComponent,
     ])
 class ProcedureRequirementCheckboxComponent implements OnInit {
-  final ProcedureRequirementService procedureRequirementService = new ProcedureRequirementService();
+  final ProcedureRequirementService procedureRequirementService =
+      new ProcedureRequirementService();
   final ChangeDetectorRef _changeDetectorRef;
 
   String procedureRequirementId = "";
-  
+
   @Input()
   String procedureId;
 
@@ -40,41 +42,58 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
   String requirement;
 
   @Input()
-  bool checked = false;
+  bool loadCheckedById = true;
+  
+  @Input()
+  String checkedColor = "#0288D1";
+
+  bool _checked = false;
+
+  bool get checked => _checked;
+
+  @Input()
+  set checked(bool checked) {
+    _checked = checked;
+    _changeDetectorRef.markForCheck();
+  }
 
   ProcedureRequirementCheckboxComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
-    
+
     if ((procedureId != "") && (procedureId != null)) {
       (await procedureRequirementService
           .getOneProcedureRequirementByFilterFromList(
-              {"procedureId": procedureId,
-               "requirementId": requirementId}));
+              {"procedureId": procedureId, "requirementId": requirementId}));
       if (procedureRequirementService
                   .procedureRequirementListByProcedureIdRequirementId[
               procedureId + requirementId] ==
           null) {
         procedureRequirementId = "";
       } else {
-        procedureRequirementId =
-            procedureRequirementService
-                  .procedureRequirementListByProcedureIdRequirementId[
-                    procedureId + requirementId]
-                .id;
+        procedureRequirementId = procedureRequirementService
+            .procedureRequirementListByProcedureIdRequirementId[
+                procedureId + requirementId]
+            .id;
       }
     } else {
       procedureRequirementId = "";
-      procedureRequirementService
-              .procedureRequirement =
-          new ProcedureRequirement(
-              "", procedureId, requirementId);
+      procedureRequirementService.procedureRequirement =
+          new ProcedureRequirement("", procedureId, requirementId);
     }
 
-    checked = procedureRequirementId != "";
+    if (loadCheckedById) {
+      checked = procedureRequirementId != "";
+    }
 
     _changeDetectorRef.markForCheck();
+  }
+
+  @Output()
+  Stream get refreshOnCheckedChange {
+    onCheckedChange();
+    return null;
   }
 
   void onCheckedChange() {
@@ -84,18 +103,18 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
               procedureId + requirementId] ==
           null) {
         procedureRequirementService
-                  .procedureRequirementListByProcedureIdRequirementId[
-            procedureId + requirementId] = new ProcedureRequirement(
-            "", procedureId, requirementId);
+                    .procedureRequirementListByProcedureIdRequirementId[
+                procedureId + requirementId] =
+            new ProcedureRequirement("", procedureId, requirementId);
       }
 
       procedureRequirementService
-                  .procedureRequirementListByProcedureIdRequirementId[
+          .procedureRequirementListByProcedureIdRequirementId[
               procedureId + requirementId]
           .procedureId = procedureId;
 
       procedureRequirementService
-                  .procedureRequirementListByProcedureIdRequirementId[
+          .procedureRequirementListByProcedureIdRequirementId[
               procedureId + requirementId]
           .requirementId = requirementId;
     } else {
@@ -104,12 +123,12 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
               procedureId + requirementId] !=
           null) {
         procedureRequirementService
-                  .procedureRequirementListByProcedureIdRequirementId[
+            .procedureRequirementListByProcedureIdRequirementId[
                 procedureId + requirementId]
             .procedureId = "";
 
         procedureRequirementService
-                  .procedureRequirementListByProcedureIdRequirementId[
+            .procedureRequirementListByProcedureIdRequirementId[
                 procedureId + requirementId]
             .requirementId = "";
       }
