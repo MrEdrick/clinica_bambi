@@ -17250,35 +17250,36 @@ s.d.push(s.y)
 s.b.a.a2()},
 $S:3}
 R.n5.prototype={
-B:function(){var u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,e0,e1,e2,e3,e4,e5,e6,e7,e8,e9,f0,f1=this,f2=null,f3="id",f4="sub-title",f5="edit-input",f6="themeable",f7="info-dialog",f8="info",f9="header",g0="h1",g1="click",g2=f1.a9(f1.e),g3=document,g4=S.d(g3,g2)
-g4.className="container-add-auto-appointment-scheduling"
-f1.h(g4)
-u=S.d(g3,g4)
+B:function(){var u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,e0,e1,e2,e3,e4,e5,e6,e7,e8,e9,f0,f1=this,f2=null,f3="sub-title-information",f4="id",f5="sub-title",f6="edit-input",f7="themeable",f8="info-dialog",f9="info",g0="header",g1="h1",g2="click",g3=f1.a9(f1.e),g4=document,g5=S.d(g4,g3)
+g5.className="container-add-auto-appointment-scheduling"
+f1.h(g5)
+u=S.d(g4,g5)
 u.className="container-register"
 f1.h(u)
-t=S.d(g3,u)
+t=S.d(g4,u)
 t.className="title"
 f1.h(t)
-t.appendChild(g3.createTextNode("Agendamento"))
-s=S.d(g3,u)
-s.setAttribute(f3,"sub-title-vacancy")
+t.appendChild(g4.createTextNode("Agendamento"))
+s=S.d(g4,u)
+s.className=f3
+s.setAttribute(f4,"sub-title-vacancy")
 f1.h(s)
-r=g3.createTextNode("")
+r=g4.createTextNode("")
 f1.bu=r
 s.appendChild(r)
-q=S.d(g3,u)
-q.className=f4
+q=S.d(g4,u)
+q.className=f5
 f1.h(q)
-q.appendChild(g3.createTextNode("Paciente: "))
-r=g3.createTextNode("")
+q.appendChild(g4.createTextNode("Paciente: "))
+r=g4.createTextNode("")
 f1.bM=r
 q.appendChild(r)
 r=Q.aS(f1,9)
 f1.r=r
 p=r.e
 u.appendChild(p)
-p.className=Q.bq("",f5," ",f6,"")
-p.setAttribute(f3,"email")
+p.className=Q.bq("",f6," ",f7,"")
+p.setAttribute(f4,"email")
 p.setAttribute("label","E-mail...")
 f1.h(p)
 r=[{func:1,ret:[P.u,P.a,,],args:[[Z.b3,,]]}]
@@ -17298,8 +17299,8 @@ m=Q.aS(f1,10)
 f1.db=m
 l=m.e
 u.appendChild(l)
-l.className=Q.bq("",f5," ",f6,"")
-l.setAttribute(f3,"telephone")
+l.className=Q.bq("",f6," ",f7,"")
+l.setAttribute(f4,"telephone")
 l.setAttribute("label","Tel...")
 f1.h(l)
 r=new L.aA(H.b([],r))
@@ -17314,30 +17315,30 @@ n=new Z.aE(new R.aa(!0),r,m)
 n.b5(r,m)
 f1.id=n
 f1.db.n(0,f1.fy,[C.c,C.c])
-k=S.d(g3,u)
-k.setAttribute(f3,"agreement-select")
+k=S.d(g4,u)
+k.setAttribute(f4,"agreement-select")
 f1.h(k)
-j=S.d(g3,k)
+j=S.d(g4,k)
 f1.h(j)
 f1.k1=new V.z(12,11,f1,j)
-i=S.d(g3,u)
-i.className=f4
+i=S.d(g4,u)
+i.className=f5
 f1.h(i)
-i.appendChild(g3.createTextNode("Dados para consulta"))
-h=S.d(g3,u)
-h.setAttribute(f3,"procedure-select")
+i.appendChild(g4.createTextNode("Dados para consulta"))
+h=S.d(g4,u)
+h.setAttribute(f4,"procedure-select")
 f1.h(h)
-g=S.d(g3,h)
+g=S.d(g4,h)
 f1.h(g)
 f1.k2=new V.z(16,15,f1,g)
-f=S.d(g3,u)
-f.setAttribute(f3,"dentist-select")
+f=S.d(g4,u)
+f.setAttribute(f4,"dentist-select")
 f1.h(f)
-e=S.d(g3,f)
+e=S.d(g4,f)
 f1.h(e)
 f1.k3=new V.z(18,17,f1,e)
-d=S.d(g3,u)
-d.setAttribute(f3,"date-select")
+d=S.d(g4,u)
+d.setAttribute(f4,"date-select")
 f1.h(d)
 n=D.kf(f1,20)
 f1.k4=n
@@ -17348,46 +17349,48 @@ r=f1.c
 o=V.jM(c,f2,r.j(C.C,f1.a.Q,f2))
 f1.r1=o
 f1.k4.n(0,o,[])
-b=S.d(g3,u)
-b.setAttribute(f3,"shift-select")
+b=S.d(g4,u)
+b.setAttribute(f4,"shift-select")
 f1.h(b)
-a=S.d(g3,b)
+a=S.d(g4,b)
 f1.h(a)
 f1.r2=new V.z(22,21,f1,a)
-a0=S.d(g3,u)
-a0.className=f4
+a0=S.d(g4,u)
+a0.className=f5
 f1.h(a0)
-a0.appendChild(g3.createTextNode("Dias da semana de atendimento do dentista"))
-a1=S.d(g3,u)
-a1.setAttribute(f3,"container-days-of-week")
+a0.appendChild(g4.createTextNode("Dias da semana de atendimento do dentista"))
+a1=S.d(g4,u)
+a1.setAttribute(f4,"container-days-of-week")
 f1.h(a1)
-a2=S.d(g3,a1)
-a2.setAttribute(f3,"sub-title-days-of-week")
+a2=S.d(g4,a1)
+a2.className=f3
+a2.setAttribute(f4,"sub-title-days-of-week")
 f1.h(a2)
-a2.appendChild(g3.createTextNode("N\xe3o foi selecionado o dentista"))
-a3=S.d(g3,a1)
+a2.appendChild(g4.createTextNode("N\xe3o foi selecionado o dentista"))
+a3=S.d(g4,a1)
 f1.h(a3)
-o=g3.createTextNode("")
+o=g4.createTextNode("")
 f1.bI=o
 a3.appendChild(o)
-a4=S.d(g3,u)
-a4.className=f4
+a4=S.d(g4,u)
+a4.className=f5
 f1.h(a4)
-a4.appendChild(g3.createTextNode("Confirme os seguintes requisitos para a consulta"))
-a5=S.d(g3,u)
-a5.setAttribute(f3,"container-requirement-checkbox")
+a4.appendChild(g4.createTextNode("Confirme os seguintes requisitos para a consulta"))
+a5=S.d(g4,u)
+a5.setAttribute(f4,"container-requirement-checkbox")
 f1.h(a5)
-a6=S.d(g3,a5)
-a6.setAttribute(f3,"sub-title-requirement")
+a6=S.d(g4,a5)
+a6.className=f3
+a6.setAttribute(f4,"sub-title-requirement")
 f1.h(a6)
-a6.appendChild(g3.createTextNode("N\xe3o existem requisitos para este procedimento"))
-a7=S.d(g3,a5)
+a6.appendChild(g4.createTextNode("N\xe3o existem requisitos para este procedimento"))
+a7=S.d(g4,a5)
 f1.h(a7)
 f1.rx=new V.z(35,32,f1,a7)
 o=U.a0(f1,36)
 f1.ry=o
 a8=o.e
-g4.appendChild(a8)
+g5.appendChild(a8)
 a8.className="button-close"
 f1.h(a8)
 o=F.Z(r.j(C.n,f1.a.Q,f2))
@@ -17403,7 +17406,7 @@ f1.y2=o
 f1.y1.n(0,o,[])
 o=[W.M]
 f1.ry.n(0,f1.x2,[H.b([a9],o)])
-b0=S.d(g3,g4)
+b0=S.d(g4,g5)
 b0.className="button-container"
 f1.h(b0)
 n=U.a0(f1,39)
@@ -17417,70 +17420,70 @@ n=F.Z(r.j(C.n,f1.a.Q,f2))
 f1.S=n
 n=B.a_(b1,n,f1.U.a.b,f2)
 f1.V=n
-b2=g3.createTextNode("GRAVAR AGENDAMENTO")
+b2=g4.createTextNode("GRAVAR AGENDAMENTO")
 m=[W.bd]
 f1.U.n(0,n,[H.b([b2],m)])
 n=O.ao(f1,41)
 f1.W=n
 b3=n.e
-g2.appendChild(b3)
+g3.appendChild(b3)
 f1.h(b3)
 n=D.al(r.p(C.i,f1.a.Q),b3,r.p(C.d,f1.a.Q),r.j(C.f,f1.a.Q,f2),r.j(C.t,f1.a.Q,f2))
 f1.T=n
 n=Z.an(f1,42)
 f1.M=n
 b4=n.e
-b4.className=f7
-b4.setAttribute(f8,"")
+b4.className=f8
+b4.setAttribute(f9,"")
 f1.h(b4)
 n=D.ak(b4,r.p(C.d,f1.a.Q),f1.M.a.b,f1.T)
 f1.Y=n
 n=r.p(C.e,f1.a.Q)
 f1.O=new Y.aw(Z.aH(b4),n)
-b5=g3.createElement("div")
-b5.setAttribute(f9,"")
+b5=g4.createElement("div")
+b5.setAttribute(g0,"")
 f1.h(b5)
-b6=S.x(g3,g0,b5)
+b6=S.x(g4,g1,b5)
 f1.q(b6)
-b6.appendChild(g3.createTextNode("Opps..."))
-b7=g3.createElement("p")
+b6.appendChild(g4.createTextNode("Opps..."))
+b7=g4.createElement("p")
 f1.q(b7)
-b7.appendChild(g3.createTextNode("A consulta foi n\xe3o foi salva, houve algum problema"))
+b7.appendChild(g4.createTextNode("A consulta foi n\xe3o foi salva, houve algum problema"))
 n=[W.ab]
 f1.M.n(0,f1.Y,[H.b([b5],n),H.b([b7],n),C.c])
 f1.W.n(0,f1.T,[H.b([b4],o)])
 b8=O.ao(f1,48)
 f1.ab=b8
 b9=b8.e
-g2.appendChild(b9)
+g3.appendChild(b9)
 f1.h(b9)
 b8=D.al(r.p(C.i,f1.a.Q),b9,r.p(C.d,f1.a.Q),r.j(C.f,f1.a.Q,f2),r.j(C.t,f1.a.Q,f2))
 f1.a1=b8
 b8=Z.an(f1,49)
 f1.ag=b8
 c0=b8.e
-c0.className=f7
-c0.setAttribute(f8,"")
+c0.className=f8
+c0.setAttribute(f9,"")
 f1.h(c0)
 b8=D.ak(c0,r.p(C.d,f1.a.Q),f1.ag.a.b,f1.a1)
 f1.ah=b8
 b8=r.p(C.e,f1.a.Q)
 f1.af=new Y.aw(Z.aH(c0),b8)
-c1=g3.createElement("div")
-c1.setAttribute(f9,"")
+c1=g4.createElement("div")
+c1.setAttribute(g0,"")
 f1.h(c1)
-c2=S.x(g3,g0,c1)
+c2=S.x(g4,g1,c1)
 f1.q(c2)
-c2.appendChild(g3.createTextNode("Muito bem!"))
-c3=g3.createElement("p")
+c2.appendChild(g4.createTextNode("Muito bem!"))
+c3=g4.createElement("p")
 f1.q(c3)
-c3.appendChild(g3.createTextNode("A consulta foi salva com sucesso."))
+c3.appendChild(g4.createTextNode("A consulta foi salva com sucesso."))
 f1.ag.n(0,f1.ah,[H.b([c1],n),H.b([c3],n),C.c])
 f1.ab.n(0,f1.a1,[H.b([c0],o)])
 b8=O.ao(f1,55)
 f1.a8=b8
 c4=b8.e
-g2.appendChild(c4)
+g3.appendChild(c4)
 f1.h(c4)
 b8=D.al(r.p(C.i,f1.a.Q),c4,r.p(C.d,f1.a.Q),r.j(C.f,f1.a.Q,f2),r.j(C.t,f1.a.Q,f2))
 f1.ae=b8
@@ -17488,20 +17491,20 @@ b8=Z.an(f1,56)
 f1.aH=b8
 c5=b8.e
 c5.className="max-height-dialog"
-c5.setAttribute(f8,"")
+c5.setAttribute(f9,"")
 f1.h(c5)
 b8=D.ak(c5,r.p(C.d,f1.a.Q),f1.aH.a.b,f1.ae)
 f1.ay=b8
-c6=g3.createElement("div")
-c6.setAttribute(f9,"")
+c6=g4.createElement("div")
+c6.setAttribute(g0,"")
 f1.h(c6)
-c7=S.x(g3,g0,c6)
+c7=S.x(g4,g1,c6)
 f1.q(c7)
-c7.appendChild(g3.createTextNode("Vamos com calma..."))
-c8=g3.createElement("p")
+c7.appendChild(g4.createTextNode("Vamos com calma..."))
+c8=g4.createElement("p")
 f1.q(c8)
-c8.appendChild(g3.createTextNode("Alguns campos importantes n\xe3o est\xe3o preenchidos. Quer salvar assim mesmo?"))
-c9=g3.createElement("div")
+c8.appendChild(g4.createTextNode("Alguns campos importantes n\xe3o est\xe3o preenchidos. Quer salvar assim mesmo?"))
+c9=g4.createElement("div")
 c9.setAttribute("footer","")
 f1.h(c9)
 b8=U.a0(f1,63)
@@ -17513,7 +17516,7 @@ b8=F.Z(r.j(C.n,f1.a.Q,f2))
 f1.al=b8
 b8=B.a_(d0,b8,f1.aB.a.b,f2)
 f1.aL=b8
-d1=g3.createTextNode("Quero salvar sim")
+d1=g4.createTextNode("Quero salvar sim")
 f1.aB.n(0,b8,[H.b([d1],m)])
 b8=U.a0(f1,65)
 f1.aE=b8
@@ -17524,36 +17527,36 @@ b8=F.Z(r.j(C.n,f1.a.Q,f2))
 f1.az=b8
 b8=B.a_(d2,b8,f1.aE.a.b,f2)
 f1.aX=b8
-d3=g3.createTextNode("N\xe3o")
+d3=g4.createTextNode("N\xe3o")
 f1.aE.n(0,b8,[H.b([d3],m)])
 f1.aH.n(0,f1.ay,[H.b([c6],n),H.b([c8],n),H.b([c9],n)])
 f1.a8.n(0,f1.ae,[H.b([c5],o)])
 m=O.ao(f1,67)
 f1.aq=m
 d4=m.e
-g2.appendChild(d4)
+g3.appendChild(d4)
 f1.h(d4)
 m=D.al(r.p(C.i,f1.a.Q),d4,r.p(C.d,f1.a.Q),r.j(C.f,f1.a.Q,f2),r.j(C.t,f1.a.Q,f2))
 f1.aP=m
 m=Z.an(f1,68)
 f1.b9=m
 d5=m.e
-d5.className=f7
-d5.setAttribute(f8,"")
+d5.className=f8
+d5.setAttribute(f9,"")
 f1.h(d5)
 m=D.ak(d5,r.p(C.d,f1.a.Q),f1.b9.a.b,f1.aP)
 f1.aY=m
 r=r.p(C.e,f1.a.Q)
 f1.bt=new Y.aw(Z.aH(d5),r)
-d6=g3.createElement("div")
-d6.setAttribute(f9,"")
+d6=g4.createElement("div")
+d6.setAttribute(g0,"")
 f1.h(d6)
-d7=S.x(g3,g0,d6)
+d7=S.x(g4,g1,d6)
 f1.q(d7)
-d7.appendChild(g3.createTextNode("Quase l\xe1..."))
-d8=g3.createElement("p")
+d7.appendChild(g4.createTextNode("Quase l\xe1..."))
+d8=g4.createElement("p")
 f1.q(d8)
-d8.appendChild(g3.createTextNode("Preencha todos os campos, por favor."))
+d8.appendChild(g4.createTextNode("Preencha todos os campos, por favor."))
 f1.b9.n(0,f1.aY,[H.b([d6],n),H.b([d8],n),C.c])
 f1.aq.n(0,f1.aP,[H.b([d5],o)])
 r=f1.ch.x1
@@ -17562,12 +17565,12 @@ d9=new P.n(r,[H.f(r,0)]).u(f1.A(f1.gBl(),o,o))
 r=f1.fy.x1
 e0=new P.n(r,[H.f(r,0)]).u(f1.A(f1.gBj(),o,o))
 o=W.A
-J.S(c,g1,f1.D(f1.f.gL6(),o))
+J.S(c,g2,f1.D(f1.f.gL6(),o))
 r=f1.r1.y
 n=Q.az
 e1=new P.n(r,[H.f(r,0)]).u(f1.A(f1.gDm(),n,n))
-J.S(a8,g1,f1.D(J.fB(f1.f),o))
-J.S(b1,g1,f1.D(f1.f.gcO(),o))
+J.S(a8,g2,f1.D(J.fB(f1.f),o))
+J.S(b1,g2,f1.D(f1.f.gcO(),o))
 o=f1.T.r
 n=P.w
 e2=new P.n(o,[H.f(o,0)]).u(f1.A(f1.gBn(),n,n))
@@ -40651,9 +40654,9 @@ $.cq=null
 $.bc=null
 $.ZZ=["._nghost-%ID%{box-shadow:0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2);display:inline-block;width:300px;position:relative;text-align:initial;border-radius:5px;padding:10px;margin:0.5%}._nghost-%ID%:hover{box-shadow:0 4px 5px 0 rgba(0,151,167,0.14),0 1px 10px 0 rgba(0,151,167,0.12),0 2px 4px -1px rgba(0,151,167,0.2)}.head-card._ngcontent-%ID%{position:relative;height:120px;top:0px}.body-card._ngcontent-%ID%{position:relative;top:0px}.label-title._ngcontent-%ID%{font-size:12px;display:block;margin-bottom:0;font-weight:500;color:#00B0FF}.label._ngcontent-%ID%{display:block;margin-bottom:5px;font-weight:500;color:#616161}label._ngcontent-%ID%{margin-right:5px}#date-appointment-scheduling._ngcontent-%ID%,#name-dentist._ngcontent-%ID%{display:block}#delete._ngcontent-%ID%{width:40px;height:40px;font-size:1;background-color:#fff!important;color:#00B0FF;position:absolute;top:5px;right:5px} #delete > *{padding:8px!important}"]
 $.NR=null
-$.ZY=['._nghost-%ID%{position:fixed;top:0;left:0;width:100%;height:100%;padding:0%;background:rgba(0,0,0,0.3);z-index:999}.container-add-auto-appointment-scheduling._ngcontent-%ID%{position:relative;width:100%;height:100%;background-color:white;display:flex;flex-flow:column;flex-wrap:wrap;align-content:flex-start;padding:10px;transition:all 0.5s linear}.container-register._ngcontent-%ID%{flex:1}.button-close._ngcontent-%ID%{position:absolute;top:10px;right:10px;width:40px;min-width:40px;height:40px;background-color:#fff!important;color:#616161;transition:all 0.5s linear}#procedure-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-bottom:3%;margin-left:1%;margin-right:1%}#dentist-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-bottom:3%;margin-left:1%;margin-right:1%}#agreement-select._ngcontent-%ID%{float:left;position:relative;display:block;width:50%;margin-bottom:3%;margin-left:1%;margin-right:1%}#shift-select._ngcontent-%ID%{float:left;position:relative;display:block;width:15%;margin-bottom:3%;margin-left:1%;margin-right:1%}#date-select._ngcontent-%ID%{float:left;position:relative;display:block;width:30%;margin-bottom:3%;margin-left:1%;margin-right:1%}material-datepicker._ngcontent-%ID%{position:relative;color:#616161}#container-requirement-checkbox._ngcontent-%ID%{display:inline-block;position:relative}.container-add-consulta._ngcontent-%ID%  material-datepicker .main-content{margin:1% 0 3% 0%;display:inline!important}.container-add-consulta._ngcontent-%ID%  material-datepicker .button{border-bottom:1px solid #00B0FF!important}.container-add-consulta._ngcontent-%ID%  material-dropdown-select .button{border-bottom:1px solid #00B0FF!important}.container-add-consulta._ngcontent-%ID%  .label-text{color:#616161}.container-add-consulta._ngcontent-%ID%  material-input .label-text{color:#616161!important}material-input._ngcontent-%ID%{float:left;display:block;margin:0 3% 1% 1%;width:90%}.edit-input._ngcontent-%ID%,.edit-input._ngcontent-%ID% *._ngcontent-%ID%{color:#616161!important}#email._ngcontent-%ID%{width:60%}#telephone._ngcontent-%ID%{width:20%}.button-save._ngcontent-%ID%{box-shadow:0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);background-color:#0288D1;color:white!important;position:absolute;bottom:10px;right:10px;transition:all 0.5s linear}.button-save:hover._ngcontent-%ID%{box-shadow:0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2)}.title._ngcontent-%ID%{font-family:"Montserrat";display:inline-block;width:100%;max-height:48px;color:#DB3813;font-size:5vh;text-align:center;font-weight:500;padding:10px;margin-bottom:1%}.sub-title._ngcontent-%ID%{position:relative;display:inline-block;font-family:"Montserrat";width:100%;height:28px;color:#DB3813;font-size:2.5vh;text-align:left;font-weight:500;margin-top:4%}.sub-title-vacancy._ngcontent-%ID%{color:#0288D1}material-dialog._ngcontent-%ID%{border-radius:5px}@media screen AND (min-width:769px){.container-add-auto-appointment-scheduling._ngcontent-%ID%{position:relative;top:8%;margin-left:29%;width:42%;height:85%;background-color:white;border-radius:5px;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;padding:10px}}']
+$.ZY=['._nghost-%ID%{position:fixed;top:0;left:0;width:100%;height:100%;padding:0%;background:rgba(0,0,0,0.3);z-index:999;overflow-x:hidden;overflow-y:scroll}._nghost-%ID%::-webkit-scrollbar{display:none}.container-add-auto-appointment-scheduling._ngcontent-%ID%{position:relative;top:48px;width:100%;height:100%;background-color:white;display:flex;flex-flow:column;flex-wrap:wrap;align-content:flex-start;padding:1%;transition:all 0.5s linear}.container-register._ngcontent-%ID%{flex:1}.title._ngcontent-%ID%{font-family:"Montserrat";display:inline-block;width:100%;max-height:48px;color:#db3813;font-size:3.5vh;text-align:center;font-weight:500;padding:10px;margin-bottom:1%}.sub-title._ngcontent-%ID%{position:relative;display:inline-block;font-family:"Montserrat";width:100%;height:28px;color:#db3813;font-size:3vh;text-align:left;font-weight:500;margin-top:4%}.sub-title-information._ngcontent-%ID%{color:#0288d1;font-size:3vh}.button-close._ngcontent-%ID%{position:absolute;right:1%;width:40px;min-width:40px;height:40px;background-color:#fff!important;color:#616161;transition:all 0.5s linear}#procedure-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-bottom:3%;margin-left:1%;margin-right:1%}#dentist-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-bottom:3%;margin-left:1%;margin-right:1%}#agreement-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-bottom:3%;margin-left:1%;margin-right:1%}#shift-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-bottom:3%;margin-left:1%;margin-right:1%}#date-select._ngcontent-%ID%{float:left;position:relative;display:block;width:40%;margin-top:0.5%;margin-left:1%;margin-right:1%}material-datepicker._ngcontent-%ID%{position:relative;color:#616161}#container-requirement-checkbox._ngcontent-%ID%{display:inline-block;position:relative}.container-add-consulta._ngcontent-%ID%  material-datepicker .main-content{margin:1% 0 3% 0%;display:inline!important}.container-add-consulta._ngcontent-%ID%  material-datepicker .button{border-bottom:1px solid #00b0ff!important}.container-add-consulta._ngcontent-%ID%  material-dropdown-select .button{border-bottom:1px solid #00b0ff!important}.container-add-consulta._ngcontent-%ID%  .label-text{color:#616161}.container-add-consulta._ngcontent-%ID%  material-input .label-text{color:#616161!important}material-input._ngcontent-%ID%{float:left;display:block;margin:0 3% 1% 1%;width:90%}.edit-input._ngcontent-%ID%,.edit-input._ngcontent-%ID% *._ngcontent-%ID%{color:#616161!important}#email._ngcontent-%ID%{width:80%}#telephone._ngcontent-%ID%{width:40%}.button-save._ngcontent-%ID%{box-shadow:0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);background-color:#0288d1;color:white!important;position:absolute;bottom:10px;right:10px;transition:all 0.5s linear}.button-save:hover._ngcontent-%ID%{box-shadow:0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12),0 5px 5px -3px rgba(0,0,0,0.2)}material-dialog._ngcontent-%ID%{border-radius:5px}@media screen AND (min-width:769px){._nghost-%ID%{overflow-x:hidden;overflow-y:hidden}.container-add-auto-appointment-scheduling._ngcontent-%ID%{position:relative;top:78px;margin-left:29%;width:42%;height:85%;background-color:white;border-radius:5px;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;padding:10px}.title._ngcontent-%ID%{font-size:5vh}.sub-title._ngcontent-%ID%{font-size:2.5vh}#sub-title-information._ngcontent-%ID%{color:#0288d1;font-size:2.5vh}.button-close._ngcontent-%ID%{top:10px;right:10px}#agreement-select._ngcontent-%ID%{width:50%}#shift-select._ngcontent-%ID%{width:15%}#date-select._ngcontent-%ID%{width:30%;margin-top:0;margin-bottom:3%}#email._ngcontent-%ID%{width:60%}#telephone._ngcontent-%ID%{width:20%}}']
 $.NS=null
-$.a_0=["._nghost-%ID%{width:100%;z-index:2!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%{top:0;position:relative;display:flex;flex-flow:column;flex-wrap:wrap;z-index:2!important;margin-bottom:1%}.controls._ngcontent-%ID%{align-items:flex-start;display:flex;flex-direction:column}.group-list-menu-item._ngcontent-%ID%,._ngcontent-wcb-8._ngcontent-%ID%,._ngcontent-dnj-10._ngcontent-%ID%{border-top:0px!important;margin-top:7px!important;padding-top:8px!important}i._ngcontent-%ID%{position:absolute;left:1%;top:78px}.container-filter._ngcontent-%ID%{top:48px;position:fixed;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;display:inline-block;width:100%;min-height:48px;background-color:white;border-bottom:rgba(97,97,97,0.12) 2px dashed;padding:1% 0.5% 0 0.5%;z-index:2!important}.container-filter._ngcontent-%ID% material-icon._ngcontent-%ID%{color:#616161;margin:0 2% 0 2%}.container-filter-title._ngcontent-%ID%{flex:1;display:inline-flex;margin-left:1%;margin-right:1%;color:#616161}.filter-title._ngcontent-%ID%{margin-top:1%;margin-right:1%}.total-result-filter._ngcontent-%ID%{box-shadow:0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12);top:115px;position:fixed;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;background-color:white;width:100%;min-height:48px;z-index:2!important}.total-result-filtered._ngcontent-%ID%{flex:1;display:inline;margin-left:1%;margin-right:1%;color:#616161;padding-top:1%}.total-result-filter-text._ngcontent-%ID%{color:#DB3813;font-weight:600}#container-list-auto-appointment-scheduling._ngcontent-%ID%{position:relative;display:inline-block;width:100%;top:162px}.list-day-appointment-scheduling._ngcontent-%ID%{display:inline-block;position:relative;background-color:white;width:100%;z-index:1!important}material-fab._ngcontent-%ID%{position:fixed;color:white;background:#00B0FF;right:5px;bottom:10px;z-index:999}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .label-text{color:#616161}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  #wh-widget-send-button{display:none!important}material-datepicker._ngcontent-%ID%{margin:1% 1%;position:relative;color:#616161}material-dropdown-select._ngcontent-%ID%{margin:1% 1%;position:relative;color:#616161}.filter-input._ngcontent-%ID%{padding:0;color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  material-input .label-text{color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .focused.label-text{color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .focused-underline,.cursor._ngcontent-%ID%{background-color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .disabled-underline{color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .unfocused-underline{background:#616161!important;border-bottom-color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  material-input .input-container{margin-top:0!important;color:#616161!important}#bt-filter._ngcontent-%ID%{position:relative;float:right;margin-top:0.5%;margin-right:1%;font-weight:500;color:#616161}#bt-limpar._ngcontent-%ID%{position:relative;margin-top:0.5%;font-weight:500;color:#616161}#bt-add._ngcontent-%ID%{position:fixed;background-color:#00B0FF;color:white;z-index:999;right:10px;bottom:10px;box-shadow:0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2)}@media screen AND (min-width:769px){.container-deshboard-appointment-scheduling._ngcontent-%ID%{top:0px;position:unset}}"]
+$.a_0=["._nghost-%ID%{width:100%;z-index:2!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%{top:0;position:relative;display:flex;flex-flow:column;flex-wrap:wrap;z-index:2!important;margin-bottom:1%}.controls._ngcontent-%ID%{align-items:flex-start;display:flex;flex-direction:column}.group-list-menu-item._ngcontent-%ID%,._ngcontent-wcb-8._ngcontent-%ID%,._ngcontent-dnj-10._ngcontent-%ID%{border-top:0px!important;margin-top:7px!important;padding-top:8px!important}i._ngcontent-%ID%{position:absolute;left:1%;top:78px}.container-filter._ngcontent-%ID%{display:none}.container-filter._ngcontent-%ID% material-icon._ngcontent-%ID%{display:none}.container-filter-title._ngcontent-%ID%{display:none}.filter-title._ngcontent-%ID%{display:none}.total-result-filter._ngcontent-%ID%{display:none}.total-result-filtered._ngcontent-%ID%{display:none}.total-result-filter-text._ngcontent-%ID%{display:none}#container-list-auto-appointment-scheduling._ngcontent-%ID%{position:relative;display:inline-block;width:100%;top:48px}.list-day-appointment-scheduling._ngcontent-%ID%{display:inline-block;position:relative;background-color:white;width:100%;z-index:1!important}material-fab._ngcontent-%ID%{position:fixed;color:white;background:#00B0FF;right:5px;bottom:10px;z-index:999}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .label-text{color:#616161}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  #wh-widget-send-button{display:none!important}material-datepicker._ngcontent-%ID%{margin:1% 1%;position:relative;color:#616161}material-dropdown-select._ngcontent-%ID%{margin:1% 1%;position:relative;color:#616161}.filter-input._ngcontent-%ID%{padding:0;color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  material-input .label-text{color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .focused.label-text{color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .focused-underline,.cursor._ngcontent-%ID%{background-color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .disabled-underline{color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  .unfocused-underline{background:#616161!important;border-bottom-color:#616161!important}#container-filter-auto-appointment-scheduling._ngcontent-%ID%  material-input .input-container{margin-top:0!important;color:#616161!important}#bt-filter._ngcontent-%ID%{position:relative;float:right;margin-top:0.5%;margin-right:1%;font-weight:500;color:#616161}#bt-limpar._ngcontent-%ID%{position:relative;margin-top:0.5%;font-weight:500;color:#616161}#bt-add._ngcontent-%ID%{position:fixed;background-color:#00B0FF;color:white;z-index:999;right:10px;bottom:10px;box-shadow:0 4px 5px 0 rgba(0,0,0,0.14),0 1px 10px 0 rgba(0,0,0,0.12),0 2px 4px -1px rgba(0,0,0,0.2)}@media screen AND (min-width:769px){.container-deshboard-appointment-scheduling._ngcontent-%ID%{top:0px;position:unset}.container-filter._ngcontent-%ID%{top:48px;position:fixed;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;display:inline-block;width:100%;min-height:78px;background-color:white;border-bottom:rgba(97,97,97,0.12) 2px dashed;padding:1% 0.5% 0 0.5%;z-index:2!important}.container-filter._ngcontent-%ID% material-icon._ngcontent-%ID%{color:#616161;margin:0 2% 0 2%}.container-filter-title._ngcontent-%ID%{flex:1;display:inline-flex;margin-left:1%;margin-right:1%;color:#616161}.filter-title._ngcontent-%ID%{margin-top:1%;margin-right:1%}.total-result-filter._ngcontent-%ID%{box-shadow:0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12);top:115px;position:fixed;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;background-color:white;width:100%;min-height:48px;z-index:2!important}.total-result-filtered._ngcontent-%ID%{flex:1;display:inline;margin-left:1%;margin-right:1%;color:#616161;padding-top:1%}.total-result-filter-text._ngcontent-%ID%{color:#DB3813;font-weight:600}#container-list-auto-appointment-scheduling._ngcontent-%ID%{top:162px}}"]
 $.NT=null
 $.a__=["._nghost-%ID%{position:relative;width:100%}.list-day._ngcontent-%ID%{display:inline-block;width:100%;display:flex;flex-flow:row;flex-wrap:wrap;align-content:flex-start;margin-top:4px}.total-result-by-day-auto-appointment-scheduling._ngcontent-%ID%{display:inline-block;position:relative;height:22px;font-weight:600;width:100%;z-index:1!important;padding-top:10px;padding-bottom:10px;text-align:center}.not-today._ngcontent-%ID%{color:#616161;background-color:rgba(97,97,97,0.12);border-top:rgba(97,97,97,0.12) 2px dashed;border-bottom:rgba(97,97,97,0.12) 2px dashed}.today._ngcontent-%ID%{color:#00B0FF;background-color:rgba(0,176,255,0.12);border-top:rgba(0,176,255,0.12) 2px dashed;border-bottom:rgba(0,176,255,0.12) 2px dashed}"]
 $.NU=null
