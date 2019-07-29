@@ -5,8 +5,8 @@ import 'package:angular_components/material_input/material_input.dart';
 
 import '../../appointment/user/user_service.dart';
 import '../../appointment/requirement/requirement_service.dart';
-import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_row_component.template.dart'
-    as requirement_row;
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_card_component.template.dart'
+    as requirement_card;
 
 @Component(
     selector: 'requirement_list_component',
@@ -29,8 +29,8 @@ class RequirementListComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  @ViewChild('materialContainerRow', read: ViewContainerRef)
-  ViewContainerRef materialContainerRow;
+  @ViewChild('materialContainerCard', read: ViewContainerRef)
+  ViewContainerRef materialContainerCard;
 
   RequirementListComponent(this._loader, this._changeDetectorRef);
 
@@ -42,15 +42,15 @@ class RequirementListComponent implements OnInit {
     
     _list.forEach((requirement) {
       
-      ComponentFactory<requirement_row.RequirementRowComponent>
-          requirementRow =
-          requirement_row.RequirementRowComponentNgFactory;
+      ComponentFactory<requirement_card.RequirementCardComponent>
+          requirementCard =
+          requirement_card.RequirementCardComponentNgFactory;
       
-      ComponentRef requirementRowComponent =
-        _loader.loadNextToLocation(requirementRow, materialContainerRow);
+      ComponentRef requirementCardComponent =
+        _loader.loadNextToLocation(requirementCard, materialContainerCard);
       
-      requirementRowComponent.instance.requirementId = requirement["documentPath"];
-      requirementRowComponent.instance.componentRef = requirementRowComponent;
+      requirementCardComponent.instance.requirementId = requirement["documentPath"];
+      requirementCardComponent.instance.componentRef = requirementCardComponent;
     });
     
     _changeDetectorRef.markForCheck();

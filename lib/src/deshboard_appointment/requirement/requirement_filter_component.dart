@@ -43,7 +43,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_e
   ],
 )
 class RequirementFilterComponent implements OnActivate,  OnInit {
-  RequirementService _requirementService = new RequirementService();
+  RequirementService requirementService = new RequirementService();
   ComponentRef componentRef;
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader; 
@@ -81,10 +81,10 @@ class RequirementFilterComponent implements OnActivate,  OnInit {
   void onFilter() {   
     componentRef?.destroy();
 
-    _requirementService.clearAllRequirementList();
+    requirementService.clearAllRequirementList();
 
-    _requirementService.getAllRequirementAcives().then((onValue) {
-      _requirementService.getRequirementListWithFilterFromList({"description": description});
+    requirementService.getAllRequirementAcives().then((onValue) {
+      requirementService.getRequirementListWithFilterFromList({"description": description});
 
       onLoad();
     });
@@ -104,7 +104,7 @@ class RequirementFilterComponent implements OnActivate,  OnInit {
   }
 
   void onAdd() {
-    _requirementService.requirement = null;
+    requirementService.requirement = requirementService.returnEmptyRequirement();
     ComponentFactory<requirement_edit.RequirementEditComponent> requirementEdit =
         requirement_edit.RequirementEditComponentNgFactory;
 

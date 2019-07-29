@@ -36,17 +36,11 @@ import '../../appointment/user/user_service.dart';
       ModalComponent,
       AutoDismissDirective,
     ],
-    providers: [
-      windowBindings
-    ])
+    providers: [windowBindings])
 class RequirementEditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-
-  RequirementService _requirementService;
-
-  RequirementService get requirementService => _requirementService;
-  set requirementService(RequirementService requirementService) => _requirementService = requirementService;
+  final RequirementService requirementService = new RequirementService();
 
   @Input()
   ComponentRef componentRef;
@@ -62,29 +56,24 @@ class RequirementEditComponent implements OnInit {
 
   RequirementEditComponent(this._loader, this._changeDetectorRef);
 
-    void onEdit() {
-    requirementService = new RequirementService();
-
-    if (requirementService.requirement == null) { 
-      requirementService.requirement = new Requirement("", "", true);
-    }
-  }
-
+  void onEdit() {}
 
   void ngOnInit() {
-    if (new UserService().user  == null)
-      return;
+    if (new UserService().user == null) return;
 
-    querySelector('deshboard-app').style.overflowY = "hidden";
-    
+    querySelector('deshboard_appointment_component').style.overflowY = "hidden";
+    //querySelector('deshboard-app').style.overflowY = "hidden";
+
     onEdit();
 
-    _changeDetectorRef.markForCheck();  
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
-    requirementService.requirement = null;
-    querySelector('deshboard-app').style.overflowY = "scroll";
+    requirementService.requirement =
+        requirementService.returnEmptyRequirement();
+    querySelector('deshboard_appointment_component').style.overflowY = "scroll";
+    //onClearListsOfComponentRef();
     componentRef.destroy();
   }
 
@@ -107,7 +96,6 @@ class RequirementEditComponent implements OnInit {
 
   void onAssertsSave() {
     if ((requirementService.requirement.description == '')) {
-
       showAssertMessageSave = true;
       return;
     }
@@ -116,18 +104,18 @@ class RequirementEditComponent implements OnInit {
   }
 
   void onNoSave() {
-    showAssertMessageAlert = false;  
+    showAssertMessageAlert = false;
   }
 
-  void onSave() async {   
+  void onSave() async {
     showAssertMessageAlert = false;
 
     if (await requirementService.save()) {
-      showSuccessfullySave = true;  
+      showSuccessfullySave = true;
     } else {
       showNotSuccessfullySave = true;
     }
-    
+
     _changeDetectorRef.markForCheck();
   }
 }

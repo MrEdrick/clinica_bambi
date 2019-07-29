@@ -1,15 +1,19 @@
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
+import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/material_dialog/material_dialog.dart';
 
 import '../../appointment/requirement/requirement.dart';
+import '../../appointment/requirement/requirement_dao.dart';
 import '../../appointment/requirement/requirement_service.dart';
-import 'requirement_edit_component.dart';
+import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_edit_component.template.dart'
+    as requirement_edit;
 
 @Component(
-    selector: 'requirement-card-app',
+    selector: 'requirement_card_component',
     styleUrls: const [
       'requirement_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -21,26 +25,56 @@ import 'requirement_edit_component.dart';
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      RequirementEditComponent,
+      MaterialDialogComponent,
       ModalComponent,
+      MaterialIconComponent,
+      MaterialButtonComponent,
     ])
-
-class RequirementCardComponent {
-  Requirement _requirement;
-  RequirementService requirementService;
+class RequirementCardComponent implements OnInit {
+  final ComponentLoader _loader;
+  final ChangeDetectorRef _changeDetectorRef;
+  Requirement requirement;
+  RequirementService requirementService = new RequirementService();
 
   bool showEditAgendamentoEditApp = false;
+  bool showDeteleCertification = false;
 
-  Requirement get requirement => _requirement;
   @Input()
-  set requirement(Requirement requirement) => _requirement = requirement; 
+  String requirementId;
 
-  RequirementCardComponent();
+  @Input()
+  ComponentRef componentRef;
+
+  @ViewChild('containerEditRequirement', read: ViewContainerRef)
+  ViewContainerRef materialContainerEdit;
+
+  RequirementCardComponent(this._changeDetectorRef, this._loader);
+
+  void ngOnInit() async {
+    requirement = await requirementService.getRequirementById(requirementId);
+    _changeDetectorRef.markForCheck();
+  }
 
   void onEdit() {
-    requirementService = new RequirementService();
     requirementService.requirement = requirement;
-    querySelector('#editRequirement').click();
-    querySelector('#requirement-edit-app').style.display = 'block';
+    ComponentFactory<requirement_edit.RequirementEditComponent>
+        requirementEdit = requirement_edit.RequirementEditComponentNgFactory;
+
+    ComponentRef requirementEditComponent = _loader.loadNextToLocation(requirementEdit, materialContainerEdit);
+    requirementEditComponent.instance.componentRef = requirementEditComponent;
+  }
+
+  void onDelete() {
+    showDeteleCertification = true;
+  }
+
+  void delete() {
+    new RequirementDAO().delete(requirementId);   
+    showDeteleCertification = false;
+    componentRef.destroy();
+  }
+
+  void noDelete() {
+    showDeteleCertification = false;
   }
 }
