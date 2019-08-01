@@ -59,6 +59,12 @@ class DentistEditComponent implements OnInit {
   final List<ComponentRef> listComponentRefProcedure = new List<ComponentRef>();
   final List<ComponentRef> listComponentRefQuantityPerShiftByDayOfWeek = new List<ComponentRef>();
 
+  final DentistProcedureService dentistProcedureService = new DentistProcedureService();
+  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService = new DentistProcedureByDayOfWeekService();
+  final DentistProcedureByDayOfWeekByShiftService dentistProcedureByDayOfWeekByShiftService = new DentistProcedureByDayOfWeekByShiftService();
+  final DentistQuantityPerShiftByDayOfWeekService dentistQuantityPerShiftByDayOfWeekService = new DentistQuantityPerShiftByDayOfWeekService();
+  final ShiftService shiftService = new ShiftService();
+
   @Input()
   ComponentRef componentRef;
 
@@ -80,6 +86,7 @@ class DentistEditComponent implements OnInit {
   bool useOptionGroup = false;
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
+  bool disabled = false;
 
   Map<String, dynamic> datas;
 
@@ -113,11 +120,17 @@ class DentistEditComponent implements OnInit {
 
     List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
 
-    await new DentistProcedureService().getAllDentistProcedureAcives();
-    await new DentistProcedureByDayOfWeekService().getAllDentistProcedureByDayOfWeekAcives();
-    await new DentistProcedureByDayOfWeekByShiftService().getAllDentistProcedureByDayOfWeekByShiftAcives();
-    await new DentistQuantityPerShiftByDayOfWeekService().getAllDentistQuantityPerShiftByDayOfWeekAcives();
-    await new ShiftService().getAllShiftAcives();
+    dentistProcedureService.clearAllDentistProcedureList();
+    dentistProcedureByDayOfWeekService.clearAllDentistProcedureByDayOfWeekList();
+    dentistProcedureByDayOfWeekByShiftService.clearAllDentistProcedureByDayOfWeekByShiftList();
+    dentistQuantityPerShiftByDayOfWeekService.clearAllDentistQuantityPerShiftByDayOfWeekList();
+    shiftService.clearAllShiftList();
+
+    await dentistProcedureService.getAllDentistProcedureAcives();
+    await dentistProcedureByDayOfWeekService.getAllDentistProcedureByDayOfWeekAcives();
+    await dentistProcedureByDayOfWeekByShiftService.getAllDentistProcedureByDayOfWeekByShiftAcives();
+    await dentistQuantityPerShiftByDayOfWeekService.getAllDentistQuantityPerShiftByDayOfWeekAcives();
+    await shiftService.getAllShiftAcives();
     
     _listProcedure.forEach((procedure) {
         ComponentFactory<dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponent>
@@ -184,8 +197,10 @@ class DentistEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
+    disabled = true;
     if ((dentistService.dentist.name == "")) {
       showAssertMessageSave = true;
+      disabled = false;
       return;
     }
 
@@ -194,6 +209,7 @@ class DentistEditComponent implements OnInit {
 
   void onNoSave() {
     showAssertMessageAlert = false;
+    disabled = false;
   }
 
   void onSave() async {

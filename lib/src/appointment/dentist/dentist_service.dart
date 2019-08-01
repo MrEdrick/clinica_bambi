@@ -168,6 +168,7 @@ class DentistService {
           _dentist.id;
     } else {
       result = await new DentistDAO().save(datas);
+      _dentist.id = result.values.first;
     }
 
     DentistProcedureService _dentistProcedureService =
@@ -177,15 +178,15 @@ class DentistService {
         _dentistQuantityPerShiftByDayOfWeekService =
         new DentistQuantityPerShiftByDayOfWeekService();
 
-    _dentistProcedureService.dentistProcedure = null;
+    // _dentistProcedureService.dentistProcedure = null;
 
-    _dentistQuantityPerShiftByDayOfWeekService
-        .dentistQuantityPerShiftByDayOfWeek = null;
+    //_dentistQuantityPerShiftByDayOfWeekService
+    //    .dentistQuantityPerShiftByDayOfWeek = null;
 
     for (DentistProcedure dentistProcedure in _dentistProcedureService
         .dentistProcedureListByDentistIdProcedureId.values) {
       _dentistProcedureService.dentistProcedure = dentistProcedure;
-      saved = await (_dentistProcedureService.save(result.values.first));
+      saved = await (_dentistProcedureService.save(_dentist.id));
     }
 
     if (!saved) {

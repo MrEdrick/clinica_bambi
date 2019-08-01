@@ -26,7 +26,7 @@
     </material-button>
 
     <div class="button-container">
-        <material-button raised class="button-save" (click)="onAssertsSave()">
+        <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabled">
             GRAVAR
         </material-button>
     </div>

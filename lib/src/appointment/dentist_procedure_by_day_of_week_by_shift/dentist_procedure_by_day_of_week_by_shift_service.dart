@@ -185,11 +185,11 @@ class DentistProcedureByDayOfWeekByShiftService {
     Map<bool, String> result = new Map<bool, String>();
     if (_dentistProcedureByDayOfWeekByShift.id != "") {
       if ((_dentistProcedureByDayOfWeekByShift.dentistProcedureByDayOfWeekId ==
-              "") &&
+              "") ||
           (_dentistProcedureByDayOfWeekByShift.shiftId == "")) {
         result[await new DentistProcedureByDayOfWeekByShiftDAO()
                 .delete(_dentistProcedureByDayOfWeekByShift.id) ==
-            ""] = _dentistProcedureByDayOfWeekByShift.id;
+            ""] = "";
       } else {
         result[await new DentistProcedureByDayOfWeekByShiftDAO()
                 .update(_dentistProcedureByDayOfWeekByShift.id, datas) ==

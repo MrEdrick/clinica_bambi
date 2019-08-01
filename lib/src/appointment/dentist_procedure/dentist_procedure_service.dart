@@ -223,11 +223,13 @@ class DentistProcedureService {
   }
 
   Future<bool> save(String dentistId) async {
-    bool saved = true;
+    bool saved = false;
 
     if (_dentistProcedure == null) {
       return saved;
     }
+
+    saved = true;
 
     Map datas = {
       "dentistId": _dentistProcedure.dentistId,
@@ -238,7 +240,7 @@ class DentistProcedureService {
     Map<bool, String> result = new Map<bool, String>();
 
     if (_dentistProcedure.id != "") {
-      if ((_dentistProcedure.dentistId == "") &&
+      if ((_dentistProcedure.dentistId == "") ||
           (_dentistProcedure.procedureId == "")) {
         saved =
             await deleteDentistProcedureByDayOfWeekList(_dentistProcedure.id);
@@ -253,7 +255,7 @@ class DentistProcedureService {
             ""] = _dentistProcedure.id;
 
         saved = await saveDentistProcedureByDayOfWeekList(
-            result.values.first, dentistProcedure.procedureId);
+            _dentistProcedure.id, dentistProcedure.procedureId);
       }
     } else {
       if ((_dentistProcedure.dentistId != "") &&
