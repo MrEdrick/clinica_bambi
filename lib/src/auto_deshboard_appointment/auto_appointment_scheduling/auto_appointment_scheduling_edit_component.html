@@ -65,17 +65,17 @@
             </div>
             <div #procedureRequirementCheckboxComponent></div>
         </div>
+
+        <div class="button-save-container">
+            <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
+                GRAVAR AGENDAMENTO
+            </material-button>
+        </div>
     </div>
 
     <material-button class="button-close" (click)="onClose()">
         <material-icon icon="close"></material-icon>
     </material-button>
-
-    <div class="button-container">
-        <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
-            GRAVAR AGENDAMENTO
-        </material-button>
-    </div>
 </div>
 
 <modal [(visible)]="showNotSuccessfullySave">
