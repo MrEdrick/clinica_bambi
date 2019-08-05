@@ -127,6 +127,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   String listDaysOfWeekOfAppointment = "";
   String vacancyMessage = "Informe todos os dados para a consulta da vaga";
 
+  String saveButtonMessage = "GRAVAR AGENDAMENTO";
+
   @Input()
   ComponentRef componentRef;
 
@@ -327,7 +329,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onFindVacancy() async {
-    
     if ((!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
@@ -354,16 +355,16 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   quantityPerShiftByDayOfWeek["shiftId"])) {
             int quantityScheduled = await appointmentSchedulingService
                 .returnQuantityAppointmentSchedulingByFilterFromDataBase({
+              "dateAppointmentScheduling": new DateFormat('yyyy-MM-dd')
+                  .format(dateAppointmentScheduling.asUtcTime()),
               "dentistId": dentistDropdownSelectComponentRef
                   .instance.singleSelectModelDentist.selectedValues.first.id,
-              "procedureId": procedureDropdownSelectComponentRef
-                  .instance.singleSelectModelProcedure.selectedValues.first.id,
+              //"procedureId": procedureDropdownSelectComponentRef
+              //    .instance.singleSelectModelProcedure.selectedValues.first.id,
               "shiftId": shiftDropdownSelectComponentRef
-                  .instance.singleSelectModelShift.selectedValues.first.id,
-              "dateAppointmentScheduling": dateAppointmentScheduling
+                  .instance.singleSelectModelShift.selectedValues.first.id
             });
-            print(quantityScheduled);
-            print(quantityPerShiftByDayOfWeek["quantity"]);
+
             if (quantityScheduled < quantityPerShiftByDayOfWeek["quantity"]) {
               disabledButtonSave = false;
               vacancyMessage = "Temos " +
@@ -463,7 +464,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       procedureRequirementCheckboxComponent.instance.requirement =
           requirementService.requirement.description;
       procedureRequirementCheckboxComponent.instance.checkedColor = "#DB3813";
-      procedureRequirementCheckboxComponent.instance.loadCheckedById  = false;
+      procedureRequirementCheckboxComponent.instance.loadCheckedById = false;
       procedureRequirementCheckboxComponent.instance.checked = false;
 
       listComponentRefProcedureRequirement
@@ -529,6 +530,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
+    disabledButtonSave = true;
+    saveButtonMessage = "GRAVANDO...";
+
     if ((dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
         (procedureDropdownSelectComponentRef
@@ -542,6 +546,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                 .autoAppointmentScheduling.email.isEmpty)) ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
+
+      saveButtonMessage = "GRAVAR AGENDAMENTO";
+      disabledButtonSave = false;
       return;
     }
 
