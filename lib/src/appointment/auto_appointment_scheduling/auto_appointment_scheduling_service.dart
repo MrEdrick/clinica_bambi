@@ -27,6 +27,10 @@ class AutoAppointmentSchedulingService {
 
   final AppointmentSchedulingService appointmentSchedulingService =
       new AppointmentSchedulingService();
+  final DentistService dentistService = new DentistService();
+  final ProcedureService procedureService = new ProcedureService();
+  final AgreementService agreementService = new AgreementService();
+  final ShiftService shiftService = new ShiftService();
 
   AutoAppointmentScheduling get autoAppointmentScheduling =>
       _autoAppointmentScheduling;
@@ -235,10 +239,10 @@ class AutoAppointmentSchedulingService {
         '',
         '',
         '',
-        new Shift('', '', false),
-        new Dentist('', '', false),
-        new Agreement('', '', false),
-        new Procedure('', '', false));
+        shiftService.returnEmptyShift(),
+        dentistService.returnEmptyDentist(),
+        agreementService.returnEmptyAgreement(),
+        procedureService.returnEmptyProcedure());
   }
 
   Future<AutoAppointmentScheduling> turnMapInAutoAppointmentScheduling(

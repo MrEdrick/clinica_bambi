@@ -129,6 +129,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   String saveButtonMessage = "GRAVAR AGENDAMENTO";
 
+  String shiftObservation = "";
+
   @Input()
   ComponentRef componentRef;
 
@@ -428,7 +430,17 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  void onSelectShiftSelectDropdown() {
+  void onSelectShiftSelectDropdown() async {
+    if (!shiftDropdownSelectComponentRef
+        .instance.singleSelectModelShift.selectedValues.isEmpty) {
+      shiftObservation = (await shiftService.getShiftById(
+              shiftDropdownSelectComponentRef
+                  .instance.singleSelectModelShift.selectedValues.first.id))
+          .observation;
+    } else {
+      shiftObservation = "";
+    }
+    
     onFindVacancy();
     _changeDetectorRef.markForCheck();
   }
@@ -530,6 +542,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
+    if (disabledButtonSave) return;
+
     disabledButtonSave = true;
     saveButtonMessage = "GRAVANDO...";
 

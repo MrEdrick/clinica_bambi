@@ -197,6 +197,8 @@ class DentistEditComponent implements OnInit {
   }
 
   void onAssertsSave() {
+    if (disabled) return;
+
     disabled = true;
     if ((dentistService.dentist.name == "")) {
       showAssertMessageSave = true;
