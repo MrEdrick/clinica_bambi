@@ -58,8 +58,8 @@
             <label id="telephone">{{autoAppointmentScheduling?.telephone}}</label>
         </div>
     </div>
-    <material-button clear-size id="delete" (click)="onDelete">
-        <material-icon icon="delete_forever"></material-icon> REMOVER AGENDAMENTO
+    <material-button clear-size id="bt-delete" (click)="onDelete">
+        DESMARCAR CONSULTA
     </material-button>
 </div>
 <div #containerEditAutoAppointmentScheduling></div>
@@ -80,6 +80,18 @@
                 Não desejo
             </material-button>
         </div>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showNotSuccessfullyDelete">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullyDelete"
+        (dismiss)="onDismissNotSuccessfullyDelete">
+
+        <div header>
+            <h1>Opps...</h1>
+        </div>
+
+        <p>A consulta foi não foi desmarcada, houve algum problema</p>
 
     </material-dialog>
 </modal>

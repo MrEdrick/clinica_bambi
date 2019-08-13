@@ -11,6 +11,8 @@ import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
+import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration.dart';
+import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
 import '../../appointment/generic/generic_service.dart';
 
 class AutoAppointmentSchedulingService {
@@ -27,6 +29,9 @@ class AutoAppointmentSchedulingService {
   final ProcedureService procedureService = new ProcedureService();
   final AgreementService agreementService = new AgreementService();
   final ShiftService shiftService = new ShiftService();
+  final AutoAppointmentSchedulingConfigurationService
+      autoAppointmentSchedulingConfigurationService =
+      new AutoAppointmentSchedulingConfigurationService();
 
   AutoAppointmentScheduling get autoAppointmentScheduling =>
       _autoAppointmentScheduling;
@@ -330,26 +335,44 @@ class AutoAppointmentSchedulingService {
     return saved;
   }
 
+  Future<String> deleteValidation(
+      AutoAppointmentScheduling autoAppointmentScheduling) async {
+    String validationMessage = "";
+
+    AutoAppointmentSchedulingConfiguration
+        autoAppointmentSchedulingConfiguration =
+        await autoAppointmentSchedulingConfigurationService
+            .getAllConfiguration();
+
+    //if (autoAppointmentSchedulingConfiguration.hourLimitToClientRemoveAutoAppointmentScheduling) {
+
+    //} else {
+    //  validationMessage = "";
+   // }
+
+    return validationMessage;
+  }
+
   Future<bool> delete(String autoAppointmentSchedulingId) async {
     bool result = true;
-
+    print("t0");
     String appointmentSchedulingId = (await appointmentSchedulingService
             .getAppointmentSchedulingByAutoAppointmentSchedulingId(
                 autoAppointmentSchedulingId))
         .id;
-
+    print("t1");
     if (!appointmentSchedulingId.isEmpty) {
       result =
           (await new AppointmentSchedulingDAO().delete(appointmentSchedulingId))
               .isEmpty;
     }
-
+    print("t2");
     if (result) {
       result = (await new AutoAppointmentSchedulingDAO()
               .delete(autoAppointmentSchedulingId))
           .isEmpty;
     }
-
+    print("t3");
     return result;
   }
 }

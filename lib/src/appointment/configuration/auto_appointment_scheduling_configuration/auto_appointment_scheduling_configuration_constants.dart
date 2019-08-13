@@ -1,0 +1,3 @@
+final AUTO_APPOINTMENT_SCHEDULING_CONFIGURARION_COLLECTION = 'autoAppointmentSchedulingConfiguration';
+
+final HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD = 'hourLimitToClientRemoveAutoAppointmentScheduling';

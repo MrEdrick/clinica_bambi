@@ -2,6 +2,9 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
+import 'package:angular_components/material_input/material_input.dart';
+import 'package:angular_components/material_dialog/material_dialog.dart';
 
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
@@ -22,6 +25,9 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
       AutoFocusDirective,
       materialInputDirectives,
       ModalComponent,
+      MaterialIconComponent,
+      MaterialButtonComponent,
+      MaterialDialogComponent,
     ])
 class AutoAppointmentSchedulingCardComponent implements OnInit {
   final ComponentLoader _loader;
@@ -31,6 +37,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   AutoAppointmentScheduling autoAppointmentScheduling;
 
   bool showDeteleCertification = false;
+  bool showNotSuccessfullyDelete = false;
 
   @Input()
   String autoAppointmentSchedulingId;
@@ -66,14 +73,21 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
     showDeteleCertification = true;
   }
 
-  void deleteAppointmentScheduling() {
-    autoAppointmentSchedulingService.delete(autoAppointmentSchedulingId);   
+  void deleteAppointmentScheduling() async {
     showDeteleCertification = false;
-    componentRef.destroy();
+
+    if (await autoAppointmentSchedulingService.delete(autoAppointmentSchedulingId)) {
+      componentRef.destroy();
+    } else {
+      showNotSuccessfullyDelete = true;
+    }   
   }
 
   void noDeleteAppointmentScheduling() {
     showDeteleCertification = false;
   }
 
+  void onDismissNotSuccessfullyDelete() {
+    showNotSuccessfullyDelete = false;
+  }
 }

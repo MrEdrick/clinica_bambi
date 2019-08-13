@@ -50,17 +50,12 @@ label {
   display: block;
 }
 
-#delete {
-  width: 40px;
-  height: 40px;
-  font-size: 1;
-  background-color: #fff !important;
-  color: #00B0FF;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+#bt-delete {
+  position: relative;
+  background-color: rgba(#616161, 0.12);
+  color: #616161;
+  font-size: 2vh; 
+  @include shadow-elevation(4);
+  font-size: 1.7vh;
+  font-weight: 600;
 }
-
-::ng-deep #delete > * {
-  padding: 8px !important;
-}  

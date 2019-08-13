@@ -173,7 +173,11 @@ class AppointmentSchedulingService {
                 {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}))
         .first;
 
-    return await turnMapInAppointmentScheduling(doc);
+    if (doc.isEmpty) {
+      return returnEmptyAppointmentShceduling();
+    } else {
+      return await turnMapInAppointmentScheduling(doc);
+    }
   }
 
   Future<AppointmentScheduling> getAppointmentSchedulingByFilterFromDB(
