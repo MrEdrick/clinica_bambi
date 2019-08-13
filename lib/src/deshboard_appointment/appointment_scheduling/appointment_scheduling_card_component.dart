@@ -74,13 +74,13 @@ class AppointmentSchedulingCardComponent implements OnInit {
     showDeteleCertification = true;
   }
 
-  void deleteConsulta() {
+  void deleteAppointmentScheduling() {
     new AppointmentSchedulingDAO().delete(appointmentSchedulingId);   
     showDeteleCertification = false;
     componentRef.destroy();
   }
 
-  void noDeleteConsulta() {
+  void noDeleteAppointmentScheduling() {
     showDeteleCertification = false;
   }
 }

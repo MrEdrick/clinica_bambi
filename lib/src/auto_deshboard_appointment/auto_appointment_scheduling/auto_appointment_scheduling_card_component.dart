@@ -30,6 +30,8 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
       new AutoAppointmentSchedulingService();
   AutoAppointmentScheduling autoAppointmentScheduling;
 
+  bool showDeteleCertification = false;
+
   @Input()
   String autoAppointmentSchedulingId;
 
@@ -59,4 +61,19 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
     ComponentRef autoAppointmentSchedulingEditComponent = _loader.loadNextToLocation(autoAppointmentSchedulingEdit, materialContainerEdit);
     autoAppointmentSchedulingEditComponent.instance.componentRef = autoAppointmentSchedulingEditComponent;
   }
+
+  void onDelete() {
+    showDeteleCertification = true;
+  }
+
+  void deleteAppointmentScheduling() {
+    autoAppointmentSchedulingService.delete(autoAppointmentSchedulingId);   
+    showDeteleCertification = false;
+    componentRef.destroy();
+  }
+
+  void noDeleteAppointmentScheduling() {
+    showDeteleCertification = false;
+  }
+
 }

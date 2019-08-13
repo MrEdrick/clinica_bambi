@@ -1,9 +1,4 @@
 import 'dart:async';
-import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
-import '../../appointment/dentist/dentist.dart';
-import '../../appointment/procedure/procedure.dart';
-import '../../appointment/shift/shift.dart';
-import '../../appointment/agreement/agreement.dart';
 
 import 'auto_appointment_scheduling.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +10,7 @@ import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
 import '../../appointment/generic/generic_service.dart';
 
 class AutoAppointmentSchedulingService {
@@ -332,5 +328,28 @@ class AutoAppointmentSchedulingService {
     }
 
     return saved;
+  }
+
+  Future<bool> delete(String autoAppointmentSchedulingId) async {
+    bool result = true;
+
+    String appointmentSchedulingId = (await appointmentSchedulingService
+            .getAppointmentSchedulingByAutoAppointmentSchedulingId(
+                autoAppointmentSchedulingId))
+        .id;
+
+    if (!appointmentSchedulingId.isEmpty) {
+      result =
+          (await new AppointmentSchedulingDAO().delete(appointmentSchedulingId))
+              .isEmpty;
+    }
+
+    if (result) {
+      result = (await new AutoAppointmentSchedulingDAO()
+              .delete(autoAppointmentSchedulingId))
+          .isEmpty;
+    }
+
+    return result;
   }
 }

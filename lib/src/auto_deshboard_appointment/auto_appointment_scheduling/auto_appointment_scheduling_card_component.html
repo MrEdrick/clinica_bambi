@@ -58,5 +58,28 @@
             <label id="telephone">{{autoAppointmentScheduling?.telephone}}</label>
         </div>
     </div>
+    <material-button clear-size id="delete" (click)="onDelete">
+        <material-icon icon="delete_forever"></material-icon> REMOVER AGENDAMENTO
+    </material-button>
 </div>
 <div #containerEditAutoAppointmentScheduling></div>
+<modal [(visible)]="showDeteleCertification">
+    <material-dialog info class="max-height-dialog">
+
+        <div header>
+            <h1>Stop... wait a minute!</h1>
+        </div>
+
+        <p>Tem certeza que deseja remover este agendamento?</p>
+
+        <div footer>
+            <material-button (trigger)="deleteAppointmentScheduling">
+                Tenho sim
+            </material-button>
+            <material-button (trigger)="noDeleteAppointmentScheduling">
+                Não desejo
+            </material-button>
+        </div>
+
+    </material-dialog>
+</modal>

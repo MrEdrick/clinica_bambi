@@ -4,12 +4,12 @@ import 'package:firebase/firestore.dart';
 
 class FireStoreApp {
   CollectionReference _ref;
+  WriteBatch _batch;
 
   FireStoreApp(String collection) {
     fb.firestore().enableNetwork();
     this._ref = fb.firestore().collection(collection);
   }
-
 
   FireStoreOnLine() {
     fb.firestore().enableNetwork();

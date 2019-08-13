@@ -164,8 +164,20 @@ class AppointmentSchedulingService {
   }
 
   Future<AppointmentScheduling>
-      getAppointmentSchedulingByFilterFromDB(
-          Map filter) async {
+      getAppointmentSchedulingByAutoAppointmentSchedulingId(
+          String autoAppointmentSchedulingId) async {
+    Map doc;
+
+    doc = (await new AppointmentSchedulingDAO()
+            .getAllAppointmentSchedulingFilter(
+                {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}))
+        .first;
+
+    return await turnMapInAppointmentScheduling(doc);
+  }
+
+  Future<AppointmentScheduling> getAppointmentSchedulingByFilterFromDB(
+      Map filter) async {
     Map doc;
 
     doc = (await new AppointmentSchedulingDAO()
@@ -224,7 +236,8 @@ class AppointmentSchedulingService {
             new GenericService().returnStringEmptyIfNull(map["dentistId"])),
         await new AgreementService().getAgreementById(
             new GenericService().returnStringEmptyIfNull(map["agreementId"])),
-        await new AutoAppointmentSchedulingService().returnEmptyAutoAppointmentScheduling()));
+        await new AutoAppointmentSchedulingService()
+            .returnEmptyAutoAppointmentScheduling()));
   }
 
   Future<bool> save() async {
