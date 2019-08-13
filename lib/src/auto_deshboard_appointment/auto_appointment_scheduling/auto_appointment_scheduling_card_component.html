@@ -58,7 +58,7 @@
             <label id="telephone">{{autoAppointmentScheduling?.telephone}}</label>
         </div>
     </div>
-    <material-button clear-size id="bt-delete" (click)="onDelete">
+    <material-button *ngIf="notPassedOn" clear-size id="bt-delete" (click)="onDelete">
         DESMARCAR CONSULTA
     </material-button>
 </div>

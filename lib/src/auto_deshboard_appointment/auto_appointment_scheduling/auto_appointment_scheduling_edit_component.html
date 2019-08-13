@@ -32,7 +32,7 @@
         </div>
 
         <div id="date-select">
-            <material-datepicker [(date)]="dateAppointmentScheduling" (click)="onDataClick()" [required]="true">
+            <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" (click)="onDataClick()" [required]="true">
             </material-datepicker>
         </div>
 

@@ -112,6 +112,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
   Date dateAppointmentScheduling = new Date.today();
+  Date minDate = new Date.today();
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;

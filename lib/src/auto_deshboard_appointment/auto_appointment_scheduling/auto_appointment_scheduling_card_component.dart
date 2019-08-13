@@ -5,6 +5,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
+import 'package:intl/intl.dart';
 
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
@@ -38,6 +39,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
 
   bool showDeteleCertification = false;
   bool showNotSuccessfullyDelete = false;
+  bool notPassedOn = true;
 
   @Input()
   String autoAppointmentSchedulingId;
@@ -48,25 +50,35 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   @ViewChild('containerEditAutoAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerEdit;
 
-  AutoAppointmentSchedulingCardComponent(
-      this._loader, this._changeDetectorRef);
+  AutoAppointmentSchedulingCardComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     Map map = autoAppointmentSchedulingService
         .getAutoAppointmentSchedulingByIdFromList(autoAppointmentSchedulingId);
-    
-    autoAppointmentScheduling = await autoAppointmentSchedulingService.turnMapInAutoAppointmentScheduling(map);
-    
+
+    autoAppointmentScheduling = await autoAppointmentSchedulingService
+        .turnMapInAutoAppointmentScheduling(map);
+
+    notPassedOn = ((new Date.today()) <
+        (new Date.parse(autoAppointmentScheduling.dateAppointmentScheduling,
+            new DateFormat("yyyy-MM-dd"))));
     _changeDetectorRef.markForCheck();
   }
 
   void onEdit() {
-    autoAppointmentSchedulingService.autoAppointmentScheduling = autoAppointmentScheduling;
-    ComponentFactory<auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponent>
-        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit.AutoAppointmentSchedulingEditComponentNgFactory;
+    autoAppointmentSchedulingService.autoAppointmentScheduling =
+        autoAppointmentScheduling;
+    ComponentFactory<
+            auto_appointment_scheduling_edit
+                .AutoAppointmentSchedulingEditComponent>
+        autoAppointmentSchedulingEdit = auto_appointment_scheduling_edit
+            .AutoAppointmentSchedulingEditComponentNgFactory;
 
-    ComponentRef autoAppointmentSchedulingEditComponent = _loader.loadNextToLocation(autoAppointmentSchedulingEdit, materialContainerEdit);
-    autoAppointmentSchedulingEditComponent.instance.componentRef = autoAppointmentSchedulingEditComponent;
+    ComponentRef autoAppointmentSchedulingEditComponent =
+        _loader.loadNextToLocation(
+            autoAppointmentSchedulingEdit, materialContainerEdit);
+    autoAppointmentSchedulingEditComponent.instance.componentRef =
+        autoAppointmentSchedulingEditComponent;
   }
 
   void onDelete() {
@@ -76,11 +88,12 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   void deleteAppointmentScheduling() async {
     showDeteleCertification = false;
 
-    if (await autoAppointmentSchedulingService.delete(autoAppointmentSchedulingId)) {
+    if (await autoAppointmentSchedulingService
+        .delete(autoAppointmentSchedulingId)) {
       componentRef.destroy();
     } else {
       showNotSuccessfullyDelete = true;
-    }   
+    }
   }
 
   void noDeleteAppointmentScheduling() {

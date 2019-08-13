@@ -355,24 +355,24 @@ class AutoAppointmentSchedulingService {
 
   Future<bool> delete(String autoAppointmentSchedulingId) async {
     bool result = true;
-    print("t0");
+
     String appointmentSchedulingId = (await appointmentSchedulingService
             .getAppointmentSchedulingByAutoAppointmentSchedulingId(
                 autoAppointmentSchedulingId))
         .id;
-    print("t1");
+
     if (!appointmentSchedulingId.isEmpty) {
       result =
           (await new AppointmentSchedulingDAO().delete(appointmentSchedulingId))
               .isEmpty;
     }
-    print("t2");
+
     if (result) {
       result = (await new AutoAppointmentSchedulingDAO()
               .delete(autoAppointmentSchedulingId))
           .isEmpty;
     }
-    print("t3");
+
     return result;
   }
 }
