@@ -59,7 +59,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
     autoAppointmentScheduling = await autoAppointmentSchedulingService
         .turnMapInAutoAppointmentScheduling(map);
 
-    notPassedOn = ((new Date.today()) <
+    notPassedOn = ((new Date.today()) <=
         (new Date.parse(autoAppointmentScheduling.dateAppointmentScheduling,
             new DateFormat("yyyy-MM-dd"))));
     _changeDetectorRef.markForCheck();

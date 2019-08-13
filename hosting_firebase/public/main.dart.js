@@ -17020,7 +17020,7 @@ return P.i(s.c.f5($.J9().i(0,q)),$async$w)
 case 2:s.d=b
 q=Q.bZ(null)
 r=s.d.y
-s.r=C.h.aX(q.a.a,Q.hS(T.by("yyyy-MM-dd",null).h5(r,!1,!1)).a.a)<0
+s.r=C.h.aX(q.a.a,Q.hS(T.by("yyyy-MM-dd",null).h5(r,!1,!1)).a.a)<=0
 s.b.a.a3()
 return P.q(null,t)}})
 return P.r($async$w,t)},
