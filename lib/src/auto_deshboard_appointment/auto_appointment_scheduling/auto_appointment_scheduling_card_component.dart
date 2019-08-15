@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -112,10 +113,12 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
 
     if (await autoAppointmentSchedulingService
         .delete(autoAppointmentSchedulingId)) {
-      componentRef.destroy();
+      await querySelector('#bt-refresh').click();
     } else {
       showNotSuccessfullyDelete = true;
     }
+
+    _changeDetectorRef.markForCheck();
   }
 
   void noDeleteAppointmentScheduling() {

@@ -145,7 +145,14 @@ material-dropdown-select {
   color: #616161;
 }
 
-#bt-limpar {
+#bt-clear {
+  position: relative;
+  margin-top: 0.50%;
+  font-weight: 500;
+  color: #616161;
+}
+
+#bt-refresh {
   position: relative;
   margin-top: 0.50%;
   font-weight: 500;

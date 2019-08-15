@@ -143,7 +143,11 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     await dentistService.getAllDentistAcives();
     await shiftService.getAllShiftAcives();
     await agreementService.getAllAgreementAcives();
+    await onStart();
+  }
 
+  void onStart() async {
+    print("teste");
     clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<

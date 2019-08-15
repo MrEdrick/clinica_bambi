@@ -602,6 +602,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     if (await autoAppointmentSchedulingService.save()) {
       showSuccessfullySave = true;
+      await querySelector('#bt-refresh').click();
     } else {
       showNotSuccessfullySave = true;
     }
