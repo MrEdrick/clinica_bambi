@@ -95,3 +95,15 @@
 
     </material-dialog>
 </modal>
+<modal [(visible)]="showCannotDeleteLimitHour">
+    <material-dialog info class="info-dialog" [autoDismissable]="showCannotDeleteLimitHour"
+        (dismiss)="onDismissCannotDeleteLimitHour">
+
+        <div header>
+            <h1>Infelizmente não é mais possível :( </h1>
+        </div>
+
+        <p>Já passou do horário limite para desmarcar. Entra em contato com a clínica para desmarcar, por favor.</p>
+
+    </material-dialog>
+</modal>

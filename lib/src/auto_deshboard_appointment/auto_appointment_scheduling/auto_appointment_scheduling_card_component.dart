@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
+import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
 
 import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_scheduling/auto_appointment_scheduling_edit_component.template.dart'
     as auto_appointment_scheduling_edit;
@@ -36,9 +37,13 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   final AutoAppointmentSchedulingService autoAppointmentSchedulingService =
       new AutoAppointmentSchedulingService();
   AutoAppointmentScheduling autoAppointmentScheduling;
+  final AutoAppointmentSchedulingConfigurationService
+      autoAppointmentSchedulingConfigurationService =
+      new AutoAppointmentSchedulingConfigurationService();
 
   bool showDeteleCertification = false;
   bool showNotSuccessfullyDelete = false;
+  bool showCannotDeleteLimitHour = false;
   bool notPassedOn = true;
 
   @Input()
@@ -88,6 +93,23 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   void deleteAppointmentScheduling() async {
     showDeteleCertification = false;
 
+    Date dateAppointmentScheduling = (new Date.parse(
+        autoAppointmentScheduling.dateAppointmentScheduling,
+        new DateFormat("yyyy-MM-dd")));
+
+    if ((new DateTime.now()).isAfter(DateTime(
+            dateAppointmentScheduling.year,
+            dateAppointmentScheduling.month,
+            dateAppointmentScheduling.day,
+            autoAppointmentScheduling.shift.startTime)
+        .add(new Duration(
+            hours: (await autoAppointmentSchedulingConfigurationService
+                    .getAllConfiguration())
+                .hourLimitToClientRemoveAutoAppointmentScheduling)))) {
+      showCannotDeleteLimitHour = true;
+      return;
+    }
+
     if (await autoAppointmentSchedulingService
         .delete(autoAppointmentSchedulingId)) {
       componentRef.destroy();
@@ -102,5 +124,9 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
 
   void onDismissNotSuccessfullyDelete() {
     showNotSuccessfullyDelete = false;
+  }
+
+  void onDismissCannotDeleteLimitHour() {
+    showCannotDeleteLimitHour = false;
   }
 }

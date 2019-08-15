@@ -59,7 +59,7 @@ class ShiftService {
 
   Future<Shift> getShiftById(String id) async {
     Map doc;
-    
+
     if (id.isEmpty) {
       return returnEmptyShift();
     }
@@ -124,12 +124,12 @@ class ShiftService {
     return _shiftListWithFilter;
   }
 
-
   Shift returnEmptyShift() {
-    return new Shift("", "", "", false);
+    return new Shift("", "", "", 0, false);
   }
 
   Shift turnMapInShift(Map map) {
-    return new Shift(map["documentPath"], map["description"], map["observation"], map["state"]);
+    return new Shift(map["documentPath"], map["description"],
+        map["observation"], int.parse(map["startTime"]), map["state"]);
   }
 }

@@ -166,17 +166,16 @@ class AppointmentSchedulingService {
   Future<AppointmentScheduling>
       getAppointmentSchedulingByAutoAppointmentSchedulingId(
           String autoAppointmentSchedulingId) async {
-    Map doc;
+    List<Map> list;
 
-    doc = (await new AppointmentSchedulingDAO()
+    list = (await new AppointmentSchedulingDAO()
             .getAllAppointmentSchedulingFilter(
-                {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}))
-        .first;
+                {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}));
 
-    if (doc.isEmpty) {
+    if (list.length == 0) {
       return returnEmptyAppointmentShceduling();
     } else {
-      return await turnMapInAppointmentScheduling(doc);
+      return await turnMapInAppointmentScheduling(list.first);
     }
   }
 

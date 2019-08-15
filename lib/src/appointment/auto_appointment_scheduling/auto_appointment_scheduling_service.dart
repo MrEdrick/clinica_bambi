@@ -335,24 +335,6 @@ class AutoAppointmentSchedulingService {
     return saved;
   }
 
-  Future<String> deleteValidation(
-      AutoAppointmentScheduling autoAppointmentScheduling) async {
-    String validationMessage = "";
-
-    AutoAppointmentSchedulingConfiguration
-        autoAppointmentSchedulingConfiguration =
-        await autoAppointmentSchedulingConfigurationService
-            .getAllConfiguration();
-
-    //if (autoAppointmentSchedulingConfiguration.hourLimitToClientRemoveAutoAppointmentScheduling) {
-
-    //} else {
-    //  validationMessage = "";
-   // }
-
-    return validationMessage;
-  }
-
   Future<bool> delete(String autoAppointmentSchedulingId) async {
     bool result = true;
 
@@ -366,7 +348,7 @@ class AutoAppointmentSchedulingService {
           (await new AppointmentSchedulingDAO().delete(appointmentSchedulingId))
               .isEmpty;
     }
-
+    
     if (result) {
       result = (await new AutoAppointmentSchedulingDAO()
               .delete(autoAppointmentSchedulingId))

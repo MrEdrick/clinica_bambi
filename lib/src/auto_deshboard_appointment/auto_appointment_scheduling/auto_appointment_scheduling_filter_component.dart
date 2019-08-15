@@ -243,6 +243,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
       });
 
       listDate.sort();
+      listDate = listDate.reversed;
     }
     return listDate;
   }
