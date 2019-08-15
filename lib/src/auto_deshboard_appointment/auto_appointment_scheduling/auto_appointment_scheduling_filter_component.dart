@@ -225,7 +225,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
       await autoAppointmentSchedulingService
           .getAllAutoAppointmentSchedulingByPatientAccountIdDate(
               patientAccountService.patientAccount.id);
-    
+
       autoAppointmentSchedulingService
           .autoAppointmentSchedulingByPatientAccountId.values
           .forEach((listAutoAppointmentScheduling) {
@@ -258,12 +258,11 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     await listDate.forEach((date) async {
       int total = 0;
       var total_aux;
-      
+
       autoAppointmentSchedulingService
           .getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
               patientAccountService.patientAccount.id, date)
           .then((onValue) {
-        
         total_aux = (autoAppointmentSchedulingService
                 .getAutoAppointmentSchedulingWithFilterFromList(
                     patientAccountService.patientAccount.id, date, {
@@ -272,7 +271,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
           "patient": patientName
         }))
             ?.length;
-            
+
         total += total_aux == null ? 0 : total_aux;
 
         if (listDate.last == date) {

@@ -326,12 +326,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void onDataClick() {
-    onFindVacancy();
-    _changeDetectorRef.markForCheck();
-  }
-
-  void onFindVacancy() async {
+  void onVacancySearch() async {
     if ((!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
@@ -386,7 +381,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         disabledButtonSave = true;
         vacancyMessage = "Infelizmente não temos vagas para este dia.";
       }
+    } else {
+      disabledButtonSave = true;
+      vacancyMessage = "Preencha todos os campos";
     }
+    _changeDetectorRef.markForCheck();
   }
 
   void onSelectDentistSelectDropdown() async {
@@ -426,9 +425,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         }
       });
     }
-
-    onFindVacancy();
-    _changeDetectorRef.markForCheck();
   }
 
   void onSelectShiftSelectDropdown() async {
@@ -441,9 +437,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     } else {
       shiftObservation = "";
     }
-    
-    onFindVacancy();
-    _changeDetectorRef.markForCheck();
   }
 
   void toListRequirementList(String procedureId) async {

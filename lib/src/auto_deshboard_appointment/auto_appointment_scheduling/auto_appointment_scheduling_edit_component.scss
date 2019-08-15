@@ -10,12 +10,6 @@
   padding: 0%;
   background: rgba(#000000, 0.3);
   z-index: 999;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-:host::-webkit-scrollbar {
-  display: none;
 }
 
 .container-add-auto-appointment-scheduling {
@@ -29,6 +23,13 @@
   align-content: flex-start;
   padding: 1%;
   transition: all 0.5s linear;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  
+}
+
+.container-add-auto-appointment-scheduling::-webkit-scrollbar {
+  display: none;
 }
 
 .container-register {
@@ -209,6 +210,26 @@ material-input {
   @include shadow-elevation(8);
 }
 
+.button-search-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.button-search {
+  @include shadow-elevation(2);
+  background-color: #ffffff;
+  color: #616161 !important;
+  position: relative;
+  float: left;  
+  transition: all 0.5s linear;
+}
+
+.button-search:hover {
+  @include shadow-elevation(8);
+}
+
 material-dialog {
   border-radius: 5px;
 }
@@ -221,10 +242,10 @@ material-dialog {
 
   .container-add-auto-appointment-scheduling {
     position: relative;
-    top: 78px;
+    top: 60px;
     margin-left: 29%;
     width: 42%;
-    height: 85%;
+    height: 87%;
     background-color: rgba(#ffffff, 1);
     border-radius: 5px;
     display: flex;
