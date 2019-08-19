@@ -3,82 +3,84 @@
         <div class="title">
             Agendamento
         </div>
+        <div id="container-search-datas">
+            <div class="sub-title">
+                Paciente: {{patientAccountService.patientAccount.name}}
+            </div>
+            <material-input class="edit-input" id="email" label="E-mail..."
+                [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.email"
+                (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.email = $event">
+            </material-input>
+            <material-input class="edit-input" id="telephone" label="Tel..." [ngModel]="telephoneMask.number"
+                (inputKeyPress)="telephoneMask.number = $event">
+            </material-input>
 
-        <div class="sub-title">
-            Paciente: {{patientAccountService.patientAccount.name}}
-        </div>
-        <material-input class="edit-input" id="email" label="E-mail..."
-            [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.email"
-            (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.email = $event">
-        </material-input>
-        <material-input class="edit-input" id="telephone" label="Tel..." [ngModel]="telephoneMask.number"
-            (inputKeyPress)="telephoneMask.number = $event">
-        </material-input>
+            <div id="agreement-select">
+                <div #agreementDropdownSelect></div>
+            </div>
 
-        <div id="agreement-select">
-            <div #agreementDropdownSelect></div>
-        </div>
+            <div class="sub-title">
+                Dados para consulta
+            </div>
 
-        <div class="sub-title">
-            Dados para consulta
-        </div>
+            <div id="procedure-select">
+                <div #procedureDropdownSelect></div>
+            </div>
 
-        <div id="procedure-select">
-            <div #procedureDropdownSelect></div>
-        </div>
+            <div id="dentist-select">
+                <div #dentistDropdownSelect></div>
+            </div>
 
-        <div id="dentist-select">
-            <div #dentistDropdownSelect></div>
-        </div>
+            <div id="date-select">
+                <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" [required]="true">
+                </material-datepicker>
+            </div>
 
-        <div id="date-select">
-            <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" [required]="true">
-            </material-datepicker>
-        </div>
+            <div id="shift-select">
+                <div #shiftDropdownSelect></div>
+                <div id="sub-title-shift-observation">
+                    {{shiftObservation}}
+                </div>
+            </div>
 
-        <div id="shift-select">
-            <div #shiftDropdownSelect></div>
-            <div id="sub-title-shift-observation">
-                {{shiftObservation}}
+            <div class="button-search-container">
+                <material-button raised class="button-search" (click)="onVacancySearch()">
+                    BUSCAR VAGAS
+                </material-button>
             </div>
         </div>
-
-        <div class="button-search-container">
-            <material-button raised class="button-search" (click)="onVacancySearch()">
-                BUSCAR VAGAS
-            </material-button>
-        </div>
-
-        <div class="sub-title-information" id="sub-title-vacancy">
-            {{vacancyMessage}}
-        </div>
-
-        <div class="sub-title">
-            Dias da semana de atendimento do dentista
-        </div>
-        <div id="container-days-of-week">
-            <div class="sub-title-information" id="sub-title-days-of-week">
-                Não foi selecionado o dentista
+        <div id="container-result-datas">
+            <div class="sub-title-information" id="sub-title-vacancy">
+                {{vacancyMessage}}
             </div>
-            <div>
-                {{listDaysOfWeekOfAppointment}}
-            </div>
-        </div>
 
-        <div class="sub-title">
-            Confirme os seguintes requisitos para a consulta
-        </div>
-        <div id="container-requirement-checkbox">
-            <div class="sub-title-information" id="sub-title-requirement">
-                Não existem requisitos para este procedimento
+            <div class="sub-title">
+                Dias da semana de atendimento do dentista
             </div>
-            <div #procedureRequirementCheckboxComponent></div>
-        </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-days-of-week">
+                    Não foi selecionado o dentista
+                </div>
+                <div>
+                    {{listDaysOfWeekOfAppointment}}
+                </div>
+            </div>
 
-        <div class="button-save-container">
-            <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
-                {{saveButtonMessage}}
-            </material-button>
+            <div class="sub-title">
+                Confirme os seguintes requisitos para a consulta
+            </div>
+            <div id="container-requirement-checkbox">
+                <div class="sub-title-information" id="sub-title-requirement">
+                    Não existem requisitos para este procedimento
+                </div>
+                <div #procedureRequirementCheckboxComponent></div>
+            </div>
+
+            <div class="button-save-container">
+                <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
+                    {{saveButtonMessage}}
+                </material-button>
+            </div>
         </div>
     </div>
 

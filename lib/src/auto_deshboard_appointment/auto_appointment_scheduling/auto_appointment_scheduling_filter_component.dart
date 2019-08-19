@@ -147,7 +147,6 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
   }
 
   void onStart() async {
-    print("teste");
     clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<
