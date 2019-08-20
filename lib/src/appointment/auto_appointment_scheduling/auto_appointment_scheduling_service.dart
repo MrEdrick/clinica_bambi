@@ -135,9 +135,10 @@ class AutoAppointmentSchedulingService {
     }
 
     _listDocumentSnapshot.clear();
+
     _autoAppointmentSchedulingByPatientAccountIdDate[patientAccountId +
             (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))]
-        .forEach((autoAppointmentSchedulingByPatientAccountIdDate) {
+        ?.forEach((autoAppointmentSchedulingByPatientAccountIdDate) {
       _listDocumentSnapshot
           .add(autoAppointmentSchedulingByPatientAccountIdDate);
     });

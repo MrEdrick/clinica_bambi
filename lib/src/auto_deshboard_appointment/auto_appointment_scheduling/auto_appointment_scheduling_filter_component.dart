@@ -148,6 +148,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
   void onStart() async {
     clearListComponentRef(listComponentRefDropdownSelect);
+    autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
 
     ComponentFactory<
         dentist_dropdown_select_list_component
@@ -213,6 +214,7 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
     if (toFilterDate) {
       initialDateFormated =
           new DateFormat('dd/MM/yyyy').format(initialDate.asUtcTime());
+
       finalDateFormated =
           new DateFormat('dd/MM/yyyy').format(finalDate.asUtcTime());
 
@@ -225,10 +227,11 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
       autoAppointmentSchedulingService.clearAllAutoAppointmentScheduling();
     } else {
+      
       await autoAppointmentSchedulingService
           .getAllAutoAppointmentSchedulingByPatientAccountIdDate(
               patientAccountService.patientAccount.id);
-
+      
       autoAppointmentSchedulingService
           .autoAppointmentSchedulingByPatientAccountId.values
           .forEach((listAutoAppointmentScheduling) {
@@ -260,22 +263,22 @@ class AutoAppointmentSchedulingFilterComponent implements OnInit {
 
     await listDate.forEach((date) async {
       int total = 0;
-      var total_aux;
-
+      List total_aux;
+ 
       autoAppointmentSchedulingService
           .getAllAutoAppointmentSchedulingByPatientAccountIdDateMap(
               patientAccountService.patientAccount.id, date)
           .then((onValue) {
+            
         total_aux = (autoAppointmentSchedulingService
                 .getAutoAppointmentSchedulingWithFilterFromList(
                     patientAccountService.patientAccount.id, date, {
           "dentistId": dentistId,
           "shiftId": shiftId,
           "patient": patientName
-        }))
-            ?.length;
+        }));
 
-        total += total_aux == null ? 0 : total_aux;
+        total += total_aux == null ? 0 : total_aux.length;
 
         if (listDate.last == date) {
           onLoad();
