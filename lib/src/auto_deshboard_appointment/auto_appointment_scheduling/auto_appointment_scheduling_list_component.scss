@@ -7,19 +7,13 @@
 }
 
 .list-day {
-  display: inline-block;
-  width: 100%;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  align-content: flex-start; 
-  margin-top: 4px;
+  display: block;
+  width: 100%; 
 }
 
 .total-result-by-day-auto-appointment-scheduling {
   display: inline-block;
   position: relative;
-  height: 22px;
   font-weight: 600;
   width: 100%;
   z-index: 1 !important;
@@ -42,3 +36,24 @@
   border-bottom: rgba(#00B0FF, 0.12) 2px dashed;
 }
 
+@media screen and (min-width: 769px) {
+  :host {
+    display: block;
+    position: relative;
+    width: auto;
+    float: left;
+    @include shadow-elevation(2);
+    margin-left: 1%;
+  }
+ 
+  .not-today {
+    border-top: none;
+    border-bottom: none;
+  }
+  
+  .today {
+    border-top: none;
+    border-bottom: none;
+  }
+  
+}
