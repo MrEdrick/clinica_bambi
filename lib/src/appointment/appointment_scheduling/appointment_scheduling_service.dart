@@ -169,8 +169,8 @@ class AppointmentSchedulingService {
     List<Map> list;
 
     list = (await new AppointmentSchedulingDAO()
-            .getAllAppointmentSchedulingFilter(
-                {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}));
+        .getAllAppointmentSchedulingFilter(
+            {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}));
 
     if (list.length == 0) {
       return returnEmptyAppointmentShceduling();
@@ -274,5 +274,11 @@ class AppointmentSchedulingService {
     }
 
     return saved;
+  }
+
+  Future<bool> delete(String appointmentSchedulingId) async {
+    return (await new AppointmentSchedulingDAO()
+            .delete(appointmentSchedulingId))
+        .isEmpty;
   }
 }

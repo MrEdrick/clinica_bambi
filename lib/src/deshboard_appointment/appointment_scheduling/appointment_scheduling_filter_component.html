@@ -43,8 +43,12 @@
                 (inputKeyPress)="patientName = $event"></material-input>
         </div>
 
-        <material-button id="bt-limpar" (trigger)="onClear()">
+        <material-button id="bt-clear" (trigger)="onClear()">
             Limpar
+        </material-button>
+
+        <material-button id="bt-refresh" (trigger)="onStart()">
+            Atualizar
         </material-button>
 
         <material-button id="bt-filter" (trigger)="onFilter()">

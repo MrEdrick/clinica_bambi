@@ -35,10 +35,12 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
 class AppointmentSchedulingCardComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  final AppointmentSchedulingService appointmentSchedulingService = new AppointmentSchedulingService();
+  final AppointmentSchedulingService appointmentSchedulingService =
+      new AppointmentSchedulingService();
   AppointmentScheduling appointmentScheduling;
 
   bool showDeteleCertification = false;
+  bool showNotSuccessfullyDelete = false;
 
   @Input()
   String appointmentSchedulingId;
@@ -49,38 +51,52 @@ class AppointmentSchedulingCardComponent implements OnInit {
   @ViewChild('containerEditAppointmentScheduling', read: ViewContainerRef)
   ViewContainerRef materialContainerEdit;
 
-  AppointmentSchedulingCardComponent(
-      this._loader, this._changeDetectorRef);
+  AppointmentSchedulingCardComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     Map map = appointmentSchedulingService
         .getAppointmentSchedulingByIdFromList(appointmentSchedulingId);
-        
-    appointmentScheduling = await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
+
+    appointmentScheduling =
+        await appointmentSchedulingService.turnMapInAppointmentScheduling(map);
 
     _changeDetectorRef.markForCheck();
   }
 
   void onEdit() {
     appointmentSchedulingService.appointmentScheduling = appointmentScheduling;
-    ComponentFactory<appointment_scheduling_edit.AppointmentSchedulingEditComponent>
-        appointmentSchedulingEdit = appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
+    ComponentFactory<
+            appointment_scheduling_edit.AppointmentSchedulingEditComponent>
+        appointmentSchedulingEdit =
+        appointment_scheduling_edit.AppointmentSchedulingEditComponentNgFactory;
 
-    ComponentRef appointmentSchedulingEditComponent = _loader.loadNextToLocation(appointmentSchedulingEdit, materialContainerEdit);
-    appointmentSchedulingEditComponent.instance.componentRef = appointmentSchedulingEditComponent;
+    ComponentRef appointmentSchedulingEditComponent = _loader
+        .loadNextToLocation(appointmentSchedulingEdit, materialContainerEdit);
+    appointmentSchedulingEditComponent.instance.componentRef =
+        appointmentSchedulingEditComponent;
   }
 
   void onDelete() {
     showDeteleCertification = true;
   }
 
-  void deleteAppointmentScheduling() {
-    new AppointmentSchedulingDAO().delete(appointmentSchedulingId);   
-    showDeteleCertification = false;
-    componentRef.destroy();
+  void deleteAppointmentScheduling() async {
+    if (await appointmentSchedulingService.delete(appointmentSchedulingId)) {
+      showDeteleCertification = false;
+      componentRef.destroy();
+      await querySelector('#bt-refresh').click();
+    } else {
+      showNotSuccessfullyDelete = true;
+    }
+
+    _changeDetectorRef.markForCheck();
   }
 
   void noDeleteAppointmentScheduling() {
     showDeteleCertification = false;
+  }
+
+  void onDismissNotSuccessfullyDelete() {
+    showNotSuccessfullyDelete = false;
   }
 }

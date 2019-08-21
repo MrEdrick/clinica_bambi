@@ -77,14 +77,8 @@ class AppointmentSchedulingFilterComponent implements OnInit {
   final DentistService dentistService = new DentistService();
   final ShiftService shiftService = new ShiftService();
 
-  AppointmentSchedulingService _appointmentSchedulingService =
+  final AppointmentSchedulingService appointmentSchedulingService =
       new AppointmentSchedulingService();
-
-  AppointmentSchedulingService get appointmentSchedulingService =>
-      _appointmentSchedulingService;
-  set appointmentSchedulingService(
-          AppointmentSchedulingService appointmentSchedulingService) =>
-      _appointmentSchedulingService = appointmentSchedulingService;
 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
@@ -135,7 +129,12 @@ class AppointmentSchedulingFilterComponent implements OnInit {
     await dentistService.getAllDentistAcives();
     await shiftService.getAllShiftAcives();
 
+    await onStart();
+  }
+
+  void onStart() async {
     clearListComponentRef(listComponentRefDropdownSelect);
+    appointmentSchedulingService.clearAllAppointmentSchedulingByDate();
 
     ComponentFactory<
         dentist_dropdown_select_list_component

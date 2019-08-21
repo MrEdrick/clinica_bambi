@@ -262,7 +262,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onDismissSuccessfullySave() {
     showSuccessfullySave = false;
-    querySelector("#bt-filter").click();
     onClose();
   }
 
@@ -324,6 +323,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
     if (await appointmentSchedulingService.save()) {
       showSuccessfullySave = true;
+      await querySelector('#bt-refresh').click();
     } else {
       showNotSuccessfullySave = true;
     }
