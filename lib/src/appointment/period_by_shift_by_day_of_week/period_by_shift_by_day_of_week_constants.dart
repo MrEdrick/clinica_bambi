@@ -1,0 +1,1 @@
+final PERIOD_BY_SHIFT_BY_DAY_OF_WEEK_COLLECTION = 'periodByShiftByDayOfWeek';

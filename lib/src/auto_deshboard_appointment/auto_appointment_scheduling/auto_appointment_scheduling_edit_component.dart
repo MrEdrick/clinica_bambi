@@ -34,6 +34,7 @@ import '../../appointment/agreement/agreementUI.dart';
 import '../../appointment/requirement/requirement_service.dart';
 import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
+import '../../appointment/period_by_shift_by_day_of_week/period_by_shift_by_day_of_week_service.dart';
 
 import '../../appointment/user/user_service.dart';
 
@@ -108,6 +109,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new DentistQuantityPerShiftByDayOfWeekService();
   final AppointmentSchedulingService appointmentSchedulingService =
       new AppointmentSchedulingService();
+  final PeriodByShiftByDayOfWeekService periodByShiftByDayOfWeekService =
+      new PeriodByShiftByDayOfWeekService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -242,6 +245,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await shiftService.getAllShiftAcives();
     await requirementService.getAllRequirementAcives();
     await procedureRequirementService.getAllProcedureRequirementAcives();
+    await periodByShiftByDayOfWeekService
+        .getAllPeriodByShiftByDayOfWeekAcives();
 
     clearListComponentRef(listComponentRefDropdownSelect);
 
@@ -430,10 +435,23 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void onSelectShiftSelectDropdown() async {
     if (!shiftDropdownSelectComponentRef
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
-      shiftObservation = (await shiftService.getShiftById(
-              shiftDropdownSelectComponentRef
-                  .instance.singleSelectModelShift.selectedValues.first.id))
-          .observation;
+      List<Map> list = periodByShiftByDayOfWeekService
+          .getPeriodByShiftByDayOfWeekListWithFilterFromList({
+        "shiftId": shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.first.id,
+        "dayOfWeek": DateFormat('EEEE')
+            .format(dateAppointmentScheduling.asUtcTime())
+            .toUpperCase()
+      });
+
+      if (list.length == 0) {
+        shiftObservation = (await shiftService.getShiftById(
+                shiftDropdownSelectComponentRef
+                    .instance.singleSelectModelShift.selectedValues.first.id))
+            .observation;
+      } else {
+        shiftObservation = periodByShiftByDayOfWeekService.turnMapInPeriodByShiftByDayOfWeek(list.first).description ;
+      }
     } else {
       shiftObservation = "";
     }
