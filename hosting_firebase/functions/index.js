@@ -5,7 +5,7 @@ const cors = require('cors')({origin: true});
 
 const name = 'Clinica Bambi';
 const email = 'clinicaodontologicabambi@gmail.com';
-const password = 'B706715**';
+const password = 'B715706**';
 
 admin.initializeApp();
 
