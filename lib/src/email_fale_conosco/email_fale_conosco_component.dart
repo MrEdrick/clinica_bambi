@@ -105,7 +105,7 @@ class EmailFaleConoscoComponent {
       new Email(CLINIC_EMAIL, 
                 CLINIC_EMAIL, subject + ' - De Nome: ' + name + ' Email: ' + email, message, 
                 null, null)
-    ).emailSenderAmazon();
+    ).emailSenderGmail();//.emailSenderAmazon();
 
     response = await emailSenderHTTP.sendEmail();
     if (response.statusCode == 200) {
@@ -114,7 +114,7 @@ class EmailFaleConoscoComponent {
                   email, subject, 
                   ' Olá, recebemos seu e-mail. Esta é apenas uma mensagem automática, por favor não responda.' + '\r\n' + message, 
                   null, null)
-      ).emailSenderAmazon();
+      ).emailSenderGmail();//emailSenderAmazon();
 
       response = await emailSenderHTTP.sendEmail();
     }
