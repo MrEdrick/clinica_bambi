@@ -49,16 +49,15 @@ exports.sendMail = functions.https.onRequest((req, res) => {
     });
 });
 
-exports.scheduledFunctionRemember = functions.pubsub.schedule('every day 08:00')
+exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
     .timeZone('America/Sao_Paulo') // Users can choose timezone - default is America/Los_Angeles
     .onRun((context) => {
         axios({
-            method: 'post',
-            url: '/user/12345',
+            method: 'POST',
+            //url: GMAIL_API_ENDPONT_SEND_EMAIL + '?' + 'dest=' + email.receiver + '&' + 'subject=' + email.subject,
+            url: GMAIL_API_ENDPONT_SEND_EMAIL + '?' + 'dest=edrickmanoel@nasajon.com.br'  + '&' + 'subject=TesteAgenda',
             data: {
-                firstName: 'Fred',
-                lastName: 'Flintstone'
+                message: 'Teste 123',
             }
         });
-        console.log('This will be run every day at 11:05 AM Eastern!');
     });
