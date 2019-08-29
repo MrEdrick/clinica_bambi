@@ -52,12 +52,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
     .timeZone('America/Sao_Paulo') // Users can choose timezone - default is America/Los_Angeles
     .onRun((context) => {
-        axios({
-            method: 'POST',
-            //url: GMAIL_API_ENDPONT_SEND_EMAIL + '?' + 'dest=' + email.receiver + '&' + 'subject=' + email.subject,
-            url: GMAIL_API_ENDPONT_SEND_EMAIL + '?' + 'dest=edrickmanoel@nasajon.com.br'  + '&' + 'subject=TesteAgenda',
-            data: {
-                message: 'Teste 123',
-            }
+        axios.post(GMAIL_API_ENDPONT_SEND_EMAIL + '?' + 'dest=edrickmanoel@nasajon.com.br' + '&' + 'subject=TesteAgenda', {
+            message: 'Fred',
         });
     });
