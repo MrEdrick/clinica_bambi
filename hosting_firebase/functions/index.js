@@ -67,7 +67,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
     .onRun((context) => {
         var db = admin.firestore();
 
-        db.collection(APPOINTMENT_SCHEDULING_COLLECTION).where(
+        return db.collection(APPOINTMENT_SCHEDULING_COLLECTION).where(
             APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
             new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
             .get()
