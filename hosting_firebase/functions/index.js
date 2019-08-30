@@ -81,7 +81,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
                     // doc.data() is never undefined for query doc snapshots
-                    sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Teste Scheduler', 'Teste Message');
+                    return sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Lembre de consulta marcada', 'Olá ' + doc.data().name);
                 });
                 return console.log("Sended");
             })
