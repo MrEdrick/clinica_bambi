@@ -71,7 +71,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
         //firebase.initializeApp(firebaseConfig);
         //var db = firebase.firestore();
 
-        admin.initializeApp(firebaseConfig);
+        //admin.initializeApp(firebaseConfig);
         var db = admin.firestore();
 
         db.collection(APPOINTMENT_SCHEDULING_COLLECTION).where(
