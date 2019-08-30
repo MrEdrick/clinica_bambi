@@ -1,6 +1,6 @@
 const firebase = require('firebase');
-const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 const cors = require('cors')({ origin: true });
 
@@ -68,8 +68,12 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
     .timeZone('America/Sao_Paulo') // Users can choose timezone - default is America/Los_Angeles
     .onRun((context) => {
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
+        //firebase.initializeApp(firebaseConfig);
+        //var db = firebase.firestore();
+
+        admin.initializeApp(firebaseConfig);
+        var db = admin.firestore();
+
         db.collection(APPOINTMENT_SCHEDULING_COLLECTION).where(
             APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
             new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
@@ -79,9 +83,9 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                     // doc.data() is never undefined for query doc snapshots
                     sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Teste Scheduler', 'Teste Message');
                 });
-                return console.log("Sended"); 
+                return console.log("Sended");
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 return console.log("Error getting documents: ", error);
             });
     });
