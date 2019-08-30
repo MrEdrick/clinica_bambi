@@ -73,7 +73,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    return sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Lembre de consulta marcada', 'Olá ' + doc.data());
+                    return sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Lembre de consulta marcada', 'Olá ' + doc.data().patient);
                 });
                 return console.log("Sended");
             })
