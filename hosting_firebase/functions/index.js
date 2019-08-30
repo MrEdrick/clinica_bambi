@@ -73,7 +73,25 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    return sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Lembre de consulta marcada', 'Olá ' + doc.data().patient);
+                    return sendEmail(
+                        NAME,
+                        EMAIL,
+                        'edrickmanoel@nasajon.com.br',
+                        'Lembre de consulta marcada',
+                        `<div 
+                            style=" font-family:Arial, Helvetica, sans-serif; 
+                            font-size: 22px; 
+                            font-weight: 600;
+                            color:#666666;">
+                           Olá, tudo certo?
+                        </div>
+                        <div 
+                            style=" font-family:Arial, Helvetica, sans-serif; 
+                            font-size: 16px; 
+                            font-weight: 600;
+                            color:#888888;">
+                            Gostariamos de lembrar que hoje nós temos uma consulta marcada.
+                       </div>`);
                 });
                 return console.log("Sended");
             })
