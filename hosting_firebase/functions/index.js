@@ -78,27 +78,21 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                         EMAIL,
                         'edrickmanoel@nasajon.com.br',
                         'Lembre de consulta marcada',
-                        `<html>
-                            <head>
-                            <meta charset="utf-8">
-                            </head>
-                            <body>
-                                <div 
-                                    style=" font-family:Arial, Helvetica, sans-serif; 
-                                    font-size: 22px; 
-                                    font-weight: 600;
-                                    color:#666666;">
-                                Olá, tudo certo?
-                                </div>
-                                <div 
-                                    style=" font-family:Arial, Helvetica, sans-serif; 
-                                    font-size: 16px; 
-                                    font-weight: 600;
-                                    color:#888888;">
-                                    Gostariamos de lembrar que hoje nós temos uma consulta marcada.
-                            </div>
-                        </body>
-                       </html>`);
+                        `<div 
+                            style=" font-family:Arial, Helvetica, sans-serif; 
+                            font-size: 22px; 
+                            font-weight: 600;
+                            color:#666666;">
+                           Ol&aacute;, tudo certo?
+                        </div>
+                        <div 
+                            style=" font-family:Arial, Helvetica, sans-serif; 
+                            font-size: 16px; 
+                            font-weight: 600;
+                            color:#888888;">
+                           <p>Gostariamos de lembrar que hoje n&oacute;s temos uma consulta marcada.</p>
+                           <p>Estamos no aguardo!</p>
+                        </div>`);
                 });
                 return console.log("Sended");
             })
