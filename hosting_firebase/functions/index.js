@@ -1,4 +1,4 @@
-const firebase = require('firebase');
+//const firebase = require('firebase');
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
@@ -7,16 +7,13 @@ const cors = require('cors')({ origin: true });
 const NAME = 'Clinica Bambi';
 const EMAIL = 'clinicaodontologicabambi@gmail.com';
 const PASSWORD = 'B715706**';
-const AMAZON_API_ENDPONT_SEND_EMAIL = 'https://mz8uki4o3l.execute-api.us-east-1.amazonaws.com/default/sendEmail';
-const GMAIL_API_ENDPONT_SEND_EMAIL = 'https://us-central1-bambi-210400.cloudfunctions.net/sendMail';
+//const AMAZON_API_ENDPONT_SEND_EMAIL = 'https://mz8uki4o3l.execute-api.us-east-1.amazonaws.com/default/sendEmail';
+//const GMAIL_API_ENDPONT_SEND_EMAIL = 'https://us-central1-bambi-210400.cloudfunctions.net/sendMail';
 const APPOINTMENT_SCHEDULING_COLLECTION = 'appointmentsScheduling';
 const APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD = 'dateAppointmentScheduling';
 
 admin.initializeApp();
 
-/**
-* Here we're using Gmail to send 
-*/
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -68,10 +65,6 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
     .timeZone('America/Sao_Paulo') // Users can choose timezone - default is America/Los_Angeles
     .onRun((context) => {
-        //firebase.initializeApp(firebaseConfig);
-        //var db = firebase.firestore();
-
-        //admin.initializeApp(firebaseConfig);
         var db = admin.firestore();
 
         db.collection(APPOINTMENT_SCHEDULING_COLLECTION).where(
@@ -80,8 +73,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             .get()
             .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    return sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Lembre de consulta marcada', 'Olá ' + doc.data().name);
+                    return sendEmail(NAME, EMAIL, 'edrickmanoel@nasajon.com.br', 'Lembre de consulta marcada', 'Olá ' + doc.data());
                 });
                 return console.log("Sended");
             })
