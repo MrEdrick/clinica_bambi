@@ -57,8 +57,23 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         const subject = req.query.subject;
         const html = JSON.parse(req.body).message;
 
+        const mailOptions = {
+            from: EMAIL + ' <' + NAME + '>',
+            to: dest,
+            subject: subject, // email subject
+            html: html// email content in HTML
+        };
+    
         // returning result
-        return sendEmail(NAME, EMAIL, dest, subject, html);
+        return transporter.sendMail(mailOptions, (erro, info) => {
+            if (erro) {
+                return res.send(erro.toString());
+            }
+            return res.send('Sended');
+        });
+    
+        // returning result
+        //return sendEmail(NAME, EMAIL, dest, subject, html);
     });
 });
 
