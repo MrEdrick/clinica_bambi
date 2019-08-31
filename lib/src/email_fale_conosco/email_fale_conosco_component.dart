@@ -36,7 +36,6 @@ import '../email/emailSenderHTTP.dart';
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-
 class EmailFaleConoscoComponent {
   final ChangeDetectorRef _changeDetectorRef;
 
@@ -52,17 +51,15 @@ class EmailFaleConoscoComponent {
   String message = '';
   String sendButtonMessage = "Enviar";
 
-  Response response;  
+  Response response;
   EmailSenderHTTP emailSenderHTTP;
 
   EmailFaleConoscoComponent(this._changeDetectorRef);
-
 
   void clickClose() {
     onDismissAssertMessage();
     querySelector('email-fale-conosco-app').style.display = 'none';
     querySelector('#wh-widget-send-button').style.display = 'block';
-
   }
 
   void onDismissAssertMessage() {
@@ -72,7 +69,9 @@ class EmailFaleConoscoComponent {
   }
 
   bool asserts() {
-    if ((name.isEmpty) || (email.isEmpty) || (subject.isEmpty) ||
+    if ((name.isEmpty) ||
+        (email.isEmpty) ||
+        (subject.isEmpty) ||
         (message.isEmpty)) {
       return false;
     }
@@ -101,20 +100,43 @@ class EmailFaleConoscoComponent {
     sendButtonMessage = "Enviando...";
     _changeDetectorRef.markForCheck();
 
-    emailSenderHTTP = await new EmailSenderService(
-      new Email(CLINIC_EMAIL, 
-                CLINIC_EMAIL, subject + ' - De Nome: ' + name + ' Email: ' + email, message, 
-                null, null)
-    ).emailSenderGmail();//.emailSenderAmazon();
+    emailSenderHTTP = await new EmailSenderService(new Email(
+            CLINIC_EMAIL,
+            CLINIC_EMAIL,
+            subject + ' - De Nome: ' + name + ' Email: ' + email,
+            message,
+            null,
+            null))
+        .emailSenderGmail(); //.emailSenderAmazon();
 
     response = await emailSenderHTTP.sendEmail();
     if (response.statusCode == 200) {
-      emailSenderHTTP = await new EmailSenderService(
-        new Email(CLINIC_EMAIL, 
-                  email, subject, 
-                  ' Olá, recebemos seu e-mail. Esta é apenas uma mensagem automática, por favor não responda.' + '\r\n' + message, 
-                  null, null)
-      ).emailSenderGmail();//emailSenderAmazon();
+      emailSenderHTTP = await new EmailSenderService(new Email(
+              CLINIC_EMAIL,
+              email,
+              subject,
+              '''
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 22px; 
+                    font-weight: 600;
+                    color:#666666;">
+                    Ol&aacute;, recebemos seu e-mail!
+                  </div>
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 16px; 
+                    font-weight: 600;
+                    color:#888888;">
+                    <p>Esta &eacute; apenas uma mensagem autom&aacute;tica, por favor n&atilde;o responda.</p>
+                    </p>
+                  </div>
+              ''' +
+              '\r\n' +
+              message,
+              null,
+              null))
+          .emailSenderGmail(); //emailSenderAmazon();
 
       response = await emailSenderHTTP.sendEmail();
     }

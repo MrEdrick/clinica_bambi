@@ -209,8 +209,25 @@ class CadastroLoginAutoAgendamentoComponent {
     if (buttonSaveDescription == BUTTON_SAVE_VERIFY_DESCRIPTION) {
       emailSenderHTTP = await new EmailSenderService(
         new Email(CLINIC_EMAIL, 
-                  email, 'Verificação de e-mail', 
-                  'Este é o código que você deve utilizar para a confirmação: ' + sha1.convert(utf8.encode(email)).toString(), 
+                  email, 
+                  'Verificação de e-mail',
+                  '''
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 22px; 
+                    font-weight: 600;
+                    color:#666666;">
+                    Seja bem vindo!
+                  </div>
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 16px; 
+                    font-weight: 600;
+                    color:#888888;">
+                    <p>Este &eacute; o c&oacute;digo que voc&ecirc; deve utilizar para a confirma&ccedil;&atilde;o: </p>
+                    <p color:#DB3813;">''' + sha1.convert(utf8.encode(email)).toString() + '''</p>
+                  </div>
+                  ''',
                   null, null)
       ).emailSenderAmazon();
 
