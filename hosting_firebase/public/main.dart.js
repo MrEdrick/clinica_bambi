@@ -27296,7 +27296,7 @@ case 4:p=r.ch=b
 u=p.b===200?5:6
 break
 case 5:u=7
-return P.i(new Q.fU(new T.fT("clinicaodontologicabambi@gmail.com",r.r,r.y,C.b.aP(" Ol\xe1, recebemos seu e-mail. Esta \xe9 apenas uma mensagem autom\xe1tica, por favor n\xe3o responda.\r\n",r.z))).kQ(),$async$cS)
+return P.i(new Q.fU(new T.fT("clinicaodontologicabambi@gmail.com",r.r,r.y,C.b.aP('                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Ol&aacute;, recebemos seu e-mail!\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Esta &eacute; apenas uma mensagem autom&aacute;tica, por favor n&atilde;o responda.</p>\n                    </p>\n                  </div>\n              \r\n',r.z))).kQ(),$async$cS)
 case 7:p=b
 r.cx=p
 u=8
@@ -28402,7 +28402,7 @@ u=r.dy==="VERIFICAR E-MAIL"?3:4
 break
 case 3:q=r.ch
 u=5
-return P.i(new Q.fU(new T.fT("clinicaodontologicabambi@gmail.com",q,"Verifica\xe7\xe3o de e-mail",C.b.aP("Este \xe9 o c\xf3digo que voc\xea deve utilizar para a confirma\xe7\xe3o: ",J.J($.l9().b2(C.L.gcn().b2(q)))))).ii(),$async$aI)
+return P.i(new Q.fU(new T.fT("clinicaodontologicabambi@gmail.com",q,"Verifica\xe7\xe3o de e-mail",C.b.aP('                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Seja bem vindo!\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Este &eacute; o c&oacute;digo que voc&ecirc; deve utilizar para a confirma&ccedil;&atilde;o: </p>\n                    <p color:#DB3813;">',J.J($.l9().b2(C.L.gcn().b2(q))))+"</p>\n                  </div>\n                  ")).ii(),$async$aI)
 case 5:q=b
 r.go=q
 u=6

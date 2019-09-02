@@ -43,9 +43,9 @@ function sendEmail(name, email, to, subject, html) {
     // returning result
     return transporter.sendMail(mailOptions, (erro, info) => {
         if (erro) {
-            return res.send(erro.toString());
+            return erro.toString();
         }
-        return res.send('Sended');
+        return '';
     });
 }
 
@@ -56,24 +56,9 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         const dest = req.query.dest;
         const subject = req.query.subject;
         const html = JSON.parse(req.body).message;
-
-        const mailOptions = {
-            from: EMAIL + ' <' + NAME + '>',
-            to: dest,
-            subject: subject, // email subject
-            html: html// email content in HTML
-        };
     
         // returning result
-        return transporter.sendMail(mailOptions, (erro, info) => {
-            if (erro) {
-                return res.send(erro.toString());
-            }
-            return res.send('Sended');
-        });
-    
-        // returning result
-        //return sendEmail(NAME, EMAIL, dest, subject, html);
+        return res.send(sendEmail(NAME, EMAIL, dest, subject, html));
     });
 });
 
