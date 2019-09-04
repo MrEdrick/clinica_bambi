@@ -659,19 +659,19 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   '''</p>
                   <p>Turno: ''' +
                   shiftDropdownSelectComponentRef.instance
-                      .singleSelectModelShift.selectedValues.first.description +
+                      .singleSelectModelShift.selectedValues.first.uiDisplayName +
                   '''</p>
                     <p>Dentista: ''' +
                   dentistDropdownSelectComponentRef.instance
-                      .singleSelectModelDentist.selectedValues.first.name +
+                      .singleSelectModelDentist.selectedValues.first.uiDisplayName +
                   '''</p>
                     <p>Procedimento: ''' +
                   procedureDropdownSelectComponentRef.instance
-                      .singleSelectModelProcedure.selectedValues.first.description +
+                      .singleSelectModelProcedure.selectedValues.first.uiDisplayName +
                   '''</p>
                     <p>Conv&ecirc;nio: ''' +
                   agreementDropdownSelectComponentRef.instance
-                      .singleSelectModelAgreement.selectedValues.first.description +
+                      .singleSelectModelAgreement.selectedValues.first.uiDisplayName +
                   '''</p>
                   </div>
               ''',
