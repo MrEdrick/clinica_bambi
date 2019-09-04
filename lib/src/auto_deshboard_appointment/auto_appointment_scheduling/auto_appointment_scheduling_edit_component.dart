@@ -38,6 +38,11 @@ import '../../appointment/period_by_shift_by_day_of_week/period_by_shift_by_day_
 
 import '../../appointment/user/user_service.dart';
 
+import '../../email/email.dart';
+import '../../email/email_constants.dart';
+import '../../email/emailSenderService.dart';
+import '../../email/emailSenderHTTP.dart';
+
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
@@ -88,6 +93,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   ComponentRef agreementDropdownSelectComponentRef;
   ComponentRef shiftDropdownSelectComponentRef;
   ComponentRef procedureRequirementCheckboxComponent;
+
+  EmailSenderHTTP emailSenderHTTP;
 
   final DentistService dentistService = new DentistService();
   final DentistProcedureService dentistProcedureService =
@@ -450,7 +457,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                     .instance.singleSelectModelShift.selectedValues.first.id))
             .observation;
       } else {
-        shiftObservation = periodByShiftByDayOfWeekService.turnMapInPeriodByShiftByDayOfWeek(list.first).description ;
+        shiftObservation = periodByShiftByDayOfWeekService
+            .turnMapInPeriodByShiftByDayOfWeek(list.first)
+            .description;
       }
     } else {
       shiftObservation = "";
@@ -540,17 +549,21 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     return true;
   }
 
-  void onDismissSuccessfullySave() {
+  void onDismissSuccessfullySave() async {
     showSuccessfullySave = false;
+    await querySelector('#bt-refresh').click();
     onClose();
+    _changeDetectorRef.markForCheck();
   }
 
   void onDismissNotSuccessfullySave() {
     showSuccessfullySave = false;
+    _changeDetectorRef.markForCheck();
   }
 
   void onDismissAssertMessage() {
     showAssertMessageSave = false;
+    _changeDetectorRef.markForCheck();
   }
 
   void onAssertsSave() {
@@ -619,8 +632,56 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.first.id;
 
     if (await autoAppointmentSchedulingService.save()) {
+      emailSenderHTTP = await new EmailSenderService(new Email(
+              CLINIC_EMAIL,
+              autoAppointmentSchedulingService.autoAppointmentScheduling.email,
+              "Consulta marcada na Clínica Odontológica Bambi",
+              '''
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 22px; 
+                    font-weight: 600;
+                    color:#666666;">
+                    Ol&aacute; ''' +
+                  patientAccountService.patientAccount.name +
+                  ''', sua consulta foi marcada!
+                  </div>
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 16px; 
+                    font-weight: 600;
+                    color:#888888;">
+                    <p>Esta &eacute; apenas uma mensagem autom&aacute;tica, por favor n&atilde;o responda.</p>
+                    </p>
+                    <p>Data da Consulta: ''' +
+                  new DateFormat('dd/MM/yyyy')
+                      .format(dateAppointmentScheduling.asUtcTime()) +
+                  '''</p>
+                  <p>Turno: ''' +
+                  shiftDropdownSelectComponentRef.instance
+                      .singleSelectModelShift.selectedValues.first.description +
+                  '''</p>
+                    <p>Dentista: ''' +
+                  dentistDropdownSelectComponentRef.instance
+                      .singleSelectModelDentist.selectedValues.first.name +
+                  '''</p>
+                    <p>Procedimento: ''' +
+                  procedureDropdownSelectComponentRef.instance
+                      .singleSelectModelProcedure.selectedValues.first.description +
+                  '''</p>
+                    <p>Conv&ecirc;nio: ''' +
+                  agreementDropdownSelectComponentRef.instance
+                      .singleSelectModelAgreement.selectedValues.first.description +
+                  '''</p>
+                  </div>
+              ''',
+              null,
+              null))
+          .emailSenderGmail(); //emailSenderAmazon();
+
+      emailSenderHTTP.sendEmail();
+
       showSuccessfullySave = true;
-      await querySelector('#bt-refresh').click();
     } else {
       showNotSuccessfullySave = true;
     }
