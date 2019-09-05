@@ -260,17 +260,20 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await procedureRequirementService.getAllProcedureRequirementAcives();
     await periodByShiftByDayOfWeekService
         .getAllPeriodByShiftByDayOfWeekAcives();
+    await autoAppointmentSchedulingConfigurationService.getAllConfiguration();
 
     clearListComponentRef(listComponentRefDropdownSelect);
-
-    listInvalidDatesByMonth =
-        (await autoAppointmentSchedulingConfigurationService
-                .getAllConfiguration())
-            .invalidDates
-            .where((date) =>
-                Date.parse(date, new DateFormat('yyyy-MM')) ==
-                DateFormat('yyyy-MM').format(new Date.today().asUtcTime()))
-            .join(" - ");
+    print(Date.parse(
+        autoAppointmentSchedulingConfigurationService
+            .autoAppointmentSchedulingConfiguration.invalidDates.first,
+        new DateFormat.yMMMM()));
+    listInvalidDatesByMonth = autoAppointmentSchedulingConfigurationService
+        .autoAppointmentSchedulingConfiguration.invalidDates
+        .where((date) =>
+            Date.parse(date, new DateFormat.yMMMM()).toString() ==
+            (new DateFormat.yMMMM().format(new Date.today().asUtcTime()))
+                .toString())
+        .join(" - ");
 
     ComponentFactory<
             dentist_dropdown_select_list_component
