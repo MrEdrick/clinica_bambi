@@ -263,16 +263,16 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await autoAppointmentSchedulingConfigurationService.getAllConfiguration();
 
     clearListComponentRef(listComponentRefDropdownSelect);
-    print(Date.parse(
-        autoAppointmentSchedulingConfigurationService
-            .autoAppointmentSchedulingConfiguration.invalidDates.first,
-        new DateFormat.yMMMM()));
+
     listInvalidDatesByMonth = autoAppointmentSchedulingConfigurationService
         .autoAppointmentSchedulingConfiguration.invalidDates
         .where((date) =>
-            Date.parse(date, new DateFormat.yMMMM()).toString() ==
-            (new DateFormat.yMMMM().format(new Date.today().asUtcTime()))
-                .toString())
+            date.substring(0, 8) ==
+            new DateFormat('yyyy-MM-dd')
+                .format(dateAppointmentScheduling.asUtcTime())
+                .substring(0, 8))
+        .map((date) => new DateFormat('dd/MM/yyyy')
+            .format(new Date.parse(date, new DateFormat()).asUtcTime()))
         .join(" - ");
 
     ComponentFactory<

@@ -16,10 +16,13 @@ class AutoAppointmentSchedulingConfigurationService {
           autoAppointmentSchedulingConfiguration;
 
   Future<AutoAppointmentSchedulingConfiguration> getAllConfiguration() async {
-    return turnMapInAutoAppointmentSchedulingConfiguration(
-        (await new AutoAppointmentSchedulingConfigurationDAO()
-                .getAllConfigurationFilter({}, []))
-            .first);
+    _autoAppointmentSchedulingConfiguration =
+        turnMapInAutoAppointmentSchedulingConfiguration(
+            (await new AutoAppointmentSchedulingConfigurationDAO()
+                    .getAllConfigurationFilter({}, []))
+                .first);
+
+    return _autoAppointmentSchedulingConfiguration;
   }
 
   AutoAppointmentSchedulingConfiguration
@@ -29,8 +32,8 @@ class AutoAppointmentSchedulingConfigurationService {
     }
     return new AutoAppointmentSchedulingConfiguration(
         map["documentPath"],
-        int.parse(map[
-            HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD]),
+        int.parse(
+            map[HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD]),
         map[INVALID_DATES]);
   }
 }
