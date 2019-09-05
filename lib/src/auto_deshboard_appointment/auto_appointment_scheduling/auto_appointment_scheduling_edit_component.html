@@ -161,7 +161,7 @@
     </material-dialog>
 </modal>
 
-<modal [(visible)]="showAssertMessageSave">
+<modal [(visible)]="showAssertMessageSaveIvalidDate">
     <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveIvalidDate"
         (dismiss)="onDismissAssertMessage">
 
@@ -170,7 +170,7 @@
             <h1>Opss...</h1>
         </div>
 
-        <p>Está data não está disponivel para agendamento, provavelmente e feriado ou algum recesso programado.</p>
+        <p>Está data não está disponivel para agendamento.</p>
         <p>Por favor, escolha outra data!</p>
 
     </material-dialog>

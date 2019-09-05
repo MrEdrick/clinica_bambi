@@ -271,8 +271,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             new DateFormat('yyyy-MM-dd')
                 .format(dateAppointmentScheduling.asUtcTime())
                 .substring(0, 8))
-        .map((date) => new DateFormat('dd/MM/yyyy')
-            .format(new Date.parse(date, new DateFormat()).asUtcTime()))
+        .map(
+            (date) => new DateFormat('dd/MM/yyyy').format(DateTime.parse(date)))
         .join(" - ");
 
     ComponentFactory<
@@ -590,6 +590,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     disabledButtonSave = true;
     saveButtonMessage = "GRAVANDO...";
+    _changeDetectorRef.markForCheck();
 
     if ((await autoAppointmentSchedulingConfigurationService
             .getAllConfiguration())
@@ -597,6 +598,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         .contains(new DateFormat("yyyy-MM-dd")
             .format(dateAppointmentScheduling.asUtcTime()))) {
       showAssertMessageSaveIvalidDate = true;
+      _changeDetectorRef.markForCheck();
 
       saveButtonMessage = "GRAVAR AGENDAMENTO";
       disabledButtonSave = false;
@@ -616,6 +618,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                 .autoAppointmentScheduling.email.isEmpty)) ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
+      _changeDetectorRef.markForCheck();
 
       saveButtonMessage = "GRAVAR AGENDAMENTO";
       disabledButtonSave = false;
