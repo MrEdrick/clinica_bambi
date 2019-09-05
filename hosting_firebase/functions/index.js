@@ -91,8 +91,8 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
             new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
             .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
                     var result = '';
 
                     if (doc.data().email === "") { //
