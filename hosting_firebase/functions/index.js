@@ -44,18 +44,12 @@ function sendSMS(phoneNumber) {
     var params = {
         Message: `Ola, tudo bem?
         Passando para lembrar da sua consulta hoje na Clinica Odontologica Bambi. 
-        Sera um prazer recebe-lo!`, 
-        PhoneNumber: phoneNumber, 
+        Sera um prazer recebe-lo!`,
+        PhoneNumber: phoneNumber,
     };
 
     var publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise();
-    publishTextPromise.then(
-        function (data) {
-            return "";
-        }).catch(
-            function (erro) {
-                return erro.toString();
-            });
+    publishTextPromise.then((() => "")).catch((erro) => erro.toString());
 }
 
 function sendEmail(name, email, to, subject, html) {
@@ -137,7 +131,5 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
 
                 return console.log("End");
             })
-            .catch(function (error) {
-                return console.log("Error getting documents: ", error);
-            });
+            .catch(((error) => console.log("Error getting documents: ", error)));
     });
