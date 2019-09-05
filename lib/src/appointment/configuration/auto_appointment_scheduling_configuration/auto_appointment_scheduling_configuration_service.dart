@@ -30,6 +30,7 @@ class AutoAppointmentSchedulingConfigurationService {
     return new AutoAppointmentSchedulingConfiguration(
         map["documentPath"],
         int.parse(map[
-            HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD]));
+            HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD]),
+        map[INVALID_DATES]);
   }
 }

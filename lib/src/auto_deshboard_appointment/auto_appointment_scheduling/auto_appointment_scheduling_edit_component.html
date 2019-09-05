@@ -76,6 +76,15 @@
                 <div #procedureRequirementCheckboxComponent></div>
             </div>
 
+            <div class="sub-title">
+                Datas inválidas para agendamento neste mes
+            </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-invalid-dates-by-month">
+                    {{listInvalidDatesByMonth}}
+                </div>
+            </div>
+
             <div class="button-save-container">
                 <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
                     {{saveButtonMessage}}
@@ -148,6 +157,21 @@
         </div>
 
         <p>Preencha todos os campos, por favor.</p>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageSave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveIvalidDate"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Opss...</h1>
+        </div>
+
+        <p>Está data não está disponivel para agendamento, provavelmente e feriado ou algum recesso programado.</p>
+        <p>Por favor, escolha outra data!</p>
 
     </material-dialog>
 </modal>

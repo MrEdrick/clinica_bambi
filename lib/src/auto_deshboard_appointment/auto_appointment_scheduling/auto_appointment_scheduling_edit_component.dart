@@ -35,6 +35,7 @@ import '../../appointment/requirement/requirement_service.dart';
 import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import '../../appointment/period_by_shift_by_day_of_week/period_by_shift_by_day_of_week_service.dart';
+import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
 
 import '../../appointment/user/user_service.dart';
 
@@ -118,6 +119,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new AppointmentSchedulingService();
   final PeriodByShiftByDayOfWeekService periodByShiftByDayOfWeekService =
       new PeriodByShiftByDayOfWeekService();
+  final AutoAppointmentSchedulingConfigurationService
+      autoAppointmentSchedulingConfigurationService =
+      new AutoAppointmentSchedulingConfigurationService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -129,6 +133,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool showAssertMessageSave = false;
+  bool showAssertMessageSaveIvalidDate = false;
   bool showAssertMessageAlert = false;
   bool disabledButtonSave = true;
 
@@ -136,6 +141,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
 
   String listDaysOfWeekOfAppointment = "";
+  String listInvalidDatesByMonth = "";
   String vacancyMessage = "Informe todos os dados para a consulta da vaga";
 
   String saveButtonMessage = "GRAVAR AGENDAMENTO";
@@ -256,6 +262,15 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         .getAllPeriodByShiftByDayOfWeekAcives();
 
     clearListComponentRef(listComponentRefDropdownSelect);
+
+    listInvalidDatesByMonth =
+        (await autoAppointmentSchedulingConfigurationService
+                .getAllConfiguration())
+            .invalidDates
+            .where((date) =>
+                Date.parse(date, new DateFormat('yyyy-MM')) ==
+                DateFormat('yyyy-MM').format(new Date.today().asUtcTime()))
+            .join(" - ");
 
     ComponentFactory<
             dentist_dropdown_select_list_component
@@ -563,14 +578,27 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   void onDismissAssertMessage() {
     showAssertMessageSave = false;
+    showAssertMessageSaveIvalidDate = false;
     _changeDetectorRef.markForCheck();
   }
 
-  void onAssertsSave() {
+  void onAssertsSave() async {
     if (disabledButtonSave) return;
 
     disabledButtonSave = true;
     saveButtonMessage = "GRAVANDO...";
+
+    if ((await autoAppointmentSchedulingConfigurationService
+            .getAllConfiguration())
+        .invalidDates
+        .contains(new DateFormat("yyyy-MM-dd")
+            .format(dateAppointmentScheduling.asUtcTime()))) {
+      showAssertMessageSaveIvalidDate = true;
+
+      saveButtonMessage = "GRAVAR AGENDAMENTO";
+      disabledButtonSave = false;
+      return;
+    }
 
     if ((dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
@@ -643,7 +671,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                     font-weight: 600;
                     color:#666666;">
                     Ol&aacute; ''' +
-                  autoAppointmentSchedulingService.autoAppointmentScheduling.patient +
+                  autoAppointmentSchedulingService
+                      .autoAppointmentScheduling.patient +
                   ''', sua consulta foi marcada!
                   </div>
                   <div 
@@ -658,20 +687,36 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                       .format(dateAppointmentScheduling.asUtcTime()) +
                   '''</p>
                   <p>Turno: ''' +
-                  shiftDropdownSelectComponentRef.instance
-                      .singleSelectModelShift.selectedValues.first.uiDisplayName +
+                  shiftDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelShift
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
                   '''</p>
                     <p>Dentista: ''' +
-                  dentistDropdownSelectComponentRef.instance
-                      .singleSelectModelDentist.selectedValues.first.uiDisplayName +
+                  dentistDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelDentist
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
                   '''</p>
                     <p>Procedimento: ''' +
-                  procedureDropdownSelectComponentRef.instance
-                      .singleSelectModelProcedure.selectedValues.first.uiDisplayName +
+                  procedureDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelProcedure
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
                   '''</p>
                     <p>Conv&ecirc;nio: ''' +
-                  agreementDropdownSelectComponentRef.instance
-                      .singleSelectModelAgreement.selectedValues.first.uiDisplayName +
+                  agreementDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelAgreement
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
                   '''</p>
                   </div>
               ''',
