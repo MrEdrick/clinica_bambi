@@ -4,12 +4,12 @@ import 'package:firebase/firestore.dart';
 
 class FireStoreApp {
   CollectionReference _ref;
+  WriteBatch _batch;
 
   FireStoreApp(String collection) {
     fb.firestore().enableNetwork();
     this._ref = fb.firestore().collection(collection);
   }
-
 
   FireStoreOnLine() {
     fb.firestore().enableNetwork();
@@ -25,27 +25,30 @@ class FireStoreApp {
     return this._ref.orderBy(orderBy).onSnapshot;
   }
 
-  Future<bool> addItem(Map<String, dynamic> datas) async {
+  Future<Map<bool, String>> addItem(Map<String, dynamic> datas) async {
     try {
       fb.firestore().enableNetwork();
-      await ref.add(datas);
-      return true;
+      DocumentReference doc = (await this._ref.add(datas));
+      return {true : doc.id};
     } catch (e) {
-      print("Error ao escrever documento, $e");
-      return false;
+      return {false : "Error ao escrever documento, $e"};
     } finally {
       fb.firestore().disableNetwork();
     }
   }
 
-  void deleteItem(String id) async {
+  Future<bool> deleteItem(String id) async {
+    bool error = false;
+
     try {
       fb.firestore().enableNetwork();
-      await this.ref.doc(id).delete();
+      await this._ref.doc(id).delete();
     } catch (e) {
       print("Erro ao deletar, $e");
+      error = true;
     } finally {
       fb.firestore().disableNetwork();
+      return !error;
     }
   }
   
@@ -58,10 +61,9 @@ class FireStoreApp {
     }
 
     datas.forEach(interateMapentry);
-
     try {
       fb.firestore().enableNetwork();
-      await this.ref.doc(id).update(data: values);
+      await this._ref.doc(id).update(data: values);
       return true;
     } catch (e) {
       print("Erro ao atualizar, $e");

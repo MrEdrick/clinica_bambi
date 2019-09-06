@@ -5,6 +5,7 @@ import 'package:angular_components/angular_components.dart';
 @Component(
   selector: 'galeria-app',
   templateUrl: 'galeria_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives],
   providers: const [materialProviders],

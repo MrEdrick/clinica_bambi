@@ -10,12 +10,24 @@ class EmailSenderService {
 
   Email get email => _email;
 
-  Future<EmailSenderHTTP> emailSenderAmazon() async {  
-    return new EmailSenderHTTP({}, 
-                               AMAZON_API_ENDPONT_SEND_EMAIL, 
-                               {"subject" : email.subject,
-                                "message" : email.message,
-                                "toAddresses" : email.receiver,
-                                "source" : email.sender});
+  Future<EmailSenderHTTP> emailSenderAmazon() async {
+    return new EmailSenderHTTP(
+        {},
+        AMAZON_API_ENDPONT_SEND_EMAIL,
+        "",
+        {
+          "subject": email.subject,
+          "message": email.message,
+          "toAddresses": email.receiver,
+          "source": email.sender
+        });
+  }
+
+  Future<EmailSenderHTTP> emailSenderGmail() async {
+    return new EmailSenderHTTP(
+        {},
+        GMAIL_API_ENDPONT_SEND_EMAIL,
+        "?" + "dest=" + email.receiver + "&" + "subject=" + email.subject,
+        {"message": email.message});
   }
 }

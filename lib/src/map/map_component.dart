@@ -12,6 +12,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 @Component(
   selector: 'map-app',
   templateUrl: 'map_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     MaterialButtonComponent,
     MaterialIconComponent,

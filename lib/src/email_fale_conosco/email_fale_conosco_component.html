@@ -3,11 +3,13 @@
         Envie para nós sua mensagem aqui!
     </div>
     <div class="material-input-container">
-        <material-input id="email-cc" type="email" label="e-mail" autoFocus floatingLabel [ngModel]="email" (inputKeyPress)="email = $event"></material-input>
+        <material-input id="email-cc" type="email" label="Seu e-mail" autoFocus floatingLabel [ngModel]="email" (inputKeyPress)="email = $event"></material-input>
 
-        <material-input id="email-subject" label="assunto" floatingLabel [ngModel]="subject" (inputKeyPress)="subject = $event"></material-input>
+        <material-input id="name" label="Seu nome" floatingLabel [ngModel]="name" (inputKeyPress)="name = $event"></material-input>
 
-        <material-input id="email-message" label="Escreva aqui sua mensagem..." multiline="multiline" rows="18" [ngModel]="mensage" (inputKeyPress)="mensage = $event"></material-input>
+        <material-input id="email-subject" label="Assunto" floatingLabel [ngModel]="subject" (inputKeyPress)="subject = $event"></material-input>
+
+        <material-input id="email-message" label="Escreva aqui sua mensagem..." multiline="multiline" rows="16" [ngModel]="message" (inputKeyPress)="message = $event"></material-input>
     </div>
 
     <material-button class="button-close" (click)="clickClose()">
@@ -15,8 +17,8 @@
     </material-button>
 
     <div class="button-container">
-        <material-button raised id="button-send-email" class="button-send" (click)="clickSend()">
-            ENVIAR
+        <material-button raised id="button-send-email" class="button-send" (click)="clickSend()" [disabled]="disabled">
+            {{sendButtonMessage}}
         </material-button>
     </div>
 </div>
@@ -42,7 +44,20 @@
             <h1>Foi!</h1>
         </div>
 
-        <p>Tudo certo, mensagem enviada com sucesso!.</p>
+        <p>Tudo certo, mensagem enviada com sucesso!</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertCannotSend">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertCannotSend"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Quase...</h1>
+        </div>
+
+        <p>Por favor, preencha todos os campos.</p>
 
     </material-dialog>
 </modal>

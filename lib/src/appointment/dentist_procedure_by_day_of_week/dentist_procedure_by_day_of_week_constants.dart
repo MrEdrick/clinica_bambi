@@ -1,0 +1,1 @@
+final DENTIST_PROCEDURE_BY_DAY_OF_WEEK_COLLECTION = 'dentistProcedureByDayOfWeek';

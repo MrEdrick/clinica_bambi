@@ -1,0 +1,150 @@
+<div class="container-add-patient-account">
+    <div class="container-cadastro">
+        <div class="titulo">
+            Cadastre-se aqui!
+        </div>
+        <material-input class="edit-input" type="text" id="nome" label="Nome..." [ngModel]="name"
+            (inputKeyPress)="name = $event"></material-input>
+
+        <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email"
+            (inputKeyPress)="email = $event"></material-input>
+
+        <material-input class="edit-input" type="number" id="telefone" label="Telefone..." [ngModel]="telefone"
+            [maxlength]="maxLength" (inputKeyPress)="telefone = $event" (keydown)="onKeydownTelephone($event)">
+        </material-input>
+
+        <material-input class="edit-input password" type="password" label="Senha..." [ngModel]="password"
+            (inputKeyPress)="password = $event"></material-input>
+
+        <material-input class="edit-input password" type="password" label="Confirme a senha..."
+            [ngModel]="confirmationPassword" (inputKeyPress)="confirmationPassword = $event"></material-input>
+
+        <material-input class="edit-input" type="text" id="confirmation-code" label="Código de confirmação..."
+            [ngModel]="confirmationCode" (inputKeyPress)="confirmationCode = $event" style="display:none">
+        </material-input>
+    </div>
+
+    <material-button class="button-close" (click)="onClose()">
+        <material-icon icon="close"></material-icon>
+    </material-button>
+
+    <div class="button-container">
+        <material-button raised class="button-save" (click)="onAssertsSave()">
+            {{buttonSaveDescription}}
+        </material-button>
+    </div>
+</div>
+
+<modal [(visible)]="showNotSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave"
+        (dismiss)="onDismissNotSuccessfullySave">
+
+        <div header>
+            <h1>Opps...</h1>
+        </div>
+
+        <p>Este cadastro não foi salvo, houve algum problema. Tente novamente por favor.</p>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showSuccessfullySave"
+        (dismiss)="onDismissSuccessfullySave">
+
+        <div header>
+
+            <h1>Muito bem!</h1>
+        </div>
+
+        <p>A consulta foi salva com sucesso.</p>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageAlert">
+    <material-dialog info class="max-height-dialog">
+        <div header>
+            <h1>Vamos com calma...</h1>
+        </div>
+
+        <p>Alguns campos importantes não estão preenchidos. Quer salvar assim mesmo?</p>
+
+
+        <div footer>
+            <material-button (trigger)="onSave()">
+                Quero salvar sim
+            </material-button>
+            <material-button (trigger)="onNoSave()">
+                Não
+            </material-button>
+        </div>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageSave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSave"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Quase lá...</h1>
+        </div>
+
+        <p>Preencha todos os campos, por favor.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSavePassordNotMatched">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSavePassordNotMatched"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Quase lá...</h1>
+        </div>
+
+        <p>As senhas não combinam, confirme elas por favor.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSaveEmailExists">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveEmailExists"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Então...</h1>
+        </div>
+
+        <p>Este e-mail já foi cadastrado. Tente a opção 'Esqueci a senha', por favor.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSaveConfirmationCodeEmpty">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveConfirmationCodeEmpty"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Dá uma olhada...</h1>
+        </div>
+
+        <p>O código de confirmação não foi preenchido ainda.</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showAssertMessageSaveConfirmationCodeNotMatched">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveConfirmationCodeNotMatched"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Então...</h1>
+        </div>
+
+        <p>O código de confirmação não confere, dá uma olhada e tente novamente por favor.</p>
+
+    </material-dialog>
+</modal>

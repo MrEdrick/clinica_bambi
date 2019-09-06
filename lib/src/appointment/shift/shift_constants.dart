@@ -1,0 +1,1 @@
+final SHIFT_COLLECTION = 'shift';

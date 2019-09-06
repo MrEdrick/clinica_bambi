@@ -1,0 +1,1 @@
+final DENTIST_QUANTITY_PER_SHIFT_BY_DAY_OF_WEEK = 'dentistQuantityPerShiftByDayOfWeek';

@@ -4,6 +4,7 @@ import 'package:angular_components/angular_components.dart';
 @Component(
   selector: 'textos-artigos-app',
   templateUrl: 'textos_artigos_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [coreDirectives],
   providers: const [materialProviders],
   styleUrls: const [

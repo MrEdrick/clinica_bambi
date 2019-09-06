@@ -1,0 +1,141 @@
+@import 'package:angular_components/css/material/shadow';
+
+:host {
+  width: 100%;
+  z-index: 2 !important;
+}
+
+#container-filter-dentist {
+  top: 0;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  z-index: 2 !important;
+  margin-bottom: 1%;
+}
+
+.controls {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.group-list-menu-item, ._ngcontent-wcb-8, ._ngcontent-dnj-10 {
+  border-top: 0px !important;
+  margin-top: 7px !important;
+  padding-top: 8px !important;
+}
+
+i {
+  position: absolute;
+  left: 1%;
+  top: 78px;
+}
+
+.container-filter {
+  top: 48px;
+  position: fixed;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap; 
+  align-content: flex-start; 
+  display: inline-block;
+  width: 100%;
+  min-height: 48px;
+  background-color: #ffffff;
+  border-bottom: rgba(#616161, 0.12) 2px dashed;
+  padding: 1% 0.5% 0 0.5%;
+  z-index: 2 !important;
+}
+
+.container-filter material-icon {
+  color: #616161;
+  margin: 0 2% 0 2%;
+}
+
+.container-filter-title {
+  flex: 1;
+  display: inline-flex;;
+  margin-left: 1%;
+  margin-right: 1%;
+  color: #616161;
+}
+
+.filter-title {
+  margin-top: 1%;
+  margin-right: 1%; 
+}
+
+.total-result-filter {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+  top: 115px;
+  position: fixed;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap; 
+  align-content: flex-start; 
+  background-color: #ffffff;
+  width: 100%;
+  min-height: 48px;
+  z-index: 2 !important;
+}
+
+.total-result-filtered {
+  flex: 1;
+  display: inline;
+  margin-left: 1%;
+  margin-right: 1%;
+  color: #616161;
+  padding-top: 1%;
+}
+
+.total-result-filter-text {
+  color: #DB3813;
+  font-weight: 600;
+}
+
+.filter-input {
+  padding: 0;
+  color: #616161 !important;
+}
+
+#dentist {
+  width: 320px;
+}
+
+#bt-filter {
+  position: relative;
+  float: right;
+  margin-top: 0.50%;
+  margin-right: 1%;
+  font-weight: 500;
+  color: #616161;
+}
+
+#bt-limpar {
+  position: relative;
+  margin-top: 0.50%;
+  font-weight: 500;
+  color: #616161;
+  float: right;
+}
+
+material-fab {
+  position: fixed;
+  color: #ffffff;
+  background: #00B0FF;
+  right: 5px;
+  bottom: 10px;
+  z-index: 999;
+}
+
+@media screen and (min-width: 769px) {
+  .container-deshboard-agendament {
+    top: 0px;
+    position: unset;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+}

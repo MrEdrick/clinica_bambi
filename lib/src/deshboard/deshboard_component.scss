@@ -17,7 +17,16 @@ header {
   padding: 0% !important;
 }
 
+.material-content {
+  width: 100%;
+}
+
+.contant-app {
+  width: 100%;
+}
+
 .container-app {
+  width: 100%;
   top: 0px;
   position: relative;
   display: flex;
@@ -71,11 +80,11 @@ i {
   height: 100%;
 }
 
-::ng-deep material-list-item {
+.group-list-menu-item ::ng-deep material-list-item {
   color: #00B0FF !important;
 }
 
-::ng-deep material-icon {
+.group-list-menu-item ::ng-deep material-icon {
   color: #00B0FF !important;
 }
 
@@ -87,31 +96,31 @@ i {
   cursor: pointer; 
 }
 
-::ng-deep material-button {
+.group-list-menu-item ::ng-deep material-button {
   margin: 0% !important;
 }
 
-::ng-deep material-button :hover {
+.group-list-menu-item ::ng-deep material-button :hover {
   background-color: rgba(#0288D1, 0.1);
 }
 
-::ng-deep .label-text {
+.group-list-menu-item ::ng-deep .label-text {
   color: #00B0FF !important;
 }
 
-::ng-deep .focused.label-text {
+.group-list-menu-item ::ng-deep .focused.label-text {
   color: #00B0FF !important;
 }
 
-::ng-deep .focused-underline, .cursor {
+.group-list-menu-item ::ng-deep .focused-underline, .cursor {
   background-color: #00B0FF !important;
 }
 
-::ng-deep .disabled-underline {
+.group-list-menu-item ::ng-deep .disabled-underline {
   color: #00B0FF !important;
 }
 
-::ng-deep .unfocused-underline {
+.group-list-menu-item ::ng-deep .unfocused-underline {
   background: #00B0FF !important;
   border-bottom-color: #00B0FF !important;
 }

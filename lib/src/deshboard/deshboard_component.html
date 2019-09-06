@@ -5,24 +5,18 @@
             <material-list-item (click)="clickAClinica()">
                 <i class="fas fa-door-open"></i>A CLÍNICA
             </material-list-item>
-
-            <!--material-list-item (click)="clickAgenda()">
+            <material-list-item (click)="clickAgenda()">
                 <i class="far fa-calendar-alt"></i>AGENDE SUA CONSULTA
-            </material-list-item-->
-
-            <material-list-item (click)="clickDicas()">
-                <i class="fas fa-lightbulb"></i>DICAS
             </material-list-item>
-
             <material-list-item (click)="clickEspecialidades()">
                 <i class="fas fa-user-md"></i>ESPECILIDADES
             </material-list-item>
-
-
+            <material-list-item (click)="clickDicas()">
+                <i class="fas fa-lightbulb"></i>DICAS
+            </material-list-item>
             <material-list-item (click)="clickGaleria()">
                 <i class="fas fa-images"></i>GALERIA
             </material-list-item>
-
             <material-list-item (click)="clickConvenios()">
                 <i class="fas fa-handshake"></i>CONVÊNIOS
             </material-list-item>
@@ -42,19 +36,19 @@
                     A CLÍNICA
                 </div>
             </div>
-            <!-- div class="background-navigation-featured" (click)="clickAgenda()">
+            <div class="background-navigation-featured" (click)="clickAgenda()">
                 <div class="item-navigation item-navigation-featured">
                     AGENDE SUA CONSULTA
-                </div>
-            </div-->
-            <div class="background-navigation" (click)="clickDicas()">
-                <div class="item-navigation">
-                    DICAS
                 </div>
             </div>
             <div class="background-navigation" (click)="clickEspecialidades()">
                 <div class="item-navigation">
                     ÁREAS DE ATUAÇÃO
+                </div>
+            </div>
+            <div class="background-navigation" (click)="clickDicas()">
+                <div class="item-navigation">
+                    DICAS
                 </div>
             </div>
             <div class="background-navigation" (click)="clickGaleria()">
@@ -70,11 +64,11 @@
         </div>
     </header>
     <div class="container-app">
-        <a-clinica-app></a-clinica-app>
-        <dicas-app></dicas-app>
-        <!--agendamento-app></agendamento-app-->
-        <especialidades-app></especialidades-app>
-        <galeria-app></galeria-app>
-        <convenios-app></convenios-app>
+        <a-clinica-app class="contant-app"></a-clinica-app>
+        <login-auto-agendamento-app class="contant-app"></login-auto-agendamento-app>
+        <especialidades-app class="contant-app"></especialidades-app>
+        <dicas-app class="contant-app"></dicas-app>
+        <galeria-app class="contant-app"></galeria-app>
+        <convenios-app class="contant-app"></convenios-app>
     </div>
 </div>

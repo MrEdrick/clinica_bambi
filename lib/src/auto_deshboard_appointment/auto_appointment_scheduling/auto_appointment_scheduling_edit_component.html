@@ -1,0 +1,177 @@
+<div class="container-add-auto-appointment-scheduling">
+    <div class="container-register">
+        <div class="title">
+            Agendamento
+        </div>
+        <div id="container-search-datas">
+            <div class="sub-title">
+                Paciente: {{patientAccountService.patientAccount.name}}
+            </div>
+            <material-input class="edit-input" id="email" label="E-mail..."
+                [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.email"
+                (inputKeyPress)="autoAppointmentSchedulingService.autoAppointmentScheduling.email = $event">
+            </material-input>
+            <material-input class="edit-input" id="telephone" label="Tel..." [ngModel]="telephoneMask.number"
+                (inputKeyPress)="telephoneMask.number = $event">
+            </material-input>
+
+            <div id="agreement-select">
+                <div #agreementDropdownSelect></div>
+            </div>
+
+            <div class="sub-title">
+                Dados para consulta
+            </div>
+
+            <div id="procedure-select">
+                <div #procedureDropdownSelect></div>
+            </div>
+
+            <div id="dentist-select">
+                <div #dentistDropdownSelect></div>
+            </div>
+
+            <div id="date-select">
+                <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" [required]="true">
+                </material-datepicker>
+            </div>
+
+            <div id="shift-select">
+                <div #shiftDropdownSelect></div>
+                <div id="sub-title-shift-observation">
+                    {{shiftObservation}}
+                </div>
+            </div>
+
+            <div class="button-search-container">
+                <material-button raised class="button-search" (click)="onVacancySearch()">
+                    BUSCAR VAGAS
+                </material-button>
+            </div>
+        </div>
+        <div id="container-result-datas">
+            <div class="sub-title" id="sub-title-vacancy">
+                {{vacancyMessage}}
+            </div>
+
+            <div class="sub-title">
+                Dias da semana de atendimento do dentista
+            </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-days-of-week">
+                    Não foi selecionado o dentista
+                </div>
+                <div>
+                    {{listDaysOfWeekOfAppointment}}
+                </div>
+            </div>
+
+            <div class="sub-title">
+                Confirme os seguintes requisitos para a consulta
+            </div>
+            <div id="container-requirement-checkbox">
+                <div class="sub-title-information" id="sub-title-requirement">
+                    Não existem requisitos para este procedimento
+                </div>
+                <div #procedureRequirementCheckboxComponent></div>
+            </div>
+
+            <div class="sub-title">
+                Datas inválidas para agendamento neste mes
+            </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-invalid-dates-by-month">
+                    {{listInvalidDatesByMonth}}
+                </div>
+            </div>
+
+            <div class="button-save-container">
+                <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
+                    {{saveButtonMessage}}
+                </material-button>
+            </div>
+        </div>
+    </div>
+
+    <material-button class="button-close" (click)="onClose()">
+        <material-icon icon="close"></material-icon>
+    </material-button>
+</div>
+
+<modal [(visible)]="showNotSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave"
+        (dismiss)="onDismissNotSuccessfullySave">
+
+        <div header>
+            <h1>Opps...</h1>
+        </div>
+
+        <p>A consulta foi não foi salva, houve algum problema</p>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showSuccessfullySave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showSuccessfullySave"
+        (dismiss)="onDismissSuccessfullySave">
+
+        <div header>
+
+            <h1>Muito bem!</h1>
+        </div>
+
+        <p>A consulta foi salva com sucesso.</p>
+        <p>Foi enviado um e-mail com os dados da consulta.</p>
+        <p>Enviaremos um e-mail no dia da consulta como lembre.</p>
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageAlert">
+    <material-dialog info class="max-height-dialog">
+        <div header>
+            <h1>Vamos com calma...</h1>
+        </div>
+
+        <p>Alguns campos importantes não estão preenchidos. Quer salvar assim mesmo?</p>
+
+
+        <div footer>
+            <material-button (trigger)="onSave()">
+                Quero salvar sim
+            </material-button>
+            <material-button (trigger)="onNoSave()">
+                Não
+            </material-button>
+        </div>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageSave">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSave"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Quase lá...</h1>
+        </div>
+
+        <p>Preencha todos os campos, por favor.</p>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageSaveIvalidDate">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveIvalidDate"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Opss...</h1>
+        </div>
+
+        <p>Está data não está disponivel para agendamento.</p>
+        <p>Por favor, escolha outra data!</p>
+
+    </material-dialog>
+</modal>

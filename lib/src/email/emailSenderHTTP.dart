@@ -5,15 +5,19 @@ import 'package:http/browser_client.dart';
 class EmailSenderHTTP {
   Map _header;
   String _url;
+  String _parameters;
   Map _body;
 
-  EmailSenderHTTP(this._header, this._url, this._body);
+  EmailSenderHTTP(this._header, this._url, this._parameters, this._body);
 
   Map get header => _header;
   set header(Map header) => _header = header;
 
   String get url => _url;
   set url(String url) => _url = url;
+
+  String get parameters => _parameters;
+  set parameters(String parameters) => _parameters = parameters;
 
   Map get body => _body;
   set body(Map body) => _body = body;
@@ -22,8 +26,8 @@ class EmailSenderHTTP {
     Response resp;
     try {
       resp = await new BrowserClient().post(
-        url,
-        headers: {},
+        url + parameters,
+        headers: header,
         body: jsonEncode(body));
     } finally {
       return resp;

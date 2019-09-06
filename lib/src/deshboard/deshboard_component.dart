@@ -9,7 +9,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_toggle/material_toggle.dart';
 
 import '../a_clinica/a_clinica_component.dart';
-import '../agendamento/agendamento_component.dart';
+import '../login_auto_agendamento/login_auto_agendamento_component.dart';
 import '../dicas/dicas_component.dart';
 import '../especialidades/especialidades_component.dart';
 import '../convenios/convenios_component.dart';
@@ -27,7 +27,7 @@ import '../galeria/galeria_component.dart';
     MaterialTemporaryDrawerComponent,
     MaterialToggleComponent,
     AClinicaCmponent,
-    AgendamentoComponent,
+    LoginAutoAgendamentoComponent,
     DicasComponent,
     EspecialidadesComponent,
     GaleriaComponent,
@@ -52,6 +52,7 @@ class DeshboardComponent implements OnInit {
 
   @override
   ngOnInit() async {
+    querySelector('#wh-widget-send-button').style.display = 'block';
   }
 
   void clickAClinica() {
@@ -59,7 +60,7 @@ class DeshboardComponent implements OnInit {
   }
 
   void clickAgenda() {
-    smoothScrolling('agendamento-app', offset: 0, duration: 500);
+    smoothScrolling('login-auto-agendamento-app', offset: 0, duration: 500);
   }
 
   void clickEspecialidades() {

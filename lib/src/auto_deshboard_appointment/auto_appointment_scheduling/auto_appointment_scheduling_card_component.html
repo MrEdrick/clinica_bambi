@@ -1,0 +1,109 @@
+<div (dblclick)="onEdit">
+    <div class="head-card">
+        <div class="label-title">
+            <label>DATA DA CONSULTA</label>
+        </div>
+        <div class="label">
+            <label id="data-consulta">{{autoAppointmentScheduling?.dateAppointmentSchedulingFormated}}</label>
+        </div>
+
+        <div class="label-title">
+            <label>TURNO</label>
+        </div>
+        <div class="label">
+            <label id="shift">{{autoAppointmentScheduling?.shift?.description}}</label>
+        </div>
+
+        <div class="label-title">
+            <label>CONVÊNIO</label>
+        </div>
+        <div class="label">
+            <label id="agreement">{{autoAppointmentScheduling?.agreement?.description}}</label>
+        </div>
+    </div>
+
+    <div class="body-card">
+        <div class="label-title">
+            <label>DENTISTA</label>
+        </div>
+        <div class="label">
+            <label id="name-dentist">{{autoAppointmentScheduling?.dentist?.name}}</label>
+        </div>
+
+        <div class="label-title">
+            <label>PROCEDIMENTO</label>
+        </div>
+        <div class="label">
+            <label id="name-dentist">{{autoAppointmentScheduling?.procedure?.description}}</label>
+        </div>
+
+        <div class="label-title">
+            <label>PACIENTE</label>
+        </div>
+        <div class="label">
+            <label id="name-patient">{{autoAppointmentScheduling?.patient}}</label>
+        </div>
+
+        <div class="label-title">
+            <label>E-MAIL</label>
+        </div>
+        <div class="label">
+            <label id="email">{{autoAppointmentScheduling?.email}}</label>
+        </div>
+
+        <div class="label-title">
+            <label>TELEFONE</label>
+        </div>
+        <div class="label">
+            <label id="telephone">{{autoAppointmentScheduling?.telephone}}</label>
+        </div>
+    </div>
+    <material-button *ngIf="notPassedOn" clear-size id="bt-delete" (click)="onDelete">
+        DESMARCAR CONSULTA
+    </material-button>
+</div>
+<div #containerEditAutoAppointmentScheduling></div>
+<modal [(visible)]="showDeteleCertification">
+    <material-dialog info class="max-height-dialog">
+
+        <div header>
+            <h1>Stop... wait a minute!</h1>
+        </div>
+
+        <p>Tem certeza que deseja remover este agendamento?</p>
+
+        <div footer>
+            <material-button (trigger)="deleteAppointmentScheduling">
+                Tenho sim
+            </material-button>
+            <material-button (trigger)="noDeleteAppointmentScheduling">
+                Não desejo
+            </material-button>
+        </div>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showNotSuccessfullyDelete">
+    <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullyDelete"
+        (dismiss)="onDismissNotSuccessfullyDelete">
+
+        <div header>
+            <h1>Opps...</h1>
+        </div>
+
+        <p>A consulta foi não foi desmarcada, houve algum problema</p>
+
+    </material-dialog>
+</modal>
+<modal [(visible)]="showCannotDeleteLimitHour">
+    <material-dialog info class="info-dialog" [autoDismissable]="showCannotDeleteLimitHour"
+        (dismiss)="onDismissCannotDeleteLimitHour">
+
+        <div header>
+            <h1>Infelizmente não é mais possível :( </h1>
+        </div>
+
+        <p>Já passou do horário limite para desmarcar. Entra em contato com a clínica para desmarcar, por favor.</p>
+
+    </material-dialog>
+</modal>

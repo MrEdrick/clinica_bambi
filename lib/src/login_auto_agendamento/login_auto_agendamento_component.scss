@@ -1,0 +1,102 @@
+:host {
+    flex: 1;
+    height: 100%;
+    min-height: 420px;
+    padding: 0%;
+    display: block;
+    background-color: #00b0ff;
+    padding-top: 2%;
+}
+
+.invitation {
+    width: 100%;
+    position: relative;
+    font-weight: 700;
+    text-align: center;
+    font-size: 2em;
+    color: #ffffff;
+    margin-top: 2%;
+}
+
+.sub-invitation {
+    width: 100%;
+    position: relative;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1em;
+    color: #ffffff;
+    margin-top: 2%;
+}
+
+.login-container {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 2%;
+}
+
+.fb-login-button {
+    margin: 2% auto !important;    
+}
+
+material-input, material-button {
+    color: #ffffff !important;
+    width: 90%;
+    margin-left: 5% !important;
+    margin-top: 2% !important;
+    padding-bottom: 0% !important;
+}
+
+.login-auto-agendamento-container ::ng-deep material-input .label-text {
+    color: #ffffff !important;
+}
+
+.login-auto-agendamento-container ::ng-deep .label-text {
+    color: #ffffff !important;
+}
+
+.login-auto-agendamento-container :ng-deep .focused-underline, .cursor {
+    background-color: #ffffff !important;
+}
+
+.login-auto-agendamento-container ::ng-deep .disabled-underline {
+    color: #ffffff !important;
+}
+
+.login-auto-agendamento-container ::ng-deep .unfocused-underline {
+    background: #ffffff !important;
+    border-bottom-color: #ffffff !important;
+}
+
+.login-auto-agendamento-container ::ng-deep .focused.label-text {
+    color: #ffffff !important;
+}
+
+.login-auto-agendamento-container::ng-deep  .focused.label-text {
+    color: #ffffff !important;
+}
+
+.login-auto-agendamento {
+    color: #ffffff !important;
+    margin-top: 2%;   
+    margin-bottom: 1%;   
+}
+
+@media screen and (min-width: 769px) {
+    :host {
+        height: 620px;
+        min-height: 620px;
+    }
+
+    .invitation {
+        font-size: 3em;
+    }
+
+    .sub-invitation {
+        font-size: 1.5em;
+    }
+
+    .login-container {
+        width: 50%;
+        margin: 0 auto;
+    }
+}

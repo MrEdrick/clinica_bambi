@@ -1,32 +1,32 @@
 <div class="div-login">
-  <span class="title-login">Acesse o agendamento aqui!</span>
+  <div class="">
+    <span class="title-login">Acesse o agendamento aqui!</span>
+  </div>
 
-  <material-input type="email" id="email" label="E-mail" autoFocus 
-                  floatingLabel [ngModel]="email" (inputKeyPress)="email = $event">
-  </material-input>
+  <div>
+    <material-input type="email" id="email" label="E-mail" autoFocus floatingLabel [ngModel]="email"
+      (inputKeyPress)="email = $event">
+    </material-input>
 
-  <material-input id="password" label="Password" type="password" 
-                  floatingLabel [ngModel]="password" (inputKeyPress)="password = $event"
-                  (keyup.enter)="onGetInside()">
-  </material-input>
+    <material-input id="password" label="Password" type="password" floatingLabel [ngModel]="password"
+      (inputKeyPress)="password = $event" (keyup.enter)="onGetInside()">
+    </material-input>
 
-  <material-button (trigger)="onGetInside()">
-    Entrar
-  </material-button>
+    <material-button (trigger)="onGetInside()">
+      Entrar
+    </material-button>
+  </div>
 </div>
 
 <modal [(visible)]="showNotSuccessfullyLogin">
-    <material-dialog
-        info
-        class="info-dialog"
-        [autoDismissable]="showNotSuccessfullyLogin"
-        (dismiss)="onDismissNotSuccessfullyLogin">
-  
-      <div header>
-        <h1>Opa!</h1>
-      </div>
-  
-      <p>Não deu para fazer o login, tenta novamente por favor.</p>
-  
-    </material-dialog>
+  <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullyLogin"
+    (dismiss)="onDismissNotSuccessfullyLogin">
+
+    <div header>
+      <h1>Opa!</h1>
+    </div>
+
+    <p>Não deu para fazer o login, tenta novamente por favor.</p>
+
+  </material-dialog>
 </modal>

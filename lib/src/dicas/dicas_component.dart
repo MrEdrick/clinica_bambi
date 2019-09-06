@@ -10,6 +10,7 @@ import '../textos_cuidados/textos_cuidados_component.dart';
 @Component(
   selector: 'dicas-app',
   templateUrl: 'dicas_component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
     TextosDicasComponent,

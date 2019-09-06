@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase/firebase.dart' as fb;
-import '../deshboard_agendamento/usuario/usuario.dart';
-import '../deshboard_agendamento/usuario/usuario_service.dart';
+import '../appointment/user/user.dart';
+import '../appointment/user/user_service.dart';
 
 class AuthApp {
   final fb.Auth auth;
@@ -25,7 +25,7 @@ class AuthApp {
     try {
       await auth.setPersistence('session');
       userCredential = await auth.signInWithEmailAndPassword(email, password);
-      new UsuarioService().usuario = new Usuario(userCredential.user.uid, userCredential.user.displayName, userCredential.user.email);
+      new UserService().user = new User(userCredential.user.uid, userCredential.user.displayName, userCredential.user.email);
       return '';
     } catch (e) {
       return e.toString();
@@ -52,7 +52,7 @@ class AuthApp {
       if (trySignin) {
         try {
           await auth.signInWithEmailAndPassword(email, password);
-          new UsuarioService().usuario = new Usuario(auth.currentUser.uid, auth.currentUser.displayName, auth.currentUser.email);
+          new UserService().user = new User(auth.currentUser.uid, auth.currentUser.displayName, auth.currentUser.email);
           return '';
         } catch (e) {
           return e.toString();

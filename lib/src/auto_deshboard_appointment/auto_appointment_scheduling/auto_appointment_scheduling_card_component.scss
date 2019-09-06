@@ -1,0 +1,68 @@
+@import 'package:angular_components/css/material/shadow';
+@import 'package:angular_components/css/material/material';
+
+:host {
+  border-bottom: 1px rgba(0, 0, 0, 0.14) solid; 
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  text-align: initial;
+  padding: 10px;
+}
+
+:host:hover {
+  box-shadow: 0 4px 5px 0 rgba(0, 151, 167, 0.14), 0 1px 10px 0 rgba(0, 151, 167, 0.12), 0 2px 4px -1px rgba(0, 151, 167, 0.2);
+}
+
+.head-card {
+  position: relative;
+  height: 120px;
+  top: 0px;
+}
+
+.body-card {
+  position: relative;
+  top: 0px;
+}
+
+.label-title {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #00B0FF; 
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #616161; 
+}
+
+label {
+  margin-right: 5px;
+}
+
+#date-appointment-scheduling, #name-dentist {
+  display: block;
+}
+
+#bt-delete {
+  position: relative;
+  background-color: rgba(#616161, 0.12);
+  color: #616161;
+  font-size: 2vh; 
+  @include shadow-elevation(4);
+  font-size: 1.7vh;
+  font-weight: 600;
+}
+
+
+@media screen and (min-width: 769px) {
+  :host {
+    max-width: 300px;
+    min-width: 300px;
+    border-right: 1px rgba(0, 0, 0, 0.14) solid; 
+  }
+}

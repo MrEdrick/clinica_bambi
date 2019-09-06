@@ -1,0 +1,1 @@
+final DENTIST_PROCEDURE_COLLECTION = 'dentistProcedure';
