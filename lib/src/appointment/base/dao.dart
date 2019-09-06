@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase/firestore.dart';
 import '../../firebase/firestore.dart';
 
-class BaseDAO {
+class DAO {
   Future<Map<bool, String>> save(
       String collection, Map<String, dynamic> datas) async {
     FireStoreApp _fireStoreApp = new FireStoreApp(collection);
@@ -37,8 +37,7 @@ class BaseDAO {
     }
   }
 
-  Future<List<Map>> getAll(
-      String collection, List comparisons) async {
+  Future<List<Map>> getAll(String collection, List comparisons) async {
     List<Map> _list = new List<Map>();
     FireStoreApp _fireStoreApp = new FireStoreApp(collection);
 
@@ -54,7 +53,7 @@ class BaseDAO {
   }
 
   Future<List<Map>> getAllFilter(
-      String collection, Map filter, List comparisons) async {
+      String collection, Map filter, Map orderBy, List comparisons) async {
     List<Map> _list = new List<Map>();
     FireStoreApp _fireStoreApp = new FireStoreApp(collection);
 

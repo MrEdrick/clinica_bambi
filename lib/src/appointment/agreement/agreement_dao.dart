@@ -1,50 +1,21 @@
-import 'dart:async';
+//import 'dart:async';
 
 import 'agreement_constants.dart';
-import '../../firebase/firestore.dart';
+//import '../../firebase/firestore.dart';
+import '../base/dao.dart';
 
-class AgreementDAO {
+class AgreementDAO extends DAO {
   AgreementDAO();
 
-  Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(AGREEMENT_COLLECTION);
+  @override
+  Future<List<Map>> getAllFilter(
+          Map filter, Map orderBy, List comparisons) async =>
+      super.getAllFilter(AGREEMENT_COLLECTION, filter, orderBy, comparisons);
 
-    Map<bool, String> result = (await _fireStoreApp.addItem(datas));
-    
-    _fireStoreApp.FireStoreOffLine();
-    return result;
-  }
-
-  Future<String> update(String id, Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(AGREEMENT_COLLECTION);
-
-    if (await _fireStoreApp.updateItem(id, datas)) {
-      _fireStoreApp.FireStoreOffLine();
-      return '';
-    } else {
-      _fireStoreApp.FireStoreOffLine();
-      return 'Error';
-    }
-  }
-
-  Future<String> delete(String id) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(AGREEMENT_COLLECTION);
-    if (await _fireStoreApp.deleteItem(id)) {
-      _fireStoreApp.FireStoreOffLine();
-      return '';
-    } else {
-      _fireStoreApp.FireStoreOffLine();
-      return 'Error';
-    }
-  }
-
-  Future<List<Map>> getAllAgreementFilter(Map filter, Map orderBy) async {
+  /*Future<List<Map>> getAllAgreementFilter(Map filter, Map orderBy) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
-        new FireStoreApp(AGREEMENT_COLLECTION);
+        new FireStorSeApp(AGREEMENT_COLLECTION);
 
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
@@ -60,5 +31,5 @@ class AgreementDAO {
     fireStoreApp.FireStoreOffLine();
 
     return _list;
-  }
+  }*/
 }

@@ -33,7 +33,7 @@ class AgreementService {
     clearAllAgreementList();
 
     await (_agreementList = await new AgreementDAO()
-        .getAllAgreementFilter({"state": "A"}, {"description": "asc"}));
+        .getAllFilter({"state": "A"}, {"description": "asc"}, []));
 
     _agreementList.forEach((agreement) {
       _agreementListById[agreement["documentPath"]] = agreement;
@@ -60,23 +60,22 @@ class AgreementService {
 
   Future<Agreement> getAgreementById(String id) async {
     Map doc;
-    
+
     if (id.isEmpty) {
       return returnEmptyAgreement();
     }
-      
+
     if ((_agreementList == null) || (_agreementList?.length == 0)) {
       await getAllAgreementAcives();
     }
-    
+
     doc = _agreementListById[id];
 
     if (doc == null) {
-      doc = (await new AgreementDAO()
-              .getAllAgreementFilter({'id': id}, {"description": "asc"}))
+      doc = (await new AgreementDAO().getAllFilter({'id': id}, {"description": "asc"}, []))
           .first;
     }
-    
+
     return turnMapInAgreement(doc);
   }
 
