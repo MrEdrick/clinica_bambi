@@ -7,5 +7,4 @@ class Filter {
 
   Collection get collection => _collection;
   set collection(Collection collection) => _collection = collection;
-
 }
