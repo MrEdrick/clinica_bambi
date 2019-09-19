@@ -8,9 +8,9 @@ class DAO {
   Future<Map<bool, String>> save(Collection collection) async {
     FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
 
-    Map<String, dynamic> datas = new Map<String, dynamic>.fromIterable(
-        collection.fieldList.map((field) => [field.description, field.value]));
-    Map<bool, String> result = (await _fireStoreApp.addItem(datas));
+    Map<bool, String> result = (await _fireStoreApp.addItem(
+        new Map<String, dynamic>.fromIterable(collection.fieldList
+            .map((field) => [field.description, field.value]))));
 
     _fireStoreApp.FireStoreOffLine();
     return result;
