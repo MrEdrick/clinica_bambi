@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:firebase/firestore.dart';
 import '../../firebase/firestore.dart';
+import 'filter.dart';
+import 'collection.dart';
 
 class DAO {
-  Future<Map<bool, String>> save(
-      String collection, Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection);
+  Future<Map<bool, String>> save(Collection collection) async {
+    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
 
+    Map<String, dynamic> datas = new Map<String, dynamic>.fromIterable(
+        collection.fieldList.map((field) => [field.description, field.value]));
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
 
     _fireStoreApp.FireStoreOffLine();
