@@ -8,19 +8,15 @@ class DAO {
   Future<Map<bool, String>> save(Collection collection) async {
     FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
 
-    Map<bool, String> result = (await _fireStoreApp.addItem(
-        new Map<String, dynamic>.fromIterable(collection.fieldList
-            .map((field) => [field.description, field.value]))));
+    Map<bool, String> result = (await _fireStoreApp.addItem(collection.fieldMap));
 
     _fireStoreApp.FireStoreOffLine();
     return result;
   }
 
-  Future<String> update(
-      String collection, String id, Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection);
-
-    if (await _fireStoreApp.updateItem(id, datas)) {
+  Future<String> update(Collection collection) async {
+    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
+    if (await _fireStoreApp.updateItem(collection.id, collection.fieldMap)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
     } else {
@@ -29,9 +25,9 @@ class DAO {
     }
   }
 
-  Future<String> delete(String collection, String id) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection);
-    if (await _fireStoreApp.deleteItem(id)) {
+  Future<String> delete(Collection collection) async {
+    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
+    if (await _fireStoreApp.deleteItem(collection.id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
     } else {
