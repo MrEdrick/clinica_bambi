@@ -18,7 +18,7 @@ class Service {
     _mapListWithFilter.clear();
   }
 
-  Future<List<Object>> getAllAcives() async {
+  Future<List<Map>> getAllAcives() async {
     if ((_mapList != null) && (_mapList.length != 0)) {
       return _mapList;
     }
@@ -29,9 +29,8 @@ class Service {
 
     _mapList.forEach((object) {
       _mapListById[object["documentPath"]] = object;
-      //_list.add(turnMapInAgreement(agreement));
     });
 
-    return _list;
+    return _mapList;
   }
 }
