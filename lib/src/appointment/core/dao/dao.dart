@@ -37,10 +37,9 @@ class DAO {
     }
   }
 
-  Future<List<Map>> getAll(Filter filter) async {
+  Future<List<Map>> getAll(Collection collection) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(filter.collection.description);
+    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
 
     await (await _fireStoreApp.ref.get()).docs.forEach((doc) {
       Map map = new Map.from(doc.data());
@@ -59,7 +58,7 @@ class DAO {
         new FireStoreApp(filter.collection.description);
 
     if (filter.conditionList.length == 0) {
-      _list = await getAll(filter);
+      _list = await getAll(filter.collection);
     } else {
       await (await _fireStoreApp.ref
               .where(
@@ -80,14 +79,16 @@ class DAO {
     return _list;
   }
 
-  Future<Map> getOneFilter(
-      String collection, Map filter, List comparisons) async {
+  Future<Map> getOneFilter(Filter filter) async {
     Map map = new Map();
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection);
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(filter.collection.description);
 
     DocumentSnapshot doc = (await _fireStoreApp.ref
-            .where(filter.keys.first.toString(), comparisons.first.toString(),
-                filter.values.first.toString())
+            .where(
+                filter.conditionList.first.field.toString(),
+                filter.conditionList.first.comparation.toString(),
+                filter.conditionList.first.value.toString())
             .limit(1)
             .get())
         .docs
