@@ -1,10 +1,11 @@
 import 'collection.dart';
 import 'condition.dart';
+import 'order_by.dart';
 
 class Filter {
   Collection _collection;
   List<Condition> _conditionList;
-  Map<String, String> _orderBy;
+  OrderBy _orderBy;
 
   Filter(this._collection, this._conditionList, this._orderBy);
 
@@ -17,6 +18,6 @@ class Filter {
           List<Condition> conditionList) =>
       _conditionList = conditionList;
 
-  Map<String, String> get orderBy => _orderBy;
-  set orderBy(Map<String, String> orderBy) => _orderBy = orderBy;
+  OrderBy get orderBy => _orderBy;
+  set orderBy(OrderBy orderBy) => _orderBy = orderBy;
 }

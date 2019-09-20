@@ -58,14 +58,14 @@ class DAO {
     FireStoreApp _fireStoreApp =
         new FireStoreApp(filter.collection.description);
 
-    if (filter.fieldValueComparationMap.length == 0) {
+    if (filter.conditionList.length == 0) {
       _list = await getAll(filter);
     } else {
       await (await _fireStoreApp.ref
               .where(
-                  filter.fieldValueComparationMap.keys.first.toString(),
-                  filter.fieldValueComparationMap.values.first.last.toString(),
-                  filter.fieldValueComparationMap.values.first.first.toString())
+                  filter.conditionList.first.field.toString(),
+                  filter.conditionList.first.comparation.toString(),
+                  filter.conditionList.first.value.toString())
               .get())
           .docs
           .forEach((doc) {
