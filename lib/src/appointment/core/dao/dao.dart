@@ -2,22 +2,28 @@ import 'dart:async';
 import 'package:firebase/firestore.dart';
 import '../../../firebase/firestore.dart';
 import 'filter.dart';
-import 'collection.dart';
 
 class DAO {
-  Future<Map<bool, String>> save(Collection collection) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
+  Filter _filter;
+
+  DAO(this._filter);
+
+  Filter get filter => _filter;
+  set filter(Filter filter) => _filter = filter;
+
+  Future<Map<bool, String>> save() async {
+    FireStoreApp _fireStoreApp = new FireStoreApp(this._filter.collection.description);
 
     Map<bool, String> result =
-        (await _fireStoreApp.addItem(collection.fieldMap));
+        (await _fireStoreApp.addItem(this._filter.collection.fieldMap));
 
     _fireStoreApp.FireStoreOffLine();
     return result;
   }
 
-  Future<String> update(Collection collection) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
-    if (await _fireStoreApp.updateItem(collection.id, collection.fieldMap)) {
+  Future<String> update() async {
+    FireStoreApp _fireStoreApp = new FireStoreApp(this._filter.collection.description);
+    if (await _fireStoreApp.updateItem(this._filter.collection.id, this._filter.collection.fieldMap)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
     } else {
@@ -26,9 +32,9 @@ class DAO {
     }
   }
 
-  Future<String> delete(Collection collection) async {
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
-    if (await _fireStoreApp.deleteItem(collection.id)) {
+  Future<String> delete() async {
+    FireStoreApp _fireStoreApp = new FireStoreApp(this._filter.collection.description);
+    if (await _fireStoreApp.deleteItem(this._filter.collection.id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
     } else {
@@ -37,9 +43,9 @@ class DAO {
     }
   }
 
-  Future<List<Map>> getAll(Collection collection) async {
+  Future<List<Map>> getAll() async {
     List<Map> _list = new List<Map>();
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
+    FireStoreApp _fireStoreApp = new FireStoreApp(this._filter.collection.description);
 
     await (await _fireStoreApp.ref.get()).docs.forEach((doc) {
       Map map = new Map.from(doc.data());
@@ -52,19 +58,19 @@ class DAO {
     return _list;
   }
 
-  Future<List<Map>> getAllFilter(Filter filter) async {
+  Future<List<Map>> getAllFilter() async {
     List<Map> _list = new List<Map>();
     FireStoreApp _fireStoreApp =
-        new FireStoreApp(filter.collection.description);
+        new FireStoreApp(this._filter.collection.description);
 
-    if (filter.conditionList.length == 0) {
-      _list = await getAll(filter.collection);
+    if (this._filter.conditionList.length == 0) {
+      _list = await getAll();
     } else {
       await (await _fireStoreApp.ref
               .where(
-                  filter.conditionList.first.field.toString(),
-                  filter.conditionList.first.comparation.toString(),
-                  filter.conditionList.first.value.toString())
+                  this._filter.conditionList.first.field.toString(),
+                  this._filter.conditionList.first.comparation.toString(),
+                  this._filter.conditionList.first.value.toString())
               .get())
           .docs
           .forEach((doc) {
