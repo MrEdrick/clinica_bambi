@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase/firestore.dart';
-import '../../firebase/firestore.dart';
+import '../../../firebase/firestore.dart';
 import 'filter.dart';
 import 'collection.dart';
 
@@ -8,7 +8,8 @@ class DAO {
   Future<Map<bool, String>> save(Collection collection) async {
     FireStoreApp _fireStoreApp = new FireStoreApp(collection.description);
 
-    Map<bool, String> result = (await _fireStoreApp.addItem(collection.fieldMap));
+    Map<bool, String> result =
+        (await _fireStoreApp.addItem(collection.fieldMap));
 
     _fireStoreApp.FireStoreOffLine();
     return result;
@@ -36,9 +37,10 @@ class DAO {
     }
   }
 
-  Future<List<Map>> getAll(String collection, List comparisons) async {
+  Future<List<Map>> getAll(Filter filter) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection);
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(filter.collection.description);
 
     await (await _fireStoreApp.ref.get()).docs.forEach((doc) {
       Map map = new Map.from(doc.data());
@@ -51,17 +53,19 @@ class DAO {
     return _list;
   }
 
-  Future<List<Map>> getAllFilter(
-      String collection, Map filter, Map orderBy, List comparisons) async {
+  Future<List<Map>> getAllFilter(Filter filter) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp _fireStoreApp = new FireStoreApp(collection);
+    FireStoreApp _fireStoreApp =
+        new FireStoreApp(filter.collection.description);
 
-    if (filter.length == 0) {
-      _list = await getAll(collection, comparisons);
+    if (filter.fieldValueComparationMap.length == 0) {
+      _list = await getAll(filter);
     } else {
       await (await _fireStoreApp.ref
-              .where(filter.keys.first.toString(), comparisons.first.toString(),
-                  filter.values.first.toString())
+              .where(
+                  filter.fieldValueComparationMap.keys.first.toString(),
+                  filter.fieldValueComparationMap.values.first.last.toString(),
+                  filter.fieldValueComparationMap.values.first.first.toString())
               .get())
           .docs
           .forEach((doc) {
