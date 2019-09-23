@@ -13,7 +13,6 @@ class Service {
   static DAO _dao;
 
   void clearAllLists() {
-
     _mapList.clear();
     _mapListById.clear();
     _mapListWithFilter.clear();
@@ -49,14 +48,13 @@ class Service {
     doc = _mapListById[id];
 
     if (doc == null) {
-      _dao.filter.conditionList.clear()
-      _dao.filter.conditionList.add(new Condition("id", id, "="));
-      _dao.filter.orderBy = new OrderBy("description", "asc");
-      doc = (await new _dao.getAllFilter())
-          .first;
+      _dao.filter
+        ..conditionList.clear()
+        ..conditionList.add(new Condition("id", id, "="))
+        ..orderBy = new OrderBy("description", "asc");
+      doc = (await _dao.getAllFilter()).first;
     }
 
     return doc;
   }
-
 }
