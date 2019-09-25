@@ -19,6 +19,12 @@ class Service {
     _mapListWithFilter.clear();
   }
 
+  Map get mapListById => _mapListById;
+
+  List<Map> get mapList => _mapList;
+  
+  List<Map> get mapListWithFilter => _mapListWithFilter;
+
   Future<List<Map>> getAllAcives() async {
     if ((_mapList != null) && (_mapList.length != 0)) {
       return _mapList;
