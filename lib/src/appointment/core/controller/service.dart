@@ -1,6 +1,7 @@
 import '../dao/dao.dart';
-import '../dao/condition.dart';
 import '../dao/order_by.dart';
+import '../dao/condition.dart';
+import '../dao/filter.dart';
 
 class Service {
   static String _id;
@@ -34,7 +35,7 @@ class Service {
     return _mapList;
   }
 
-  Future<Map> getById(String id) async {
+  Future<Map> getById(String id, OrderBy orderBy) async {
     Map doc;
 
     if (id.isEmpty) {
@@ -51,10 +52,58 @@ class Service {
       _dao.filter
         ..conditionList.clear()
         ..conditionList.add(new Condition("id", id, "="))
-        ..orderBy = new OrderBy("description", "asc");
+        ..orderBy = orderBy;
       doc = (await _dao.getAllFilter()).first;
     }
 
     return doc;
+  }
+
+  bool _toCompare(String condition, String value, String filterValue) {
+    if (condition == "has") {
+      return (value.toString().indexOf(filterValue) > -1);
+    }
+
+    return false;
+  }
+
+  void _applyFilter(List<Map> list, List<Map> listTemp) {
+    list.clear();
+
+    if (listTemp.length > 0) {
+      listTemp.forEach((doc) {
+        list.add(new Map.from(doc));
+      });
+
+      listTemp.clear();
+    }
+  }
+
+  List<Map> getListWithFilter(Filter filter) {
+    List<Map> _list = new List<Map>();
+    List<Map> _listTemp = new List<Map>();
+    _list.clear();
+    _listTemp.clear();
+
+    _mapList.forEach((_object) {
+      _list.add(_object);
+    });
+
+    filter.conditionList.forEach((condition) {
+      if ((condition.value != null) && (condition.value != '')) {
+        _list.forEach((doc) {
+          if (_toCompare(condition.comparation, doc[condition.field].toString(),
+              condition.value)) {
+            _listTemp.add(new Map.from(doc));
+          }
+        });
+
+        _applyFilter(_list, _listTemp);
+      }
+    });
+
+    _mapListWithFilter = _list;
+
+    return _mapListWithFilter;
   }
 }
