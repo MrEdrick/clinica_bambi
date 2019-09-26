@@ -1,45 +1,45 @@
 import 'dart:html';
+import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../appointment/procedure/procedure.dart';
-import '../../appointment/procedure/procedure_service.dart';
-import 'procedure_edit_component.dart';
+import '../controller/service.dart';
+import 'edit_component.dart';
 
 @Component(
-    selector: 'procedure-card-app',
+    selector: 'card-app',
     styleUrls: const [
-      'procedure_card_component.scss.css',
+      'card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'procedure_card_component.html',
+    templateUrl: 'card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      ProcedureEditComponent,
+      EditComponent,
       ModalComponent,
     ])
 
-class ProcedureCardComponent {
-  Procedure _procedure;
-  ProcedureService procedureService;
+class CardComponent {
+  Map _map;
+  Service service;
 
   bool showEditAgendamentoEditApp = false;
 
-  Procedure get procedure => _procedure;
+  Map get map => _map;
   @Input()
-  set procedure(Procedure procedure) => _procedure = procedure; 
+  set map(Map map) => _map = map; 
 
-  ProcedureCardComponent();
+  CardComponent();
 
   void onEdit() {
-    procedureService = new ProcedureService();
-    procedureService.procedure = procedure;
-    querySelector('#editProcedure').click();
-    querySelector('#procedure-edit-app').style.display = 'block';
+    service = new Service();
+    service.map = map;
+    querySelector('#edit').click();
+    querySelector('#edit-app').style.display = 'block';
   }
 }
