@@ -17,6 +17,12 @@ class AppointmentSchedulingService {
   static Map _appointmentSchedulingByDate = new Map();
   static Map _appointmentSchedulingByDateWithFilter = new Map();
 
+  final AppointmentSchedulingService appointmentSchedulingService =
+      new AppointmentSchedulingService();
+  final DentistService dentistService = new DentistService();
+  final AgreementService agreementService = new AgreementService();
+  final ShiftService shiftService = new ShiftService();
+
   AppointmentScheduling get appointmentScheduling => _appointmentScheduling;
   set appointmentScheduling(AppointmentScheduling appointmentScheduling) =>
       _appointmentScheduling = appointmentScheduling;
@@ -206,7 +212,7 @@ class AppointmentSchedulingService {
         "",
         new ShiftService().returnEmptyShift(),
         new DentistService().returnEmptyDentist(),
-        new AgreementService().returnEmptyAgreement(),
+        agreementService.returnEmpty(),
         new AutoAppointmentSchedulingService()
             .returnEmptyAutoAppointmentScheduling());
   }
@@ -237,8 +243,11 @@ class AppointmentSchedulingService {
             new GenericService().returnStringEmptyIfNull(map["shiftId"])),
         await new DentistService().getDentistById(
             new GenericService().returnStringEmptyIfNull(map["dentistId"])),
-        await new AgreementService().getAgreementById(
-            new GenericService().returnStringEmptyIfNull(map["agreementId"])),
+        (await agreementService
+              ..id = new GenericService()
+                  .returnStringEmptyIfNull(map["agreementId"])
+              ..getById())
+            .convertMap(),
         await new AutoAppointmentSchedulingService()
             .returnEmptyAutoAppointmentScheduling()));
   }

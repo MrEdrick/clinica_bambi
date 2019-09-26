@@ -18,6 +18,7 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
+import '../../appointment/core/view/ui.dart';
 import '../../appointment/mask/telephone_mask.dart';
 import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
@@ -30,7 +31,6 @@ import '../../appointment/procedure/procedureUI.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
-import '../../appointment/agreement/agreementUI.dart';
 import '../../appointment/requirement/requirement_service.dart';
 import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
@@ -206,7 +206,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .autoAppointmentScheduling.agreement !=
           null) {
         agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
-            .select(new AgreementUI(
+            .select(new UI(
                 autoAppointmentSchedulingService
                     .autoAppointmentScheduling.agreement.id,
                 autoAppointmentSchedulingService
@@ -254,7 +254,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     await dentistService.getAllDentistAcives();
     await procedureService.getAllProcedureAcives();
-    await agreementService.getAllAgreementAcives();
+    await agreementService.getAllAcives();
     await shiftService.getAllShiftAcives();
     await requirementService.getAllRequirementAcives();
     await procedureRequirementService.getAllProcedureRequirementAcives();

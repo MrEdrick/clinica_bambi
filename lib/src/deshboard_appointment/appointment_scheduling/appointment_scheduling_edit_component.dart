@@ -15,14 +15,13 @@ import 'package:angular_components/model/date/date.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:intl/intl.dart';
 
-import '../../appointment/appointment_scheduling/appointment_scheduling.dart';
+import '../../appointment/core/view/ui.dart';
 
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import '../../appointment/user/user_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
 import '../../appointment/agreement/agreement_service.dart';
-import '../../appointment/agreement/agreementUI.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shiftUI.dart';
 
@@ -145,7 +144,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
       if (appointmentSchedulingService.appointmentScheduling.agreement !=
           null) {
         agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
-            .select(new AgreementUI(
+            .select(new UI(
                 appointmentSchedulingService.appointmentScheduling.agreement.id,
                 appointmentSchedulingService
                     .appointmentScheduling.agreement.description));
@@ -178,7 +177,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
     email = "";
 
     await dentistService.getAllDentistAcives();
-    await agreementService.getAllAgreementAcives();
+    await agreementService.getAllAcives();
     await shiftService.getAllShiftAcives();
 
     clearListComponentRef(listComponentRefDropdownSelect);
