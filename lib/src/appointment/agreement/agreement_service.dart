@@ -6,8 +6,6 @@ import 'agreement.dart';
 import 'agreement_dao.dart';
 
 class AgreementService extends Service {
-  static List<Agreement> _list = new List<Agreement>();
-
   AgreementService() : super() {
     super.dao = new AgreementDAO();
     super.orderBy = new OrderBy("description", "asc");

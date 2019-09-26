@@ -2,17 +2,14 @@ import 'package:angular_components/model/selection/select.dart';
 import 'package:angular_components/model/selection/selection_options.dart';
 import 'package:angular_components/model/selection/string_selection_options.dart';
 
-class AgreementSelectionOptions<T> extends StringSelectionOptions<T>
+class SelectionOptions<T> extends StringSelectionOptions<T>
     implements Selectable {
-  AgreementSelectionOptions(List<T> options)
+  SelectionOptions(List<T> options)
       : super(options, toFilterableString: (T option) => option.toString());
-  AgreementSelectionOptions.withOptionGroups(List<OptionGroup> optionGroups)
+  SelectionOptions.withOptionGroups(List<OptionGroup> optionGroups)
       : super.withOptionGroups(optionGroups,
             toFilterableString: (T option) => option.toString());
   @override
   SelectableOption getSelectable(item) =>
-      //item is Dentist && item.code.contains('en')
-          //? SelectableOption.Disabled
-          //: 
           SelectableOption.Selectable;
 }
