@@ -243,7 +243,7 @@ class AutoAppointmentSchedulingService {
         '',
         shiftService.returnEmptyShift(),
         dentistService.returnEmptyDentist(),
-        agreementService.returnEmptyAgreement(),
+        agreementService.returnEmpty(),
         procedureService.returnEmptyProcedure());
   }
 
@@ -264,8 +264,11 @@ class AutoAppointmentSchedulingService {
             new GenericService().returnStringEmptyIfNull(map["shiftId"])),
         await new DentistService().getDentistById(
             new GenericService().returnStringEmptyIfNull(map["dentistId"])),
-        await new AgreementService().getAgreementById(
-            new GenericService().returnStringEmptyIfNull(map["agreementId"])),
+        (await agreementService
+              ..id = new GenericService()
+                  .returnStringEmptyIfNull(map["agreementId"])
+              ..getById())
+            .convertMap(),
         await new ProcedureService().getProcedureById(
             new GenericService().returnStringEmptyIfNull(map["procedureId"]))));
   }
@@ -349,7 +352,7 @@ class AutoAppointmentSchedulingService {
           (await new AppointmentSchedulingDAO().delete(appointmentSchedulingId))
               .isEmpty;
     }
-    
+
     if (result) {
       result = (await new AutoAppointmentSchedulingDAO()
               .delete(autoAppointmentSchedulingId))
