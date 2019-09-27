@@ -12,11 +12,6 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../appointment/requirement/requirement.dart';
-import '../../appointment/requirement/requirement_service.dart';
-
-import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
-
 import 'package:ClinicaBambi/src/deshboard_appointment/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
     as procedure_requirement_checkbox_component;
 

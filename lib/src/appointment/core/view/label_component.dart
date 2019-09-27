@@ -4,12 +4,13 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 
 @Component(
-    selector: 'label-app',
+    selector: 'label-component',
     styleUrls: const [
       'label_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     templateUrl: 'label_component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
       formDirectives,
@@ -18,6 +19,8 @@ import 'package:angular_components/angular_components.dart';
     ])
 
 class LabelComponent {
+  final ChangeDetectorRef _changeDetectorRef; 
+
   String _title;
   String _value;
   
@@ -30,5 +33,5 @@ class LabelComponent {
   set value(String value) => _value = value; 
 
 
-  LabelComponent();
+  LabelComponent(this._changeDetectorRef);
 }

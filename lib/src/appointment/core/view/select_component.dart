@@ -8,18 +8,18 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../appointment/procedure/procedureUI.dart';
-import '../../appointment/procedure/procedure_service.dart';
-import '../../appointment/procedure/procedure_selection_options.dart';
+import '../controller/service.dart';
+import '../view/ui.dart';
+import '../view/ui_selection_options.dart';
 
 @Component(
-    selector: 'procedure_dropdown_select_component',
+    selector: 'dropdown-select-component',
     styleUrls: const [
-      'procedure_dropdown_select_component.scss.css',
+      'dropdown_select_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'procedure_dropdown_select_component.html',
+    templateUrl: 'dropdown_select_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -30,11 +30,11 @@ import '../../appointment/procedure/procedure_selection_options.dart';
     providers: [
       windowBindings    
     ])
-class ProcedureDropdownSelectComponent implements OnInit {
+class DropdownSelectComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
-  final ProcedureService _procedureService = new ProcedureService();
+  final Service _service = new Service();
   
-  List<ProcedureUI> _listProcedure;
+  List<UI> _list;
   
   @Input()
   ComponentRef componentRef;
@@ -50,57 +50,57 @@ class ProcedureDropdownSelectComponent implements OnInit {
   
   bool useItemRenderer = false;
 
-  static ItemRenderer<ProcedureUI> _displayNameRenderer =
+  static ItemRenderer<UI> _displayNameRenderer =
       (HasUIDisplayName item) => item.uiDisplayName;
 
-  static ItemRenderer<ProcedureUI> _itemRendererProcedure =
-      newCachingItemRenderer<ProcedureUI>(
+  static ItemRenderer<UI> _itemRenderer =
+      newCachingItemRenderer<UI>(
           (procedure) => "${procedure.uiDisplayName}");
 
-  ItemRenderer<ProcedureUI> get itemRendererProcedure =>
-      useItemRenderer ? _itemRendererProcedure : _displayNameRenderer;
+  ItemRenderer<UI> get itemRenderer =>
+      useItemRenderer ? _itemRenderer : _displayNameRenderer;
 
-  ProcedureSelectionOptions<ProcedureUI> procedureListOptions;
+  SelectionOptions<UI> listOptions;
 
-  StringSelectionOptions<ProcedureUI> get procedureOptions {
-    if (_listProcedure == null) {
+  StringSelectionOptions<UI> get options {
+    if (_list == null) {
       return null;
     }
 
-    procedureListOptions = ProcedureSelectionOptions<ProcedureUI>(_listProcedure);
+    listOptions = SelectionOptions<UI>(_list);
 
-    return procedureListOptions;
+    return listOptions;
   }
 
   @Input()
-  SelectionModel<ProcedureUI> singleSelectModelProcedure =
+  SelectionModel<UI> singleSelectModel =
       SelectionModel.single();
 
   @Output()
   Stream get selectionChanges {
-    return singleSelectModelProcedure.selectionChanges;  
+    return singleSelectModel.selectionChanges;  
   }
 
-  String get singleSelectProcedureLabel =>
-      singleSelectModelProcedure.selectedValues == null
+  String get singleSelectLabel =>
+      singleSelectModel.selectedValues == null
           ? '  '
-          : singleSelectModelProcedure.selectedValues.length > 0
-              ? itemRendererProcedure(
-                  singleSelectModelProcedure.selectedValues.first)
+          : singleSelectModel.selectedValues.length > 0
+              ? itemRenderer(
+                  singleSelectModel.selectedValues.first)
               : 'Procedimento';
 
-  String get singleSelectedProcedure =>
-      singleSelectModelProcedure.selectedValues.isNotEmpty
-          ? singleSelectModelProcedure.selectedValues.first.uiDisplayName
+  String get singleSelected =>
+      singleSelectModel.selectedValues.isNotEmpty
+          ? singleSelectModel.selectedValues.first.uiDisplayName
           : null;
 
-  ProcedureDropdownSelectComponent(this._changeDetectorRef);
+  DropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
-    _listProcedure = new List<ProcedureUI>();
-    await _procedureService.getProcedureListWithFilterFromList({}).forEach((map) {
-      _listProcedure.add(new ProcedureUI(_procedureService.turnMapInProcedure(map).id,
-                                         _procedureService.turnMapInProcedure(map).description));
+    _list = new List<UI>();
+    await _service.getListWithFilter().forEach((map) {
+      _list.add(new UI(_service.map[_service.id],
+                                         _service.map[_service.description]);
     });
   }
 }

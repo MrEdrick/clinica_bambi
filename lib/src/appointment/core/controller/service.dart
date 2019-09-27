@@ -6,6 +6,7 @@ import '../view/ui.dart';
 
 class Service {
   static String _id = "";
+  static String _description = "";
   static Map _map = new Map();
 
   static Map _mapListById = new Map();
@@ -26,6 +27,9 @@ class Service {
 
   String get id => _id;
   set id(String id) => _id = id;
+
+  String get description => _description;
+  set description(String description) => _description = description;
 
   Map get map => _map;
   set map(Map map) => _map = map;
