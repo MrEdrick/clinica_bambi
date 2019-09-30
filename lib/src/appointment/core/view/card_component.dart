@@ -4,7 +4,9 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
 import '../controller/service.dart';
-import 'edit_component.dart';
+
+import 'edit_component_component.template.dart'
+    as edit_component;
 
 @Component(
     selector: 'card-component',
@@ -40,7 +42,15 @@ class CardComponent {
   void onEdit() {
     service = new Service();
     service.map = map;
-    //querySelector('#edit').click();
-    //querySelector('#edit-app').style.display = 'block';
+
+    ComponentFactory<edit_component.ProcedureListComponent> editComponent =
+        edit_component.ProcedureListComponentNgFactory;
+
+    ComponentRef editComponentRef =
+        _loader.loadNextToLocation(editComponent, materialContainerList);
+
+    editComponentRef.instance.componentRef = editComponentRef;
+
+    _changeDetectorRef.markForCheck();
   }
 }

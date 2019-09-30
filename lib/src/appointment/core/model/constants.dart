@@ -1,0 +1,3 @@
+final INDEX_DESCRIPTION = 0;
+final INDEX_TYPE = 0;
+final INDEX_TITLE = 0;

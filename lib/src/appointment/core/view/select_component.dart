@@ -47,6 +47,9 @@ class DropdownSelectComponent implements OnInit {
 
     _changeDetectorRef.markForCheck();
   }
+
+  @Input()
+  String description;
   
   bool useItemRenderer = false;
 
@@ -87,7 +90,7 @@ class DropdownSelectComponent implements OnInit {
           : singleSelectModel.selectedValues.length > 0
               ? itemRenderer(
                   singleSelectModel.selectedValues.first)
-              : 'Procedimento';
+              : description;
 
   String get singleSelected =>
       singleSelectModel.selectedValues.isNotEmpty
