@@ -5,6 +5,8 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 
 import '../controller/service.dart';
 
+import 'label_component_component.template.dart'
+    as label_component;
 import 'edit_component_component.template.dart'
     as edit_component;
 
@@ -23,7 +25,7 @@ import 'edit_component_component.template.dart'
       ModalComponent,
     ])
 
-class CardComponent {
+class CardComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
@@ -38,11 +40,33 @@ class CardComponent {
 
   bool showEditAgendamentoEditApp = false;
 
+  @Input()
+  ComponentRef componentRef;
+
   Map get map => _map;
   @Input()
   set map(Map map) => _map = map; 
 
   CardComponent(this._changeDetectorRef, this._loader);
+
+  void ngOnInit() {   
+    service.getListWithFilter().forEach((item) {
+      
+      ComponentFactory<label_component.LabelComponent>
+          componentFactoryLabel =
+          label_component.LabelComponentNgFactory;
+      
+      ComponentRef componentRefLabel =
+        _loader.loadNextToLocation(componentFactoryLabel, viewContainerRefLabel);
+      
+      //componentRefLabel.instance.title = ;
+      //componentRefLabel.instance.value = ;
+      componentRefLabel.instance.componentRef = componentRefLabel;
+           
+    });
+    
+    _changeDetectorRef.markForCheck();
+  }
 
   void onEdit() {
     service = new Service();

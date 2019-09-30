@@ -23,7 +23,10 @@ class LabelComponent {
 
   String _title;
   String _value;
-  
+
+  @Input()
+  ComponentRef componentRef;
+
   String get title => _title;
   @Input()
   set title(String title) => _title = title; 
