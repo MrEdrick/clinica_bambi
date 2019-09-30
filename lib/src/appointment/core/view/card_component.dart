@@ -27,8 +27,11 @@ class CardComponent {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
-  @ViewChild('appLabel', read: ViewContainerRef)
-  ViewContainerRef materialContainerAdd;
+  @ViewChild('viewContainerRefLabel', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefLabel;
+
+  @ViewChild('viewContainerRefEdit', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefEdit;
 
   Map _map;
   Service service;
@@ -49,7 +52,7 @@ class CardComponent {
         edit_component.ProcedureListComponentNgFactory;
 
     ComponentRef editComponentRef =
-        _loader.loadNextToLocation(editComponent, materialContainerList);
+        _loader.loadNextToLocation(editComponent, viewContainerRefEdit);
 
     editComponentRef.instance.componentRef = editComponentRef;
 
