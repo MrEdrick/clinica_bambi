@@ -118,7 +118,7 @@ class EditComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
 
-    if ((await service.dao.save()).keys.first{
+    if ((await service.dao.save()).keys.first) {
       showSuccessfullySave = true;  
     } else {
       showNotSuccessfullySave = true;

@@ -27,20 +27,18 @@ import '../view/ui_selection_options.dart';
       MaterialDropdownSelectComponent,
       DropdownSelectValueAccessor
     ],
-    providers: [
-      windowBindings    
-    ])
+    providers: [windowBindings])
 class DropdownSelectComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final Service _service = new Service();
-  
+
   List<UI> _list;
-  
+
   @Input()
   ComponentRef componentRef;
 
   bool _disabled = false;
-  bool get disabled => _disabled; 
+  bool get disabled => _disabled;
   @Input()
   set disabled(bool disabled) {
     _disabled = disabled;
@@ -50,60 +48,55 @@ class DropdownSelectComponent implements OnInit {
 
   @Input()
   String description;
-  
+
   bool useItemRenderer = false;
 
   static ItemRenderer<UI> _displayNameRenderer =
       (HasUIDisplayName item) => item.uiDisplayName;
 
   static ItemRenderer<UI> _itemRenderer =
-      newCachingItemRenderer<UI>(
-          (procedure) => "${procedure.uiDisplayName}");
+      newCachingItemRenderer<UI>((procedure) => "${procedure.uiDisplayName}");
 
   ItemRenderer<UI> get itemRenderer =>
       useItemRenderer ? _itemRenderer : _displayNameRenderer;
 
-  SelectionOptions<UI> listOptions;
+  UISelectionOptions<UI> listOptions;
 
   StringSelectionOptions<UI> get options {
     if (_list == null) {
       return null;
     }
 
-    listOptions = SelectionOptions<UI>(_list);
+    listOptions = UISelectionOptions<UI>(_list);
 
     return listOptions;
   }
 
   @Input()
-  SelectionModel<UI> singleSelectModel =
-      SelectionModel.single();
+  SelectionModel<UI> singleSelectModel = SelectionModel.single();
 
   @Output()
   Stream get selectionChanges {
-    return singleSelectModel.selectionChanges;  
+    return singleSelectModel.selectionChanges;
   }
 
-  String get singleSelectLabel =>
-      singleSelectModel.selectedValues == null
-          ? '  '
-          : singleSelectModel.selectedValues.length > 0
-              ? itemRenderer(
-                  singleSelectModel.selectedValues.first)
-              : description;
+  String get singleSelectLabel => singleSelectModel.selectedValues == null
+      ? '  '
+      : singleSelectModel.selectedValues.length > 0
+          ? itemRenderer(singleSelectModel.selectedValues.first)
+          : description;
 
-  String get singleSelected =>
-      singleSelectModel.selectedValues.isNotEmpty
-          ? singleSelectModel.selectedValues.first.uiDisplayName
-          : null;
+  String get singleSelected => singleSelectModel.selectedValues.isNotEmpty
+      ? singleSelectModel.selectedValues.first.uiDisplayName
+      : null;
 
   DropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _list = new List<UI>();
     await _service.getListWithFilter().forEach((map) {
-      _list.add(new UI(_service.map[_service.id],
-                                         _service.map[_service.description]);
+      _list.add(new UI(
+          _service.map[_service.id], _service.map[_service.description]));
     });
   }
 }
