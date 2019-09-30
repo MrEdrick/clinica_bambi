@@ -12,12 +12,8 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import 'package:ClinicaBambi/src/deshboard_appointment/procedure_requirement/procedure_requirement_checkbox_component.template.dart'
-    as procedure_requirement_checkbox_component;
-
-import '../../appointment/procedure/procedure_service.dart';
-
-import '../../appointment/user/user_service.dart';
+import '../controller/service.dart';
+import '../../../appointment/user/user_service.dart';
 
 @Component(
     selector: 'edit-app',
@@ -48,19 +44,10 @@ class EditComponent implements OnInit {
 
   final List<ComponentRef> listComponentRefProcedureRequirement = new List<ComponentRef>();
 
-  ProcedureService _procedureService;
-
-  ProcedureService get procedureService => _procedureService;
-  set procedureService(ProcedureService procedureService) => _procedureService = procedureService;
+  Service service;
 
   @Input()
   ComponentRef componentRef;
-
-  ComponentRef procedureRequirementCheckboxComponent;
-
-  @ViewChild('procedureRequirementCheckboxComponent',
-      read: ViewContainerRef)
-  ViewContainerRef materialContainerProcedureRequirementCheckBox;
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;

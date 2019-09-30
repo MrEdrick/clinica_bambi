@@ -9,18 +9,18 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../appointment/user/user_service.dart';
 import '../../route_paths.dart' as paths;
-import '../../appointment/procedure/procedure_service.dart';
+import '../../../appointment/user/user_service.dart';
+import '../controller/service.dart';
 
-import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_list_component.template.dart'
-    as procedure_list;
-import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_edit_component.template.dart'
-    as procedure_edit;
+import 'list_component_component.template.dart'
+    as list_component;
+import 'edit_component_component.template.dart'
+    as edit_component;
 
 @Component(
-  selector: 'procedure_filter_component',
-  templateUrl: 'procedure_filter_component.html',
+  selector: 'filter_component',
+  templateUrl: 'filter_component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
@@ -38,12 +38,11 @@ import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_edit_
     popupBindings
   ],
   styleUrls: const [
-    'procedure_filter_component.scss.css',
+    'filter_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
 class ProcedureFilterComponent implements OnActivate, OnInit {  
-  ProcedureService _procedureService = new ProcedureService();
   ComponentRef componentRef;
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
@@ -57,6 +56,8 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
   @ViewChild('containerEditProcedure', read: ViewContainerRef)
   ViewContainerRef materialContainerAdd;
+
+  final Service service = new Service();
 
   ProcedureFilterComponent(this._router, this._loader, this._changeDetectorRef);
 
@@ -82,36 +83,36 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   Future<void> onFilter() async {
     componentRef?.destroy();
 
-    _procedureService.clearAllProcedureList();
+    service.clearAllLists();
 
-    _procedureService.getAllProcedureAcives().then((onValue) {
-      _procedureService.getProcedureListWithFilterFromList({"description": description});
+    service.getAllAcives().then((onValue) {
+      service.getListWithFilter();
 
       onLoad();
     });
   }
 
   void onLoad() {
-    ComponentFactory<procedure_list.ProcedureListComponent> procedureList =
-        procedure_list.ProcedureListComponentNgFactory;
+    ComponentFactory<list_component.ListComponent> listComponentFactory =
+        list_component.ListComponentNgFactory;
 
-    ComponentRef procedureListComponent =
-        _loader.loadNextToLocation(procedureList, materialContainerList);
+    ComponentRef listComponentRef =
+        _loader.loadNextToLocation(listComponentFactory, materialContainerList);
 
-    procedureListComponent.instance.componentRef = procedureListComponent;
-    componentRef = procedureListComponent;
+    listComponentRef.instance.componentRef = listComponentRef;
+    //componentRef = listComponentRef;
 
     _changeDetectorRef.markForCheck();
   }
 
   void onAdd() {
-    _procedureService.procedure = null;
-    ComponentFactory<procedure_edit.ProcedureEditComponent> procedureEdit =
-        procedure_edit.ProcedureEditComponentNgFactory;
+    service.map.clear();
+    ComponentFactory<edit_component.EditComponent> editComponentFactory =
+        edit_component.EditComponentNgFactory;
 
-    ComponentRef procedureEditComponent =
-        _loader.loadNextToLocation(procedureEdit, materialContainerAdd);
-    procedureEditComponent.instance.componentRef = procedureEditComponent;
+    ComponentRef editComponentRef =
+        _loader.loadNextToLocation(editComponentFactory, materialContainerAdd);
+    editComponentRef.instance.componentRef = editComponentRef;
   }
 
   void onClear() {

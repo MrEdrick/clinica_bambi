@@ -20,13 +20,15 @@ import 'edit_component_component.template.dart'
       formDirectives,
       AutoFocusDirective,
       materialInputDirectives,
-      EditComponent,
       ModalComponent,
     ])
 
 class CardComponent {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
+
+  @ViewChild('appLabel', read: ViewContainerRef)
+  ViewContainerRef materialContainerAdd;
 
   Map _map;
   Service service;
