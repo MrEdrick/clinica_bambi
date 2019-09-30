@@ -9,7 +9,7 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../route_paths.dart' as paths;
+import '../../../route_paths.dart' as paths;
 import '../../../appointment/user/user_service.dart';
 import '../controller/service.dart';
 
@@ -48,8 +48,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
  
   final Router _router;
-
-  String description;
 
   @ViewChild('containerListProcedure', read: ViewContainerRef)
   ViewContainerRef materialContainerList;
@@ -100,7 +98,7 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
         _loader.loadNextToLocation(listComponentFactory, materialContainerList);
 
     listComponentRef.instance.componentRef = listComponentRef;
-    //componentRef = listComponentRef;
+    componentRef = listComponentRef;
 
     _changeDetectorRef.markForCheck();
   }
@@ -116,9 +114,9 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
   }
 
   void onClear() {
-    description = '';
+    //description = '';
 
-    querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
-    querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
+    //querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
+    //querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
   }
 }

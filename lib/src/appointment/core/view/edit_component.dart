@@ -42,9 +42,8 @@ class EditComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
-  final List<ComponentRef> listComponentRefProcedureRequirement = new List<ComponentRef>();
-
-  Service service;
+  final Service service = new Service();
+  final UserService userService = new UserService();
 
   @Input()
   ComponentRef componentRef;
@@ -59,57 +58,30 @@ class EditComponent implements OnInit {
   EditComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
-    procedureService = new ProcedureService();
-
-    if (procedureService.procedure == null) { 
-      procedureService.procedure = new Procedure("", "", true);
+    if (service.map.isEmpty) { 
+      //service.procedure = new Procedure("", "", true);
     }
   }
 
 
   void onClearListsOfComponentRef() {
-    listComponentRefProcedureRequirement.forEach((componentRef) {
-      componentRef.destroy();
-    });
-
-    listComponentRefProcedureRequirement.clear();
   }
 
   void ngOnInit() async {
-    if (new UserService().user  == null)
+    if (userService.user  == null)
       return;
 
     onClearListsOfComponentRef();
 
-    querySelector('deshboard_appointment_component').style.overflowY = "hidden";
+    //querySelector('deshboard_appointment_component').style.overflowY = "hidden";
     onEdit();
 
-    List<Requirement> _listRequirement = await new RequirementService().getAllRequirementAcives();
-
-    await new ProcedureRequirementService().getAllProcedureRequirementAcives();
-
-    _listRequirement.forEach((requirement) {
-        ComponentFactory<procedure_requirement_checkbox_component.ProcedureRequirementCheckboxComponent>
-            procedureRequirementComponent =
-            procedure_requirement_checkbox_component.ProcedureRequirementCheckboxComponentNgFactory;
-
-        procedureRequirementCheckboxComponent =
-            _loader.loadNextToLocation(
-                procedureRequirementComponent, materialContainerProcedureRequirementCheckBox);
-
-        procedureRequirementCheckboxComponent.instance.procedureId = procedureService.procedure.id;
-        procedureRequirementCheckboxComponent.instance.requirementId = requirement.id;
-        procedureRequirementCheckboxComponent.instance.requirement = requirement.description;
-        
-        listComponentRefProcedureRequirement.add(procedureRequirementCheckboxComponent);
-    });
-    
     _changeDetectorRef.markForCheck();  
   }
 
   void onClose() {
-    procedureService.procedure = null;
-    querySelector('deshboard_appointment_component').style.overflowY = "scroll";
+    service.map.clear();
+    //querySelector('deshboard_appointment_component').style.overflowY = "scroll";
     componentRef.destroy();
   }
 
@@ -131,10 +103,10 @@ class EditComponent implements OnInit {
   }
 
   void onAssertsSave() {
-    if ((procedureService.procedure.description == "")) {
-      showAssertMessageSave = true;
-      return;
-    }
+    //if ((procedureService.procedure.description == "")) {
+    //  showAssertMessageSave = true;
+    //  return;
+    // }
 
     onSave();
   }
@@ -146,7 +118,7 @@ class EditComponent implements OnInit {
   void onSave() async {   
     showAssertMessageAlert = false;
 
-    if (await procedureService.save()) {
+    if ((await service.dao.save()).keys.first{
       showSuccessfullySave = true;  
     } else {
       showNotSuccessfullySave = true;
