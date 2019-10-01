@@ -9,9 +9,9 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../../route_paths.dart' as paths;
-import '../../../appointment/user/user_service.dart';
-import '../controller/service.dart';
+import '../../../../route_paths.dart' as paths;
+import '../../../../appointment/user/user_service.dart';
+import '../../controller/service.dart';
 
 import 'list_component_component.template.dart'
     as list_component;

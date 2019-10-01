@@ -3,8 +3,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
 
-import '../../../appointment/user/user_service.dart';
-import '../controller/service.dart';
+import '../../../../appointment/user/user_service.dart';
+import '../../controller/service.dart';
 
 import 'card_component.template.dart'
     as card_component;

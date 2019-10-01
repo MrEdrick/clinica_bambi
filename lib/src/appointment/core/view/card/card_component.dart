@@ -3,7 +3,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../controller/service.dart';
+import '../../controller/service.dart';
+import '../../model/collection.dart';
 
 import 'label_component_component.template.dart'
     as label_component;
@@ -36,12 +37,15 @@ class CardComponent implements OnInit {
   ViewContainerRef viewContainerRefEdit;
 
   Map _map;
-  Service service;
+  final Service service = new Service();
 
   bool showEditAgendamentoEditApp = false;
 
   @Input()
   ComponentRef componentRef;
+
+  @Input()
+  Collection collection;
 
   Map get map => _map;
   @Input()
@@ -50,7 +54,7 @@ class CardComponent implements OnInit {
   CardComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() {   
-    service.getListWithFilter().forEach((item) {
+    collection.fieldList.forEach((field) {
       
       ComponentFactory<label_component.LabelComponent>
           componentFactoryLabel =
@@ -59,8 +63,8 @@ class CardComponent implements OnInit {
       ComponentRef componentRefLabel =
         _loader.loadNextToLocation(componentFactoryLabel, viewContainerRefLabel);
       
-      //componentRefLabel.instance.title = ;
-      //componentRefLabel.instance.value = ;
+      componentRefLabel.instance.title = field.title;
+      componentRefLabel.instance.value = field.value;
       componentRefLabel.instance.componentRef = componentRefLabel;
            
     });
@@ -69,7 +73,6 @@ class CardComponent implements OnInit {
   }
 
   void onEdit() {
-    service = new Service();
     service.map = map;
 
     ComponentFactory<edit_component.ProcedureListComponent> editComponent =

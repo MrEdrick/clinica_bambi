@@ -1,24 +1,20 @@
-import 'dart:html';
 import 'package:angular/angular.dart';
-import 'package:angular_forms/angular_forms.dart';
-import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 
 @Component(
-    selector: 'label-component',
+    selector: 'boolean-label-component',
     styleUrls: const [
-      'label_component.scss.css',
+      'boolean_label_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'label_component.html',
+    templateUrl: 'boolean_label_component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [
       coreDirectives,
-      formDirectives,
-      AutoFocusDirective,
-      materialInputDirectives
+      MaterialIconComponent
     ])
 
-class LabelComponent {
+class BooleanLabelComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
 
   String _title;
@@ -36,5 +32,10 @@ class LabelComponent {
   set value(String value) => _value = value; 
 
 
-  LabelComponent(this._changeDetectorRef);
+  BooleanLabelComponent(this._changeDetectorRef);
+
+  @override
+  void ngOnInit() {
+    _changeDetectorRef.markForCheck();
+  }
 }
