@@ -1,0 +1,14 @@
+<material-drawer temporary #drawer="drawer" id="deshboard-menu" [attr.overlay]="overlay ? '' : null">
+    <header class="material-header shadow">
+        <div class="material-header-row">
+            <span id="material-header-title-menu">
+                {{title}}
+            </span>
+        </div>
+    </header>
+    <div>
+        <div id="container-menu-itens">
+            <div #viewContainerRefMenuItem></div>
+        </div>
+    </div>
+</material-drawer>

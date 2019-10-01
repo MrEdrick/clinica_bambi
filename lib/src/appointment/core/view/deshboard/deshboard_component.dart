@@ -19,10 +19,9 @@ import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import '../../../../route_paths.dart' as paths;
 
 import '../../../user/user_service.dart';
-import '../../controller/service.dart';
 import '../../model/application.dart';
 
-import '../filter/filter_component.template.dart' as filter_component;
+import '../deshboard_menu_component.template.dart' as deshboard_menu_component;
 
 @Component(
   selector: 'deshboard_component',
@@ -67,8 +66,8 @@ class DeshboardComponent implements OnActivate, OnInit {
   @Input()
   Application application;
 
-  @ViewChild('viewContainerRefMenuItem', read: ViewContainerRef)
-  ViewContainerRef viewContainerRefMenuItem;
+  @ViewChild('viewContainerRefMenu', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefMenu;
 
   DeshboardComponent(this._router, this._loader, this._changeDetectorRef);
 

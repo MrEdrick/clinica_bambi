@@ -1,18 +1,3 @@
-<material-drawer temporary #drawer="drawer" id="deshboard-menu" [attr.overlay]="overlay ? '' : null">
-    <header class="material-header shadow">
-        <div class="material-header-row">
-            <span id="material-header-title-menu">
-                {{application.title}}
-            </span>
-        </div>
-    </header>
-    <div>
-        <div id="container-menu-itens">
-            <div #viewContainerRefMenuItem></div>
-        </div>
-    </div>
-</material-drawer>
-
 <header class="material-header shadow">
     <div class="material-header-row">
         <material-button class="material-drawer-button" icon (trigger)="drawer.toggle()">
@@ -24,6 +9,6 @@
         <div class="material-spacer"></div>
     </div>
 </header>
-<div class="material-content">
-    <div #viewContainerRefFilter></div>
+<div>
+    <div #viewContainerRefMenu></div>
 </div>
