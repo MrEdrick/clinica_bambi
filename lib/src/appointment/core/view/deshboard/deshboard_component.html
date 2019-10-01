@@ -2,36 +2,13 @@
     <header class="material-header shadow">
         <div class="material-header-row">
             <span id="material-header-title-menu">
-                Clínica Bambi
+                {{application.title}}
             </span>
         </div>
     </header>
     <div>
         <div id="container-menu-itens">
-            <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Agendamentos')">
-                    <material-icon icon="calendar_today"></material-icon>
-                    Agendamendos
-                </material-button>
-            </div>
-            <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Dentistas')">
-                    <material-icon icon="person_outline"></material-icon>
-                    Dentistas
-                </material-button>
-            </div>
-            <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Procedimentos')">
-                    <material-icon icon="list_alt"></material-icon>
-                    Procedimentos
-                </material-button>
-            </div>
-            <div class="deshboard-menu-item">
-                <material-button class="material-drawer-button" icon (click)="onClickMenuItem('Requisitos')">
-                    <material-icon icon="check_box"></material-icon>
-                    Requisitos
-                </material-button>
-            </div>
+            <div #viewContainerRefMenuItem></div>
         </div>
     </div>
 </material-drawer>
@@ -42,11 +19,11 @@
             <material-icon icon="menu"></material-icon>
         </material-button>
         <span class="material-header-title">
-            Clínica Bambi
+            {{application.title}}
         </span>
         <div class="material-spacer"></div>
     </div>
 </header>
 <div class="material-content">
-    <div #materialContentFilter></div>
+    <div #viewContainerRefFilter></div>
 </div>

@@ -19,10 +19,10 @@ import 'package:angular_components/app_layout/material_temporary_drawer.dart';
 import '../../../../route_paths.dart' as paths;
 
 import '../../../user/user_service.dart';
-import '../../controller/service.dart'; 
+import '../../controller/service.dart';
+import '../../model/application.dart';
 
-import '../filter/filter_component.template.dart'
-    as filter_component;
+import '../filter/filter_component.template.dart' as filter_component;
 
 @Component(
   selector: 'deshboard_component',
@@ -60,18 +60,15 @@ class DeshboardComponent implements OnActivate, OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   ComponentRef componentRef;
 
-  final UserService userService = new UserService();
-
   final Router _router;
 
-  bool useItemRenderer = false;
-  bool useOptionGroup = false;
-  bool overlay = true;
+  final UserService userService = new UserService();
 
-  String filterApp;
+  @Input()
+  Application application;
 
-  @ViewChild('materialContentFilter', read: ViewContainerRef)
-  ViewContainerRef materialContentFilter;
+  @ViewChild('viewContainerRefMenuItem', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefMenuItem;
 
   DeshboardComponent(this._router, this._loader, this._changeDetectorRef);
 
@@ -93,19 +90,11 @@ class DeshboardComponent implements OnActivate, OnInit {
     if (new UserService().user == null) return;
   }
 
-  void loadFilter() {
-    ComponentFactory<filter_component.FilterComponent>
-        componentFactoryFilter =
-        filter_component.FilterComponentNgFactory;
-    componentRef =
-        _loader.loadNextToLocation(componentFactoryFilter, materialContentFilter);
-  }
-
   void onClickMenuItem(String filter) {
     componentRef.destroy();
 
     //new GenericService().clearAllServicesLists();
-    
+
     _changeDetectorRef.checkNoChanges();
   }
 }
