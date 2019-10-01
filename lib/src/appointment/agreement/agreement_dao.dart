@@ -12,7 +12,10 @@ class AgreementDAO extends DAO {
                 AGREEMENT_COLLECTION,
                 "",
                 new List<Field>.from(AGREEMENT_COLLECTION_MODEL.map((field) =>
-                    new Field(field[INDEX_DESCRIPTION], field[INDEX_TYPE], "", field[INDEX_TITLE])))),
+                    new Field(field[INDEX_DESCRIPTION], field[INDEX_TYPE], "",
+                        field[INDEX_TITLE]))),
+                "Convênio",
+                "credit_card"),
             null,
             null));
 }
