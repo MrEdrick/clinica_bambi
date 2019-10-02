@@ -58,7 +58,8 @@ import '../filter/filter_component.template.dart' as filter_component;
 class DeshboardComponent implements OnActivate, OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  ComponentRef componentRef;
+  ComponentRef componentRefMenu;
+  ComponentRef componentRefFilter;
 
   final Router _router;
 
@@ -95,17 +96,20 @@ class DeshboardComponent implements OnActivate, OnInit {
     ComponentFactory<deshboard_menu_component.DeshboardMenuComponent>
         componentFactoryDeshboardMenu =
         deshboard_menu_component.DeshboardMenuComponentNgFactory;
-    componentRef = _loader.loadNextToLocation(
+    componentRefMenu = _loader.loadNextToLocation(
         componentFactoryDeshboardMenu, viewContainerRefMenu);
 
-    componentRef.instance.onClickMenuItem.listen((_) => loadFilter());
+    componentRefMenu.instance.onClickMenuItem.listen((_) => loadFilter());
+    componentRefMenu.instance.componentRef = componentRefMenu;
   }
 
   void loadFilter() {
     ComponentFactory<filter_component.FilterComponent> componentFactoryFilter =
         filter_component.FilterComponentNgFactory;
-    componentRef = _loader.loadNextToLocation(
+    componentRefFilter = _loader.loadNextToLocation(
         componentFactoryFilter, viewContainerRefFilter);
     _changeDetectorRef.checkNoChanges();
+
+    componentRefFilter.instance.componentRef = componentRefFilter;
   }
 }

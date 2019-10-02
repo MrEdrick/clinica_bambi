@@ -28,12 +28,14 @@ import 'package:angular_components/utils/browser/window/module.dart';
 )
 class DeshboardMenuItemComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
-  ComponentRef componentRef;
 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
 
+  @Input()
+  ComponentRef componentRef;
+  
   @Input()
   String title;
 

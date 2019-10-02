@@ -26,6 +26,7 @@ class ListComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
   final ComponentLoader _loader;
 
+  final List<ComponentRef> listComponentRefCard = new List<ComponentRef>();
   final List<String> listId = new List<String>();
   final UserService userService = new UserService();
   final Service service = new Service();
@@ -41,19 +42,18 @@ class ListComponent implements OnInit {
   void ngOnInit() {
     if (userService.user == null) 
       return;
+
+    listComponentRefCard.clear();
     
     service.getListWithFilter().forEach((item) {
-      
       ComponentFactory<card_component.CardComponent>
           componentFactoryCard =
           card_component.CardComponentNgFactory;
       
-      ComponentRef componentRefCard =
-        _loader.loadNextToLocation(componentFactoryCard, viewContainerRefCard);
+      listComponentRefCard.add(_loader.loadNextToLocation(componentFactoryCard, viewContainerRefCard));
       
-      componentRefCard.instance.id = item["documentPath"];
-      componentRefCard.instance.componentRef = componentRefCard;
-           
+      listComponentRefCard.last.instance.id = item["documentPath"];
+      listComponentRefCard.last.instance.componentRef = listComponentRefCard.last;
     });
     
     _changeDetectorRef.markForCheck();

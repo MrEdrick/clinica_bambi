@@ -8,6 +8,8 @@ import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import '../../../../route_paths.dart' as paths;
 
+import '../../model/file.dart';
+
 import '../deshboard_menu_item_component.template.dart'
     as deshboard_menu_item_component;
 
@@ -34,11 +36,17 @@ import '../deshboard_menu_item_component.template.dart'
 class DeshboardMenuComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
+  final List<ComponentRef> listComponentRefMenuItem = new List<ComponentRef>();
+
+  @Input()
   ComponentRef componentRef;
 
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
+
+  @Input()
+  File file;
 
   @Input()
   String title;
@@ -52,14 +60,19 @@ class DeshboardMenuComponent implements OnInit {
   DeshboardMenuComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
+    listComponentRefMenuItem.clear();
+    
+    file.listCollection.getListWithFilter().forEach((item) {
     ComponentFactory<deshboard_menu_item_component.DeshboardMenuComponent>
         componentFactoryDeshboardMenuItem =
         deshboard_menu_item_component.DeshboardMenuComponentNgFactory;
-    componentRef = _loader.loadNextToLocation(
-        componentFactoryDeshboardMenuItem, viewContainerRefMenuItem);
+    listComponentRefMenuItem.add(_loader.loadNextToLocation(
+        componentFactoryDeshboardMenuItem, viewContainerRefMenuItem));
 
-    componentRef.instance.onClickMenuItem.listen((_) => onClickMenuItem());
-
+    listComponentRefMenuItem.last.instance.onClickMenuItem.listen((_) => onClickMenuItem());
+    listComponentRefMenuItem.last.componentRef = listComponentRefMenuItem.last
+    });
+    
     _changeDetectorRef.markForCheck();
   }
 }
