@@ -22,6 +22,7 @@ import '../../../user/user_service.dart';
 import '../../model/application.dart';
 
 import '../deshboard_menu_component.template.dart' as deshboard_menu_component;
+import '../filter/filter_component.template.dart' as filter_component;
 
 @Component(
   selector: 'deshboard_component',
@@ -69,6 +70,9 @@ class DeshboardComponent implements OnActivate, OnInit {
   @ViewChild('viewContainerRefMenu', read: ViewContainerRef)
   ViewContainerRef viewContainerRefMenu;
 
+  @ViewChild('viewContainerRefFilter', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefFilter;
+
   DeshboardComponent(this._router, this._loader, this._changeDetectorRef);
 
   @override
@@ -87,13 +91,21 @@ class DeshboardComponent implements OnActivate, OnInit {
 
   void ngOnInit() async {
     if (new UserService().user == null) return;
+
+    ComponentFactory<deshboard_menu_component.DeshboardMenuComponent>
+        componentFactoryDeshboardMenu =
+        deshboard_menu_component.DeshboardMenuComponentNgFactory;
+    componentRef = _loader.loadNextToLocation(
+        componentFactoryDeshboardMenu, viewContainerRefMenu);
+
+    componentRef.instance.onClickMenuItem.listen((_) => loadFilter());
   }
 
-  void onClickMenuItem(String filter) {
-    componentRef.destroy();
-
-    //new GenericService().clearAllServicesLists();
-
+  void loadFilter() {
+    ComponentFactory<filter_component.FilterComponent> componentFactoryFilter =
+        filter_component.FilterComponentNgFactory;
+    componentRef = _loader.loadNextToLocation(
+        componentFactoryFilter, viewContainerRefFilter);
     _changeDetectorRef.checkNoChanges();
   }
 }

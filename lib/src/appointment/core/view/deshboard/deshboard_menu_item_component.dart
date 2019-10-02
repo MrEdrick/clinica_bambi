@@ -1,14 +1,10 @@
-import 'dart:html';
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import '../../../../route_paths.dart' as paths;
-
-import '../filter/filter_component.template.dart' as filter_component;
 
 @Component(
   selector: 'deshboard_menu_item_component',
@@ -31,7 +27,6 @@ import '../filter/filter_component.template.dart' as filter_component;
   ],
 )
 class DeshboardMenuItemComponent implements OnInit {
-  final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
   ComponentRef componentRef;
 
@@ -42,25 +37,12 @@ class DeshboardMenuItemComponent implements OnInit {
   @Input()
   String title;
 
-  @ViewChild('viewContainerRefFilter', read: ViewContainerRef)
-  ViewContainerRef viewContainerRefFilter;
+  @Output('onClickMenuItem')
+  get onClickMenuItem => new StreamController<void>();
 
-  DeshboardMenuItemComponent(this._loader, this._changeDetectorRef);
+  DeshboardMenuItemComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _changeDetectorRef.markForCheck();
-  }
-
-  void loadFilter() {
-    ComponentFactory<filter_component.FilterComponent> componentFactoryFilter =
-        filter_component.FilterComponentNgFactory;
-    componentRef = _loader.loadNextToLocation(
-        componentFactoryFilter, viewContainerRefFilter);
-  }
-
-  void onClickMenuItem(String filter) {
-    componentRef.destroy();
-
-    _changeDetectorRef.checkNoChanges();
   }
 }
