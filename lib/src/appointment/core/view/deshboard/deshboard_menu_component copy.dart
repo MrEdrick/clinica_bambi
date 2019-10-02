@@ -63,14 +63,14 @@ class DeshboardMenuComponent implements OnInit {
     listComponentRefMenuItem.clear();
     
     file.listCollection.getListWithFilter().forEach((item) {
-    ComponentFactory<deshboard_menu_item_component.DeshboardMenuComponent>
+      ComponentFactory<deshboard_menu_item_component.DeshboardMenuComponent>
         componentFactoryDeshboardMenuItem =
         deshboard_menu_item_component.DeshboardMenuComponentNgFactory;
-    listComponentRefMenuItem.add(_loader.loadNextToLocation(
-        componentFactoryDeshboardMenuItem, viewContainerRefMenuItem));
+    
+      listComponentRefMenuItem.add(_loader.loadNextToLocation(componentFactoryDeshboardMenuItem, viewContainerRefMenuItem));
 
-    listComponentRefMenuItem.last.instance.onClickMenuItem.listen((_) => onClickMenuItem());
-    listComponentRefMenuItem.last.componentRef = listComponentRefMenuItem.last
+      listComponentRefMenuItem.last.instance.onClickMenuItem.listen((_) => onClickMenuItem());
+      listComponentRefMenuItem.last.componentRef = listComponentRefMenuItem.last
     });
     
     _changeDetectorRef.markForCheck();
