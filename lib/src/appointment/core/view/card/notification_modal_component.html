@@ -1,0 +1,13 @@
+<modal [(visible)]="showModal">
+    <material-dialog info class="info-dialog" [autoDismissable]="showModal"
+        (dismiss)="onDismissModal">
+
+        <div header>
+            <h1>{{title}}</h1>
+        </div>
+
+
+        <p>{{message}}</p>
+
+    </material-dialog>
+</modal>

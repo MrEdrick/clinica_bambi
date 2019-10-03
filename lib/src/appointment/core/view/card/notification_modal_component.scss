@@ -1,0 +1,51 @@
+@import 'package:angular_components/css/material/shadow';
+@import 'package:angular_components/css/material/material';
+
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.head-card {
+  position: relative;
+  height: 120px;
+  top: 0px;
+}
+
+.body-card {
+  position: relative;
+  top: 0px;
+}
+
+.label-title {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #00B0FF; 
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #616161; 
+}
+
+label {
+  margin-right: 5px;
+}
+
+#data-consulta, #nome-dentista {
+  display: block;
+}
+
+.label-tag {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 50%;
+  background: #00B0FF;
+  text-align: center;
+  color: rgb(255,255,255);
+}
