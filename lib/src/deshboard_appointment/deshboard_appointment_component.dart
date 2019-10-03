@@ -89,13 +89,7 @@ class DeshboardAppointmentComponent extends DeshboardComponent {
                     null,
                     [new Field(_description, _type, _value, _title)],
                     "Dentistas",
-                    "person_outline"),
-                new Collection(
-                    "Procedure",
-                    null,
-                    [new Field(_description, _type, _value, _title)],
-                    "Procedimentos",
-                    "list_alt"),*/
+                    "person_outline")*/
                 procedureService.returnEmpty(),
                 requirementService.returnEmpty(),
                 agreementService.returnEmpty()
