@@ -22,6 +22,9 @@ import '../appointment/core/model/archive.dart';
 import '../appointment/core/model/collection.dart';
 import '../appointment/core/model/field.dart';
 
+import '../appointment/agreement/agreement_service.dart';
+import '../appointment/requirement/requirement_service.dart';
+
 @Component(
   selector: 'deshboard_appointment_component',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,6 +61,9 @@ class DeshboardAppointmentComponent extends DeshboardComponent {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
+  final AgreementService agreementService = new AgreementService(); 
+  final RequirementService requirementService = new RequirementService();
+
   DeshboardAppointmentComponent(
       this._router, this._loader, this._changeDetectorRef) //, this._location
       : super(_router, _loader, _changeDetectorRef) {
@@ -68,7 +74,7 @@ class DeshboardAppointmentComponent extends DeshboardComponent {
           new Archive(
               "AppointmentSchedulingRegistration",
               null,
-              [
+              [/*
                 new Collection(
                     "AppointmentScheduling",
                     null,
@@ -86,13 +92,9 @@ class DeshboardAppointmentComponent extends DeshboardComponent {
                     null,
                     [new Field(_description, _type, _value, _title)],
                     "Procedimentos",
-                    "list_alt"),
-                new Collection(
-                    "Requirement",
-                    null,
-                    [new Field(_description, _type, _value, _title)],
-                    "Requisitos",
-                    "check_box")
+                    "list_alt"),*/
+                requirementService.returnEmpty(),
+                agreementService.returnEmpty()
               ],
               "Cadastro de Agendamentos",
               "icon")

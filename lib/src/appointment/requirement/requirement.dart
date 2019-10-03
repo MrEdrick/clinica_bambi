@@ -1,9 +1,23 @@
-class Requirement {
+import '../core/model/collection.dart';
+import '../core/model/field.dart';
+import '../core/model/constants.dart';
+import 'requirement_constants.dart';
+
+class Requirement extends Collection {
   String _id;
   String _description;
   bool _state;
 
-  Requirement( this._id, this._description, this._state);
+  Requirement(this._id, this._description, this._state)
+      : super(
+            'Requirement',
+            '',
+            REQUIREMENT_COLLECTION_MODEL
+                .map((model) => new Field(model[INDEX_DESCRIPTION],
+                    model[INDEX_TYPE], "", model[INDEX_TITLE]))
+                .toList(),
+            'Requisitos',
+            'credit_card');
 
   String get id => _id;
   set id(String id) => _id = id;
