@@ -22,8 +22,10 @@ import '../appointment/core/model/archive.dart';
 import '../appointment/core/model/collection.dart';
 import '../appointment/core/model/field.dart';
 
-import '../appointment/agreement/agreement_service.dart';
+import '../appointment/procedure/procedure_service.dart';
 import '../appointment/requirement/requirement_service.dart';
+import '../appointment/agreement/agreement_service.dart';
+
 
 @Component(
   selector: 'deshboard_appointment_component',
@@ -61,8 +63,9 @@ class DeshboardAppointmentComponent extends DeshboardComponent {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
-  final AgreementService agreementService = new AgreementService(); 
+  final ProcedureService procedureService = new ProcedureService();
   final RequirementService requirementService = new RequirementService();
+  final AgreementService agreementService = new AgreementService(); 
 
   DeshboardAppointmentComponent(
       this._router, this._loader, this._changeDetectorRef) //, this._location
@@ -93,6 +96,7 @@ class DeshboardAppointmentComponent extends DeshboardComponent {
                     [new Field(_description, _type, _value, _title)],
                     "Procedimentos",
                     "list_alt"),*/
+                procedureService.returnEmpty(),
                 requirementService.returnEmpty(),
                 agreementService.returnEmpty()
               ],

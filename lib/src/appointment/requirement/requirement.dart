@@ -17,7 +17,7 @@ class Requirement extends Collection {
                     model[INDEX_TYPE], "", model[INDEX_TITLE]))
                 .toList(),
             'Requisitos',
-            'credit_card');
+            'check_box');
 
   String get id => _id;
   set id(String id) => _id = id;
