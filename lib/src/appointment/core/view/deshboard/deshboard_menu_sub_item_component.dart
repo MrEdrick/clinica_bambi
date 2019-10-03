@@ -31,13 +31,9 @@ import '../../model/collection.dart';
 class DeshboardMenuSubItemComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
-  bool useItemRenderer = false;
-  bool useOptionGroup = false;
-  bool overlay = true;
-
   @Input()
   ComponentRef componentRef;
-  
+
   @Input()
   Collection collection;
 

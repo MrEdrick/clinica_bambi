@@ -35,11 +35,8 @@ class DeshboardMenuItemComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
-  final List<ComponentRef> listComponentRefMenuSubItem = new List<ComponentRef>();
-
-  bool useItemRenderer = false;
-  bool useOptionGroup = false;
-  bool overlay = true;
+  final List<ComponentRef> listComponentRefMenuSubItem =
+      new List<ComponentRef>();
 
   @Input()
   ComponentRef componentRef;
@@ -50,23 +47,31 @@ class DeshboardMenuItemComponent implements OnInit {
   @Output('onClickMenuItem')
   get onClickMenuItem => new StreamController<void>();
 
+  @ViewChild('viewContainerRefMenuSubItem', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefMenuSubItem;
+
   DeshboardMenuItemComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     listComponentRefMenuSubItem.clear();
-    
-    file.collectionList.forEach((collection) {
-      ComponentFactory<deshboard_menu_sub_item_component.DeshboardMenuSubItemComponent>
-        componentFactoryDeshboardMenuSubItem =
-        deshboard_menu_sub_item_component.DeshboardMenuSubItemComponentNgFactory;
-    
-      listComponentRefMenuSubItem.add(_loader.loadNextToLocation(componentFactoryDeshboardMenuSubItem, viewContainerRefMenuItem));
 
-      listComponentRefMenuSubItem.last.instance.onClickMenuItem.listen((_) => onClickMenuItem());
-      listComponentRefMenuSubItem.last.collection = collection;
-      listComponentRefMenuSubItem.last.componentRef = listComponentRefMenuSubItem.last;
+    file.collectionList.forEach((collection) {
+      ComponentFactory<
+              deshboard_menu_sub_item_component.DeshboardMenuSubItemComponent>
+          componentFactoryDeshboardMenuSubItem =
+          deshboard_menu_sub_item_component
+              .DeshboardMenuSubItemComponentNgFactory;
+
+      listComponentRefMenuSubItem.add(_loader.loadNextToLocation(
+          componentFactoryDeshboardMenuSubItem, viewContainerRefMenuSubItem));
+
+      listComponentRefMenuSubItem.last.instance.onClickMenuItem
+          .listen((_) => onClickMenuItem());
+      listComponentRefMenuSubItem.last.instance.collection = collection;
+      listComponentRefMenuSubItem.last.instance.componentRef =
+          listComponentRefMenuSubItem.last;
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 }

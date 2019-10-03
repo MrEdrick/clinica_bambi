@@ -36,12 +36,12 @@ class DeshboardMenuComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final List<ComponentRef> listComponentRefMenuItem = new List<ComponentRef>();
 
-  @Input()
-  ComponentRef componentRef;
-
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool overlay = true;
+
+  @Input()
+  ComponentRef componentRef;
 
   @Input()
   Application application;
@@ -56,19 +56,22 @@ class DeshboardMenuComponent implements OnInit {
 
   void ngOnInit() async {
     listComponentRefMenuItem.clear();
-    
+
     application.fileList.forEach((file) {
       ComponentFactory<deshboard_menu_item_component.DeshboardMenuItemComponent>
-        componentFactoryDeshboardMenuItem =
-        deshboard_menu_item_component.DeshboardMenuItemComponentNgFactory;
-    
-      listComponentRefMenuItem.add(_loader.loadNextToLocation(componentFactoryDeshboardMenuItem, viewContainerRefMenuItem));
+          componentFactoryDeshboardMenuItem =
+          deshboard_menu_item_component.DeshboardMenuItemComponentNgFactory;
 
-      listComponentRefMenuItem.last.instance.onClickMenuItem.listen((_) => onClickMenuItem());
+      listComponentRefMenuItem.add(_loader.loadNextToLocation(
+          componentFactoryDeshboardMenuItem, viewContainerRefMenuItem));
+
+      listComponentRefMenuItem.last.instance.onClickMenuItem
+          .listen((_) => onClickMenuItem());
       listComponentRefMenuItem.last.instance.file = file;
-      listComponentRefMenuItem.last.componentRef = listComponentRefMenuItem.last;
+      listComponentRefMenuItem.last.instance.componentRef =
+          listComponentRefMenuItem.last;
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 }

@@ -100,6 +100,7 @@ class DeshboardComponent implements OnActivate, OnInit {
         componentFactoryDeshboardMenu, viewContainerRefMenu);
 
     componentRefMenu.instance.onClickMenuItem.listen((_) => loadFilter());
+    componentRefMenu.instance.application = application;
     componentRefMenu.instance.componentRef = componentRefMenu;
   }
 
