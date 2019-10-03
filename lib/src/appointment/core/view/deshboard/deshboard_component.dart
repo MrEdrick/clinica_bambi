@@ -56,12 +56,13 @@ import '../filter/filter_component.template.dart' as filter_component;
   ],
 )
 class DeshboardComponent implements OnActivate, OnInit {
+  final Router _router;
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
+  final UserService _userService = new UserService();
+
   ComponentRef componentRefMenu;
   ComponentRef componentRefFilter;
-
-  final Router _router;
 
   final UserService userService = new UserService();
 

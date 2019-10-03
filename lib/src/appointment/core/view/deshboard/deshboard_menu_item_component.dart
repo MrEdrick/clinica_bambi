@@ -6,7 +6,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../model/file.dart';
+import '../../model/archive.dart';
 
 import '../deshboard_menu_sub_item_component.template.dart'
     as deshboard_menu_sub_item_component;
@@ -42,7 +42,7 @@ class DeshboardMenuItemComponent implements OnInit {
   ComponentRef componentRef;
 
   @Input()
-  File file;
+  Archive archive;
 
   @Output('onClickMenuItem')
   get onClickMenuItem => new StreamController<void>();
@@ -55,7 +55,7 @@ class DeshboardMenuItemComponent implements OnInit {
   void ngOnInit() async {
     listComponentRefMenuSubItem.clear();
 
-    file.collectionList.forEach((collection) {
+    archive.collectionList.forEach((collection) {
       ComponentFactory<
               deshboard_menu_sub_item_component.DeshboardMenuSubItemComponent>
           componentFactoryDeshboardMenuSubItem =

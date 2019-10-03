@@ -1,13 +1,13 @@
 import 'collection.dart';
 
-class File {
+class Archive {
   String _description;
   String _id;
   List<Collection> _collectionList;
   String _title;
   String _icon;
 
-  File(this._description, this._id, this._collectionList, this._title, this._icon);
+  Archive(this._description, this._id, this._collectionList, this._title, this._icon);
 
   String get description => _description;
   set description(String description) => _description = description;

@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
 import 'package:angular_router/angular_router.dart';
@@ -16,19 +15,12 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
-import '../route_paths.dart' as paths;
 
-import '../appointment/user/user_service.dart';
-import '../appointment/generic/generic_service.dart'; 
-
-import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/appointment_scheduling_filter_component.template.dart'
-    as appointment_scheduling_filter;
-import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_filter_component.template.dart'
-    as dentist_filter;
-import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_filter_component.template.dart'
-    as procedure_filter;
-import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_filter_component.template.dart'
-    as requirement_filter;
+import '../appointment/core/view/deshboard/deshboard_component.dart';
+import '../appointment/core/model/application.dart';
+import '../appointment/core/model/archive.dart';
+import '../appointment/core/model/collection.dart';
+import '../appointment/core/model/field.dart';
 
 @Component(
   selector: 'deshboard_appointment_component',
@@ -61,99 +53,51 @@ import 'package:ClinicaBambi/src/deshboard_appointment/requirement/requirement_f
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class DeshboardAppointmentComponent implements OnActivate, OnInit {
+class DeshboardAppointmentComponent extends DeshboardComponent {
+  final Router _router;
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
-  ComponentRef componentRef;
 
-  final UserService userService;
-
-  final Router _router;
-
-  bool useItemRenderer = false;
-  bool useOptionGroup = false;
-  bool overlay = true;
-
-  String filterApp;
-
-  @ViewChild('materialContentFilter', read: ViewContainerRef)
-  ViewContainerRef materialContentFilter;
-
-  DeshboardAppointmentComponent(this._router, this._loader, this._changeDetectorRef) //, this._location
-      : userService = new UserService();
-
-  @override
-  void onActivate(_, RouterState current) async {
-    try {
-      if (new UserService().user == null) {
-        _router.navigate(paths.login.toUrl());
-      } else {
-        querySelector('#wh-widget-send-button').style.display = 'none';
-        loadAppointmentSchedulingFilter();
-        _changeDetectorRef.markForCheck();
-      }
-    } catch (e) {
-      _router.navigate(paths.login.toUrl());
-    }
-  }
-
-  void ngOnInit() async {
-    if (new UserService().user == null) return;
-  }
-
-  void loadAppointmentSchedulingFilter() {
-    ComponentFactory<appointment_scheduling_filter.AppointmentSchedulingFilterComponent>
-        appointment_schedulingFilter =
-        appointment_scheduling_filter.AppointmentSchedulingFilterComponentNgFactory;
-    componentRef =
-        _loader.loadNextToLocation(appointment_schedulingFilter, materialContentFilter);
-  }
-
-  void loadDentistFilter() {
-    ComponentFactory<dentist_filter.DentistFilterComponent>
-        dentist_Filter =
-        dentist_filter.DentistFilterComponentNgFactory;
-    componentRef =
-        _loader.loadNextToLocation(dentist_Filter, materialContentFilter);
-  }
-
-  void loadProcedureFilter() {
-    ComponentFactory<procedure_filter.ProcedureFilterComponent>
-        procedureFilter =
-        procedure_filter.ProcedureFilterComponentNgFactory;
-    componentRef =
-        _loader.loadNextToLocation(procedureFilter, materialContentFilter);
-  }
-
-  void loadRequirementFilter() {
-    ComponentFactory<requirement_filter.RequirementFilterComponent>
-        requirementFilter =
-        requirement_filter.RequirementFilterComponentNgFactory;
-    componentRef =
-        _loader.loadNextToLocation(requirementFilter, materialContentFilter);
-  }
-
-
-  void onClickMenuItem(String filter) {
-    componentRef.destroy();
-
-    new GenericService().clearAllServicesLists();
-    
-    switch (filter) {
-      case 'Agendamentos':
-        loadAppointmentSchedulingFilter();
-        break;
-      case 'Dentistas':
-        loadDentistFilter();
-        break;
-      case 'Procedimentos':
-        loadProcedureFilter();
-        break;
-      case 'Requisitos':
-        loadRequirementFilter();
-        break;
-    }
-
-    _changeDetectorRef.checkNoChanges();
+  DeshboardAppointmentComponent(
+      this._router, this._loader, this._changeDetectorRef) //, this._location
+      : super(_router, _loader, _changeDetectorRef) {
+    super.application = new Application(
+        "Clínica Bambi",
+        null,
+        [
+          new Archive(
+              "AppointmentSchedulingRegistration",
+              null,
+              [
+                new Collection(
+                    "AppointmentScheduling",
+                    null,
+                    [new Field(_description, _type, _value, _title)],
+                    "Agendamentos",
+                    "calendar_today"),
+                new Collection(
+                    "Dentist",
+                    null,
+                    [new Field(_description, _type, _value, _title)],
+                    "Dentistas",
+                    "person_outline"),
+                new Collection(
+                    "Procedure",
+                    null,
+                    [new Field(_description, _type, _value, _title)],
+                    "Procedimentos",
+                    "list_alt"),
+                new Collection(
+                    "Requirement",
+                    null,
+                    [new Field(_description, _type, _value, _title)],
+                    "Requisitos",
+                    "check_box")
+              ],
+              "Cadastro de Agendamentos",
+              "icon")
+        ],
+        "Clínica Bambi",
+        "icon");
   }
 }

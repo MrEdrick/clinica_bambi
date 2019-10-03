@@ -57,7 +57,7 @@ class DeshboardMenuComponent implements OnInit {
   void ngOnInit() async {
     listComponentRefMenuItem.clear();
 
-    application.fileList.forEach((file) {
+    application.archiveList.forEach((archive) {
       ComponentFactory<deshboard_menu_item_component.DeshboardMenuItemComponent>
           componentFactoryDeshboardMenuItem =
           deshboard_menu_item_component.DeshboardMenuItemComponentNgFactory;
@@ -67,7 +67,7 @@ class DeshboardMenuComponent implements OnInit {
 
       listComponentRefMenuItem.last.instance.onClickMenuItem
           .listen((_) => onClickMenuItem());
-      listComponentRefMenuItem.last.instance.file = file;
+      listComponentRefMenuItem.last.instance.archive = archive;
       listComponentRefMenuItem.last.instance.componentRef =
           listComponentRefMenuItem.last;
     });
