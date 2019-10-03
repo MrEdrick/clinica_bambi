@@ -1,14 +1,12 @@
-import 'dart:html';
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
-import '../../../../route_paths.dart' as paths;
 
-import '../../model/file.dart';
+import '../../model/application.dart';
 
 import '../deshboard_menu_item_component.template.dart'
     as deshboard_menu_item_component;
@@ -46,10 +44,7 @@ class DeshboardMenuComponent implements OnInit {
   bool overlay = true;
 
   @Input()
-  File file;
-
-  @Input()
-  String title;
+  Application application;
 
   @Output('onClickMenuItem')
   get onClickMenuItem => new StreamController<void>();
@@ -62,15 +57,16 @@ class DeshboardMenuComponent implements OnInit {
   void ngOnInit() async {
     listComponentRefMenuItem.clear();
     
-    file.listCollection.getListWithFilter().forEach((item) {
-      ComponentFactory<deshboard_menu_item_component.DeshboardMenuComponent>
+    application.fileList.forEach((file) {
+      ComponentFactory<deshboard_menu_item_component.DeshboardMenuItemComponent>
         componentFactoryDeshboardMenuItem =
-        deshboard_menu_item_component.DeshboardMenuComponentNgFactory;
+        deshboard_menu_item_component.DeshboardMenuItemComponentNgFactory;
     
       listComponentRefMenuItem.add(_loader.loadNextToLocation(componentFactoryDeshboardMenuItem, viewContainerRefMenuItem));
 
       listComponentRefMenuItem.last.instance.onClickMenuItem.listen((_) => onClickMenuItem());
-      listComponentRefMenuItem.last.componentRef = listComponentRefMenuItem.last
+      listComponentRefMenuItem.last.instance.file = file;
+      listComponentRefMenuItem.last.componentRef = listComponentRefMenuItem.last;
     });
     
     _changeDetectorRef.markForCheck();

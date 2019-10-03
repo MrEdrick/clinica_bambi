@@ -1,6 +1,9 @@
 <div class="deshboard-menu-item">
     <material-button class="material-drawer-button" icon (click)="onClickMenuItem()">
-        <material-icon icon="calendar_today"></material-icon>
-        {{title}}
+        <material-icon icon="file.icon"></material-icon>
+        {{file.description}}
     </material-button>
+    <div id="container-menu-sub-itens">
+        <div #viewContainerRefMenuSubItem></div>
+    </div>
 </div>
