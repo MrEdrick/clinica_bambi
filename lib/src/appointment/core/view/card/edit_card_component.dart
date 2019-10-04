@@ -1,17 +1,14 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
-import 'package:angular_components/material_dialog/material_dialog.dart';
-import 'package:angular_components/laminate/components/modal/modal.dart';
-import 'package:angular_components/auto_dismiss/auto_dismiss.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_input/material_input.dart';
-import 'package:angular_components/material_checkbox/material_checkbox.dart';
-import 'package:angular_components/utils/browser/window/module.dart';
-
 import '../../controller/service.dart';
 import '../../../../appointment/user/user_service.dart';
+
+import '../edit/input_text_component.dart' as input_text_component;
+import '../edit/select_component.dart' as select_component;
+import '../edit/checkbox_component.dart' as checkbox_component;
 
 @Component(
     selector: 'edit-card-app',
@@ -26,15 +23,6 @@ import '../../../../appointment/user/user_service.dart';
       AutoFocusDirective,
       MaterialIconComponent,
       MaterialButtonComponent,
-      MaterialInputComponent,
-      MaterialCheckboxComponent,
-      materialInputDirectives,
-      MaterialDialogComponent,
-      ModalComponent,
-      AutoDismissDirective,
-    ],
-    providers: [
-      windowBindings
     ])
 class EditCardComponent implements OnInit {
   final ComponentLoader _loader;
@@ -46,40 +34,27 @@ class EditCardComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  bool showSuccessfullySave = false;
-  bool showNotSuccessfullySave = false;
-  bool useItemRenderer = false;
-  bool useOptionGroup = false;
-  bool showAssertMessageSave = false;
-  bool showAssertMessageAlert = false;
-
   EditCardComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
-    if (service.map.isEmpty) { 
-      //service.procedure = new Procedure("", "", true);
-    }
+    if (service.map.isEmpty) {}
   }
 
-
-  void onClearListsOfComponentRef() {
-  }
+  void onClearListsOfComponentRef() {}
 
   void ngOnInit() async {
-    if (userService.user  == null)
-      return;
+    if (userService.user == null) return;
 
     onClearListsOfComponentRef();
 
-    //querySelector('deshboard_appointment_component').style.overflowY = "hidden";
     onEdit();
 
-    _changeDetectorRef.markForCheck();  
+    _changeDetectorRef.markForCheck();
   }
 
   void onClose() {
     service.map.clear();
-    //querySelector('deshboard_appointment_component').style.overflowY = "scroll";
+
     componentRef.destroy();
   }
 
@@ -87,41 +62,13 @@ class EditCardComponent implements OnInit {
     return true;
   }
 
-  void onDismissSuccessfullySave() {
-    showSuccessfullySave = false;
-    onClose();
-  }
-
-  void onDismissNotSuccessfullySave() {
-    showSuccessfullySave = false;
-  }
-
-  void onDismissAssertMessage() {
-    showAssertMessageSave = false;
-  }
-
   void onAssertsSave() {
-    //if ((procedureService.procedure.description == "")) {
-    //  showAssertMessageSave = true;
-    //  return;
-    // }
-
     onSave();
   }
 
-  void onNoSave() {
-    showAssertMessageAlert = false;  
-  }
+  void onNoSave() {}
 
-  void onSave() async {   
-    showAssertMessageAlert = false;
-
-    if ((await service.dao.save()).keys.first) {
-      showSuccessfullySave = true;  
-    } else {
-      showNotSuccessfullySave = true;
-    }
-    
+  void onSave() async {
     _changeDetectorRef.markForCheck();
   }
 }

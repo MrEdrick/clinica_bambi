@@ -6,10 +6,10 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 import '../../controller/service.dart';
 import '../../model/collection.dart';
 
-import 'label_component_component.template.dart'
+import '../labe/label_component_component.template.dart'
     as label_component;
-import 'edit_component_component.template.dart'
-    as edit_component;
+import 'edit_card_component_component.template.dart'
+    as edit_card_component;
 
 @Component(
     selector: 'card-component',
@@ -75,8 +75,8 @@ class CardComponent implements OnInit {
   void onEdit() {
     service.map = map;
 
-    ComponentFactory<edit_component.ProcedureListComponent> editComponent =
-        edit_component.ProcedureListComponentNgFactory;
+    ComponentFactory<edit_card_component.EditCardComponent> editComponent =
+        edit_card_component.EditCardComponentNgFactory;
 
     ComponentRef editComponentRef =
         _loader.loadNextToLocation(editComponent, viewContainerRefEdit);
