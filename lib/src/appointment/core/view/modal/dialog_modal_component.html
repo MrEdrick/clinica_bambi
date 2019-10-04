@@ -1,0 +1,20 @@
+<modal [(visible)]="showModal">
+    <material-dialog info class="max-height-dialog">
+        <div header>
+            <h1>{{modalConfiguration.title}}</h1>
+        </div>
+
+        <p>{{modalConfiguration.message}}</p>
+
+
+        <div footer>
+            <material-button (trigger)="onConfirmation()">
+                {{modalConfiguration.confirmationMessage}}
+            </material-button>
+            <material-button (trigger)="onDisconfirmation()">
+                {{modalConfiguration.disconfirmationMessage}}
+            </material-button>
+        </div>
+
+    </material-dialog>
+</modal>

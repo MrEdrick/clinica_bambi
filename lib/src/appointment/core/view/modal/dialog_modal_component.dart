@@ -3,21 +3,15 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../controller/service.dart';
-import '../../model/collection.dart';
-
-import 'label_component_component.template.dart'
-    as label_component;
-import 'edit_component_component.template.dart'
-    as edit_component;
+import 'modal_configuration.dart';
 
 @Component(
-    selector: 'notification-modal-component',
+    selector: 'dialog-modal-component',
     styleUrls: const [
-      'notification_modal_component.scss.css',
+      'dialog_modal_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'notification_modal_component.html',
+    templateUrl: 'dialog_modal_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -26,15 +20,11 @@ import 'edit_component_component.template.dart'
       ModalComponent,
     ])
 
-class NotificationModalComponent implements OnInit {
+class DialogModalComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef; 
-  final ComponentLoader _loader;
 
   @Input()
-  String title;
-
-  @Input()
-  String message;
+  ModalConfiguration modalConfiguration;
 
   @Input()
   bool showModal;
@@ -42,7 +32,7 @@ class NotificationModalComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
-  NotificationModalComponent(this._changeDetectorRef, this._loader);
+  DialogModalComponent(this._changeDetectorRef);
 
   void ngOnInit() {   
     _changeDetectorRef.markForCheck();
