@@ -6,9 +6,11 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import '../../controller/service.dart';
 import '../../../../appointment/user/user_service.dart';
 
-import '../edit/input_text_component.dart' as input_text_component;
-import '../edit/select_component.dart' as select_component;
-import '../edit/checkbox_component.dart' as checkbox_component;
+import '../../model/collection.dart';
+import '../../model/field.dart';
+import '../edit/input_text_component.template.dart' as input_text_component;
+import '../edit/select_component.template.dart' as select_component;
+import '../edit/checkbox_component.template.dart' as checkbox_component;
 
 @Component(
     selector: 'edit-card-app',
@@ -28,11 +30,22 @@ class EditCardComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
+  final List<ComponentRef> listComponentRefEditField = new List<ComponentRef>();
+
   final Service service = new Service();
   final UserService userService = new UserService();
 
   @Input()
   ComponentRef componentRef;
+
+  @Input()
+  Collection collection;
+
+  @ViewChild('viewContainerRefEditField', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefEditField;
+
+  @ViewChild('viewContainerRefModal', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefModal;
 
   EditCardComponent(this._changeDetectorRef, this._loader);
 
@@ -40,16 +53,66 @@ class EditCardComponent implements OnInit {
     if (service.map.isEmpty) {}
   }
 
-  void onClearListsOfComponentRef() {}
-
   void ngOnInit() async {
     if (userService.user == null) return;
 
-    onClearListsOfComponentRef();
+    listComponentRefEditField.clear();
+
+    collection.fieldList.forEach((field) {
+      if (field.type == "String") {
+        addInputText(field);
+      }
+      if (field.type == "Boolean") {
+        addCheckBox(field);
+      }
+      if (field.type == "Key") {
+        addSelect(field);
+      }
+    });
+
+    _changeDetectorRef.markForCheck();
 
     onEdit();
 
     _changeDetectorRef.markForCheck();
+  }
+
+  void addInputText(Field field) {
+    ComponentFactory<input_text_component.InputTextComponent>
+        componentFactoryInputText =
+        input_text_component.InputTextComponentNgFactory;
+
+    listComponentRefEditField.add(_loader.loadNextToLocation(
+        componentFactoryInputText, viewContainerRefEditField));
+
+    listComponentRefEditField.last.instance.field = field;
+    listComponentRefEditField.last.instance.componentRef =
+        listComponentRefEditField.last;
+  }
+
+  void addCheckBox(Field field) {
+    ComponentFactory<checkbox_component.CheckboxComponent>
+        componentFactoryCheckbox =
+        checkbox_component.CheckboxComponentNgFactory;
+
+    listComponentRefEditField.add(_loader.loadNextToLocation(
+        componentFactoryCheckbox, viewContainerRefEditField));
+
+    listComponentRefEditField.last.instance.field = field;
+    listComponentRefEditField.last.instance.componentRef =
+        listComponentRefEditField.last;
+  }
+
+  void addSelect(Field field) {
+    ComponentFactory<select_component.SelectComponent> componentFactorySelect =
+        select_component.SelectComponentNgFactory;
+
+    listComponentRefEditField.add(_loader.loadNextToLocation(
+        componentFactorySelect, viewContainerRefEditField));
+
+    listComponentRefEditField.last.instance.field = field;
+    listComponentRefEditField.last.instance.componentRef =
+        listComponentRefEditField.last;
   }
 
   void onClose() {
