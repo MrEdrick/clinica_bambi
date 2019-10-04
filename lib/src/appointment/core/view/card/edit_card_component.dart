@@ -14,12 +14,12 @@ import '../../controller/service.dart';
 import '../../../../appointment/user/user_service.dart';
 
 @Component(
-    selector: 'edit-app',
+    selector: 'edit-card-app',
     styleUrls: const [
-      'edit_component.scss.css',
+      'edit_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'edit_component.html',
+    templateUrl: 'edit_card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -36,7 +36,7 @@ import '../../../../appointment/user/user_service.dart';
     providers: [
       windowBindings
     ])
-class EditComponent implements OnInit {
+class EditCardComponent implements OnInit {
   final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
@@ -53,7 +53,7 @@ class EditComponent implements OnInit {
   bool showAssertMessageSave = false;
   bool showAssertMessageAlert = false;
 
-  EditComponent(this._changeDetectorRef, this._loader);
+  EditCardComponent(this._changeDetectorRef, this._loader);
 
   void onEdit() {
     if (service.map.isEmpty) { 
