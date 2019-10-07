@@ -8,10 +8,7 @@ import '../../../../appointment/user/user_service.dart';
 
 import '../../model/constants.dart';
 import '../../model/collection.dart';
-import '../../model/field.dart';
-import '../edit/input_text_component.template.dart' as input_text_component;
-import '../edit/select_component.template.dart' as select_component;
-import '../edit/checkbox_component.template.dart' as checkbox_component;
+import '../../controller/factory_field.dart';
 
 @Component(
     selector: 'edit-card-app',
@@ -60,15 +57,7 @@ class EditCardComponent implements OnInit {
     listComponentRefEditField.clear();
 
     collection.fieldList.forEach((field) {
-      if (field.type == FIELD_TYPE_STRING) {
-        addInputText(field);
-      }
-      if (field.type == FIELD_TYPE_BOOLEAN) {
-        addCheckBox(field);
-      }
-      if (field.type == FIELD_TYPE_FOREIGN_KEY) {
-        addSelect(field);
-      }
+      new FactoryField(field, _loader, viewContainerRefEditField).addField();
     });
 
     _changeDetectorRef.markForCheck();
@@ -76,44 +65,6 @@ class EditCardComponent implements OnInit {
     onEdit();
 
     _changeDetectorRef.markForCheck();
-  }
-
-  void addInputText(Field field) {
-    ComponentFactory<input_text_component.InputTextComponent>
-        componentFactoryInputText =
-        input_text_component.InputTextComponentNgFactory;
-
-    listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactoryInputText, viewContainerRefEditField));
-
-    listComponentRefEditField.last.instance.field = field;
-    listComponentRefEditField.last.instance.componentRef =
-        listComponentRefEditField.last;
-  }
-
-  void addCheckBox(Field field) {
-    ComponentFactory<checkbox_component.CheckboxComponent>
-        componentFactoryCheckbox =
-        checkbox_component.CheckboxComponentNgFactory;
-
-    listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactoryCheckbox, viewContainerRefEditField));
-
-    listComponentRefEditField.last.instance.field = field;
-    listComponentRefEditField.last.instance.componentRef =
-        listComponentRefEditField.last;
-  }
-
-  void addSelect(Field field) {
-    ComponentFactory<select_component.SelectComponent> componentFactorySelect =
-        select_component.SelectComponentNgFactory;
-
-    listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactorySelect, viewContainerRefEditField));
-
-    listComponentRefEditField.last.instance.field = field;
-    listComponentRefEditField.last.instance.componentRef =
-        listComponentRefEditField.last;
   }
 
   void onClose() {
