@@ -7,6 +7,8 @@ const String FIELD_TYPE_BOOLEAN = "Boolean";
 const String FIELD_TYPE_FOREIGN_KEY = "ForeignKey";
 const String FIELD_TYPE_FOREIGN_KEY_LIST = "ForeignKeyList";
 const String FIELD_TYPE_FOREIGN_KEY_GROUP = "ForeignKeyGroup";
+const String FIELD_TYPE_FOREIGN_KEY_GUIDE = "ForeignKeyGuide";
+const String FIELD_TYPE_FOREIGN_KEY_DEPENDENT = "ForeignKeyDependent";
 
 const String COLLECTION_TYPE_MULTIPLE_FIELDS = "MultipleFields";
 const String COLLECTION_TYPE_SINGLE_FIELD = "SingleField";

@@ -47,6 +47,13 @@ class ExpasionPanelGroupSelectComponent implements OnInit {
           new FactoryField(field, _loader, viewContainerRefEditField).addField();
         }
       }
+      if (collection.type == COLLECTION_TYPE_LINK) {
+        collection.fieldList.forEach((field) {
+          if (field.type == FIELD_TYPE_FOREIGN_KEY_DEPENDENT) {
+            new FactoryField(field, _loader, viewContainerRefEditField).addField();
+          }
+        });
+      }
     });
 
     _changeDetectorRef..markForCheck();
