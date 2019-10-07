@@ -6,9 +6,10 @@ class Collection {
   List<Field> _fieldList;
   String _title;
   String _icon;
+  String _type;
 
   Collection(
-      this._description, this._id, this._fieldList, this._title, this._icon);
+      this._description, this._id, this._fieldList, this._title, this._icon, this._type);
 
   String get description => _description;
   set description(String description) => _description = description;
@@ -27,4 +28,7 @@ class Collection {
 
   String get icon => _icon;
   set icon(String icon) => _icon = icon;
+
+  String get type => _type;
+  set type(String type) => _type = type;
 }

@@ -4,6 +4,8 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_expansionpanel/material_expansionpanel.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 
+import '../../core/collection.dart';
+
 @Component(
     selector: 'expasion-panel-group-select-component',
     styleUrls: const [
@@ -24,6 +26,9 @@ class ExpasionPanelGroupSelectComponent implements OnInit {
 
   @Input()
   String title;
+
+  @Input()
+  List<Collection> collectionList;
 
   @Input()
   ComponentRef componentRef;
