@@ -4,9 +4,9 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_expansionpanel/material_expansionpanel.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 
+import '../../controller/factory_field.dart';
 import '../../model/constants.dart';
 import '../../model/collection.dart';
-import '../../checkbox_component.dart';
 
 @Component(
     selector: 'expasion-panel-group-select-component',
@@ -35,15 +35,17 @@ class ExpasionPanelGroupSelectComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
+  @ViewChild('viewContainerRefEditField', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefEditField;
+
   ExpasionPanelGroup(this._changeDetectorRef);
 
   void ngOnInit() async {
     collectionList.forEach((collection) {
       if (collection.type == COLLECTION_TYPE_SINGLE_FIELD) {
         if (collection.fieldList.first.type == FIELD_TYPE_BOOLEAN) {
-
+          new FactoryField(field, _loader, viewContainerRefEditField).addField();
         }
-
       }
     });
 

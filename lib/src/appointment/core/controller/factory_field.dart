@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+
 import '../model/field.dart';
 import '../model/constants.dart';
 import '../view/edit/input_text_component.template.dart'
@@ -15,13 +16,13 @@ class FactoryField {
 
   List<ComponentRef> addField() {
     if (_field.type == FIELD_TYPE_STRING) {
-      return addInputText();
+      return _addInputText();
     }
     if (_field.type == FIELD_TYPE_BOOLEAN) {
-      return addCheckBox();
+      return _addCheckBox();
     }
     if (_field.type == FIELD_TYPE_FOREIGN_KEY) {
-      return addSelect();
+      return _addSelect();
     }
   }
 
