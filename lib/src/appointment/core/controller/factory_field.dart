@@ -15,14 +15,28 @@ class FactoryField {
   FactoryField(this._field, this._loader, this._viewContainerRefEditField);
 
   List<ComponentRef> addField() {
-    if (_field.type == FIELD_TYPE_STRING) {
-      return _addInputText();
-    }
-    if (_field.type == FIELD_TYPE_BOOLEAN) {
-      return _addCheckBox();
-    }
-    if (_field.type == FIELD_TYPE_FOREIGN_KEY) {
-      return _addSelect();
+    switch (_field.type) {
+      case FIELD_TYPE_STRING:
+        {
+          return _addInputText();
+        }
+        break;
+
+      case FIELD_TYPE_BOOLEAN:
+        {
+          return _addCheckBox();
+        }
+        break;
+
+      case FIELD_TYPE_FOREIGN_KEY:
+        {
+          return _addSelect();
+        }
+        break;
+      default:
+        {
+          return null;
+        }
     }
   }
 
