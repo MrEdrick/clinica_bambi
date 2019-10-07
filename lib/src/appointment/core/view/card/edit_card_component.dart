@@ -6,6 +6,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import '../../controller/service.dart';
 import '../../../../appointment/user/user_service.dart';
 
+import '../../model/constants.dart';
 import '../../model/collection.dart';
 import '../../model/field.dart';
 import '../edit/input_text_component.template.dart' as input_text_component;
@@ -59,13 +60,13 @@ class EditCardComponent implements OnInit {
     listComponentRefEditField.clear();
 
     collection.fieldList.forEach((field) {
-      if (field.type == "String") {
+      if (field.type == FIELD_TYPE_STRING) {
         addInputText(field);
       }
-      if (field.type == "Boolean") {
+      if (field.type == FIELD_TYPE_BOOLEAN) {
         addCheckBox(field);
       }
-      if (field.type == "Key") {
+      if (field.type == FIELD_TYPE_FOREIGN_KEY) {
         addSelect(field);
       }
     });
