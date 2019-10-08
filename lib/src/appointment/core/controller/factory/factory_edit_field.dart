@@ -1,9 +1,9 @@
 import 'package:angular/angular.dart';
 
 import 'factory_field.dart';
-import '../model/collection.dart';
-import '../model/field.dart';
-import '../model/constants.dart';
+import '../../model/collection.dart';
+import '../../model/field.dart';
+import '../../model/constants.dart';
 
 import '../view/edit/input_text_component.template.dart'
     as input_text_component;

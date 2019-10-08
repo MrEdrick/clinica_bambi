@@ -3,9 +3,9 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../controller/service.dart';
+import '../../controller/service/service.dart';
 import '../../model/collection.dart';
-import '../../controller/factory_label_field.dart';
+import '../../controller/factory/factory_label_field.dart';
 
 import 'edit_card_component_component.template.dart' as edit_card_component;
 

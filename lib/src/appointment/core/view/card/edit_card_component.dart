@@ -4,10 +4,9 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 
-import '../../controller/service.dart';
-import '../../../../appointment/user/user_service.dart';
+import '../../controller/service/service.dart';
 import '../../model/collection.dart';
-import '../../controller/factory_edit_field.dart';
+import '../../controller/factory/factory_edit_field.dart';
 
 @Component(
     selector: 'edit-card-app',
@@ -30,7 +29,6 @@ class EditCardComponent implements OnInit {
   final List<ComponentRef> listComponentRefEditField = new List<ComponentRef>();
 
   final Service service = new Service();
-  final UserService userService = new UserService();
 
   @Input()
   ComponentRef componentRef;
@@ -54,8 +52,6 @@ class EditCardComponent implements OnInit {
   }
 
   void ngOnInit() async {
-    if (userService.user == null) return;
-
     listComponentRefEditField.clear();
 
     collection.fieldList.forEach((field) {
@@ -63,8 +59,6 @@ class EditCardComponent implements OnInit {
               viewContainerRefEditField, _collectionListDependent)
           .addField());
     });
-
-    _changeDetectorRef.markForCheck();
 
     onEdit();
 

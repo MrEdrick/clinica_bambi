@@ -1,17 +1,9 @@
-import 'dart:html';
 import 'package:angular/angular.dart';
-import 'package:angular_router/angular_router.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:angular_components/content/deferred_content.dart';
-import 'package:angular_components/material_button/material_button.dart';
-import 'package:angular_components/material_icon/material_icon.dart';
-import 'package:angular_components/material_toggle/material_toggle.dart';
-import 'package:angular_components/utils/browser/window/module.dart';
-import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../../../route_paths.dart' as paths;
-import '../../../../appointment/user/user_service.dart';
-import '../../controller/service.dart';
+import '../../controller/service/service.dart';
+import '../../controller/factory/factory_filter_field.dart';
+import '../../model/collection.dart';
 
 @Component(
   selector: 'filter_component',
@@ -19,18 +11,10 @@ import '../../controller/service.dart';
   changeDetection: ChangeDetectionStrategy.OnPush,
   directives: const [
     coreDirectives,
-    materialInputDirectives,
-    DeferredContentDirective,
-    MaterialButtonComponent,
-    MaterialIconComponent,
-    MaterialToggleComponent,
-    MaterialFabComponent,
+    materialInputDirectives
   ],
   providers: const [
-    materialProviders,
-    windowBindings,
-    datepickerBindings,
-    popupBindings
+    materialProviders
   ],
   styleUrls: const [
     'filter_component.scss.css',
@@ -38,26 +22,36 @@ import '../../controller/service.dart';
   ],
 )
 class ProcedureFilterComponent implements OnInit {  
-  ComponentRef componentRef;
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
- 
-  final Router _router;
 
-  @ViewChild('containerListProcedure', read: ViewContainerRef)
-  ViewContainerRef materialContainerList;
+  final List<ComponentRef> listComponentRefGilterField = new List<ComponentRef>();
 
-  @ViewChild('containerEditProcedure', read: ViewContainerRef)
-  ViewContainerRef materialContainerAdd;
+  @Input()
+  ComponentRef componentRef;
+
+  @Input()
+  Collection collection;
+  
+  @ViewChild('viewContainerRefFilterField', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefFilterField;
 
   final Service service = new Service();
 
-  ProcedureFilterComponent(this._router, this._loader, this._changeDetectorRef);
+  ProcedureFilterComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
-    if (new UserService().user == null) return;
+    listComponentRefGilterField.clear();
+
+    collection.fieldList.forEach((field) {
+      listComponentRefGilterField.add(new FactoryFilterField(field, _loader,
+              viewContainerRefFilterField)
+          .addField());
+    });
 
     await onFilter();
+
+    _changeDetectorRef.markForCheck();
   }
 
   Future<void> onFilter() async {
