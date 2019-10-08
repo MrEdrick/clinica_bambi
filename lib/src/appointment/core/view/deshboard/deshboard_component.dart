@@ -22,10 +22,10 @@ import '../../../user/user_service.dart';
 import '../../model/application.dart';
 
 import '../deshboard_menu_component.template.dart' as deshboard_menu_component;
-import '../filter/filter_component.template.dart' as filter_component;
+import '../browser/browser_component.template.dart' as browser_component;
 
 @Component(
-  selector: 'deshboard_component',
+  selector: 'deshboard-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'deshboard_component.html',
   directives: const [
@@ -51,7 +51,7 @@ import '../filter/filter_component.template.dart' as filter_component;
     popupBindings
   ],
   styleUrls: const [
-    'deshboard_component.scss.css',
+    'deshboard-component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
@@ -62,9 +62,7 @@ class DeshboardComponent implements OnActivate, OnInit {
   final UserService _userService = new UserService();
 
   ComponentRef componentRefMenu;
-  ComponentRef componentRefFilter;
-
-  final UserService userService = new UserService();
+  ComponentRef componentRefBrowser;
 
   @Input()
   Application application;
@@ -72,15 +70,15 @@ class DeshboardComponent implements OnActivate, OnInit {
   @ViewChild('viewContainerRefMenu', read: ViewContainerRef)
   ViewContainerRef viewContainerRefMenu;
 
-  @ViewChild('viewContainerRefFilter', read: ViewContainerRef)
-  ViewContainerRef viewContainerRefFilter;
+  @ViewChild('viewContainerRefBrowser', read: ViewContainerRef)
+  ViewContainerRef viewContainerRefBrowser;
 
   DeshboardComponent(this._router, this._loader, this._changeDetectorRef);
 
   @override
   void onActivate(_, RouterState current) async {
     try {
-      if (userService.user == null) {
+      if (_userService.user == null) {
         _router.navigate(paths.login.toUrl());
       } else {
         querySelector('#wh-widget-send-button').style.display = 'none';
@@ -100,18 +98,18 @@ class DeshboardComponent implements OnActivate, OnInit {
     componentRefMenu = _loader.loadNextToLocation(
         componentFactoryDeshboardMenu, viewContainerRefMenu);
 
-    componentRefMenu.instance.onClickMenuItem.listen((_) => loadFilter());
+    componentRefMenu.instance.onClickMenuItem.listen((_) => loadBrowser());
     componentRefMenu.instance.application = application;
     componentRefMenu.instance.componentRef = componentRefMenu;
   }
 
-  void loadFilter() {
-    ComponentFactory<filter_component.FilterComponent> componentFactoryFilter =
-        filter_component.FilterComponentNgFactory;
-    componentRefFilter = _loader.loadNextToLocation(
-        componentFactoryFilter, viewContainerRefFilter);
+  void loadBrowser() {
+    ComponentFactory<browser_component.BrowserComponent> componentFactoryFilter =
+        browser_component.BrowserComponentNgFactory;
+    componentRefBrowser = _loader.loadNextToLocation(
+        componentFactoryFilter, viewContainerRefBrowser);
     _changeDetectorRef.checkNoChanges();
 
-    componentRefFilter.instance.componentRef = componentRefFilter;
+    componentRefBrowser.instance.componentRef = componentRefBrowser;
   }
 }

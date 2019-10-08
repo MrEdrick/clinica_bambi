@@ -12,7 +12,7 @@ import '../deshboard_menu_sub_item_component.template.dart'
     as deshboard_menu_sub_item_component;
 
 @Component(
-  selector: 'deshboard_menu_item_component',
+  selector: 'deshboard-menu-item-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'deshboard_menu_item_component.html',
   directives: const [

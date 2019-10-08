@@ -9,7 +9,7 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import '../../model/collection.dart';
 
 @Component(
-  selector: 'deshboard_menu_sub_item_component',
+  selector: 'deshboard-menu-sub-item-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'deshboard_menu_sub_item_component.html',
   directives: const [
