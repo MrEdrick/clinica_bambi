@@ -1,18 +1,22 @@
 import 'package:angular/angular.dart';
 
+import '../model/collection.dart';
 import '../model/field.dart';
 import '../model/constants.dart';
 import '../view/edit/input_text_component.template.dart'
     as input_text_component;
 import '../view/edit/select_component.template.dart' as select_component;
 import '../view/edit/checkbox_component.template.dart' as checkbox_component;
+import '../view/edit/expansion_panel_group_component.template.dart'
+    as expansion_panel_group_component;
 
 class FactoryField {
   Field _field;
   ComponentLoader _loader;
   ViewContainerRef _viewContainerRefEditField;
+  List<Collection> _collectionListDependent;
 
-  FactoryField(this._field, this._loader, this._viewContainerRefEditField);
+  FactoryField(this._field, this._loader, this._viewContainerRefEditField, this._collectionListDependent);
 
   List<ComponentRef> addField() {
     switch (_field.type) {
@@ -31,6 +35,11 @@ class FactoryField {
       case FIELD_TYPE_FOREIGN_KEY:
         {
           return _addSelect();
+        }
+        break;
+      case FIELD_TYPE_FOREIGN_KEY_GUIDE:
+        {
+          return _addExpasionPanelGroup();
         }
         break;
       default:
@@ -84,6 +93,25 @@ class FactoryField {
         componentFactorySelect, _viewContainerRefEditField));
 
     _listComponentRefEditField.last.instance.field = _field;
+    _listComponentRefEditField.last.instance.componentRef =
+        _listComponentRefEditField.last;
+
+    return _listComponentRefEditField;
+  }
+
+  List<ComponentRef> _addExpasionPanelGroup() {
+    List<ComponentRef> _listComponentRefEditField = new List<ComponentRef>();
+
+    ComponentFactory<
+            expansion_panel_group_component.ExpasionPanelGroupComponent>
+        componentFactoryExpasionPanelGroup =
+        expansion_panel_group_component.ExpasionPanelGroupComponentNgFactory;
+
+    _listComponentRefEditField.add(_loader.loadNextToLocation(
+        componentFactoryExpasionPanelGroup, _viewContainerRefEditField));
+
+    _listComponentRefEditField.last.instance.field = _field;
+    _listComponentRefEditField.last.instance.collectionList = _collectionListDependent;
     _listComponentRefEditField.last.instance.componentRef =
         _listComponentRefEditField.last;
 

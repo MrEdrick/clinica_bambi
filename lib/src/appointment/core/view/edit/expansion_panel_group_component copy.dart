@@ -9,13 +9,13 @@ import '../../model/constants.dart';
 import '../../model/collection.dart';
 
 @Component(
-    selector: 'expasion-panel-group-select-component',
+    selector: 'expasion-panel-group-component',
     styleUrls: const [
-      'expasion_panel_group_select_component.scss.css',
+      'expasion_panel_group_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'expasion_paneil_group_select_component.html',
+    templateUrl: 'expasion_paneil_group_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -23,7 +23,7 @@ import '../../model/collection.dart';
       MaterialIconComponent
     ])
 
-class ExpasionPanelGroupSelectComponent implements OnInit {
+class ExpasionPanelGroupComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   @Input()
@@ -38,7 +38,7 @@ class ExpasionPanelGroupSelectComponent implements OnInit {
   @ViewChild('viewContainerRefEditField', read: ViewContainerRef)
   ViewContainerRef viewContainerRefEditField;
 
-  ExpasionPanelGroup(this._changeDetectorRef);
+  ExpasionPanelGroupComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     collectionList.forEach((collection) {
