@@ -13,11 +13,6 @@ import '../../../../route_paths.dart' as paths;
 import '../../../../appointment/user/user_service.dart';
 import '../../controller/service.dart';
 
-import 'list_component_component.template.dart'
-    as list_component;
-import 'edit_component_component.template.dart'
-    as edit_component;
-
 @Component(
   selector: 'filter_component',
   templateUrl: 'filter_component.html',
@@ -42,7 +37,7 @@ import 'edit_component_component.template.dart'
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class ProcedureFilterComponent implements OnActivate, OnInit {  
+class ProcedureFilterComponent implements OnInit {  
   ComponentRef componentRef;
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
@@ -65,19 +60,6 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
     await onFilter();
   }
 
-  @override
-  void onActivate(_, RouterState current) async {
-    try {
-      if (new UserService().user != null) {
-        onFilter();
-      } else {
-        _router.navigate(paths.login.toUrl());
-      }
-    } catch (e) {
-      _router.navigate(paths.login.toUrl());
-    }
-  }
-
   Future<void> onFilter() async {
     componentRef?.destroy();
 
@@ -85,32 +67,7 @@ class ProcedureFilterComponent implements OnActivate, OnInit {
 
     service.getAllAcives().then((onValue) {
       service.getListWithFilter();
-
-      onLoad();
     });
-  }
-
-  void onLoad() {
-    ComponentFactory<list_component.ListComponent> listComponentFactory =
-        list_component.ListComponentNgFactory;
-
-    ComponentRef listComponentRef =
-        _loader.loadNextToLocation(listComponentFactory, materialContainerList);
-
-    listComponentRef.instance.componentRef = listComponentRef;
-    componentRef = listComponentRef;
-
-    _changeDetectorRef.markForCheck();
-  }
-
-  void onAdd() {
-    service.map.clear();
-    ComponentFactory<edit_component.EditComponent> editComponentFactory =
-        edit_component.EditComponentNgFactory;
-
-    ComponentRef editComponentRef =
-        _loader.loadNextToLocation(editComponentFactory, materialContainerAdd);
-    editComponentRef.instance.componentRef = editComponentRef;
   }
 
   void onClear() {

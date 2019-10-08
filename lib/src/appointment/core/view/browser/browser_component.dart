@@ -116,11 +116,4 @@ class BrowserComponent implements OnActivate, OnInit {
 
     _changeDetectorRef.markForCheck();
   }
-
-  void onClear() {
-    //description = '';
-
-    //querySelector('#procedure-total-result-filter-text').setAttribute('value', '0');
-    //querySelector('#procedure-total-result-filter-text').setInnerHtml('0');
-  }
 }
