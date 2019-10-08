@@ -1,4 +1,3 @@
-import 'package:ClinicaBambi/src/appointment/core/model/constants.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -8,7 +7,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import '../../controller/service.dart';
 import '../../../../appointment/user/user_service.dart';
 import '../../model/collection.dart';
-import '../../controller/factory_field.dart';
+import '../../controller/factory_edit_field.dart';
 
 @Component(
     selector: 'edit-card-app',
@@ -60,9 +59,9 @@ class EditCardComponent implements OnInit {
     listComponentRefEditField.clear();
 
     collection.fieldList.forEach((field) {
-      listComponentRefEditField.add(new FactoryField(field, _loader,
+      listComponentRefEditField.add(new FactoryEditField(field, _loader,
               viewContainerRefEditField, _collectionListDependent)
-          .addEditField());
+          .addField());
     });
 
     _changeDetectorRef.markForCheck();

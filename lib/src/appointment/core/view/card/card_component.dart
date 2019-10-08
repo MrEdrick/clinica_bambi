@@ -5,11 +5,9 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 
 import '../../controller/service.dart';
 import '../../model/collection.dart';
+import '../../controller/factory_label_field.dart';
 
-import '../labe/label_component_component.template.dart'
-    as label_component;
-import 'edit_card_component_component.template.dart'
-    as edit_card_component;
+import 'edit_card_component_component.template.dart' as edit_card_component;
 
 @Component(
     selector: 'card-component',
@@ -25,10 +23,10 @@ import 'edit_card_component_component.template.dart'
       materialInputDirectives,
       ModalComponent,
     ])
-
 class CardComponent implements OnInit {
-  final ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
+  final Service service = new Service();
 
   @ViewChild('viewContainerRefLabel', read: ViewContainerRef)
   ViewContainerRef viewContainerRefLabel;
@@ -36,39 +34,31 @@ class CardComponent implements OnInit {
   @ViewChild('viewContainerRefEdit', read: ViewContainerRef)
   ViewContainerRef viewContainerRefEdit;
 
-  Map _map;
-  final Service service = new Service();
-
-  bool showEditAgendamentoEditApp = false;
-
   @Input()
   ComponentRef componentRef;
 
   @Input()
   Collection collection;
 
+  Map _map;
   Map get map => _map;
   @Input()
-  set map(Map map) => _map = map; 
+  set map(Map map) => _map = map;
 
+  bool showEditAgendamentoEditApp = false;
+
+  List<ComponentRef> listComponentRefLabelField;
   CardComponent(this._changeDetectorRef, this._loader);
 
-  void ngOnInit() {   
+  void ngOnInit() {
+    listComponentRefLabelField.clear();
+
     collection.fieldList.forEach((field) {
-      
-      ComponentFactory<label_component.LabelComponent>
-          componentFactoryLabel =
-          label_component.LabelComponentNgFactory;
-      
-      ComponentRef componentRefLabel =
-        _loader.loadNextToLocation(componentFactoryLabel, viewContainerRefLabel);
-      
-      componentRefLabel.instance.title = field.title;
-      componentRefLabel.instance.value = field.value;
-      componentRefLabel.instance.componentRef = componentRefLabel;
-           
+      listComponentRefLabelField.add(
+          new FactoryLabelField(field, _loader, viewContainerRefLabel)
+              .addField());
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 
