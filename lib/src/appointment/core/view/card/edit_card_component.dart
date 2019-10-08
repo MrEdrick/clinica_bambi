@@ -1,3 +1,4 @@
+import 'package:ClinicaBambi/src/appointment/core/model/constants.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
@@ -38,6 +39,9 @@ class EditCardComponent implements OnInit {
   @Input()
   Collection collection;
 
+  @Input()
+  List<Collection> _collectionListDependent;
+
   @ViewChild('viewContainerRefEditField', read: ViewContainerRef)
   ViewContainerRef viewContainerRefEditField;
 
@@ -56,7 +60,9 @@ class EditCardComponent implements OnInit {
     listComponentRefEditField.clear();
 
     collection.fieldList.forEach((field) {
-      new FactoryField(field, _loader, viewContainerRefEditField).addField();
+      listComponentRefEditField.add(new FactoryField(field, _loader,
+              viewContainerRefEditField, _collectionListDependent)
+          .addEditField());
     });
 
     _changeDetectorRef.markForCheck();

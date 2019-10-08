@@ -1,4 +1,5 @@
 import 'field.dart';
+import 'collection_type.dart';
 
 class Collection {
   String _description;
@@ -6,7 +7,7 @@ class Collection {
   List<Field> _fieldList;
   String _title;
   String _icon;
-  String _type;
+  CollectionType _type;
 
   Collection(
       this._description, this._id, this._fieldList, this._title, this._icon, this._type);
@@ -29,6 +30,6 @@ class Collection {
   String get icon => _icon;
   set icon(String icon) => _icon = icon;
 
-  String get type => _type;
-  set type(String type) => _type = type;
+  CollectionType get type => _type;
+  set type(CollectionType type) => _type = type;
 }

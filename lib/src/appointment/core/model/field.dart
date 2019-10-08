@@ -1,6 +1,8 @@
+import 'field_type.dart';
+
 class Field {
   String _description;
-  String _type;
+  FieldType _type;
   String _value;
   String _title;
 
@@ -9,8 +11,8 @@ class Field {
   String get description => _description;
   set description(String description) => _description = description;
 
-  String get type => _type;
-  set type(String type) => _type = type;
+  FieldType get type => _type;
+  set type(FieldType type) => _type = type;
 
   String get value => _value;
   set value(String value) => _value = value;

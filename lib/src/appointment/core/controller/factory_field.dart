@@ -16,105 +16,92 @@ class FactoryField {
   ViewContainerRef _viewContainerRefEditField;
   List<Collection> _collectionListDependent;
 
-  FactoryField(this._field, this._loader, this._viewContainerRefEditField, this._collectionListDependent);
+  FactoryField(this._field, this._loader, this._viewContainerRefEditField,
+      this._collectionListDependent);
 
-  List<ComponentRef> addField() {
-    switch (_field.type) {
-      case FIELD_TYPE_STRING:
-        {
-          return _addInputText();
-        }
-        break;
+  ComponentRef addEditField() {
+    ComponentRef _componentRefEditField = null;
+    
+    if (_field.type.isForeignKey) {
+      if (_field.type.foreignKeyType.isGuide) {
+        _componentRefEditField = _addSelect();
+      }
+      if (_field.type.foreignKeyType.isDependent) {
+        _componentRefEditField = _addExpasionPanelGroup();
+      }
+    } else {
+      switch (_field.type.primaryType) {
+        case FIELD_TYPE_STRING:
+          {
+            _componentRefEditField = _addInputText();
+          }
+          break;
 
-      case FIELD_TYPE_BOOLEAN:
-        {
-          return _addCheckBox();
-        }
-        break;
-
-      case FIELD_TYPE_FOREIGN_KEY:
-        {
-          return _addSelect();
-        }
-        break;
-      case FIELD_TYPE_FOREIGN_KEY_GUIDE:
-        {
-          return _addExpasionPanelGroup();
-        }
-        break;
-      default:
-        {
-          return null;
-        }
+        case FIELD_TYPE_BOOLEAN:
+          {
+            _componentRefEditField = _addCheckBox();
+          }
+          break;
+      }
     }
+
+    return _componentRefEditField;
   }
 
-  List<ComponentRef> _addInputText() {
-    List<ComponentRef> _listComponentRefEditField = new List<ComponentRef>();
-
+  ComponentRef _addInputText() {
     ComponentFactory<input_text_component.InputTextComponent>
         componentFactoryInputText =
         input_text_component.InputTextComponentNgFactory;
 
-    _listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactoryInputText, _viewContainerRefEditField));
+    ComponentRef _componentRefEditField = _loader.loadNextToLocation(
+        componentFactoryInputText, _viewContainerRefEditField);
 
-    _listComponentRefEditField.last.instance.field = _field;
-    _listComponentRefEditField.last.instance.componentRef =
-        _listComponentRefEditField.last;
+    _componentRefEditField.instance.field = _field;
+    _componentRefEditField.instance.componentRef = _componentRefEditField;
 
-    return _listComponentRefEditField;
+    return _componentRefEditField;
   }
 
-  List<ComponentRef> _addCheckBox() {
-    List<ComponentRef> _listComponentRefEditField = new List<ComponentRef>();
-
+  ComponentRef _addCheckBox() {
     ComponentFactory<checkbox_component.CheckboxComponent>
         componentFactoryCheckbox =
         checkbox_component.CheckboxComponentNgFactory;
 
-    _listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactoryCheckbox, _viewContainerRefEditField));
+    ComponentRef _componentRefEditField = _loader.loadNextToLocation(
+        componentFactoryCheckbox, _viewContainerRefEditField);
 
-    _listComponentRefEditField.last.instance.field = _field;
-    _listComponentRefEditField.last.instance.componentRef =
-        _listComponentRefEditField.last;
+    _componentRefEditField.instance.field = _field;
+    _componentRefEditField.instance.componentRef = _componentRefEditField;
 
-    return _listComponentRefEditField;
+    return _componentRefEditField;
   }
 
-  List<ComponentRef> _addSelect() {
-    List<ComponentRef> _listComponentRefEditField = new List<ComponentRef>();
-
+  ComponentRef _addSelect() {
     ComponentFactory<select_component.SelectComponent> componentFactorySelect =
         select_component.SelectComponentNgFactory;
 
-    _listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactorySelect, _viewContainerRefEditField));
+    ComponentRef _componentRefEditField = _loader.loadNextToLocation(
+        componentFactorySelect, _viewContainerRefEditField);
 
-    _listComponentRefEditField.last.instance.field = _field;
-    _listComponentRefEditField.last.instance.componentRef =
-        _listComponentRefEditField.last;
+    _componentRefEditField.instance.field = _field;
+    _componentRefEditField.instance.componentRef = _componentRefEditField;
 
-    return _listComponentRefEditField;
+    return _componentRefEditField;
   }
 
-  List<ComponentRef> _addExpasionPanelGroup() {
-    List<ComponentRef> _listComponentRefEditField = new List<ComponentRef>();
-
+  ComponentRef _addExpasionPanelGroup() {
     ComponentFactory<
             expansion_panel_group_component.ExpasionPanelGroupComponent>
         componentFactoryExpasionPanelGroup =
         expansion_panel_group_component.ExpasionPanelGroupComponentNgFactory;
 
-    _listComponentRefEditField.add(_loader.loadNextToLocation(
-        componentFactoryExpasionPanelGroup, _viewContainerRefEditField));
+    ComponentRef _componentRefEditField = _loader.loadNextToLocation(
+        componentFactoryExpasionPanelGroup, _viewContainerRefEditField);
 
-    _listComponentRefEditField.last.instance.field = _field;
-    _listComponentRefEditField.last.instance.collectionList = _collectionListDependent;
-    _listComponentRefEditField.last.instance.componentRef =
-        _listComponentRefEditField.last;
+    _componentRefEditField.instance.field = _field;
+    _componentRefEditField.instance.collectionList = _collectionListDependent;
+    _componentRefEditField.instance.componentRef = _componentRefEditField;
 
-    return _listComponentRefEditField;
+    return _componentRefEditField;
   }
 }

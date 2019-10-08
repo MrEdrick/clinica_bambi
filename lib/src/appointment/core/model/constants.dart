@@ -4,12 +4,11 @@ const int INDEX_TITLE = 2;
 
 const String FIELD_TYPE_STRING = "String";
 const String FIELD_TYPE_BOOLEAN = "Boolean";
-const String FIELD_TYPE_FOREIGN_KEY = "ForeignKey";
-const String FIELD_TYPE_FOREIGN_KEY_LIST = "ForeignKeyList";
-const String FIELD_TYPE_FOREIGN_KEY_GROUP = "ForeignKeyGroup";
-const String FIELD_TYPE_FOREIGN_KEY_GUIDE = "ForeignKeyGuide";
-const String FIELD_TYPE_FOREIGN_KEY_DEPENDENT = "ForeignKeyDependent";
+const String FIELD_TYPE_INTEGER = "Integer";
+const String FIELD_TYPE_DATE = "Date";
 
-const String COLLECTION_TYPE_MULTIPLE_FIELDS = "MultipleFields";
-const String COLLECTION_TYPE_SINGLE_FIELD = "SingleField";
-const String COLLECTION_TYPE_LINK = "Link";
+const String FOREIGN_KEY_TYPE_SINGLE = "ForeignKeySingle";
+const String FOREIGN_KEY_TYOE_LIST = "ForeignKeyList";
+
+const String COLLECTION_TYPE_TIP = "TipCollection";
+const String COLLECTION_TYPE_LINK = "LinkCollection";
