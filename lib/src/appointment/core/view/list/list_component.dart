@@ -6,7 +6,7 @@ import 'package:angular_components/material_input/material_input.dart';
 import '../../../../appointment/user/user_service.dart';
 import '../../controller/service/service.dart';
 
-import 'card_component.template.dart'
+import '../card/display/display_card_component.template.dart'
     as card_component;
 
 @Component(

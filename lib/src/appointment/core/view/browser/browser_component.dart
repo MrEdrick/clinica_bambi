@@ -14,7 +14,7 @@ import '../../controller/service/service.dart';
 
 import '../filter/filter_component.template.dart' as filter_component;
 import '../list/list_component.template.dart' as list_component;
-import '../card/edit_card_component.template.dart' as edit_card_component;
+import '../card/edit/edit_card_component.template.dart' as edit_card_component;
 
 @Component(
   selector: 'browser-component',

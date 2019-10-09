@@ -3,19 +3,19 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 
-import '../../controller/service/service.dart';
-import '../../model/collection.dart';
-import '../../controller/factory/factory_label_field.dart';
+import '../../../controller/service/service.dart';
+import '../../../model/collection.dart';
+import '../../../controller/factory/factory_label_field.dart';
 
 import 'edit_card_component_component.template.dart' as edit_card_component;
 
 @Component(
-    selector: 'card-component',
+    selector: 'display-card-component',
     styleUrls: const [
-      'card_component.scss.css',
+      'display_card_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
-    templateUrl: 'card_component.html',
+    templateUrl: 'display_card_component.html',
     directives: const [
       coreDirectives,
       formDirectives,
@@ -23,7 +23,7 @@ import 'edit_card_component_component.template.dart' as edit_card_component;
       materialInputDirectives,
       ModalComponent,
     ])
-class CardComponent implements OnInit {
+class DisplayCardComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
   final Service service = new Service();
@@ -48,7 +48,8 @@ class CardComponent implements OnInit {
   bool showEditAgendamentoEditApp = false;
 
   List<ComponentRef> listComponentRefLabelField;
-  CardComponent(this._changeDetectorRef, this._loader);
+  
+  DisplayCardComponent(this._changeDetectorRef, this._loader);
 
   void ngOnInit() {
     listComponentRefLabelField.clear();

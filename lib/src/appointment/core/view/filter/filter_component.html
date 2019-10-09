@@ -2,6 +2,7 @@
     <div class="container-filter">
         <div class="container-filter-title">
             <material-icon icon="filter_list"></material-icon>
+            <div #viewContainerRefFilterField></div>
         </div>
 
         <material-button id="bt-limpar" (trigger)="onClear()">
@@ -13,14 +14,6 @@
         </material-button>
     </div>
     <div class="total-result-filter">
-
-        <div class="total-result-filtered">
-            <span class="total-result-filter-title">
-                Total de procedimentos:
-            </span>
-            <span class="total-result-filter-text" id="total-result-filter-text">
-                
-            </span>
-        </div>
+        <div #viewContainerRefLabelFieldFilter></div>
     </div>
 </div>
