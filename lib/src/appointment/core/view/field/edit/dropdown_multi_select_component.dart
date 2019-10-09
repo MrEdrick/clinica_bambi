@@ -14,7 +14,7 @@ import '../../../view/ui/ui.dart';
 import '../../../view/ui/ui_selection_options.dart';
 
 @Component(
-    selector: 'dropdown-select-component',
+    selector: 'dropdown-multi-select-component',
     styleUrls: const [
       'dropdown_select_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
@@ -30,7 +30,7 @@ import '../../../view/ui/ui_selection_options.dart';
       MaterialSelectSearchboxComponent
     ],
     providers: [windowBindings])
-class DropdownSelectComponent implements OnInit {
+class DropdownMultiSelectComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final Service _service = new Service();
 
@@ -74,23 +74,26 @@ class DropdownSelectComponent implements OnInit {
     return listOptions;
   }
 
-  @Input()
-  SelectionModel<UI> singleSelectModel = SelectionModel.single();
+  final SelectionModel<UI> multiSelectModel = SelectionModel<UI>.multi();
 
   @Output()
   Stream get selectionChanges {
-    return singleSelectModel.selectionChanges;
+    return multiSelectModel.selectionChanges;
   }
 
-  String get singleSelectLabel => singleSelectModel.selectedValues == null
-      ? '  '
-      : singleSelectModel.selectedValues.length > 0
-          ? itemRenderer(singleSelectModel.selectedValues.first)
-          : description;
+  String get multiSelectLabel {
+    var selectedValues = multiSelectModel.selectedValues;
+    if (selectedValues.isEmpty) {
+      return "";
+    } else if (selectedValues.length == 1) {
+      return itemRenderer(selectedValues.first);
+    } else {
+      return "${itemRenderer(selectedValues.first)} + ${selectedValues.length - 1} more";
+    }
+  }
 
-  String get singleSelected => singleSelectModel.selectedValues.isNotEmpty
-      ? singleSelectModel.selectedValues.first.uiDisplayName
-      : null;
+  String get multiSelected =>
+      multiSelectModel.selectedValues.map((l) => l.uiDisplayName).join(',');
 
   @ViewChild(MaterialSelectSearchboxComponent)
   MaterialSelectSearchboxComponent searchbox;
@@ -103,7 +106,7 @@ class DropdownSelectComponent implements OnInit {
     }
   }
 
-  DropdownSelectComponent(this._changeDetectorRef);
+  DropdownMultiSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _list = new List<UI>();
