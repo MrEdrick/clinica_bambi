@@ -1,28 +1,16 @@
-import 'foreign_key_type.dart';
-
 class FieldType {
-  String _primaryType;
-  bool _isKey;
-  bool _isForeignKey;
+  String _type;
+  String _valueType;
   bool _isMainField;
-  ForeignKeyType _foreignKeyType;
 
-  FieldType(this._primaryType, this._isKey, this._isForeignKey,
-      this._isMainField, this._foreignKeyType);
+  FieldType(this._type, this._valueType, this._isMainField);
 
-  String get primaryType => _primaryType;
-  set primaryType(String primaryType) => _primaryType = primaryType;
+  String get type => _type;
+  set type(String type) => _type = type;
 
-  bool get isKey => _isKey;
-  set isKey(bool isKey) => _isKey = isKey;
-
-  bool get isForeignKey => _isForeignKey;
-  set isForeignKey(bool isForeignKey) => _isForeignKey = isForeignKey;
+  String get valueType => _valueType;
+  set valueType(String valueType) => _valueType = valueType;
 
   bool get isMainField => _isMainField;
   set isMainField(bool isMainField) => _isMainField = isMainField;
-
-  ForeignKeyType get foreignKeyType => _foreignKeyType;
-  set foreignKeyType(ForeignKeyType foreignKeyType) =>
-      _foreignKeyType = foreignKeyType;
 }

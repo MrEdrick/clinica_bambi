@@ -1,6 +1,6 @@
-const int INDEX_DESCRIPTION = 0;
-const int INDEX_TYPE = 1;
-const int INDEX_TITLE = 2;
+const String FIELD_MODEL_DESCRIPTION = "description";
+const String FIELD_MODEL_FIELD_TYPE = "fieldType";
+const String FIELD_MODEL_TITLE = "title";
 
 const String FIELD_TYPE_STRING = "String";
 const String FIELD_TYPE_BOOLEAN = "Boolean";
