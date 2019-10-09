@@ -2,6 +2,8 @@ const String FIELD_MODEL_DESCRIPTION = "description";
 const String FIELD_MODEL_FIELD_TYPE = "fieldType";
 const String FIELD_MODEL_TITLE = "title";
 
+const String FIELD_TYPE_MODEL_TYPE = "type";
+
 const String FIELD_TYPE_STRING = "String";
 const String FIELD_TYPE_BOOLEAN = "Boolean";
 const String FIELD_TYPE_INTEGER = "Integer";
