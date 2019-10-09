@@ -1,8 +1,8 @@
 import 'package:angular/angular.dart';
 
 import 'factory_field.dart';
-import '../model/field.dart';
-import '../model/constants.dart';
+import '../../model/field.dart';
+import '../../model/constants.dart';
 
 import '../view/label/boolean_label_component.template.dart'
     as boolean_label_component;

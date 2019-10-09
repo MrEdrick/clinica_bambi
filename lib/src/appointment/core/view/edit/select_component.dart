@@ -8,18 +8,18 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../controller/service.dart';
+import '../../controller/service/service.dart';
 import '../../view/ui/ui.dart';
 import '../../view/ui/ui_selection_options.dart';
 
 @Component(
-    selector: 'dropdown-select-component',
+    selector: 'select-component',
     styleUrls: const [
-      'dropdown_select_component.scss.css',
+      'select_component.scss.css',
       'package:angular_components/app_layout/layout.scss.css'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: 'dropdown_select_component.html',
+    templateUrl: 'select_component.html',
     directives: const [
       coreDirectives,
       formDirectives,

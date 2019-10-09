@@ -10,7 +10,7 @@ import 'package:angular_components/material_button/material_fab.dart';
 
 import '../../../../route_paths.dart' as paths;
 import '../../../../appointment/user/user_service.dart';
-import '../../controller/service.dart';
+import '../../controller/service/service.dart';
 
 import '../filter/filter_component.template.dart' as filter_component;
 import '../list/list_component.template.dart' as list_component;
