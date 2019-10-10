@@ -1,4 +1,4 @@
-import 'field.dart';
+import 'field/field.dart';
 import 'collection_type.dart';
 
 class Collection {

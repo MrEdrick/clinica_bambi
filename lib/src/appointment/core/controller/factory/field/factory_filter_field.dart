@@ -1,15 +1,15 @@
 import 'package:angular/angular.dart';
 
 import 'factory_field.dart';
-import '../../model/field.dart';
-import '../../model/constants.dart';
+import '../../../model/field.dart';
+import '../../../model/constants.dart';
 
-import '../view/edit/dropdown_multi_select_component.template.dart'
+import '../../view/edit/dropdown_multi_select_component.template.dart'
     as dropdown_multi_select_component;
-import '../view/edit/input_text_component.template.dart'
+import '../../view/edit/input_text_component.template.dart'
     as input_text_component;
-import '../view/edit/checkbox_component.template.dart' as checkbox_component;
-import '../view/edit/datepicker_select_component.template.dart'
+import '../../view/edit/checkbox_component.template.dart' as checkbox_component;
+import '../../view/edit/datepicker_select_component.template.dart'
     as datepicker_component;
 
 class FactoryFilterField extends FactoryField {
