@@ -57,7 +57,7 @@ class ProcedureFilterComponent implements OnInit {
     listComponentRefLabelFieldFilter.add(new FactoryLabelField(
             new Field(
                 "amountResultingFromFiltering",
-                new FieldType("String", false, false, false, null),
+                new FieldType("String", "", false),
                 "",
                 "Quantidade de Filtrados"),
             _loader,

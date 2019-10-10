@@ -3,7 +3,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../../model/field.dart';
+import '../../../model/field/field.dart';
 
 @Component(
     selector: 'datepicker-component',

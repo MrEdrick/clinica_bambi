@@ -25,7 +25,7 @@ class FactoryFilterField extends FactoryField {
     if ((super.field.type.type == FIELD_TYPE_FOREIGN_KEY) || (super.field.type.type == FIELD_TYPE_PRIMARY_KEY)) {
       _componentRefEditField = _addDropdownMultiSelect();
     } else {
-      switch (super.field.type.primaryType) {
+      switch (super.field.type.valueType) {
         case FIELD_TYPE_VALUE_STRING:
           {
             _componentRefEditField = _addInputText();

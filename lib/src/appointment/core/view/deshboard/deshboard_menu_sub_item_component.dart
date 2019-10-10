@@ -6,7 +6,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_datepicker/module.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 
-import '../../model/collection.dart';
+import '../../model/collection/collection.dart';
 
 @Component(
   selector: 'deshboard-menu-sub-item-component',
