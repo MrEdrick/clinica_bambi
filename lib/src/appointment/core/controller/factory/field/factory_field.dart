@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 
-import '../../../model/collection.dart';
-import '../../../model/field.dart';
+import '../../../model/collection/collection.dart';
+import '../../../model/field/field.dart';
 
 class FactoryField {
   Field _field;

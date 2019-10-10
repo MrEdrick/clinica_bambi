@@ -1,14 +1,17 @@
 import 'package:angular/angular.dart';
 
 import 'factory_field.dart';
-import '../../../model/collection.dart';
-import '../../../model/field.dart';
-import '../../../model/constants.dart';
+import '../../../model/collection/collection.dart';
+import '../../../model/field/field.dart';
+import '../../../model/field/key_type/foreign_key_type.dart';
+import '../../../constants/constants.dart';
 
 import '../view/edit/input_text_component.template.dart'
     as input_text_component;
-import '../view/edit/dropdown_select_component.template.dart' as dropdown_select_component;
-import '../view/edit/datepicker_select_component.template.dart' as datepicker_component;
+import '../view/edit/dropdown_select_component.template.dart'
+    as dropdown_select_component;
+import '../view/edit/datepicker_select_component.template.dart'
+    as datepicker_component;
 import '../view/edit/checkbox_component.template.dart' as checkbox_component;
 import '../view/edit/expansion_panel_group_component.template.dart'
     as expansion_panel_group_component;
@@ -24,28 +27,28 @@ class FactoryEditField extends FactoryField {
   ComponentRef addField() {
     ComponentRef _componentRefEditField = null;
 
-    if (super.field.type.isForeignKey) {
-      if (super.field.type.foreignKeyType.isGuide) {
+    if (super.field.type.type == FIELD_TYPE_FOREIGN_KEY) {
+      if ((super.field.type as ForeignKeyType).isGuide) {
         _componentRefEditField = _addDropdownSelect();
       }
-      if (super.field.type.foreignKeyType.isDependent) {
+      if ((super.field.type as ForeignKeyType).isDependent) {
         _componentRefEditField = _addExpasionPanelGroup();
       }
     } else {
-      switch (super.field.type.primaryType) {
-        case FIELD_TYPE_STRING:
+      switch (super.field.type.valueType) {
+        case FIELD_TYPE_VALUE_STRING:
           {
             _componentRefEditField = _addInputText();
           }
           break;
 
-        case FIELD_TYPE_BOOLEAN:
+        case FIELD_TYPE_VALUE_BOOLEAN:
           {
             _componentRefEditField = _addCheckBox();
           }
           break;
 
-        case FIELD_TYPE_DATE:
+        case FIELD_TYPE_VALUE_DATE:
           {
             _componentRefEditField = _addDatepicker();
           }
@@ -85,7 +88,8 @@ class FactoryEditField extends FactoryField {
   }
 
   ComponentRef _addDropdownSelect() {
-    ComponentFactory<dropdown_select_component.DropdownSelectComponent> componentFactorySelect =
+    ComponentFactory<dropdown_select_component.DropdownSelectComponent>
+        componentFactorySelect =
         dropdown_select_component.DropdownSelectComponentNgFactory;
 
     ComponentRef _componentRefEditField = super.loader.loadNextToLocation(

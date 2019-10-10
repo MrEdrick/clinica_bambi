@@ -1,4 +1,4 @@
-import 'collection.dart';
+import 'collection/collection.dart';
 
 class Archive {
   String _description;

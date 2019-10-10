@@ -1,4 +1,4 @@
-import '../model/collection.dart';
+import '../model/collection/collection.dart';
 import 'condition.dart';
 import 'order_by.dart';
 

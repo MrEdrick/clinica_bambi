@@ -1,8 +1,8 @@
 import 'package:angular/angular.dart';
 
 import 'factory_field.dart';
-import '../../../model/field.dart';
-import '../../../model/constants.dart';
+import '../../../model/field/field.dart';
+import '../../../constants/constants.dart';
 
 import '../../view/label/boolean_label_component.template.dart'
     as boolean_label_component;
@@ -17,14 +17,14 @@ class FactoryLabelField extends FactoryField {
   ComponentRef addField() {
     ComponentRef _componentRefField = null;
 
-    switch (super.field.type.primaryType) {
-      case FIELD_TYPE_STRING:
+    switch (super.field.type.valueType) {
+      case FIELD_TYPE_VALUE_STRING:
         {
           _componentRefField = _addStringLabel();
         }
         break;
 
-      case FIELD_TYPE_BOOLEAN:
+      case FIELD_TYPE_VALUE_BOOLEAN:
         {
           _componentRefField = _addBooleanLabel();
         }

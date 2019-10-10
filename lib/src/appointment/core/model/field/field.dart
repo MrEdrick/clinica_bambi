@@ -1,4 +1,4 @@
-import '../field_type/field_type.dart';
+import 'field_type/field_type.dart';
 
 class Field {
   String _description;

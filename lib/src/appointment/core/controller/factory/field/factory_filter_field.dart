@@ -1,8 +1,10 @@
 import 'package:angular/angular.dart';
 
 import 'factory_field.dart';
-import '../../../model/field.dart';
-import '../../../model/constants.dart';
+import '../../../model/field/field.dart';
+import '../../../model/field/key_type/primary_key_type.dart';
+import '../../../model/field/key_type/foreign_key_type.dart';
+import '../../../constants/constants.dart';
 
 import '../../view/edit/dropdown_multi_select_component.template.dart'
     as dropdown_multi_select_component;
@@ -20,23 +22,23 @@ class FactoryFilterField extends FactoryField {
   ComponentRef addField() {
     ComponentRef _componentRefEditField = null;
 
-    if ((super.field.type.isForeignKey) || (super.field.type.isKey)) {
+    if ((super.field.type.type == FIELD_TYPE_FOREIGN_KEY) || (super.field.type.type == FIELD_TYPE_PRIMARY_KEY)) {
       _componentRefEditField = _addDropdownMultiSelect();
     } else {
       switch (super.field.type.primaryType) {
-        case FIELD_TYPE_STRING:
+        case FIELD_TYPE_VALUE_STRING:
           {
             _componentRefEditField = _addInputText();
           }
           break;
 
-        case FIELD_TYPE_BOOLEAN:
+        case FIELD_TYPE_VALUE_BOOLEAN:
           {
             _componentRefEditField = _addCheckBox();
           }
           break;
 
-        case FIELD_TYPE_DATE:
+        case FIELD_TYPE_VALUE_DATE:
           {
             _componentRefEditField = _addDatepicker();
           }
