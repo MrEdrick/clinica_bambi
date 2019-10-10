@@ -1,6 +1,6 @@
 import '../core/dao/condition.dart';
 import '../core/dao/order_by.dart';
-import '../core/controller/service.dart';
+import '../core/controller/service/service.dart';
 
 import 'agreement.dart';
 import 'agreement_dao.dart';

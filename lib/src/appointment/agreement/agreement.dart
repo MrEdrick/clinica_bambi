@@ -1,5 +1,6 @@
 import '../core/model/collection.dart';
-import '../core/model/field.dart';
+import '../core/model/field/field.dart';
+import '../core/model/field_type/field_type.dart';
 import '../core/model/constants.dart';
 import 'agreement_constants.dart';
 
@@ -10,12 +11,19 @@ class Agreement extends Collection {
 
   Agreement(this._id, this._description, this._state)
       : super(
-            'Agreement',
+            AGREEMENT_COLLECTION,
             '',
-            AGREEMENT_COLLECTION_MODEL
-                .map((model) => new Field(model[INDEX_DESCRIPTION],
-                    model[INDEX_TYPE], "", model[INDEX_TITLE]))
-                .toList(),
+            [
+              new Field(AGREEMENT_ID_FIELD,
+                  new FieldType("primaryType", FIELD_TYPE_STRING, false), "", "Id"),
+              new Field(
+                  AGREEMENT_DESCRIPTION_FIELD,
+                  new FieldType("common", FIELD_TYPE_STRING, true),
+                  "",
+                  "Descrição"),
+              new Field(AGREEMENT_STATE_FIELD, new FieldType("common", FIELD_TYPE_BOOLEAN, false),
+                 "", "Estado")
+            ],
             'Convênios',
             'credit_card');
 
