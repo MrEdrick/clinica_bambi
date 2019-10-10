@@ -2,11 +2,11 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
 import '../../controller/service/service.dart';
-import '../../controller/factory/factory_filter_field.dart';
-import '../../controller/factory/factory_label_field.dart';
-import '../../model/collection.dart';
-import '../../model/field.dart';
-import '../../model/field_type.dart';
+import '../../controller/factory/field/factory_filter_field.dart';
+import '../../controller/factory/field/factory_label_field.dart';
+import '../../model/collection/collection.dart';
+import '../../model/field/field.dart';
+import '../../model/field/field_type/field_type.dart';
 
 @Component(
   selector: 'filter_component',

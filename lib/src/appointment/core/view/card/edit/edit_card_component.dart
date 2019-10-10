@@ -5,8 +5,8 @@ import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 
 import '../../../controller/service/service.dart';
-import '../../../model/collection.dart';
-import '../../../controller/factory/factory_edit_field.dart';
+import '../../../model/collection/collection.dart';
+import '../../../controller/factory/field/factory_edit_field.dart';
 
 @Component(
     selector: 'edit-card-app',
