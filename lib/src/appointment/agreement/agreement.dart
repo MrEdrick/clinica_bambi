@@ -16,19 +16,19 @@ class Agreement extends Collection {
             '',
             [
               new Field(
-                  AGREEMENT_ID_FIELD,
+                  AGREEMENT_FIELD_ID,
                   new FieldType(
                       FIELD_TYPE_PRIMARY_KEY, FIELD_TYPE_VALUE_STRING, false),
                   "",
                   "Id"),
               new Field(
-                  AGREEMENT_DESCRIPTION_FIELD,
+                  AGREEMENT_FIELD_DESCRIPTION,
                   new FieldType(
                       FIELD_TYPE_COMMON, FIELD_TYPE_VALUE_STRING, true),
                   "",
                   "Descrição"),
               new Field(
-                  AGREEMENT_STATE_FIELD,
+                  AGREEMENT_FIELD_STATE,
                   new FieldType(
                       FIELD_TYPE_COMMON, FIELD_TYPE_VALUE_BOOLEAN, false),
                   "",
