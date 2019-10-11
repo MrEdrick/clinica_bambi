@@ -3,7 +3,6 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_input/material_input.dart';
 
-import '../../../../appointment/user/user_service.dart';
 import '../../controller/service/service.dart';
 
 import '../card/display/display_card_component.template.dart'
@@ -28,7 +27,6 @@ class ListComponent implements OnInit {
 
   final List<ComponentRef> listComponentRefCard = new List<ComponentRef>();
   final List<String> listId = new List<String>();
-  final UserService userService = new UserService();
   final Service service = new Service();
 
   @Input()
@@ -40,9 +38,6 @@ class ListComponent implements OnInit {
   ListComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() {
-    if (userService.user == null) 
-      return;
-
     listComponentRefCard.clear();
     
     service.getListWithFilter().forEach((item) {
