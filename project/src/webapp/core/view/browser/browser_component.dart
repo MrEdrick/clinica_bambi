@@ -8,8 +8,7 @@ import 'package:angular_components/material_toggle/material_toggle.dart';
 import 'package:angular_components/utils/browser/window/module.dart';
 import 'package:angular_components/material_button/material_fab.dart';
 
-import '../../../../route_paths.dart' as paths;
-import '../../../../appointment/user/user_service.dart';
+import '../../../../routes/route_paths.dart' as paths;
 import '../../controller/service/service.dart';
 
 import '../filter/filter_component.template.dart' as filter_component;
@@ -40,10 +39,9 @@ import '../card/edit/edit_card_component.template.dart' as edit_card_component;
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class BrowserComponent implements OnActivate, OnInit {
+class BrowserComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
-  final Router _router;
 
   ComponentRef componentRefEditCard;
   ComponentRef componentRefList;
@@ -63,11 +61,9 @@ class BrowserComponent implements OnActivate, OnInit {
 
   final Service service = new Service();
 
-  BrowserComponent(this._router, this._loader, this._changeDetectorRef);
+  BrowserComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
-    if (new UserService().user == null) return;
-
     ComponentFactory<filter_component.FilterComponent> componentFactoryFilter =
         filter_component.FilterComponentNgFactory;
 
@@ -77,19 +73,6 @@ class BrowserComponent implements OnActivate, OnInit {
     componentRefFilter.instance.componentRef = componentRefFilter;
 
     _changeDetectorRef.markForCheck();
-  }
-
-  @override
-  void onActivate(_, RouterState current) async {
-    try {
-      if (new UserService().user != null) {
-        //onFilter();
-      } else {
-        _router.navigate(paths.login.toUrl());
-      }
-    } catch (e) {
-      _router.navigate(paths.login.toUrl());
-    }
   }
 
   void onLoad() {

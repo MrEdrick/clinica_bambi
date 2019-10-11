@@ -1,6 +1,7 @@
-const String FIELD_TYPE_Pry = "description";
-const String FIELD_MODEL_FIELD_TYPE = "fieldType";
+//const String FIELD_MODEL_FIELD_TYPE = "fieldType";
+
 const String COLLECTION_TYPE_FINAL = "FinalCollection";
+const String COLLECTION_TYPE_LINK = "LinkCollection";
 
 const String FIELD_TYPE_COMMON = "Common";
 const String FIELD_TYPE_PRIMARY_KEY = "PrimaryKey";

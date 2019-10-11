@@ -7,7 +7,7 @@ import 'package:intl/date_symbol_data_http_request.dart';
 import 'package:intl/intl.dart';
 
 import 'package:firebase/firebase.dart' as fb;
-import '../assets/assets.dart';
+import '../src/assets/assets.dart';
 
 import 'main.template.dart' as self;
 

@@ -4,9 +4,9 @@ import 'package:angular_components/angular_components.dart';
 import 'package:angular_components/material_expansionpanel/material_expansionpanel.dart';
 import 'package:angular_components/material_icon/material_icon.dart';
 
-import '../../controller/factory_field.dart';
-import '../../model/constants.dart';
-import '../../model/collection.dart';
+import '../../../controller/factory/field/factory_edit_field.dart';
+import '../../../constants/constants.dart';
+import '../../../model/collection/collection.dart';
 
 @Component(
     selector: 'expasion-panel-group-component',
@@ -22,8 +22,8 @@ import '../../model/collection.dart';
       MaterialExpansionPanel,
       MaterialIconComponent
     ])
-
 class ExpasionPanelGroupComponent implements OnInit {
+  final ComponentLoader _loader;
   final ChangeDetectorRef _changeDetectorRef;
 
   @Input()
@@ -38,19 +38,23 @@ class ExpasionPanelGroupComponent implements OnInit {
   @ViewChild('viewContainerRefEditField', read: ViewContainerRef)
   ViewContainerRef viewContainerRefEditField;
 
-  ExpasionPanelGroupComponent(this._changeDetectorRef);
+  ExpasionPanelGroupComponent(this._loader, this._changeDetectorRef);
 
   void ngOnInit() async {
     collectionList.forEach((collection) {
-      if (collection.type == COLLECTION_TYPE_SINGLE_FIELD) {
-        if (collection.fieldList.first.type == FIELD_TYPE_BOOLEAN) {
-          new FactoryField(field, _loader, viewContainerRefEditField).addField();
+      if (collection.type.type == COLLECTION_TYPE_FINAL) {
+        if (collection.fieldList.first.type.type == FIELD_TYPE_VALUE_BOOLEAN) {
+          new FactoryEditField(collection.fieldList.first, _loader,
+                  viewContainerRefEditField, collectionList)
+              .addField();
         }
       }
-      if (collection.type == COLLECTION_TYPE_LINK) {
+      if (collection.type.type == COLLECTION_TYPE_LINK) {
         collection.fieldList.forEach((field) {
-          if (field.type == FIELD_TYPE_FOREIGN_KEY_DEPENDENT) {
-            new FactoryField(field, _loader, viewContainerRefEditField).addField();
+          if (field.type.type == FIELD_TYPE_FOREIGN_KEY) {
+            new FactoryEditField(
+                    field, _loader, viewContainerRefEditField, collectionList)
+                .addField();
           }
         });
       }

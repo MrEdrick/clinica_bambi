@@ -16,9 +16,9 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_components/material_button/material_fab.dart';
 import 'package:angular_components/app_layout/material_persistent_drawer.dart';
 import 'package:angular_components/app_layout/material_temporary_drawer.dart';
-import '../../../../route_paths.dart' as paths;
+import '../../../../routes/route_paths.dart' as paths;
 
-import '../../../user/user_service.dart';
+import '../../../authentication/user/user_service.dart';
 import '../../model/application.dart';
 
 import '../deshboard_menu_component.template.dart' as deshboard_menu_component;
