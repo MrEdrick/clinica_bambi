@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase/firestore.dart';
-import '../../../firebase/firestore.dart';
+import '../../database/firebase/firestore.dart';
 import 'filter.dart';
 
 class DAO {
