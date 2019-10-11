@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../firebase/auth.dart';
+import '../../database/firebase/auth.dart';
 import 'user.dart';
 import 'user_service.dart';
 

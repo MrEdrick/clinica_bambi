@@ -1,11 +1,11 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
-import 'src/routes.dart';
+import 'routes/routes.dart';
 
 @Component(
-  selector: 'my-app',
-  templateUrl: 'app_component.html',
+  selector: 'project-component',
+  template: '<router-outlet [routes]="routes.all"></router-outlet>',
   directives: const [
     coreDirectives,
     RouterOutlet,
@@ -13,13 +13,12 @@ import 'src/routes.dart';
   ],
   providers: const [materialProviders, ClassProvider(Routes)],
   styleUrls: const [
-    'app_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class AppComponent {
+class ProjectComponent {
   final Routes routes;
 
 
-  AppComponent(this.routes);
+  ProjectComponent(this.routes);
 }

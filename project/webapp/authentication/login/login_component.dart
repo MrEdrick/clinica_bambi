@@ -6,8 +6,8 @@ import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
 import 'package:angular_components/auto_dismiss/auto_dismiss.dart';
-import '../route_paths.dart' as paths;
-import '../firebase/auth.dart';
+import '../../../routes/route_paths.dart' as paths;
+import '../../database/firebase/auth.dart';
 
 @Component(
   selector: 'app-login',
