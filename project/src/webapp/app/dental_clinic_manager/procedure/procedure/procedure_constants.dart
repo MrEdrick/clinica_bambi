@@ -1,10 +1,5 @@
-final PROCEDURE_COLLECTION = 'procedure';
-final PROCEDURE_ID_FIELD = "id";
-final PROCEDURE_DESCRIPTION_FIELD = "description";
-final PROCEDURE_STATE_FIELD = "state";
+const String PROCEDURE_COLLECTION = 'procedure';
 
-final PROCEDURE_COLLECTION_MODEL = [
-  [PROCEDURE_ID_FIELD, "String", "Id"],
-  [PROCEDURE_DESCRIPTION_FIELD, "String", "Convênio"],
-  [PROCEDURE_STATE_FIELD, "Boolean", "Estado"]
-];
+const String PROCEDURE_FIELD_ID = "id";
+const String PROCEDURE_FIELD_DESCRIPTION = "description";
+const String PROCEDURE_FIELD_STATE = "state";

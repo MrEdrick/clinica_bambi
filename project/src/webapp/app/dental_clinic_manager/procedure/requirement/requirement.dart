@@ -1,8 +1,8 @@
-import '../../../core/model/collection/collection.dart';
-import '../../../core/model/collection/collection_type.dart';
-import '../../../core/model/field/field.dart';
-import '../../../core/model/field/field_type/field_type.dart';
-import '../../../core/constants/constants.dart';
+import '../../../../core/model/collection/collection.dart';
+import '../../../../core/model/collection/collection_type.dart';
+import '../../../../core/model/field/field.dart';
+import '../../../../core/model/field/field_type/field_type.dart';
+import '../../../../core/constants/constants.dart';
 import 'requirement_constants.dart';
 
 class Requirement extends Collection {

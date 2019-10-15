@@ -1,6 +1,8 @@
-import '../core/model/collection.dart';
-import '../core/model/field.dart';
-import '../core/model/constants.dart';
+import '../../../../core/model/collection/collection.dart';
+import '../../../../core/model/collection/collection_type.dart';
+import '../../../../core/model/field/field.dart';
+import '../../../../core/model/field/field_type/field_type.dart';
+import '../../../../core/constants/constants.dart';
 import 'procedure_constants.dart';
 
 class Procedure extends Collection {
@@ -10,14 +12,31 @@ class Procedure extends Collection {
 
   Procedure(this._id, this._description, this._state)
       : super(
-            'Procedure',
+            PROCEDURE_COLLECTION,
             '',
-            PROCEDURE_COLLECTION_MODEL
-                .map((model) => new Field(model[INDEX_DESCRIPTION],
-                    model[INDEX_TYPE], "", model[INDEX_TITLE]))
-                .toList(),
-            'Procedimentos',
-            'list_alt');
+            [
+              new Field(
+                  PROCEDURE_FIELD_ID,
+                  new FieldType(
+                      FIELD_TYPE_PRIMARY_KEY, FIELD_TYPE_VALUE_STRING, false),
+                  "",
+                  "Id"),
+              new Field(
+                  PROCEDURE_FIELD_DESCRIPTION,
+                  new FieldType(
+                      FIELD_TYPE_COMMON, FIELD_TYPE_VALUE_STRING, true),
+                  "",
+                  "Descrição"),
+              new Field(
+                  PROCEDURE_FIELD_STATE,
+                  new FieldType(
+                      FIELD_TYPE_COMMON, FIELD_TYPE_VALUE_BOOLEAN, false),
+                  "",
+                  "Estado")
+            ],
+            'Requisitos',
+            'check_box',
+            new CollectionType(COLLECTION_TYPE_FINAL, true));
 
   String get id => _id;
   set id(String id) => _id = id;

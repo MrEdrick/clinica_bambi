@@ -1,17 +1,19 @@
-import '../core/dao/condition.dart';
-import '../core/dao/order_by.dart';
-import '../core/controller/service.dart';
+import '../../../../core/constants/constants.dart';
+import '../../../../core/dao/condition.dart';
+import '../../../../core/dao/order_by.dart';
+import '../../../../core/controller/service/service.dart';
 
 import 'procedure.dart';
+import 'procedure_constants.dart';
 import 'procedure_dao.dart';
 
-class ProcedureService extends Service  {
+class ProcedureService extends Service {
   ProcedureService() : super() {
     super.dao = new ProcedureDAO();
-    super.orderBy = new OrderBy("description", "asc");
+    super.orderBy = new OrderBy(PROCEDURE_FIELD_DESCRIPTION, ORDER_BY_ASC);
     super.conditionList
       ..clear()
-      ..add(new Condition("description", "", "has"));
+      ..add(new Condition(PROCEDURE_FIELD_DESCRIPTION, "", CONDITION_HAS));
   }
 
   Procedure get procedure => convertMap();
@@ -26,7 +28,9 @@ class ProcedureService extends Service  {
   }
 
   Procedure convertMap() {
-    return new Procedure(super.map["documentPath"], super.map["description"],
-        super.map["state"]);
+    return new Procedure(
+        super.map[PROCEDURE_FIELD_ID],
+        super.map[PROCEDURE_FIELD_DESCRIPTION],
+        super.map[PROCEDURE_FIELD_STATE]);
   }
 }
