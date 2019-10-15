@@ -1,7 +1,7 @@
-import '../../../core/constants/constants.dart';
-import '../../../core/dao/condition.dart';
-import '../../../core/dao/order_by.dart';
-import '../../../core/controller/service/service.dart';
+import '../../../../core/constants/constants.dart';
+import '../../../../core/dao/condition.dart';
+import '../../../../core/dao/order_by.dart';
+import '../../../../core/controller/service/service.dart';
 
 import 'agreement.dart';
 import 'agreement_constants.dart';

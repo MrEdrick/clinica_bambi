@@ -1,5 +1,5 @@
-import '../../../core/dao/dao.dart';
-import '../../../core/dao/filter.dart';
+import '../../../../core/dao/dao.dart';
+import '../../../../core/dao/filter.dart';
 import 'agreement_service.dart';
 
 class AgreementDAO extends DAO {
