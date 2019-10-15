@@ -1,1 +1,5 @@
-final PROCEDURE_REQUIREMENT_COLLECTION = 'procedureRequirement';
+const String PROCEDURE_REQUIREMENT_COLLECTION = 'procedureRequirement';
+
+const String PROCEDURE_REQUIREMENT_FIELD_ID = "id";
+const String PROCEDURE_REQUIREMENT_FIELD_PROCEDURE_ID = "procedureId";
+const String PROCEDURE_REQUIREMENT_FIELD_REQUIREMENT_ID = "requirementId";
