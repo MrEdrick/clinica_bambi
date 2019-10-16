@@ -1,1 +1,7 @@
-final DENTIST_PROCEDURE_BY_DAY_OF_WEEK_COLLECTION = 'dentistProcedureByDayOfWeek';
+const String DENTIST_PROCEDURE_BY_DAY_OF_WEEK_COLLECTION =
+    'dentistProcedureByDayOfWeek';
+
+const String DENTIST_PROCEDURE_BY_DAY_OF_WEEK_FIELD_ID = "id";
+const String DENTIST_PROCEDURE_BY_DAY_OF_WEEK_FIELD_DENTIST_PROCEDURE_ID =
+    "dentistProcedureId";
+const String DENTIST_PROCEDURE_BY_DAY_OF_WEEK_FIELD_DAY_OF_WEEK = "dayOfWeek";
