@@ -3,49 +3,55 @@
   "packages": [
     {
       "name": "analyzer",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/analyzer-0.34.3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/analyzer-0.37.1+1",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.2"
+    },
+    {
+      "name": "analyzer_plugin",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/analyzer_plugin-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "angular",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular-5.2.0",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular-6.0.0-alpha+1",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "angular_ast",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_ast-0.5.8",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_ast-0.5.11",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "angular_compiler",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_compiler-0.4.2",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_compiler-0.4.5",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "angular_components",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_components-0.12.0",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_components-0.14.0-alpha+1",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "angular_forms",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_forms-2.1.1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_forms-2.1.4",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "angular_router",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_router-2.0.0-alpha+21",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular_router-2.0.0-alpha+24",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "archive",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/archive-2.0.10",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/archive-2.0.11",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -75,57 +81,57 @@
     },
     {
       "name": "build",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build-1.1.0",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build-1.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "build_config",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_config-0.3.2",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_config-0.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.2"
     },
     {
       "name": "build_daemon",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_daemon-0.2.3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_daemon-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.1"
     },
     {
       "name": "build_modules",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_modules-1.0.11",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_modules-2.6.3",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.5"
     },
     {
       "name": "build_resolvers",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_resolvers-0.2.3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_resolvers-1.2.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "build_runner",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_runner-1.2.3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_runner-1.7.2",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.6"
     },
     {
       "name": "build_runner_core",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_runner_core-2.0.1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_runner_core-4.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "build_test",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_test-0.10.6",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_test-0.10.9+1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "build_web_compilers",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_web_compilers-0.4.4+3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/build_web_compilers-2.7.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.5"
     },
     {
       "name": "built_collection",
@@ -135,7 +141,13 @@
     },
     {
       "name": "built_value",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/built_value-6.7.1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/built_value-6.8.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "built_value_generator",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/built_value_generator-6.8.2",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -176,6 +188,12 @@
       "languageVersion": "1.17"
     },
     {
+      "name": "coverage",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/coverage-0.13.3+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/crypto-2.1.3",
       "packageUri": "lib/",
@@ -183,9 +201,9 @@
     },
     {
       "name": "csslib",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/csslib-0.14.6+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/csslib-0.16.1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.1"
     },
     {
       "name": "dart_internal",
@@ -195,9 +213,9 @@
     },
     {
       "name": "dart_style",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/dart_style-1.2.3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/dart_style-1.2.10",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "firebase",
@@ -213,9 +231,9 @@
     },
     {
       "name": "front_end",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/front_end-0.1.9+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/front_end-0.1.21+1",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.2"
     },
     {
       "name": "glob",
@@ -237,9 +255,9 @@
     },
     {
       "name": "html",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/html-0.14.0",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/html-0.14.0+3",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "http",
@@ -290,16 +308,10 @@
       "languageVersion": "2.2"
     },
     {
-      "name": "json_rpc_2",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/json_rpc_2-2.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "kernel",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/kernel-0.3.9+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/kernel-0.3.21+1",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.2"
     },
     {
       "name": "logging",
@@ -309,9 +321,9 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.3+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.6",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.2"
     },
     {
       "name": "meta",
@@ -380,12 +392,6 @@
       "languageVersion": "2.1"
     },
     {
-      "name": "plugin",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/plugin-0.2.0+3",
-      "packageUri": "lib/",
-      "languageVersion": "1.0"
-    },
-    {
       "name": "pool",
       "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/pool-1.4.0",
       "packageUri": "lib/",
@@ -393,7 +399,7 @@
     },
     {
       "name": "protobuf",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/protobuf-0.10.8",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/protobuf-0.13.16+1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -411,7 +417,7 @@
     },
     {
       "name": "quiver",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/quiver-2.0.5",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/quiver-2.1.2+1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -465,9 +471,9 @@
     },
     {
       "name": "source_gen",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/source_gen-0.9.4+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/source_gen-0.9.4+6",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.3"
     },
     {
       "name": "source_map_stack_trace",
@@ -495,7 +501,7 @@
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/stream_channel-1.7.0",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -519,21 +525,21 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test-1.5.3",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test-1.9.4",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.2"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_api-0.2.2",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_api-0.2.11",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.2"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_core-0.2.1+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/test_core-0.2.15",
       "packageUri": "lib/",
-      "languageVersion": "2.1"
+      "languageVersion": "2.2"
     },
     {
       "name": "timing",
@@ -554,8 +560,8 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "vm_service_client",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/vm_service_client-0.2.6+3",
+      "name": "vm_service",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/vm_service-2.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -584,7 +590,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2019-11-11T13:26:16.615772Z",
+  "generated": "2019-11-11T16:53:41.535032Z",
   "generator": "pub",
   "generatorVersion": "2.7.0-dev.0.0"
 }
