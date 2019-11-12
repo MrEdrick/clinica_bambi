@@ -74,7 +74,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 
         // getting dest email by query string
         const dest = req.query.dest;
-        const subject = req.query.subject;
+        const subject = encodeURIComponent(req.query.subject);
         const html = JSON.parse(req.body).message;
 
         // returning result
@@ -102,7 +102,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             NAME,
                             EMAIL,
                             doc.data().email,
-                            'Lembrete sobre consulta marcada na Cl&iacute;nica Odontol&oacute;gica Bambi',
+                            'Lembrete sobre consulta marcada na Clínica Odontológica Bambi',
                             `<div 
                                 style=" font-family:Arial, Helvetica, sans-serif; 
                                 font-size: 22px; 

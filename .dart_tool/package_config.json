@@ -8,12 +8,6 @@
       "languageVersion": "2.2"
     },
     {
-      "name": "analyzer_plugin",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/analyzer_plugin-0.2.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "angular",
       "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/angular-6.0.0-alpha+1",
       "packageUri": "lib/",
@@ -141,13 +135,7 @@
     },
     {
       "name": "built_value",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/built_value-6.8.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
-      "name": "built_value_generator",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/built_value_generator-6.8.2",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/built_value-6.7.1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -417,7 +405,7 @@
     },
     {
       "name": "quiver",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/quiver-2.1.2+1",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/quiver-2.0.5",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -501,7 +489,7 @@
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.0.0",
+      "rootUri": "file:///C:/Users/edrickmanoel/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/stream_channel-1.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -590,7 +578,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2019-11-11T16:53:41.535032Z",
+  "generated": "2019-11-12T12:37:56.097360Z",
   "generator": "pub",
   "generatorVersion": "2.7.0-dev.0.0"
 }
