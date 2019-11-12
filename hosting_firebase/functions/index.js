@@ -102,7 +102,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             NAME,
                             EMAIL,
                             doc.data().email,
-                            'Lembre sobre consulta marcada na Clínica Odontológica Bambi',
+                            'Lembrete sobre consulta marcada na Cl&iacute;nica Odontol&oacute;gica Bambi',
                             `<div 
                                 style=" font-family:Arial, Helvetica, sans-serif; 
                                 font-size: 22px; 
