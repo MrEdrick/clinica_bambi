@@ -74,7 +74,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 
         // getting dest email by query string
         const dest = req.query.dest;
-        const subject = encodeURIComponent(req.query.subject);
+        const subject = '=?utf-8?B?' + new Buffer(req.query.subject, "utf-8") + '?=';
         const html = JSON.parse(req.body).message;
 
         // returning result
@@ -88,8 +88,8 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
         var db = admin.firestore();
 
         return db.collection(APPOINTMENT_SCHEDULING_COLLECTION).where(
-            APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
-            new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
+            "email", "==", "edrick_42@outlook.com")//APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
+            //new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
             .get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
