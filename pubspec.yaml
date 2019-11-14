@@ -5,12 +5,12 @@ version: 0.0.1
 #author: Edrick Alves <email@example.com>
 
 environment:
-  sdk: '>=2.1.1-dev.3.2 <3.0.0' #'>=2.0.0-dev.61.0 <3.0.0'
+  sdk: '>=2.1.1-dev.3.2 <3.0.0'
 
 dependencies:
   angular: ^6.0.0-alpha+1
   angular_forms: ^2.1.4
-  angular_router: ^2.0.0-alpha
+  angular_router: ^2.0.0-alpha+22
   angular_components: ^0.14.0-alpha+1 
   async: ^2.0.6
   build: ^1.2.1
