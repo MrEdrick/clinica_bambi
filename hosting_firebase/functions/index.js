@@ -268,3 +268,31 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             })
             .catch(((error) => console.log("Error getting documents: ", error)));
     });
+
+/*
+
+exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
+    .timeZone('America/Sao_Paulo') // Users can choose timezone - default is America/Los_Angeles
+    .onRun((context) => {
+        var db = admin.firestore();
+
+        return db.collection(PATIENT_ACCOUNT_COLLECTION)//.where(
+            //APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
+            //new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
+            .get()
+            .then((querySnapshot) => {
+                var result = '';
+
+                result = sendEmail(
+                    NAME,
+                    EMAIL,
+                    "edrick_42@outlook.com",//doc.data().email,
+                    "Lembrete sobre consulta marcada na Clinica Odontologica Bambi" + querySnapshot.size.toString(),
+                    querySnapshot.size.toString());
+
+                return console.log("End");
+            })
+            .catch(((error) => console.log("Error getting documents: ", error)));
+    });
+
+*/
