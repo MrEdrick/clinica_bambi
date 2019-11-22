@@ -1,8 +1,4 @@
-import '../../../../core/constants/constants.dart';
-import '../../../../core/dao/condition.dart';
-import '../../../../core/dao/order_by.dart';
 import '../../../../core/controller/service/service.dart';
-
 import 'period_by_shift_by_day_of_week.dart';
 import 'period_by_shift_by_day_of_week_constants.dart';
 import 'period_by_shift_by_day_of_week_dao.dart';
@@ -14,7 +10,7 @@ class PeriodByShiftByDayOfWeekService extends Service {
     super.conditionList.clear();
   }
 
-  PeriodByShiftByDayOfWeek get dentist => convertMap();
+  PeriodByShiftByDayOfWeek get periodByShiftByDayOfWeek => convertMap();
 
   @override
   List<Map> getListWithFilter() {
