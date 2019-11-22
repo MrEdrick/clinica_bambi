@@ -35,4 +35,20 @@ class PatientAccountService extends Service {
         super.map[PATIENT_ACCOUNT_FIELD_PASSWORD],
         super.map[PATIENT_ACCOUNT_FIELD_STATE]);
   }
+
+  bool emailExists(String email) {
+    super.conditionList
+      ..clear()
+      ..add(new Condition(PATIENT_ACCOUNT_FIELD_EMAIL, email, CONDITION_IS));
+    return super.getListWithFilter().isNotEmpty;
+  }
+
+  Map getPatiantAccount(String email, String password) {
+    super.conditionList
+      ..clear()
+      ..add(new Condition(PATIENT_ACCOUNT_FIELD_EMAIL, email, CONDITION_IS))
+      ..add(new Condition(
+          PATIENT_ACCOUNT_FIELD_PASSWORD, password, CONDITION_IS));
+    return super.getListWithFilter().first;
+  }
 }

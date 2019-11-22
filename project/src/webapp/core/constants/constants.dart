@@ -16,3 +16,4 @@ const String ORDER_BY_ASC = "asc";
 const String ORDER_BY_DESC = "desc";
 
 const String CONDITION_HAS = "has";
+const String CONDITION_IS = "is";
