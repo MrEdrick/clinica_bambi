@@ -16,7 +16,7 @@ class ShiftService extends Service {
       ..add(new Condition(SHIFT_FIELD_DESCRIPTION, "", CONDITION_HAS));
   }
 
-  Shift get agreement => convertMap();
+  Shift get shift => convertMap();
 
   @override
   List<Map> getListWithFilter() {

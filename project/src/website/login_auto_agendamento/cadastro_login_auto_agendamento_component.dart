@@ -16,6 +16,7 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_router/angular_router.dart';
 import 'package:crypto/crypto.dart';
 
+import '../../webapp/app/dental_clinic_manager/patient/patient_account/patient_account_service.dart';
 import '../appointment/patient_account/patient_account_dao.dart';
 import 'package:firebase/firebase.dart' as fb;
 
@@ -192,7 +193,7 @@ class CadastroLoginAutoAgendamentoComponent {
       return;      
     }
 
-    if ((await new PatientAccountDAO().emailExists(email)) != null) {
+    if ((await new PatientAccountService().emailExists(email)) != null) {
       showAssertMessageSaveEmailExists = true;
       return;  
     }
