@@ -154,6 +154,6 @@ class DeshboardAppointmentComponent implements OnActivate, OnInit {
         break;
     }
 
-    _changeDetectorRef.checkNoChanges();
+    _changeDetectorRef.markForCheck();
   }
 }

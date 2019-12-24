@@ -44,18 +44,12 @@ function sendSMS(phoneNumber) {
     var params = {
         Message: `Ola, tudo bem?
         Passando para lembrar da sua consulta hoje na Clinica Odontologica Bambi. 
-        Sera um prazer recebe-lo!`, 
-        PhoneNumber: phoneNumber, 
+        Sera um prazer recebe-lo!`,
+        PhoneNumber: phoneNumber,
     };
 
     var publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise();
-    publishTextPromise.then(
-        function (data) {
-            return "";
-        }).catch(
-            function (erro) {
-                return erro.toString();
-            });
+    publishTextPromise.then((() => "")).catch((erro) => erro.toString());
 }
 
 function sendEmail(name, email, to, subject, html) {
@@ -97,8 +91,8 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
             APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
             new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
             .get()
-            .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
                     var result = '';
 
                     if (doc.data().email === "") { //
@@ -108,7 +102,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             NAME,
                             EMAIL,
                             doc.data().email,
-                            'Lembre sobre consulta marcada na Cl&iacute;nica Odontol&oacute;gica Bambi',
+                            "Lembrete sobre consulta marcada na Clinica Odontologica Bambi",
                             `<div 
                                 style=" font-family:Arial, Helvetica, sans-serif; 
                                 font-size: 22px; 
@@ -123,7 +117,142 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                 color:#888888;">
                                <p>Passando para lembrar da sua consulta hoje na Cl&iacute;nica Odontol&oacute;gica Bambi.</p>
                                <p>Ser&aacute; um prazer receb&ecirc;-lo!</p>
-                            </div>`);
+                            </div>
+                            
+                            <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+                            <style>
+                                body {
+                                    display: flex;
+                                    margin: 0;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: 100vh;
+                                    background-color: #4c96b8;
+                                }
+                            
+                                .presentational-container {
+                                    background-color: #fff;
+                                }
+                            
+                                table {
+                                    background: none;
+                                    margin: 0;
+                                    padding: 10px 10px 0;
+                                    border-width: 3px 0 0 0;
+                                    border-style: solid;
+                                    border-color: #4c96b8;
+                                }
+                            
+                                tr.outer-row td.headshot-cell {
+                                    padding: 0 12px 0 0;
+                                }
+                            
+                                td.headshot-cell a {
+                                    text-decoration: none;
+                                }
+                            
+                                td.headshot-cell img {
+                                    vertical-align: middle;
+                                    width: 250px;
+                                }
+                            
+                                td.description-cell {
+                                    padding: 0 0 0 12px;
+                                }
+                            
+                                td.description-cell>table {
+                                    background: none;
+                                    border: 0px;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                            
+                                td.full-name {
+                                    font-weight: bold;
+                                    color: #4c96b8;
+                                    font-size: 22px;
+                                    font-family: 'Quicksand', sans-serif;
+                                    font-weight: 600;
+                                }
+                            
+                                td.title {
+                                    padding-bottom: 10px;
+                                    color: #555555;
+                                    font-size: 14px;
+                                    font-family: 'Quicksand', sans-serif;
+                                    font-weight: 600;
+                                }
+                            
+                                a.website {
+                                    color: #4c96b8;
+                                    text-decoration: none;
+                                    font-weight: 600;
+                                    font-size: 14px;
+                                }
+                            
+                                td.social-icons {
+                                    padding-top: 5px;
+                                }
+                            
+                                td.social-icons ul {
+                                    list-style: none;
+                                    padding: 0;
+                                    margin: 0;
+                                    height: 25px;
+                                }
+                            
+                                td.social-icons li {
+                                    display: inline-block;
+                                }
+                            
+                                td.social-icons a {
+                                    text-decoration: none;
+                                }
+                            
+                                td.social-icons img {
+                                    width: 30px;
+                                    height: 25px;
+                                }
+                            </style>
+                            <div class="presentational-container">
+                                <table role="presentation">
+                                    <tbody>
+                                        <tr class="outer-row">
+                                            <td class="headshot-cell">
+                                                <a href="https://clinicabambi.com.br">
+                                                    <img src="https://firebasestorage.googleapis.com/v0/b/bambi-210400.appspot.com/o/logo_w250.png?alt=media&token=9e1801f0-69e3-4e1d-b310-62c248402f7d"
+                                                        name="preview-image-url" alt="" />
+                                                </a>
+                                            </td>
+                                            <td class="description-cell">
+                                                <table role="presentation">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="2" class="full-name">Cl&iacute;nica Odontol&oacute;gica Bambi</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="title">
+                                                                (21) 3350-1883 / (21) 3251-4180 / (21) 98037-4396<br>
+                                                                clinicaodontologicabambi@gmail.com</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="title">Condom&iacute;nio do Edif&iacute;cio P&oacute;lo I <br> Estr. do Portela, 99 -
+                                                                706/715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="title">
+                                                                Agende sua consulta on-line:
+                                                                <a class="website" href="https://clinicabambi.com.br">www.clinicabambi.com.br</a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            `);
                     }
 
                     if ((doc.data().tel.replace(/\D/g, "") === '') || (doc.data().tel.replace(/\D/g, "").length === 11)) {
@@ -137,7 +266,33 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
 
                 return console.log("End");
             })
-            .catch(function (error) {
-                return console.log("Error getting documents: ", error);
-            });
+            .catch(((error) => console.log("Error getting documents: ", error)));
     });
+
+/*
+
+exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
+    .timeZone('America/Sao_Paulo') // Users can choose timezone - default is America/Los_Angeles
+    .onRun((context) => {
+        var db = admin.firestore();
+
+        return db.collection(PATIENT_ACCOUNT_COLLECTION)//.where(
+            //APPOINTMENT_SCHEDULING_DATE_APPOINTMENT_SCHEDULING_FIELD, "==",
+            //new Date().toJSON().slice(0, 10).replace(/-/g, '-'))
+            .get()
+            .then((querySnapshot) => {
+                var result = '';
+
+                result = sendEmail(
+                    NAME,
+                    EMAIL,
+                    "edrick_42@outlook.com",//doc.data().email,
+                    "Lembrete sobre consulta marcada na Clinica Odontologica Bambi" + querySnapshot.size.toString(),
+                    querySnapshot.size.toString());
+
+                return console.log("End");
+            })
+            .catch(((error) => console.log("Error getting documents: ", error)));
+    });
+
+*/

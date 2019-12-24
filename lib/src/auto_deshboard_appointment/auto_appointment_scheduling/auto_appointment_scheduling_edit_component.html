@@ -50,7 +50,7 @@
             </div>
         </div>
         <div id="container-result-datas">
-            <div class="sub-title-information" id="sub-title-vacancy">
+            <div class="sub-title" id="sub-title-vacancy">
                 {{vacancyMessage}}
             </div>
 
@@ -74,6 +74,15 @@
                     Não existem requisitos para este procedimento
                 </div>
                 <div #procedureRequirementCheckboxComponent></div>
+            </div>
+
+            <div class="sub-title">
+                Datas inválidas para agendamento neste mes
+            </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-invalid-dates-by-month">
+                    {{listInvalidDatesByMonth}}
+                </div>
             </div>
 
             <div class="button-save-container">
@@ -112,7 +121,8 @@
         </div>
 
         <p>A consulta foi salva com sucesso.</p>
-
+        <p>Foi enviado um e-mail com os dados da consulta.</p>
+        <p>Enviaremos um e-mail no dia da consulta como lembrete.</p>
     </material-dialog>
 </modal>
 
@@ -147,6 +157,21 @@
         </div>
 
         <p>Preencha todos os campos, por favor.</p>
+
+    </material-dialog>
+</modal>
+
+<modal [(visible)]="showAssertMessageSaveIvalidDate">
+    <material-dialog info class="info-dialog" [autoDismissable]="showAssertMessageSaveIvalidDate"
+        (dismiss)="onDismissAssertMessage">
+
+        <div header>
+
+            <h1>Opss...</h1>
+        </div>
+
+        <p>Está data não está disponivel para agendamento.</p>
+        <p>Por favor, escolha outra data!</p>
 
     </material-dialog>
 </modal>

@@ -35,8 +35,14 @@ import '../../appointment/requirement/requirement_service.dart';
 import '../../appointment/procedure_requirement/procedure_requirement_service.dart';
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import '../../appointment/period_by_shift_by_day_of_week/period_by_shift_by_day_of_week_service.dart';
+import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
 
 import '../../appointment/user/user_service.dart';
+
+import '../../email/email.dart';
+import '../../email/email_constants.dart';
+import '../../email/emailSenderService.dart';
+import '../../email/emailSenderHTTP.dart';
 
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_select_component.template.dart'
     as dentist_dropdown_select_list_component;
@@ -89,6 +95,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   ComponentRef shiftDropdownSelectComponentRef;
   ComponentRef procedureRequirementCheckboxComponent;
 
+  EmailSenderHTTP emailSenderHTTP;
+
   final DentistService dentistService = new DentistService();
   final DentistProcedureService dentistProcedureService =
       new DentistProcedureService();
@@ -111,6 +119,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       new AppointmentSchedulingService();
   final PeriodByShiftByDayOfWeekService periodByShiftByDayOfWeekService =
       new PeriodByShiftByDayOfWeekService();
+  final AutoAppointmentSchedulingConfigurationService
+      autoAppointmentSchedulingConfigurationService =
+      new AutoAppointmentSchedulingConfigurationService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -122,6 +133,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   bool useItemRenderer = false;
   bool useOptionGroup = false;
   bool showAssertMessageSave = false;
+  bool showAssertMessageSaveIvalidDate = false;
   bool showAssertMessageAlert = false;
   bool disabledButtonSave = true;
 
@@ -129,6 +141,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
 
   String listDaysOfWeekOfAppointment = "";
+  String listInvalidDatesByMonth = "";
   String vacancyMessage = "Informe todos os dados para a consulta da vaga";
 
   String saveButtonMessage = "GRAVAR AGENDAMENTO";
@@ -247,8 +260,20 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await procedureRequirementService.getAllProcedureRequirementAcives();
     await periodByShiftByDayOfWeekService
         .getAllPeriodByShiftByDayOfWeekAcives();
+    await autoAppointmentSchedulingConfigurationService.getAllConfiguration();
 
     clearListComponentRef(listComponentRefDropdownSelect);
+
+    listInvalidDatesByMonth = autoAppointmentSchedulingConfigurationService
+        .autoAppointmentSchedulingConfiguration.invalidDates
+        .where((date) =>
+            date.substring(0, 8) ==
+            new DateFormat('yyyy-MM-dd')
+                .format(dateAppointmentScheduling.asUtcTime())
+                .substring(0, 8))
+        .map(
+            (date) => new DateFormat('dd/MM/yyyy').format(DateTime.parse(date)))
+        .join(" - ");
 
     ComponentFactory<
             dentist_dropdown_select_list_component
@@ -450,7 +475,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                     .instance.singleSelectModelShift.selectedValues.first.id))
             .observation;
       } else {
-        shiftObservation = periodByShiftByDayOfWeekService.turnMapInPeriodByShiftByDayOfWeek(list.first).description ;
+        shiftObservation = periodByShiftByDayOfWeekService
+            .turnMapInPeriodByShiftByDayOfWeek(list.first)
+            .description;
       }
     } else {
       shiftObservation = "";
@@ -540,24 +567,43 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     return true;
   }
 
-  void onDismissSuccessfullySave() {
+  void onDismissSuccessfullySave() async {
     showSuccessfullySave = false;
+    await querySelector('#bt-refresh').click();
     onClose();
+    _changeDetectorRef.markForCheck();
   }
 
   void onDismissNotSuccessfullySave() {
     showSuccessfullySave = false;
+    _changeDetectorRef.markForCheck();
   }
 
   void onDismissAssertMessage() {
     showAssertMessageSave = false;
+    showAssertMessageSaveIvalidDate = false;
+    _changeDetectorRef.markForCheck();
   }
 
-  void onAssertsSave() {
+  void onAssertsSave() async {
     if (disabledButtonSave) return;
 
     disabledButtonSave = true;
     saveButtonMessage = "GRAVANDO...";
+    _changeDetectorRef.markForCheck();
+
+    if ((await autoAppointmentSchedulingConfigurationService
+            .getAllConfiguration())
+        .invalidDates
+        .contains(new DateFormat("yyyy-MM-dd")
+            .format(dateAppointmentScheduling.asUtcTime()))) {
+      showAssertMessageSaveIvalidDate = true;
+      _changeDetectorRef.markForCheck();
+
+      saveButtonMessage = "GRAVAR AGENDAMENTO";
+      disabledButtonSave = false;
+      return;
+    }
 
     if ((dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
@@ -572,6 +618,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                 .autoAppointmentScheduling.email.isEmpty)) ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
+      _changeDetectorRef.markForCheck();
 
       saveButtonMessage = "GRAVAR AGENDAMENTO";
       disabledButtonSave = false;
@@ -619,8 +666,73 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.first.id;
 
     if (await autoAppointmentSchedulingService.save()) {
+      emailSenderHTTP = await new EmailSenderService(new Email(
+              CLINIC_EMAIL,
+              autoAppointmentSchedulingService.autoAppointmentScheduling.email,
+              "Consulta marcada na Cl&iacute;nica Odontol&oacute;gica Bambi",
+              '''
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 22px; 
+                    font-weight: 600;
+                    color:#666666;">
+                    Ol&aacute; ''' +
+                  autoAppointmentSchedulingService
+                      .autoAppointmentScheduling.patient +
+                  ''', sua consulta foi marcada!
+                  </div>
+                  <div 
+                    style=" font-family:Arial, Helvetica, sans-serif; 
+                    font-size: 16px; 
+                    font-weight: 600;
+                    color:#888888;">
+                    <p>Esta &eacute; apenas uma mensagem autom&aacute;tica, por favor n&atilde;o responda.</p>
+                    </p>
+                    <p>Data da Consulta: ''' +
+                  new DateFormat('dd/MM/yyyy')
+                      .format(dateAppointmentScheduling.asUtcTime()) +
+                  '''</p>
+                  <p>Turno: ''' +
+                  shiftDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelShift
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
+                  '''</p>
+                    <p>Dentista: ''' +
+                  dentistDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelDentist
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
+                  '''</p>
+                    <p>Procedimento: ''' +
+                  procedureDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelProcedure
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
+                  '''</p>
+                    <p>Conv&ecirc;nio: ''' +
+                  agreementDropdownSelectComponentRef
+                      .instance
+                      .singleSelectModelAgreement
+                      .selectedValues
+                      .first
+                      .uiDisplayName +
+                  '''</p>
+                  </div>
+              ''',
+              null,
+              null))
+          .emailSenderGmail(); //emailSenderAmazon();
+
+      emailSenderHTTP.sendEmail();
+
       showSuccessfullySave = true;
-      await querySelector('#bt-refresh').click();
     } else {
       showNotSuccessfullySave = true;
     }
