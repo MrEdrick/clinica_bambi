@@ -108,7 +108,7 @@ class DeshboardComponent implements OnActivate, OnInit {
         browser_component.BrowserComponentNgFactory;
     componentRefBrowser = _loader.loadNextToLocation(
         componentFactoryFilter, viewContainerRefBrowser);
-    _changeDetectorRef.checkNoChanges();
+    _changeDetectorRef.markForCheck();
 
     componentRefBrowser.instance.componentRef = componentRefBrowser;
   }

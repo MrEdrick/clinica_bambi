@@ -14,15 +14,13 @@ import '../route_paths.dart' as paths;
 
 import 'cadastro_login_auto_agendamento_component.dart';
 import 'recover_password_login_auto_agendamento_component.dart';
-import '../appointment/patient_account/patient_account.dart';
-import '../appointment/patient_account/patient_account_dao.dart';
-import '../appointment/patient_account/patient_account_service.dart';
+import '../../webapp/app/dental_clinic_manager/patient/patient_account/patient_account_service.dart';
 
 @Component(
   selector: 'login-auto-agendamento-app',
   templateUrl: 'login_auto_agendamento_component.html',
   directives: const [
-    coreDirectives, 
+    coreDirectives,
     RouterOutlet,
     materialInputDirectives,
     MaterialButtonComponent,
@@ -31,57 +29,53 @@ import '../appointment/patient_account/patient_account_service.dart';
     AutoDismissDirective,
     CadastroLoginAutoAgendamentoComponent,
     RecoverPasswordLoginAutoAgendamentoComponent
-    ],
+  ],
   styleUrls: const [
     'login_auto_agendamento_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
+class LoginAutoAgendamentoComponent extends Object implements OnActivate {
   String email = '';
   String password = '';
   bool showNotSuccessfullyLogin = false;
   bool showLoginNotFinded = false;
 
-  PatientAccount patientAccount;
-
-  final PatientAccountService patientAccountService = new PatientAccountService();
+  final PatientAccountService patientAccountService =
+      new PatientAccountService();
   final Router _router;
 
   @override
-  Future<void> onActivate(_, RouterState current) async {
+  Future<void> onActivate(_, RouterState current) async {}
 
-  }
-  
-  LoginAutoAgendamentoComponent(
-    this._router
-  );
+  LoginAutoAgendamentoComponent(this._router);
 
   void onGetInside() async {
-    PatientAccountDAO patientAccountDAO = new PatientAccountDAO();
-    PatientAccount patientAccount = await patientAccountDAO.getPatiantAccount(email.trim(), 
-                                        sha1.convert(utf8.encode(password)).toString().trim());
-    if (patientAccount == null) {
-      patientAccountService.patientAccount = null;
+    patientAccountService.map = patientAccountService.getPatiantAccount(
+        email.trim(), sha1.convert(utf8.encode(password)).toString().trim());
+
+    if (patientAccountService.map == null) {
+      patientAccountService.map = null;
       showLoginNotFinded = true;
     } else {
-      patientAccountService.patientAccount = patientAccount;
       goAutoAppointment();
-    }  
+    }
   }
 
   void onSingUp() {
-    querySelector('#cadastro-login-auto-agendamento-app').style.display = 'block';
+    querySelector('#cadastro-login-auto-agendamento-app').style.display =
+        'block';
   }
 
   void onForgotePassword() {
-    querySelector('#recover-password-login-auto-agendamento-app').style.display = 'block';
+    querySelector('#recover-password-login-auto-agendamento-app')
+        .style
+        .display = 'block';
   }
 
-  Future<NavigationResult>  goAutoAppointment() => _router.navigate(
-    paths.deshboard_auto_appointment.toUrl()
-  );
-  
+  Future<NavigationResult> goAutoAppointment() =>
+      _router.navigate(paths.deshboard_auto_appointment.toUrl());
+
   void onDismissNotSuccessfullyLogin() {
     showNotSuccessfullyLogin = false;
   }
@@ -89,5 +83,4 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   void onDismissLoginNotFinded() {
     showLoginNotFinded = false;
   }
-  
 }

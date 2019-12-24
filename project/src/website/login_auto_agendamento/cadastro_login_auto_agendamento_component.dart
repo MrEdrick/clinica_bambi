@@ -16,14 +16,13 @@ import 'package:angular_components/material_select/material_dropdown_select_acce
 import 'package:angular_router/angular_router.dart';
 import 'package:crypto/crypto.dart';
 
-import '../appointment/patient_account/patient_account_dao.dart';
+import '../../webapp/app/dental_clinic_manager/patient/patient_account/patient_account_service.dart';
 import 'package:firebase/firebase.dart' as fb;
 
 import '../email/email.dart';
 import '../email/email_constants.dart';
 import '../email/emailSenderService.dart';
 import '../email/emailSenderHTTP.dart';
-
 
 @Component(
     selector: 'cadastro-login-auto-agendamento-app',
@@ -49,9 +48,7 @@ import '../email/emailSenderHTTP.dart';
       ModalComponent,
       AutoDismissDirective,
     ],
-    providers: [
-      windowBindings
-    ])
+    providers: [windowBindings])
 class CadastroLoginAutoAgendamentoComponent {
   static final BUTTON_SAVE_VERIFY_DESCRIPTION = 'VERIFICAR E-MAIL';
   static final BUTTON_SAVE_CONFIRM_DESCRIPTION = 'CONFIRMAR';
@@ -154,7 +151,8 @@ class CadastroLoginAutoAgendamentoComponent {
     buttonSaveDescription = BUTTON_SAVE_VERIFY_DESCRIPTION;
 
     querySelector('#confirmation-code').style.display = 'none';
-    querySelector('#cadastro-login-auto-agendamento-app').style.display = 'none';
+    querySelector('#cadastro-login-auto-agendamento-app').style.display =
+        'none';
   }
 
   bool asserts() {
@@ -179,39 +177,40 @@ class CadastroLoginAutoAgendamentoComponent {
   }
 
   void onAssertsSave() async {
-    if ((name == '') || (telefone == '') || (email == '') ||
+    if ((name == '') ||
+        (telefone == '') ||
+        (email == '') ||
         (password == '') ||
         (confirmationPassword == '')) {
-
       showAssertMessageSave = true;
       return;
     }
 
     if (password != confirmationPassword) {
       showAssertMessageSavePassordNotMatched = true;
-      return;      
+      return;
     }
 
-    if ((await new PatientAccountDAO().emailExists(email)) != null) {
+    if ((await new PatientAccountService().emailExists(email)) != null) {
       showAssertMessageSaveEmailExists = true;
-      return;  
+      return;
     }
 
     onSave();
   }
 
   void onNoSave() {
-    showAssertMessageAlert = false;  
+    showAssertMessageAlert = false;
   }
 
-  void onSave() async {   
+  void onSave() async {
     showAssertMessageAlert = false;
     if (buttonSaveDescription == BUTTON_SAVE_VERIFY_DESCRIPTION) {
-      emailSenderHTTP = await new EmailSenderService(
-        new Email(CLINIC_EMAIL, 
-                  email, 
-                  'Verificação de e-mail',
-                  '''
+      emailSenderHTTP = await new EmailSenderService(new Email(
+              CLINIC_EMAIL,
+              email,
+              'Verificação de e-mail',
+              '''
                   <div 
                     style=" font-family:Arial, Helvetica, sans-serif; 
                     font-size: 22px; 
@@ -225,11 +224,14 @@ class CadastroLoginAutoAgendamentoComponent {
                     font-weight: 600;
                     color:#888888;">
                     <p>Este &eacute; o c&oacute;digo que voc&ecirc; deve utilizar para a confirma&ccedil;&atilde;o: </p>
-                    <p color:#DB3813;">''' + sha1.convert(utf8.encode(email)).toString() + '''</p>
+                    <p color:#DB3813;">''' +
+                  sha1.convert(utf8.encode(email)).toString() +
+                  '''</p>
                   </div>
                   ''',
-                  null, null)
-      ).emailSenderAmazon();
+              null,
+              null))
+          .emailSenderAmazon();
 
       response = await emailSenderHTTP.sendEmail();
       if (response.statusCode == 200) {
@@ -237,16 +239,17 @@ class CadastroLoginAutoAgendamentoComponent {
         querySelector('#confirmation-code').style.display = 'block';
       }
       return;
-    } 
+    }
 
     if (confirmationCode == '') {
       showAssertMessageSaveConfirmationCodeEmpty = true;
-      return;      
+      return;
     }
 
-    if (confirmationCode.trim() != sha1.convert(utf8.encode(email)).toString()) {
+    if (confirmationCode.trim() !=
+        sha1.convert(utf8.encode(email)).toString()) {
       showAssertMessageSaveConfirmationCodeNotMatched = true;
-      return;      
+      return;
     }
 
     datas = new Map<String, dynamic>();
@@ -258,12 +261,15 @@ class CadastroLoginAutoAgendamentoComponent {
       "password": sha1.convert(utf8.encode(password)).toString(),
       "userId": fb.auth().currentUser.uid
     };
-        
-    if ((await new PatientAccountDAO().save(datas)).keys.first) {
-      showSuccessfullySave = true;
-    } else {
-      showNotSuccessfullySave = true;
-    }
-  }
 
+    /*(await new PatientAccountService().dao
+      ..filter.collection.fieldMap = datas
+      ..save().then((result) {
+        if (result.keys.first) {
+          showSuccessfullySave = true;
+        } else {
+          showNotSuccessfullySave = true;
+        }
+      }));*/
+  }
 }

@@ -52,6 +52,10 @@ class Service {
     if (condition == "has") {
       return (value.toString().indexOf(filterValue) > -1);
     }
+    
+    if (condition == "is") {
+      return (value == filterValue);
+    }
 
     return false;
   }
