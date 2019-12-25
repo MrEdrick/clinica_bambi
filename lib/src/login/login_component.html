@@ -8,8 +8,10 @@
       (inputKeyPress)="email = $event">
     </material-input>
 
-    <material-input id="password" label="Password" type="password" floatingLabel [ngModel]="password"
-      (inputKeyPress)="password = $event" (keyup.enter)="onGetInside()">
+    <material-input id="password" label="Password" type="password" floatingLabel
+      [ngModel]="password" (inputKeyPress)="password = $event" (keyup.enter)="onGetInside()">
+      <material-icon id="password-icon" trailing icon="visibility_off" (click)="onShowHidePassword">
+      </material-icon>
     </material-input>
 
     <material-button (trigger)="onGetInside()">
