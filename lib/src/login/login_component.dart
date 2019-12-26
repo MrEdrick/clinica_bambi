@@ -32,10 +32,8 @@ class LoginComponent extends Object implements OnActivate {
   String email = "";
   String password = "";
   String error = "";
-  String passwordType = "password";
 
   bool showNotSuccessfullyLogin = false;
-  bool showPassword = false;
 
   AuthApp authApp;
 
@@ -64,25 +62,19 @@ class LoginComponent extends Object implements OnActivate {
     _changeDetectorRef.markForCheck();
   }
 
-  void onToggleShowElementValue(Element element, String attribute,
-      String firstValue, String secondValue) {
-    element.setAttribute(
-        attribute,
-        element.getAttribute(attribute) == firstValue
-            ? secondValue
-            : firstValue);
+  void onToggleShowHideElementValue(Element inputElement, Element iconElement) {
+    inputElement.setAttribute("type",
+        inputElement.getAttribute("type") == "password" ? "text" : "password");
+
+    iconElement.text =
+        iconElement.text == "visibility_off" ? "visibility" : "visibility_off";
   }
 
   void onShowHidePassword() {
-    onToggleShowElementValue(querySelector("#password").querySelector("input"),
-        "type", "password", "text");
+    onToggleShowHideElementValue(
+        querySelector("#password").querySelector("input"),
+        querySelector("#password-icon").querySelector("i"));
 
-    querySelector("#password-icon").querySelector("i").text =
-        querySelector("#password-icon").querySelector("i").text ==
-                "visibility_off"
-            ? "visibility"
-            : "visibility_off";
-            
     _changeDetectorRef.markForCheck();
   }
 }

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:angular_router/angular_router.dart';
+import 'package:angular_components/material_icon/material_icon.dart';
 import 'package:angular_components/material_input/material_input.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/laminate/components/modal/modal.dart';
@@ -22,22 +23,25 @@ import '../appointment/patient_account/patient_account_service.dart';
   selector: 'login-auto-agendamento-app',
   templateUrl: 'login_auto_agendamento_component.html',
   directives: const [
-    coreDirectives, 
+    coreDirectives,
     RouterOutlet,
     materialInputDirectives,
+    MaterialIconComponent,
     MaterialButtonComponent,
     MaterialDialogComponent,
     ModalComponent,
     AutoDismissDirective,
     CadastroLoginAutoAgendamentoComponent,
     RecoverPasswordLoginAutoAgendamentoComponent
-    ],
+  ],
   styleUrls: const [
     'login_auto_agendamento_component.scss.css',
     'package:angular_components/app_layout/layout.scss.css'
   ],
 )
-class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
+class LoginAutoAgendamentoComponent extends Object implements OnActivate {
+  final ChangeDetectorRef _changeDetectorRef;
+
   String email = '';
   String password = '';
   bool showNotSuccessfullyLogin = false;
@@ -45,43 +49,42 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
 
   PatientAccount patientAccount;
 
-  final PatientAccountService patientAccountService = new PatientAccountService();
+  final PatientAccountService patientAccountService =
+      new PatientAccountService();
   final Router _router;
 
   @override
-  Future<void> onActivate(_, RouterState current) async {
+  Future<void> onActivate(_, RouterState current) async {}
 
-  }
-  
-  LoginAutoAgendamentoComponent(
-    this._router
-  );
+  LoginAutoAgendamentoComponent(this._router, this._changeDetectorRef);
 
   void onGetInside() async {
     PatientAccountDAO patientAccountDAO = new PatientAccountDAO();
-    PatientAccount patientAccount = await patientAccountDAO.getPatiantAccount(email.trim(), 
-                                        sha1.convert(utf8.encode(password)).toString().trim());
+    PatientAccount patientAccount = await patientAccountDAO.getPatiantAccount(
+        email.trim(), sha1.convert(utf8.encode(password)).toString().trim());
     if (patientAccount == null) {
       patientAccountService.patientAccount = null;
       showLoginNotFinded = true;
     } else {
       patientAccountService.patientAccount = patientAccount;
       goAutoAppointment();
-    }  
+    }
   }
 
   void onSingUp() {
-    querySelector('#cadastro-login-auto-agendamento-app').style.display = 'block';
+    querySelector('#cadastro-login-auto-agendamento-app').style.display =
+        'block';
   }
 
   void onForgotePassword() {
-    querySelector('#recover-password-login-auto-agendamento-app').style.display = 'block';
+    querySelector('#recover-password-login-auto-agendamento-app')
+        .style
+        .display = 'block';
   }
 
-  Future<NavigationResult>  goAutoAppointment() => _router.navigate(
-    paths.deshboard_auto_appointment.toUrl()
-  );
-  
+  Future<NavigationResult> goAutoAppointment() =>
+      _router.navigate(paths.deshboard_auto_appointment.toUrl());
+
   void onDismissNotSuccessfullyLogin() {
     showNotSuccessfullyLogin = false;
   }
@@ -89,5 +92,20 @@ class LoginAutoAgendamentoComponent extends Object implements OnActivate  {
   void onDismissLoginNotFinded() {
     showLoginNotFinded = false;
   }
-  
+
+  void onToggleShowHideElementValue(Element inputElement, Element iconElement) {
+    inputElement.setAttribute("type",
+        inputElement.getAttribute("type") == "password" ? "text" : "password");
+
+    iconElement.text =
+        iconElement.text == "visibility_off" ? "visibility" : "visibility_off";
+  }
+
+  void onShowHidePassword() {
+    onToggleShowHideElementValue(
+        querySelector("#password").querySelector("input"),
+        querySelector("#password-icon").querySelector("i"));
+
+    _changeDetectorRef.markForCheck();
+  }
 }
