@@ -4,7 +4,7 @@ import 'interval.dart';
 import 'interval_dao.dart';
 import 'intervalUI.dart';
 
-class AgreementService {
+class IntervalService {
   static String _id;
   static Interval _interval;
   static Map _intervalListById = new Map();
