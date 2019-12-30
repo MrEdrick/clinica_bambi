@@ -57,12 +57,19 @@ class DentistEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   final List<ComponentRef> listComponentRefProcedure = new List<ComponentRef>();
-  final List<ComponentRef> listComponentRefQuantityPerShiftByDayOfWeek = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefQuantityPerShiftByDayOfWeek =
+      new List<ComponentRef>();
 
-  final DentistProcedureService dentistProcedureService = new DentistProcedureService();
-  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService = new DentistProcedureByDayOfWeekService();
-  final DentistProcedureByDayOfWeekByShiftService dentistProcedureByDayOfWeekByShiftService = new DentistProcedureByDayOfWeekByShiftService();
-  final DentistQuantityPerShiftByDayOfWeekService dentistQuantityPerShiftByDayOfWeekService = new DentistQuantityPerShiftByDayOfWeekService();
+  final DentistProcedureService dentistProcedureService =
+      new DentistProcedureService();
+  final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService =
+      new DentistProcedureByDayOfWeekService();
+  final DentistProcedureByDayOfWeekByShiftService
+      dentistProcedureByDayOfWeekByShiftService =
+      new DentistProcedureByDayOfWeekByShiftService();
+  final DentistQuantityPerShiftByDayOfWeekService
+      dentistQuantityPerShiftByDayOfWeekService =
+      new DentistQuantityPerShiftByDayOfWeekService();
   final ShiftService shiftService = new ShiftService();
 
   @Input()
@@ -72,8 +79,7 @@ class DentistEditComponent implements OnInit {
 
   ComponentRef procedureCheckboxGroupComponent;
 
-  @ViewChild('dentistProcedureGroupCheckboxComponent',
-      read: ViewContainerRef)
+  @ViewChild('dentistProcedureGroupCheckboxComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerdentistProcedureGroup;
 
   @ViewChild('quantityPerShiftByDayGroupCheckboxComponent',
@@ -92,8 +98,7 @@ class DentistEditComponent implements OnInit {
 
   DentistEditComponent(this._changeDetectorRef, this._loader);
 
-  void onEdit() {
-  }
+  void onEdit() {}
 
   void onClearListsOfComponentRef() {
     listComponentRefProcedure.forEach((componentRef) {
@@ -118,37 +123,47 @@ class DentistEditComponent implements OnInit {
 
     onClearListsOfComponentRef();
 
-    List<Procedure> _listProcedure = await new ProcedureService().getAllProcedureAcives();
+    List<Procedure> _listProcedure =
+        await new ProcedureService().getAllProcedureAcives();
 
     dentistProcedureService.clearAllDentistProcedureList();
-    dentistProcedureByDayOfWeekService.clearAllDentistProcedureByDayOfWeekList();
-    dentistProcedureByDayOfWeekByShiftService.clearAllDentistProcedureByDayOfWeekByShiftList();
-    dentistQuantityPerShiftByDayOfWeekService.clearAllDentistQuantityPerShiftByDayOfWeekList();
+    dentistProcedureByDayOfWeekService
+        .clearAllDentistProcedureByDayOfWeekList();
+    dentistProcedureByDayOfWeekByShiftService
+        .clearAllDentistProcedureByDayOfWeekByShiftList();
+    dentistQuantityPerShiftByDayOfWeekService
+        .clearAllDentistQuantityPerShiftByDayOfWeekList();
     shiftService.clearAllShiftList();
 
     await dentistProcedureService.getAllDentistProcedureAcives();
-    await dentistProcedureByDayOfWeekService.getAllDentistProcedureByDayOfWeekAcives();
-    await dentistProcedureByDayOfWeekByShiftService.getAllDentistProcedureByDayOfWeekByShiftAcives();
-    await dentistQuantityPerShiftByDayOfWeekService.getAllDentistQuantityPerShiftByDayOfWeekAcives();
+    await dentistProcedureByDayOfWeekService
+        .getAllDentistProcedureByDayOfWeekAcives();
+    await dentistProcedureByDayOfWeekByShiftService
+        .getAllDentistProcedureByDayOfWeekByShiftAcives();
+    await dentistQuantityPerShiftByDayOfWeekService
+        .getAllDentistQuantityPerShiftByDayOfWeekAcives();
     await shiftService.getAllShiftAcives();
-    
+
     _listProcedure.forEach((procedure) {
-        ComponentFactory<dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponent>
-            shiftComponent =
-            dentist_procedure_group_checkbox_component.DentistProcedureGroupCheckboxComponentNgFactory;
+      ComponentFactory<
+              dentist_procedure_group_checkbox_component
+                  .DentistProcedureGroupCheckboxComponent> shiftComponent =
+          dentist_procedure_group_checkbox_component
+              .DentistProcedureGroupCheckboxComponentNgFactory;
 
-        procedureCheckboxGroupComponent =
-            _loader.loadNextToLocation(
-                shiftComponent, materialContainerdentistProcedureGroup);
+      procedureCheckboxGroupComponent = _loader.loadNextToLocation(
+          shiftComponent, materialContainerdentistProcedureGroup);
 
-        procedureCheckboxGroupComponent.instance.dentistId = dentistService.dentist.id;
-        procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
-        procedureCheckboxGroupComponent.instance.procedure = procedure.description;
+      procedureCheckboxGroupComponent.instance.dentistId =
+          dentistService.dentist.id;
+      procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
+      procedureCheckboxGroupComponent.instance.procedure =
+          procedure.description;
 
-        listComponentRefProcedure.add(procedureCheckboxGroupComponent);
+      listComponentRefProcedure.add(procedureCheckboxGroupComponent);
     });
 
-    List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
+    /*List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
                   'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 
                   'Sábado'];
 
@@ -167,7 +182,7 @@ class DentistEditComponent implements OnInit {
       quantityPerShiftByDayGroupCheckboxComponentComponent.instance.dayOfWeek = day;
 
       listComponentRefQuantityPerShiftByDayOfWeek.add(quantityPerShiftByDayGroupCheckboxComponentComponent);
-    });
+    });*/
 
     _changeDetectorRef.markForCheck();
   }
@@ -218,11 +233,11 @@ class DentistEditComponent implements OnInit {
     showAssertMessageAlert = false;
 
     if (await dentistService.save()) {
-      showSuccessfullySave = true;  
+      showSuccessfullySave = true;
     } else {
       showNotSuccessfullySave = true;
     }
-    
+
     _changeDetectorRef.markForCheck();
   }
 }

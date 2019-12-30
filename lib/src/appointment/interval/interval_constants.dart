@@ -1,0 +1,1 @@
+final INTERVAL_COLLECTION = "interval";

@@ -125,11 +125,16 @@ class ShiftService {
   }
 
   Shift returnEmptyShift() {
-    return new Shift("", "", "", 0, false);
+    return new Shift("", "", "", 0, 0, false);
   }
 
   Shift turnMapInShift(Map map) {
-    return new Shift(map["documentPath"], map["description"],
-        map["observation"], int.parse(map["startTime"]), map["state"]);
+    return new Shift(
+        map["documentPath"],
+        map["description"],
+        map["observation"],
+        int.parse(map["startTime"]),
+        int.parse(map["endTime"]),
+        map["state"]);
   }
 }

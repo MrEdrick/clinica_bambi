@@ -3,9 +3,11 @@ class Shift {
   String _description;
   String _observation;
   int _startTime;
+  int _endTime;
   bool _state;
-  
-  Shift(this._id, this._description, this._observation, this._startTime, this._state);
+
+  Shift(this._id, this._description, this._observation, 
+        this._startTime, this._endTime, this._state);
 
   String get id => _id;
   set id(String id) => _id = id;
@@ -18,6 +20,9 @@ class Shift {
 
   int get startTime => _startTime;
   set startTime(int startTime) => _startTime = startTime;
+
+  int get endTime => _endTime;
+  set endTime(int endTime) => _endTime = endTime;
 
   bool get state => _state;
   set state(bool state) => _state = state;

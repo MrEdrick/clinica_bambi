@@ -1,0 +1,1 @@
+final ATTENDANCE_INTERVAL_COLLECTION = 'attendanceInterval';
