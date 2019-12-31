@@ -44,10 +44,10 @@ class AttendanceIntervalEditComponent implements OnInit {
   String shiftId;
 
   @Input()
-  String dentistId;
+  String shiftDescription;
 
   @Input()
-  String intervalId;
+  String dentistId;
 
   ComponentRef intervalDropdownSelectComponentRef;
 

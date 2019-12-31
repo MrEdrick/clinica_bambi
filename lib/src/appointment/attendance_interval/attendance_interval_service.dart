@@ -74,6 +74,26 @@ class AttendanceIntervalService {
     return turnMapInAttendanceInterval(doc);
   }
 
+  Future<AttendanceInterval> getAttendanceIntervalByDentistIdShiftId(
+      String dentistId, String shiftId) async {
+    Map doc;
+
+    if ((dentistId.isEmpty) || (shiftId.isEmpty)) {
+      return returnEmptyAttendanceInterval();
+    }
+
+    if ((_attendanceIntervalList == null) ||
+        (_attendanceIntervalList?.length == 0)) {
+      await getAllAttendanceIntervalAcives();
+    }
+
+    doc = (await new AttendanceIntervalDAO().getAllAttendanceIntervalFilter(
+            {'dentistId': dentistId, 'shiftId': shiftId}, {}))
+        .first;
+
+    return turnMapInAttendanceInterval(doc);
+  }
+
   List<Map> getAttendanceIntervalListWithFilterFromList(Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 

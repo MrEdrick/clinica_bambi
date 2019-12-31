@@ -191,6 +191,8 @@ class DentistEditComponent implements OnInit {
 
       attendanceIntervalEditComponentRef.instance.dentistId =
           dentistService.dentist.id;
+      attendanceIntervalEditComponentRef.instance.shiftDescription =
+          shift.description;
       attendanceIntervalEditComponentRef.instance.shiftId = shift.id;
 
       listComponentRefAttendanceInterval
