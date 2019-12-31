@@ -47,6 +47,12 @@ class AttendanceIntervalEditComponent implements OnInit {
   String shiftDescription;
 
   @Input()
+  int startTime;
+
+  @Input()
+  int endTime;
+
+  @Input()
   String dentistId;
 
   ComponentRef intervalDropdownSelectComponentRef;
