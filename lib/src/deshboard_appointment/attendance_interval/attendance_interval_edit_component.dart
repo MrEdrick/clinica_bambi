@@ -36,7 +36,8 @@ class AttendanceIntervalEditComponent implements OnInit {
   final List<ComponentRef> listComponentRefDropdownSelect =
       new List<ComponentRef>();
 
-  final AttendanceIntervalService attendanceIntervalService = new AttendanceIntervalService();
+  final AttendanceIntervalService attendanceIntervalService =
+      new AttendanceIntervalService();
   final IntervalService intervalService = new IntervalService();
 
   @Input()
@@ -80,11 +81,11 @@ class AttendanceIntervalEditComponent implements OnInit {
 
   void onEdit() {
     if (attendanceIntervalService.attendanceInterval.intervalId != null) {
-      intervalDropdownSelectComponentRef.instance.singleSelectModelInterval.select(
-          new IntervalUI(
+      intervalDropdownSelectComponentRef.instance.singleSelectModelInterval
+          .select(new IntervalUI(
               attendanceIntervalService.attendanceInterval.intervalId,
-              appointmentSchedulingService
-                  .appointmentScheduling.shift.description));
+              attendanceIntervalService.attendanceInterval.interval.time
+                  .toString()));
     }
   }
 
