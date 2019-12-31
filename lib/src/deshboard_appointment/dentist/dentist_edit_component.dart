@@ -59,6 +59,8 @@ class DentistEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   final List<ComponentRef> listComponentRefProcedure = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefAttendanceInterval =
+      new List<ComponentRef>();
   final List<ComponentRef> listComponentRefQuantityPerShiftByDayOfWeek =
       new List<ComponentRef>();
 
@@ -111,6 +113,12 @@ class DentistEditComponent implements OnInit {
     });
 
     listComponentRefProcedure.clear();
+
+    listComponentRefAttendanceInterval.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRefAttendanceInterval.clear();
 
     listComponentRefQuantityPerShiftByDayOfWeek.forEach((componentRef) {
       componentRef.destroy();
@@ -185,7 +193,8 @@ class DentistEditComponent implements OnInit {
           dentistService.dentist.id;
       attendanceIntervalEditComponentRef.instance.shiftId = shift.id;
 
-      listComponentRefProcedure.add(attendanceIntervalEditComponentRef);
+      listComponentRefAttendanceInterval
+          .add(attendanceIntervalEditComponentRef);
     });
 
     /*List _list = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 
