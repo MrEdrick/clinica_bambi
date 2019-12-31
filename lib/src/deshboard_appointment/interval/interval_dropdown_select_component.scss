@@ -3,17 +3,5 @@
   position: relative;
   width: 100%;
   margin: 1%;
-  color: #616161 
-}
-
-::ng-deep #interval-dropdown-select dropdown-button {
-  width: 100%;  
-}
-
-::ng-deep #interval-dropdown-select .button {
-  border-bottom: 1px solid rgba(#515151, 0.2) !important;
-}
-
-::ng-deep #interval-dropdown-select .label-text {
-  color: #616161;
+  font-weight: 500;
 }
