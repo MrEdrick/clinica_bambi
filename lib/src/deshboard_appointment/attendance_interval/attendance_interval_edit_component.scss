@@ -1,14 +1,13 @@
-@import 'package:angular_components/css/material/shadow';
-@import 'package:angular_components/css/material/material';
-
 :host {
   width: 99%;
   margin: 0.5%;
-  font-weight: 500;
 }
 
-.input-quantity-per-shift {
-  float: left;
-  width: 40%;
-  margin-left: 5%;
+#container-attendance-interval {
+  border: rgba(#db3813, 0.5) 2px dashed;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 0.5%;
 }
