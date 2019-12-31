@@ -174,9 +174,9 @@ class DentistService {
     DentistProcedureService _dentistProcedureService =
         new DentistProcedureService();
 
-    DentistQuantityPerShiftByDayOfWeekService
+    /*DentistQuantityPerShiftByDayOfWeekService
         _dentistQuantityPerShiftByDayOfWeekService =
-        new DentistQuantityPerShiftByDayOfWeekService();
+        new DentistQuantityPerShiftByDayOfWeekService();*/
 
     // _dentistProcedureService.dentistProcedure = null;
 
@@ -195,7 +195,7 @@ class DentistService {
       _dentistProcedureService.clearAllDentistProcedureList();
     }
 
-    for (DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek
+    /*for (DentistQuantityPerShiftByDayOfWeek dentistQuantityPerShiftByDayOfWeek
         in _dentistQuantityPerShiftByDayOfWeekService
             .dentistQuantityPerShiftByDayOfWeekListByDentistIdDayOfWeekShiftId
             .values) {
@@ -209,7 +209,7 @@ class DentistService {
     if (saved) {
       _dentistQuantityPerShiftByDayOfWeekService
           .clearAllDentistQuantityPerShiftByDayOfWeekList();
-    }
+    }*/
 
     return saved;
   }
