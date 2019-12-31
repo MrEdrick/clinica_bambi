@@ -16,6 +16,9 @@ class AttendanceIntervalService {
   static List<Map> _attendanceIntervalList = new List<Map>();
   static List<Map> _attendanceIntervalListWithFilter = new List<Map>();
 
+  static Map<String, AttendanceInterval>
+      _attendanceIntervalListByDentistIdShiftId = new Map();
+
   String get id => _id;
   set id(String id) => _id = id;
 
@@ -23,11 +26,15 @@ class AttendanceIntervalService {
   set attendanceInterval(AttendanceInterval attendanceInterval) =>
       _attendanceInterval = attendanceInterval;
 
+  Map get attendanceIntervalListByDentistIdShiftId =>
+      _attendanceIntervalListByDentistIdShiftId;
+
   void clearAllAttendanceIntervalList() {
     _list.clear();
     _attendanceIntervalList.clear();
     _attendanceIntervalListById.clear();
     _attendanceIntervalListWithFilter.clear();
+    _attendanceIntervalListByDentistIdShiftId.clear();
   }
 
   Future<List<AttendanceInterval>> getAllAttendanceIntervalAcives() async {
