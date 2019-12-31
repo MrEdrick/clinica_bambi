@@ -82,10 +82,15 @@ class AttendanceIntervalEditComponent implements OnInit {
 
     listComponentRefDropdownSelect.add(intervalDropdownSelectComponentRef);
 
+    onEdit();
+
     _changeDetectorRef.markForCheck();
   }
 
   void onEdit() {
+    attendanceIntervalService.getAttendanceIntervalByDentistIdShiftId(
+        dentistId, shiftId);
+
     if (attendanceIntervalService.attendanceInterval.intervalId != null) {
       intervalDropdownSelectComponentRef.instance.singleSelectModelInterval
           .select(new IntervalUI(
