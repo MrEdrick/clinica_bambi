@@ -1,9 +1,14 @@
 import 'dart:async';
 
+import '../../appointment/shift/shift_service.dart';
+import '../../appointment/interval/interval_service.dart';
+import '../../appointment/dentist/dentist_service.dart';
+import '../../appointment/generic/generic_service.dart';
+
 import 'attendance_interval.dart';
 import 'attendance_interval_dao.dart';
 
-class ShiftService {
+class AttendanceIntervalService {
   static String _id;
   static AttendanceInterval _attendanceInterval;
   static Map _attendanceIntervalListById = new Map();
@@ -36,10 +41,11 @@ class ShiftService {
     await (_attendanceIntervalList = await new AttendanceIntervalDAO()
         .getAllAttendanceIntervalFilter({}, {}));
 
-    _attendanceIntervalList.forEach((attendanceInterval) {
+    await _attendanceIntervalList.forEach((attendanceInterval) async {
       _attendanceIntervalListById[attendanceInterval["documentPath"]] =
           attendanceInterval;
-      _list.add(turnMapInAttendanceInterval(attendanceInterval));
+
+      _list.add(await turnMapInAttendanceInterval(attendanceInterval));
     });
 
     return _list;
@@ -100,11 +106,28 @@ class ShiftService {
   }
 
   AttendanceInterval returnEmptyAttendanceInterval() {
-    return new AttendanceInterval("", "", "", "");
+    return new AttendanceInterval(
+        "",
+        "",
+        "",
+        "",
+        new DentistService().returnEmptyDentist(),
+        new ShiftService().returnEmptyShift(),
+        new IntervalService().returnEmptyInterval());
   }
 
-  AttendanceInterval turnMapInAttendanceInterval(Map map) {
-    return new AttendanceInterval(map["documentPath"], map["dentistId"],
-        map["shiftId"], map["intervalId"]);
+  Future<AttendanceInterval> turnMapInAttendanceInterval(Map map) async {
+    return new AttendanceInterval(
+      map["documentPath"],
+      map["dentistId"],
+      map["shiftId"],
+      map["intervalId"],
+      await new DentistService().getDentistById(
+          new GenericService().returnStringEmptyIfNull(map["dentistId"])),
+      await new ShiftService().getShiftById(
+          new GenericService().returnStringEmptyIfNull(map["shiftId"])),
+      await new IntervalService().getIntervalById(
+          new GenericService().returnStringEmptyIfNull(map["intervalId"])),
+    );
   }
 }
