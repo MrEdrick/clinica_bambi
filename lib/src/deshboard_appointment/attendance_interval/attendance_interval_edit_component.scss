@@ -10,10 +10,16 @@
   display: inline-block;
   width: 45%;
   margin-bottom: 0.5%;
+  padding: 2px !important;
 }
 
 .container-value {
   position: relative;
   display: inline-block;
   text-align: left;
+  width: 100%;;
+}
+
+#interval-select {
+  display: inline-block;
 }
