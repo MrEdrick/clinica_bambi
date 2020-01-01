@@ -163,4 +163,32 @@ class AttendanceIntervalService {
           new GenericService().returnStringEmptyIfNull(map["intervalId"])),
     );
   }
+
+  Future<bool> save() async {
+    bool saved = false;
+
+    if (_attendanceInterval == null) {
+      return saved;
+    }
+
+    saved = true;
+
+    Map datas = {
+      "dentistId": _attendanceInterval.dentistId,
+      "shiftId": _attendanceInterval.shiftId,
+      "intervalId": _attendanceInterval.intervalId
+    };
+
+    Map<bool, String> result = new Map<bool, String>();
+
+    if (_attendanceInterval.id != "") {
+      result[await new AttendanceIntervalDAO()
+              .update(_attendanceInterval.id, datas) ==
+          ""] = _attendanceInterval.id;
+    } else {
+      result = await new AttendanceIntervalDAO().save(datas);
+    }
+
+    return saved;
+  }
 }

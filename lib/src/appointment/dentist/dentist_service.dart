@@ -6,6 +6,9 @@ import 'dentistUI.dart';
 import '../dentist_procedure/dentist_procedure.dart';
 import '../dentist_procedure/dentist_procedure_service.dart';
 
+import '../attendance_interval/attendance_interval.dart';
+import '../attendance_interval/attendance_interval_service.dart';
+
 import '../dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week.dart';
 import '../dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 
@@ -34,12 +37,12 @@ class DentistService {
     if ((_dentistList != null) && (_dentistList?.length != 0)) {
       return _list;
     }
-  
+
     clearAllDentistList();
-  
+
     await (_dentistList = await new DentistDAO()
         .getAllDentistFilter({"state": "A"}, {"name": "asc"}));
-  
+
     _dentistList.forEach((dentist) {
       _dentistListById[dentist["documentPath"]] = dentist;
       _list.add(turnMapInDentist(dentist));
@@ -64,7 +67,7 @@ class DentistService {
 
   Future<Dentist> getDentistById(String id) async {
     Map doc;
-    
+
     if (id.isEmpty) {
       return returnEmptyDentist();
     }
@@ -141,7 +144,6 @@ class DentistService {
     return _dentistListWithFilter;
   }
 
-
   Dentist returnEmptyDentist() {
     return new Dentist("", "", false);
   }
@@ -174,6 +176,9 @@ class DentistService {
     DentistProcedureService _dentistProcedureService =
         new DentistProcedureService();
 
+    AttendanceIntervalService _attendanceIntervalService =
+        new AttendanceIntervalService();
+
     /*DentistQuantityPerShiftByDayOfWeekService
         _dentistQuantityPerShiftByDayOfWeekService =
         new DentistQuantityPerShiftByDayOfWeekService();*/
@@ -187,6 +192,18 @@ class DentistService {
         .dentistProcedureListByDentistIdProcedureId.values) {
       _dentistProcedureService.dentistProcedure = dentistProcedure;
       saved = await (_dentistProcedureService.save(_dentist.id));
+    }
+
+    if (!saved) {
+      return saved;
+    } else {
+      _dentistProcedureService.clearAllDentistProcedureList();
+    }
+
+    for (AttendanceInterval attendanceInterval in _attendanceIntervalService
+        .attendanceIntervalListByDentistIdShiftId.values) {
+      _attendanceIntervalService.attendanceInterval = attendanceInterval;
+      saved = await (_attendanceIntervalService.save());
     }
 
     if (!saved) {
