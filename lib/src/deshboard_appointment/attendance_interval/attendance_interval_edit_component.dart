@@ -82,6 +82,9 @@ class AttendanceIntervalEditComponent implements OnInit {
         intervalDropdownSelectComponent,
         materialContainerIntervalDropdownSelect);
 
+    intervalDropdownSelectComponentRef.instance.selectionChanges
+        .listen((_) => onSelectIntervalSelectDropdown());
+
     listComponentRefDropdownSelect.add(intervalDropdownSelectComponentRef);
 
     onEdit();
@@ -122,5 +125,11 @@ class AttendanceIntervalEditComponent implements OnInit {
     });
 
     listComponentRef.clear();
+  }
+
+  void onSelectIntervalSelectDropdown() {
+    attendanceIntervalService
+        .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId]
+        .intervalId = intervalDropdownSelectComponentRef.instance.first.id;
   }
 }

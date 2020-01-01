@@ -85,6 +85,11 @@ class IntervalDropdownSelectComponent implements OnInit {
           ? singleSelectModelInterval.selectedValues.first.uiDisplayName
           : null;
 
+  @Output()
+  Stream get selectionChanges {
+    return singleSelectModelInterval.selectionChanges;  
+  }
+
   IntervalDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
