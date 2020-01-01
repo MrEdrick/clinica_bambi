@@ -17,7 +17,8 @@ class AttendanceIntervalService {
   static List<Map> _attendanceIntervalListWithFilter = new List<Map>();
 
   static Map<String, AttendanceInterval>
-      _attendanceIntervalListByDentistIdShiftId = new Map();
+      _attendanceIntervalListByDentistIdShiftId =
+      new Map<String, AttendanceInterval>();
 
   String get id => _id;
   set id(String id) => _id = id;
@@ -26,8 +27,9 @@ class AttendanceIntervalService {
   set attendanceInterval(AttendanceInterval attendanceInterval) =>
       _attendanceInterval = attendanceInterval;
 
-  Map get attendanceIntervalListByDentistIdShiftId =>
-      _attendanceIntervalListByDentistIdShiftId;
+  Map<String, AttendanceInterval>
+      get attendanceIntervalListByDentistIdShiftId =>
+          _attendanceIntervalListByDentistIdShiftId;
 
   void clearAllAttendanceIntervalList() {
     _list.clear();
@@ -51,6 +53,10 @@ class AttendanceIntervalService {
     await _attendanceIntervalList.forEach((attendanceInterval) async {
       _attendanceIntervalListById[attendanceInterval["documentPath"]] =
           attendanceInterval;
+
+      _attendanceIntervalListByDentistIdShiftId[
+              attendanceInterval["dentistId"] + attendanceInterval["shiftId"]] =
+          await turnMapInAttendanceInterval(attendanceInterval);
 
       _list.add(await turnMapInAttendanceInterval(attendanceInterval));
     });

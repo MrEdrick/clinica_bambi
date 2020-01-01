@@ -40,6 +40,8 @@ class AttendanceIntervalEditComponent implements OnInit {
       new AttendanceIntervalService();
   final IntervalService intervalService = new IntervalService();
 
+  String attendanceIntervalId = "";
+
   @Input()
   String shiftId;
 
@@ -88,15 +90,29 @@ class AttendanceIntervalEditComponent implements OnInit {
   }
 
   void onEdit() {
-    attendanceIntervalService.getAttendanceIntervalByDentistIdShiftId(
-        dentistId, shiftId);
+    if (attendanceIntervalService
+        .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] = null) {
+      attendanceIntervalId = "";
+    } else {
+      attendanceIntervalId = attendanceIntervalService
+          .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId].id;
+    }
 
-    if (attendanceIntervalService.attendanceInterval.intervalId != null) {
-      intervalDropdownSelectComponentRef.instance.singleSelectModelInterval
-          .select(new IntervalUI(
-              attendanceIntervalService.attendanceInterval.intervalId,
-              attendanceIntervalService.attendanceInterval.interval.time
-                  .toString()));
+    if (!attendanceIntervalId.isEmpty) {
+      if (attendanceIntervalService.attendanceInterval.intervalId != null) {
+        intervalDropdownSelectComponentRef.instance.singleSelectModelInterval
+            .select(new IntervalUI(
+                attendanceIntervalService
+                    .attendanceIntervalListByDentistIdShiftId[
+                        dentistId + shiftId]
+                    .intervalId,
+                attendanceIntervalService
+                    .attendanceIntervalListByDentistIdShiftId[
+                        dentistId + shiftId]
+                    .interval
+                    .time
+                    .toString()));
+      }
     }
   }
 
