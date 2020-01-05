@@ -94,7 +94,20 @@ class AttendanceIntervalEditComponent implements OnInit {
 
   void onEdit() {
     if (attendanceIntervalService
-        .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] = null) {
+            .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] ==
+        null) {
+      attendanceIntervalService
+              .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] =
+          attendanceIntervalService.returnEmptyAttendanceInterval();
+
+      attendanceIntervalService
+          .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId]
+          .dentistId = dentistId;
+
+      attendanceIntervalService
+          .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId]
+          .shiftId = shiftId;
+
       attendanceIntervalId = "";
     } else {
       attendanceIntervalId = attendanceIntervalService
@@ -129,7 +142,9 @@ class AttendanceIntervalEditComponent implements OnInit {
 
   void onSelectIntervalSelectDropdown() {
     attendanceIntervalService
-        .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId]
-        .intervalId = intervalDropdownSelectComponentRef.instance.first.id;
+            .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId]
+            .intervalId =
+        intervalDropdownSelectComponentRef
+            .instance.singleSelectModelInterval.selectedValues.first.id;
   }
 }
