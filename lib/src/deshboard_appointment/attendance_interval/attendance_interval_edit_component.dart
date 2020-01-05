@@ -9,7 +9,6 @@ import 'package:angular_components/utils/browser/window/module.dart';
 import '../../appointment/user/user_service.dart';
 import '../../appointment/interval/intervalUI.dart';
 import '../../appointment/interval/interval_service.dart';
-import '../../appointment/attendance_interval/attendance_interval.dart';
 import '../../appointment/attendance_interval/attendance_interval_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_appointment/interval/interval_dropdown_select_component.template.dart'
