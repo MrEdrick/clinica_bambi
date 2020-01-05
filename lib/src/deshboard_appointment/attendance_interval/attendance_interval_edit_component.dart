@@ -67,8 +67,6 @@ class AttendanceIntervalEditComponent implements OnInit {
   void ngOnInit() async {
     if (new UserService().user == null) return;
 
-    await intervalService.getAllIntervalAcives();
-
     clearListComponentRef(listComponentRefDropdownSelect);
 
     ComponentFactory<
@@ -115,7 +113,10 @@ class AttendanceIntervalEditComponent implements OnInit {
     }
 
     if (!attendanceIntervalId.isEmpty) {
-      if (attendanceIntervalService.attendanceInterval.intervalId != null) {
+      if (attendanceIntervalService
+              .attendanceIntervalListByDentistIdShiftId[dentistId + shiftId]
+              .intervalId !=
+          null) {
         intervalDropdownSelectComponentRef.instance.singleSelectModelInterval
             .select(new IntervalUI(
                 attendanceIntervalService

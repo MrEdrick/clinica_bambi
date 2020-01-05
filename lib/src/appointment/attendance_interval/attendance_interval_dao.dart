@@ -11,7 +11,7 @@ class AttendanceIntervalDAO {
         new FireStoreApp(ATTENDANCE_INTERVAL_COLLECTION);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
-    
+
     _fireStoreApp.FireStoreOffLine();
     return result;
   }
@@ -41,21 +41,30 @@ class AttendanceIntervalDAO {
     }
   }
 
-  Future<List<Map>> getAllAttendanceIntervalFilter(Map filter, Map orderBy) async {
+  Future<List<Map>> getAllAttendanceIntervalFilter(
+      Map filter, Map orderBy) async {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(ATTENDANCE_INTERVAL_COLLECTION);
 
-    await (await fireStoreApp.ref
-            .where(filter.keys.first, '==', filter.values.first)
-            .orderBy(orderBy.keys.first, orderBy.values.first)
-            .get())
-        .docs
-        .forEach((doc) {
-      Map map = new Map.from(doc.data());
-      map['documentPath'] = doc.id;
-      _list.add(map);
-    });
+    if ((filter.isEmpty) && (orderBy.isEmpty)) {
+      await (await fireStoreApp.ref.get()).docs.forEach((doc) async {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      });
+    } else {
+      await (await fireStoreApp.ref
+              .where(filter.keys.first, '==', filter.values.first)
+              .orderBy(orderBy.keys.first, orderBy.values.first)
+              .get())
+          .docs
+          .forEach((doc) async {
+        Map map = new Map.from(doc.data());
+        map['documentPath'] = doc.id;
+        _list.add(map);
+      });
+    }
 
     fireStoreApp.FireStoreOffLine();
 

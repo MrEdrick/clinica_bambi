@@ -46,10 +46,10 @@ class AttendanceIntervalService {
     }
 
     clearAllAttendanceIntervalList();
-
+    
     await (_attendanceIntervalList = await new AttendanceIntervalDAO()
         .getAllAttendanceIntervalFilter({}, {}));
-
+    
     await _attendanceIntervalList.forEach((attendanceInterval) async {
       _attendanceIntervalListById[attendanceInterval["documentPath"]] =
           attendanceInterval;
@@ -150,7 +150,7 @@ class AttendanceIntervalService {
   }
 
   Future<AttendanceInterval> turnMapInAttendanceInterval(Map map) async {
-    return new AttendanceInterval(
+    return await new AttendanceInterval(
       map["documentPath"],
       map["dentistId"],
       map["shiftId"],

@@ -24,6 +24,8 @@ import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_
 import '../../appointment/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
 import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import '../../appointment/shift/shift_service.dart';
+import '../../appointment/interval/interval_service.dart';
+import '../../appointment/attendance_interval/attendance_interval_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
     as dentist_procedure_group_checkbox_component;
@@ -75,6 +77,9 @@ class DentistEditComponent implements OnInit {
       dentistQuantityPerShiftByDayOfWeekService =
       new DentistQuantityPerShiftByDayOfWeekService();
   final ShiftService shiftService = new ShiftService();
+  final AttendanceIntervalService attendanceIntervalService =
+      new AttendanceIntervalService();
+  final IntervalService intervalService = new IntervalService();
 
   @Input()
   ComponentRef componentRef;
@@ -144,6 +149,8 @@ class DentistEditComponent implements OnInit {
     dentistQuantityPerShiftByDayOfWeekService
         .clearAllDentistQuantityPerShiftByDayOfWeekList();
     shiftService.clearAllShiftList();
+    intervalService.clearAllIntervalList();
+    attendanceIntervalService.clearAllAttendanceIntervalList();
 
     await dentistProcedureService.getAllDentistProcedureAcives();
     await dentistProcedureByDayOfWeekService
@@ -153,6 +160,8 @@ class DentistEditComponent implements OnInit {
     await dentistQuantityPerShiftByDayOfWeekService
         .getAllDentistQuantityPerShiftByDayOfWeekAcives();
     await shiftService.getAllShiftAcives();
+    await intervalService.getAllIntervalAcives();
+    await attendanceIntervalService.getAllAttendanceIntervalAcives();
 
     List<Procedure> _listProcedure =
         await new ProcedureService().getAllProcedureAcives();
@@ -194,10 +203,8 @@ class DentistEditComponent implements OnInit {
       attendanceIntervalEditComponentRef.instance.shiftDescription =
           shift.description;
       attendanceIntervalEditComponentRef.instance.shiftId = shift.id;
-      attendanceIntervalEditComponentRef.instance.startTime =
-          shift.startTime;
-      attendanceIntervalEditComponentRef.instance.endTime =
-          shift.endTime;
+      attendanceIntervalEditComponentRef.instance.startTime = shift.startTime;
+      attendanceIntervalEditComponentRef.instance.endTime = shift.endTime;
 
       listComponentRefAttendanceInterval
           .add(attendanceIntervalEditComponentRef);
