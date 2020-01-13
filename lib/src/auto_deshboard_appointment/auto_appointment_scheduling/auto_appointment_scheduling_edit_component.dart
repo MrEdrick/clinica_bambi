@@ -1,6 +1,4 @@
 import 'dart:html';
-import 'package:ClinicaBambi/src/appointment/appointment_scheduling/appointment_scheduling_service.dart';
-import 'package:ClinicaBambi/src/appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -36,6 +34,8 @@ import '../../appointment/procedure_requirement/procedure_requirement_service.da
 import '../../appointment/auto_appointment_scheduling/auto_appointment_scheduling_service.dart';
 import '../../appointment/period_by_shift_by_day_of_week/period_by_shift_by_day_of_week_service.dart';
 import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
+import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
+import '../../appointment/available_times/available_times_service.dart';
 
 import '../../appointment/user/user_service.dart';
 
@@ -48,6 +48,8 @@ import 'package:ClinicaBambi/src/deshboard_appointment/dentist/dentist_dropdown_
     as dentist_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/shift/shift_dropdown_select_component.template.dart'
     as shift_dropdown_select_list_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/available_times/available_times_dropdown_select_component.template.dart'
+    as available_times_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/agreement/agreement_dropdown_select_component.template.dart'
     as agreement_dropdown_select_list_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/procedure/procedure_dropdown_select_component.template.dart'
@@ -93,7 +95,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   ComponentRef procedureDropdownSelectComponentRef;
   ComponentRef agreementDropdownSelectComponentRef;
   ComponentRef shiftDropdownSelectComponentRef;
-  ComponentRef procedureRequirementCheckboxComponent;
+  ComponentRef procedureRequirementCheckboxComponentRef;
+  ComponentRef availableTimesDropdownSelectComponentRef;
 
   EmailSenderHTTP emailSenderHTTP;
 
@@ -122,6 +125,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   final AutoAppointmentSchedulingConfigurationService
       autoAppointmentSchedulingConfigurationService =
       new AutoAppointmentSchedulingConfigurationService();
+  final AvailableTimesService availableTimesService =
+      new AvailableTimesService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -162,6 +167,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   @ViewChild('shiftDropdownSelect', read: ViewContainerRef)
   ViewContainerRef materialContainerShiftDropdownSelect;
+
+  @ViewChild('availableTimesDropdownSelect', read: ViewContainerRef)
+  ViewContainerRef materialContainerAvailableTimesDropdownSelect;
 
   @ViewChild('procedureRequirementCheckboxComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerProcedureRequirementCheckBox;
@@ -333,6 +341,20 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
+    ComponentFactory<
+            available_times_dropdown_select_list_component
+                .AvailableTimesDropdownSelectComponent>
+        availableTimesDropdownSelectComponent =
+        available_times_dropdown_select_list_component
+            .AvailableTimesDropdownSelectComponentNgFactory;
+
+    availableTimesDropdownSelectComponentRef = _loader.loadNextToLocation(
+        availableTimesDropdownSelectComponent,
+        materialContainerShiftDropdownSelect);
+
+    listComponentRefDropdownSelect
+        .add(availableTimesDropdownSelectComponentRef);
+
     onEdit();
 
     _changeDetectorRef.markForCheck();
@@ -350,7 +372,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             listDentisitId;
       });
       _changeDetectorRef.markForCheck();
-      await toListRequirementList(procedureDropdownSelectComponentRef
+      await listRequirementList(procedureDropdownSelectComponentRef
           .instance.singleSelectModelProcedure.selectedValues.first.id);
       _changeDetectorRef.markForCheck();
     }
@@ -387,8 +409,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
                   .format(dateAppointmentScheduling.asUtcTime()),
               "dentistId": dentistDropdownSelectComponentRef
                   .instance.singleSelectModelDentist.selectedValues.first.id,
-              //"procedureId": procedureDropdownSelectComponentRef
-              //    .instance.singleSelectModelProcedure.selectedValues.first.id,
               "shiftId": shiftDropdownSelectComponentRef
                   .instance.singleSelectModelShift.selectedValues.first.id
             });
@@ -484,7 +504,21 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void toListRequirementList(String procedureId) async {
+  void listAvailablTimes() async {
+    if ((!shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.isEmpty) &&
+        (!procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
+      await availableTimesService.getAllAvailableTimesByShiftIdDentistId(
+          shiftDropdownSelectComponentRef
+              .instance.singleSelectModelShift.selectedValues.first.id,
+          dentistDropdownSelectComponentRef
+              .instance.singleSelectModelDentist.selectedValues.first.id,
+          dateAppointmentScheduling);
+    }
+  }
+
+  void listRequirementList(String procedureId) async {
     querySelector("#sub-title-requirement").style.display = "block";
 
     clearListComponentRef(listComponentRefProcedureRequirement);
@@ -505,21 +539,23 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
           procedure_requirement_checkbox_component
               .ProcedureRequirementCheckboxComponentNgFactory;
 
-      procedureRequirementCheckboxComponent = _loader.loadNextToLocation(
+      procedureRequirementCheckboxComponentRef = _loader.loadNextToLocation(
           procedureRequirementComponent,
           materialContainerProcedureRequirementCheckBox);
 
-      procedureRequirementCheckboxComponent.instance.procedureId = procedureId;
-      procedureRequirementCheckboxComponent.instance.requirementId =
+      procedureRequirementCheckboxComponentRef.instance.procedureId =
+          procedureId;
+      procedureRequirementCheckboxComponentRef.instance.requirementId =
           requirementService.requirement.id;
-      procedureRequirementCheckboxComponent.instance.requirement =
+      procedureRequirementCheckboxComponentRef.instance.requirement =
           requirementService.requirement.description;
-      procedureRequirementCheckboxComponent.instance.checkedColor = "#DB3813";
-      procedureRequirementCheckboxComponent.instance.loadCheckedById = false;
-      procedureRequirementCheckboxComponent.instance.checked = false;
+      procedureRequirementCheckboxComponentRef.instance.checkedColor =
+          "#DB3813";
+      procedureRequirementCheckboxComponentRef.instance.loadCheckedById = false;
+      procedureRequirementCheckboxComponentRef.instance.checked = false;
 
       listComponentRefProcedureRequirement
-          .add(procedureRequirementCheckboxComponent);
+          .add(procedureRequirementCheckboxComponentRef);
 
       _changeDetectorRef.markForCheck();
     });
@@ -552,6 +588,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       shiftDropdownSelectComponentRef.instance.singleSelectModelShift?.deselect(
           shiftDropdownSelectComponentRef
               .instance.singleSelectModelShift?.selectedValues?.first);
+    }
+
+    if (!availableTimesDropdownSelectComponentRef
+        .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
+      availableTimesDropdownSelectComponentRef
+          .instance.singleSelectModelAvailableTimes
+          ?.deselect(availableTimesDropdownSelectComponentRef
+              .instance.singleSelectModelAvailableTimes?.selectedValues?.first);
     }
 
     telephoneMask.number = '';
