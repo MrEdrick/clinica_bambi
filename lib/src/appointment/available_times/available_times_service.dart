@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:angular_components/angular_components.dart';
+import 'package:time/time.dart';
 
 import '../appointment_scheduling/appointment_scheduling_service.dart';
 import '../attendance_interval/attendance_interval_service.dart';
@@ -29,9 +30,10 @@ class AvailableTimesService {
 
   Future<List<AvailableTimes>> getAllAvailableTimesByShiftIdDentistId(
       String shiftId, String dentistId, Date date) async {
-    Map _appointmentSchedulingByDate;
+    List<Map> _appointmentSchedulingByDate;
     Shift _shift;
     AttendanceInterval _attendanceInterval;
+    Duration starttime;
 
     if ((_availableTimesList != null) && (_availableTimesList.length != 0)) {
       return _list;
@@ -40,8 +42,10 @@ class AvailableTimesService {
     clearAllAvailableTimesList();
     _appointmentSchedulingByDate.clear();
 
-    _appointmentSchedulingByDate = await appointmentSchedulingService
-        .getAllAppointmentSchedulingByDate(date);
+    await appointmentSchedulingService.getAllAppointmentSchedulingByDate(date);
+    _appointmentSchedulingByDate = appointmentSchedulingService
+        .getAppointmentSchedulingWithFilterFromList(
+            date.toString(), {'dentistId': dentistId, 'shiftId': shiftId});
 
     _shift = await shiftService.getShiftById(shiftId);
 

@@ -10,9 +10,5 @@ class ShiftSelectionOptions<T> extends StringSelectionOptions<T>
       : super.withOptionGroups(optionGroups,
             toFilterableString: (T option) => option.toString());
   @override
-  SelectableOption getSelectable(item) =>
-      //item is Dentist && item.code.contains('en')
-          //? SelectableOption.Disabled
-          //: 
-          SelectableOption.Selectable;
+  SelectableOption getSelectable(item) => SelectableOption.Selectable;
 }

@@ -32,6 +32,15 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   @Input()
   ComponentRef componentRef;
 
+  @Input()
+  Date date;
+
+  @Input()
+  String shiftId;
+
+  @Input()
+  String dentistId;
+
   bool _disabled = false;
   bool get disabled => _disabled;
   @Input()
@@ -42,7 +51,8 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   }
 
   List<AvailableTimesUI> _listAvailableTimes;
-  final AvailableTimesService _availableTimesService = new AvailableTimesService();
+  final AvailableTimesService _availableTimesService =
+      new AvailableTimesService();
 
   bool useItemRenderer = false;
 
@@ -63,7 +73,8 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
       return null;
     }
 
-    availableTimesListOptions = AvailableTimesSelectionOptions<AvailableTimesUI>(_listAvailableTimes);
+    availableTimesListOptions =
+        AvailableTimesSelectionOptions<AvailableTimesUI>(_listAvailableTimes);
 
     return availableTimesListOptions;
   }
@@ -72,13 +83,13 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   SelectionModel<AvailableTimesUI> singleSelectModelAvailableTimes =
       SelectionModel.single();
 
-  String get singleSelectAvailableTimesLabel => singleSelectModelAvailableTimes
-              .selectedValues ==
-          null
-      ? '  '
-      : singleSelectModelAvailableTimes.selectedValues.length > 0
-          ? itemRendererAvailableTimes(singleSelectModelAvailableTimes.selectedValues.first)
-          : 'Itervalo';
+  String get singleSelectAvailableTimesLabel =>
+      singleSelectModelAvailableTimes.selectedValues == null
+          ? '  '
+          : singleSelectModelAvailableTimes.selectedValues.length > 0
+              ? itemRendererAvailableTimes(
+                  singleSelectModelAvailableTimes.selectedValues.first)
+              : 'Itervalo';
 
   String get singleSelectedAvailableTimes =>
       singleSelectModelAvailableTimes.selectedValues.isNotEmpty
@@ -87,17 +98,18 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
 
   @Output()
   Stream get selectionChanges {
-    return singleSelectModelAvailableTimes.selectionChanges;  
+    return singleSelectModelAvailableTimes.selectionChanges;
   }
 
   AvailableTimesDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
     _listAvailableTimes = new List<AvailableTimesUI>();
-    await _availableTimesService.getAvailableTimesListWithFilterFromList({}).forEach((map) {
-      _listAvailableTimes.add(new AvailableTimesUI(
-          _availableTimesService.turnMapInAvailableTimes(map).id,
-          _availableTimesService.turnMapInAvailableTimes(map).time.toString()));
+    (await _availableTimesService.getAllAvailableTimesByShiftIdDentistId(
+            shiftId, dentistId, date))
+        .forEach((availableTimes) {
+      _listAvailableTimes
+          .add(new AvailableTimesUI(availableTimes.time, availableTimes.time));
     });
   }
 }

@@ -102,7 +102,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
             dateAppointmentScheduling.year,
             dateAppointmentScheduling.month,
             dateAppointmentScheduling.day,
-            autoAppointmentScheduling.shift.startTime)
+            autoAppointmentScheduling.shift.startTimeHour)
         .add(new Duration(
             hours: (await autoAppointmentSchedulingConfigurationService
                     .getAllConfiguration())
