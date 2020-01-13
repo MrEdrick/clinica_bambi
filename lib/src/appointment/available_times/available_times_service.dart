@@ -33,7 +33,8 @@ class AvailableTimesService {
     List<Map> _appointmentSchedulingByDate;
     Shift _shift;
     AttendanceInterval _attendanceInterval;
-    Duration starttime;
+    Duration startTime;
+    Duration endTime;
 
     if ((_availableTimesList != null) && (_availableTimesList.length != 0)) {
       return _list;
@@ -49,8 +50,20 @@ class AvailableTimesService {
 
     _shift = await shiftService.getShiftById(shiftId);
 
+    startTime = _shift.startTimeHour.hours + _shift.startTimeMinute.minutes;
+    endTime = _shift.endTimeHour.hours + _shift.endTimeMinute.minutes;
+
     _attendanceInterval = await attendanceIntervalService
         .getAttendanceIntervalByDentistIdShiftId(dentistId, shiftId);
+
+    for (startTime;
+        startTime <= endTime;
+        startTime + _attendanceInterval.interval.time.minutes) {
+      _list.add(new AvailableTimes(
+          startTime.inHours.toString() + ":" + startTime.inMinutes.toString(),
+          startTime.inHours,
+          startTime.inMinutes));
+    }
 
     _availableTimesList.forEach((availableTimes) {
       _list.add(turnMapInAvailableTimes(availableTimes));
