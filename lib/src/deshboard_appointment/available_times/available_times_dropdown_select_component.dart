@@ -89,7 +89,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
           : singleSelectModelAvailableTimes.selectedValues.length > 0
               ? itemRendererAvailableTimes(
                   singleSelectModelAvailableTimes.selectedValues.first)
-              : 'Itervalo';
+              : 'Horários Disponíveis';
 
   String get singleSelectedAvailableTimes =>
       singleSelectModelAvailableTimes.selectedValues.isNotEmpty
