@@ -55,6 +55,10 @@ class AvailableTimesService {
 
     _attendanceInterval = await attendanceIntervalService
         .getAttendanceIntervalByDentistIdShiftId(dentistId, shiftId);
+    
+    if (_attendanceInterval.intervalId.isEmpty) {
+      return _list;
+    }
 
     for (startTime;
         startTime <= endTime;
