@@ -350,7 +350,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     availableTimesDropdownSelectComponentRef = _loader.loadNextToLocation(
         availableTimesDropdownSelectComponent,
-        materialContainerShiftDropdownSelect);
+        materialContainerAvailableTimesDropdownSelect);
+
+    availableTimesDropdownSelectComponentRef.instance.disabled = true;
 
     listComponentRefDropdownSelect
         .add(availableTimesDropdownSelectComponentRef);
@@ -513,12 +515,15 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
             .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
-      await availableTimesService.getAllAvailableTimesByShiftIdDentistId(
+      availableTimesDropdownSelectComponentRef.instance.shiftId =
           shiftDropdownSelectComponentRef
-              .instance.singleSelectModelShift.selectedValues.first.id,
+              .instance.singleSelectModelShift.selectedValues.first.id;
+      availableTimesDropdownSelectComponentRef.instance.dentistId =
           dentistDropdownSelectComponentRef
-              .instance.singleSelectModelDentist.selectedValues.first.id,
-          dateAppointmentScheduling);
+              .instance.singleSelectModelDentist.selectedValues.first.id;
+      availableTimesDropdownSelectComponentRef.instance.dentistId =
+          dateAppointmentScheduling;
+      availableTimesDropdownSelectComponentRef.instance.disabled = false;
     }
   }
 

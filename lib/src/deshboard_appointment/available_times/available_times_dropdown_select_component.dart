@@ -50,6 +50,15 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
+  bool _showAvailableTimes = false;
+  @Input()
+  set listDentisitIdToShow(bool showAvailableTimes) {
+    _showAvailableTimes = showAvailableTimes;
+    if (showAvailableTimes) {
+      listAvailableTimes();
+    }
+  }
+
   List<AvailableTimesUI> _listAvailableTimes;
   final AvailableTimesService _availableTimesService =
       new AvailableTimesService();
@@ -104,7 +113,15 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   AvailableTimesDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
-    _listAvailableTimes = new List<AvailableTimesUI>();
+    if ((shiftId == null) || (dentistId == null) || (date == null)) {
+      return;
+    }
+
+    await listAvailableTimes();
+  }
+
+  void listAvailableTimes() async {
+    _listAvailableTimes.clear();
     (await _availableTimesService.getAllAvailableTimesByShiftIdDentistId(
             shiftId, dentistId, date))
         .forEach((availableTimes) {
