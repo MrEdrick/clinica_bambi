@@ -521,8 +521,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       availableTimesDropdownSelectComponentRef.instance.dentistId =
           dentistDropdownSelectComponentRef
               .instance.singleSelectModelDentist.selectedValues.first.id;
-      availableTimesDropdownSelectComponentRef.instance.dentistId =
+      availableTimesDropdownSelectComponentRef.instance.date =
           dateAppointmentScheduling;
+      availableTimesDropdownSelectComponentRef.instance.showAvailableTimes =
+          true;
       availableTimesDropdownSelectComponentRef.instance.disabled = false;
     }
   }

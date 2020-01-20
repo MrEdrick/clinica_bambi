@@ -30,7 +30,7 @@ class AvailableTimesService {
 
   Future<List<AvailableTimes>> getAllAvailableTimesByShiftIdDentistId(
       String shiftId, String dentistId, Date date) async {
-    List<Map> _appointmentSchedulingByDate;
+    List<Map> _appointmentSchedulingByDate = new List<Map>();
     Shift _shift;
     AttendanceInterval _attendanceInterval;
     Duration startTime;
@@ -44,7 +44,7 @@ class AvailableTimesService {
     _appointmentSchedulingByDate.clear();
 
     await appointmentSchedulingService.getAllAppointmentSchedulingByDate(date);
-    _appointmentSchedulingByDate = appointmentSchedulingService
+    _appointmentSchedulingByDate = await appointmentSchedulingService
         .getAppointmentSchedulingWithFilterFromList(
             date.toString(), {'dentistId': dentistId, 'shiftId': shiftId});
 
