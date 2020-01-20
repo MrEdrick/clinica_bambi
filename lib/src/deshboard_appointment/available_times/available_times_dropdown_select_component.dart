@@ -59,7 +59,8 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     }
   }
 
-  final List<AvailableTimesUI> _listAvailableTimes = new List<AvailableTimesUI>();
+  final List<AvailableTimesUI> _listAvailableTimes =
+      new List<AvailableTimesUI>();
   final AvailableTimesService _availableTimesService =
       new AvailableTimesService();
 

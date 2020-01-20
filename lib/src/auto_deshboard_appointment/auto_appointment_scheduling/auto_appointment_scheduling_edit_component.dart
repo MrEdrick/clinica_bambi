@@ -505,6 +505,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .turnMapInPeriodByShiftByDayOfWeek(list.first)
             .description;
       }
+
     } else {
       shiftObservation = "";
     }
