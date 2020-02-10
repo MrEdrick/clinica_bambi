@@ -53,6 +53,7 @@ class AttendanceIntervalService {
     await _attendanceIntervalList.forEach((attendanceInterval) async {
       _attendanceIntervalListById[attendanceInterval["documentPath"]] =
           attendanceInterval;
+          print(attendanceInterval);
 
       _attendanceIntervalListByDentistIdShiftId[
               attendanceInterval["dentistId"] + attendanceInterval["shiftId"]] =

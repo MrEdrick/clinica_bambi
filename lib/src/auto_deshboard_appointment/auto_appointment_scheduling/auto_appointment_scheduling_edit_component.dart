@@ -445,7 +445,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
             .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
-      await listAvailablTimes();
+      await listAvailableTimes();
 
       dentistProcedureByDayOfWeekService
           .returnDaysOfWeekListByDentistProcedureId(
@@ -484,7 +484,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void onSelectShiftSelectDropdown() async {
     if (!shiftDropdownSelectComponentRef
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
-      await listAvailablTimes();
+      await listAvailableTimes();
 
       List<Map> list = periodByShiftByDayOfWeekService
           .getPeriodByShiftByDayOfWeekListWithFilterFromList({
@@ -511,7 +511,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     }
   }
 
-  void listAvailablTimes() async {
+  void listAvailableTimes() async {
     if ((!shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef

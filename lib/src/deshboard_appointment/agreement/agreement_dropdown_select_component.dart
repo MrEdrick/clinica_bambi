@@ -53,7 +53,7 @@ class AgreementDropdownSelectComponent implements OnInit {
 
   static ItemRenderer<AgreementUI> _itemRendererAgreement =
       newCachingItemRenderer<AgreementUI>(
-          (agreement) => "${agreement.description}");
+          (agreement) => "${agreement.uiDisplayName}");
 
   ItemRenderer<AgreementUI> get itemRendererAgreement =>
       useItemRenderer ? _itemRendererAgreement : _displayNameRenderer;

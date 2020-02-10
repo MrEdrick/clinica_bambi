@@ -51,7 +51,7 @@ class IntervalDropdownSelectComponent implements OnInit {
 
   static ItemRenderer<IntervalUI> _itemRendererInterval =
       newCachingItemRenderer<IntervalUI>(
-          (interval) => "${interval.description}");
+          (interval) => "${interval.uiDisplayName}");
 
   ItemRenderer<IntervalUI> get itemRendererInterval =>
       useItemRenderer ? _itemRendererInterval : _displayNameRenderer;

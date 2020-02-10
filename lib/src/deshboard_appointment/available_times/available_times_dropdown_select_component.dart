@@ -71,7 +71,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
 
   static ItemRenderer<AvailableTimesUI> _itemRendererAvailableTimes =
       newCachingItemRenderer<AvailableTimesUI>(
-          (availableTimes) => "${availableTimes.description}");
+          (availableTimes) => "${availableTimes.uiDisplayName}");
 
   ItemRenderer<AvailableTimesUI> get itemRendererAvailableTimes =>
       useItemRenderer ? _itemRendererAvailableTimes : _displayNameRenderer;
@@ -79,7 +79,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   AvailableTimesSelectionOptions<AvailableTimesUI> availableTimesListOptions;
 
   StringSelectionOptions<AvailableTimesUI> get availableTimesOptions {
-    if (_listAvailableTimes == null) {
+    if ((_listAvailableTimes == null) || (_listAvailableTimes.length == 0)) {
       return null;
     }
 
