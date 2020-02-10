@@ -350,7 +350,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     availableTimesDropdownSelectComponentRef = _loader.loadNextToLocation(
         availableTimesDropdownSelectComponent,
-        materialContainerShiftDropdownSelect);
+        materialContainerAvailableTimesDropdownSelect);
+
+    availableTimesDropdownSelectComponentRef.instance.disabled = true;
 
     listComponentRefDropdownSelect
         .add(availableTimesDropdownSelectComponentRef);
@@ -503,6 +505,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .turnMapInPeriodByShiftByDayOfWeek(list.first)
             .description;
       }
+
     } else {
       shiftObservation = "";
     }
@@ -513,12 +516,17 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
             .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
-      await availableTimesService.getAllAvailableTimesByShiftIdDentistId(
+      availableTimesDropdownSelectComponentRef.instance.shiftId =
           shiftDropdownSelectComponentRef
-              .instance.singleSelectModelShift.selectedValues.first.id,
+              .instance.singleSelectModelShift.selectedValues.first.id;
+      availableTimesDropdownSelectComponentRef.instance.dentistId =
           dentistDropdownSelectComponentRef
-              .instance.singleSelectModelDentist.selectedValues.first.id,
-          dateAppointmentScheduling);
+              .instance.singleSelectModelDentist.selectedValues.first.id;
+      availableTimesDropdownSelectComponentRef.instance.date =
+          dateAppointmentScheduling;
+      availableTimesDropdownSelectComponentRef.instance.showAvailableTimes =
+          true;
+      availableTimesDropdownSelectComponentRef.instance.disabled = false;
     }
   }
 

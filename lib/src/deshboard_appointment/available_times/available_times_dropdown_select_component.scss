@@ -3,4 +3,17 @@
   position: relative;
   margin: 1%;
   font-weight: 500;
+  color: #616161;
+}
+
+::ng-deep #available-times-dropdown-select dropdown-button {
+  width: 100%;  
+}
+
+::ng-deep #available-times-dropdown-select .button {
+  border-bottom: 1px solid rgba(#515151, 0.2) !important;
+}
+
+::ng-deep #available-times-dropdown-select .label-text {
+  color: #616161;
 }
