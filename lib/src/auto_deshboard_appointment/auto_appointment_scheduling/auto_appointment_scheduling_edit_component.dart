@@ -526,7 +526,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
           dateAppointmentScheduling;
       availableTimesDropdownSelectComponentRef.instance.showAvailableTimes =
           true;
-      availableTimesDropdownSelectComponentRef.instance.disabled = false;
+      //availableTimesDropdownSelectComponentRef.instance.disabled = false;
     }
   }
 

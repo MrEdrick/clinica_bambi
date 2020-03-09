@@ -56,10 +56,11 @@ class AvailableTimesService {
     _attendanceInterval = await attendanceIntervalService
         .getAttendanceIntervalByDentistIdShiftId(dentistId, shiftId);
 
+    print(_attendanceInterval.intervalId.isEmpty);      
     if (_attendanceInterval.intervalId.isEmpty) {
       return _list;
     }
-
+    print("t0");
     for (startTime;
         startTime <= endTime;
         startTime + _attendanceInterval.interval.time.minutes) {

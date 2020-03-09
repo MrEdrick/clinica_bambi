@@ -45,7 +45,12 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   bool get disabled => _disabled;
   @Input()
   set disabled(bool disabled) {
-    _disabled = disabled;
+    if ((_listAvailableTimes == null) || (_listAvailableTimes?.length == 0)) {
+      _disabled = true;
+
+    } else {
+      _disabled = disabled;
+    }
 
     _changeDetectorRef.markForCheck();
   }
@@ -67,11 +72,11 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   bool useItemRenderer = false;
 
   static ItemRenderer<AvailableTimesUI> _displayNameRenderer =
-      (HasUIDisplayName item) => item.uiDisplayName;
+      (HasUIDisplayName item) => item?.uiDisplayName;
 
   static ItemRenderer<AvailableTimesUI> _itemRendererAvailableTimes =
       newCachingItemRenderer<AvailableTimesUI>(
-          (availableTimes) => "${availableTimes.uiDisplayName}");
+          (availableTimes) => "${availableTimes?.uiDisplayName}");
 
   ItemRenderer<AvailableTimesUI> get itemRendererAvailableTimes =>
       useItemRenderer ? _itemRendererAvailableTimes : _displayNameRenderer;
@@ -79,7 +84,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   AvailableTimesSelectionOptions<AvailableTimesUI> availableTimesListOptions;
 
   StringSelectionOptions<AvailableTimesUI> get availableTimesOptions {
-    if ((_listAvailableTimes == null) || (_listAvailableTimes.length == 0)) {
+    if ((_listAvailableTimes == null) || (_listAvailableTimes?.length == 0)) {
       return null;
     }
 
@@ -94,16 +99,16 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
       SelectionModel.single();
 
   String get singleSelectAvailableTimesLabel =>
-      singleSelectModelAvailableTimes.selectedValues == null
+      singleSelectModelAvailableTimes?.selectedValues == null
           ? '  '
-          : singleSelectModelAvailableTimes.selectedValues.length > 0
+          : singleSelectModelAvailableTimes?.selectedValues?.length > 0
               ? itemRendererAvailableTimes(
-                  singleSelectModelAvailableTimes.selectedValues.first)
+                  singleSelectModelAvailableTimes?.selectedValues?.first)
               : 'Horários Disponíveis';
 
   String get singleSelectedAvailableTimes =>
-      singleSelectModelAvailableTimes.selectedValues.isNotEmpty
-          ? singleSelectModelAvailableTimes.selectedValues.first.uiDisplayName
+      singleSelectModelAvailableTimes?.selectedValues?.isNotEmpty
+          ? singleSelectModelAvailableTimes?.selectedValues?.first?.uiDisplayName
           : null;
 
   @Output()
@@ -123,11 +128,14 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     }
 
     _listAvailableTimes.clear();
-    (await _availableTimesService.getAllAvailableTimesByShiftIdDentistId(
+    /*(await _availableTimesService.getAllAvailableTimesByShiftIdDentistId(
             shiftId, dentistId, date))
         .forEach((availableTimes) {
       _listAvailableTimes
           .add(new AvailableTimesUI(availableTimes.time, availableTimes.time));
-    });
+    });*/
+    _listAvailableTimes.addAll(await _availableTimesService.getAllAvailableTimesUIAcives(shiftId, dentistId, date));
+
+    _disabled = false;
   }
 }
