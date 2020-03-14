@@ -155,9 +155,14 @@ class AppointmentSchedulingService {
     doc = _appointmentSchedulingById[id];
 
     if (doc == null) {
-      doc = (await new AppointmentSchedulingDAO()
-              .getAllAppointmentSchedulingFilter({'id': id}))
-          .first;
+      List<Map> _list = (await new AppointmentSchedulingDAO()
+              .getAllAppointmentSchedulingFilter({'id': id}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyAppointmentShceduling();
+      }
     }
 
     return await turnMapInAppointmentScheduling(doc);

@@ -79,9 +79,14 @@ class DentistService {
     doc = _dentistListById[id];
 
     if (doc == null) {
-      doc = (await new DentistDAO()
-              .getAllDentistFilter({'id': id}, {"name": "asc"}))
-          .first;
+      List<Map> _list = (await new DentistDAO()
+          .getAllDentistFilter({'id': id}, {"name": "asc"}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyDentist();
+      }
     }
 
     return turnMapInDentist(doc);

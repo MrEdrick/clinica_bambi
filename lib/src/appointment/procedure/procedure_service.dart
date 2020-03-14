@@ -45,7 +45,7 @@ class ProcedureService {
 
   Future<Procedure> getProcedureById(String id) async {
     Map doc;
-    
+
     if (id.isEmpty) {
       return returnEmptyProcedure();
     }
@@ -57,9 +57,14 @@ class ProcedureService {
     doc = _procedureListById[id];
 
     if (doc == null) {
-      doc = (await new ProcedureDAO()
-              .getAllProcedureFilter({'id': id}, {"description": "asc"}))
-          .first;
+      List<Map> _list = (await new ProcedureDAO()
+          .getAllProcedureFilter({'id': id}, {"description": "asc"}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyProcedure();
+      }
     }
 
     return turnMapInProcedure(doc);
@@ -109,7 +114,6 @@ class ProcedureService {
   List<Map> getProcedureListWithFilter() {
     return _procedureListWithFilter;
   }
-
 
   Procedure returnEmptyProcedure() {
     return new Procedure("", "", false);

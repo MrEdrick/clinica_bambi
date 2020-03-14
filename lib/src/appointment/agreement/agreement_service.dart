@@ -60,23 +60,28 @@ class AgreementService {
 
   Future<Agreement> getAgreementById(String id) async {
     Map doc;
-    
+
     if (id.isEmpty) {
       return returnEmptyAgreement();
     }
-      
+
     if ((_agreementList == null) || (_agreementList?.length == 0)) {
       await getAllAgreementAcives();
     }
-    
+
     doc = _agreementListById[id];
 
     if (doc == null) {
-      doc = (await new AgreementDAO()
-              .getAllAgreementFilter({'id': id}, {"description": "asc"}))
-          .first;
+      List<Map> _list = (await new AgreementDAO()
+          .getAllAgreementFilter({'id': id}, {"description": "asc"}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyAgreement();
+      }
     }
-    
+
     return turnMapInAgreement(doc);
   }
 

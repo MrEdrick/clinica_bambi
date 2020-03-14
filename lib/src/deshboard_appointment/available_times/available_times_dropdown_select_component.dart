@@ -47,7 +47,6 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   set disabled(bool disabled) {
     if ((_listAvailableTimes == null) || (_listAvailableTimes?.length == 0)) {
       _disabled = true;
-
     } else {
       _disabled = disabled;
     }
@@ -84,6 +83,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   AvailableTimesSelectionOptions<AvailableTimesUI> availableTimesListOptions;
 
   StringSelectionOptions<AvailableTimesUI> get availableTimesOptions {
+
     if ((_listAvailableTimes == null) || (_listAvailableTimes?.length == 0)) {
       return null;
     }
@@ -106,10 +106,10 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
                   singleSelectModelAvailableTimes?.selectedValues?.first)
               : 'Horários Disponíveis';
 
-  String get singleSelectedAvailableTimes =>
-      singleSelectModelAvailableTimes?.selectedValues?.isNotEmpty
-          ? singleSelectModelAvailableTimes?.selectedValues?.first?.uiDisplayName
-          : null;
+  String get singleSelectedAvailableTimes => singleSelectModelAvailableTimes
+          ?.selectedValues?.isNotEmpty
+      ? singleSelectModelAvailableTimes?.selectedValues?.first?.uiDisplayName
+      : null;
 
   @Output()
   Stream get selectionChanges {
@@ -128,13 +128,9 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     }
 
     _listAvailableTimes.clear();
-    /*(await _availableTimesService.getAllAvailableTimesByShiftIdDentistId(
-            shiftId, dentistId, date))
-        .forEach((availableTimes) {
-      _listAvailableTimes
-          .add(new AvailableTimesUI(availableTimes.time, availableTimes.time));
-    });*/
-    _listAvailableTimes.addAll(await _availableTimesService.getAllAvailableTimesUIAcives(shiftId, dentistId, date));
+
+    _listAvailableTimes.addAll(await _availableTimesService
+        .getAllAvailableTimesUIAcives(shiftId, dentistId, date));
 
     _disabled = false;
   }

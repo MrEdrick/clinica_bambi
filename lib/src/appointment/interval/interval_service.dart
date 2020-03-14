@@ -72,9 +72,14 @@ class IntervalService {
     doc = _intervalListById[id];
 
     if (doc == null) {
-      doc = (await new IntervalDAO()
-              .getAllIntervalFilter({'id': id}, {"time": "asc"}))
-          .first;
+      List<Map> _list = (await new IntervalDAO()
+          .getAllIntervalFilter({'id': id}, {"time": "asc"}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyInterval();
+      }
     }
 
     return turnMapInInterval(doc);

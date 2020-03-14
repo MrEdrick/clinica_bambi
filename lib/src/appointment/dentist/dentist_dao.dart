@@ -7,18 +7,16 @@ class DentistDAO {
   DentistDAO();
 
   Future<Map<bool, String>> save(Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_COLLECTION);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
 
     Map<bool, String> result = (await _fireStoreApp.addItem(datas));
-    
+
     _fireStoreApp.FireStoreOffLine();
     return result;
   }
 
   Future<String> update(String id, Map<String, dynamic> datas) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_COLLECTION);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
     if (await _fireStoreApp.updateItem(id, datas)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
@@ -29,8 +27,7 @@ class DentistDAO {
   }
 
   Future<String> delete(String id) async {
-    FireStoreApp _fireStoreApp =
-        new FireStoreApp(DENTIST_COLLECTION);
+    FireStoreApp _fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
     if (await _fireStoreApp.deleteItem(id)) {
       _fireStoreApp.FireStoreOffLine();
       return '';
@@ -42,8 +39,8 @@ class DentistDAO {
 
   Future<List<Map>> getAllDentistFilter(Map filter, Map orderBy) async {
     List<Map> _list = new List<Map>();
-    FireStoreApp fireStoreApp =
-        new FireStoreApp(DENTIST_COLLECTION);
+    FireStoreApp fireStoreApp = new FireStoreApp(DENTIST_COLLECTION);
+    
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
             .orderBy(orderBy.keys.first, orderBy.values.first)

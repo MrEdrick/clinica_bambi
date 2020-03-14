@@ -45,7 +45,7 @@ class ShiftDAO {
     List<Map> _list = new List<Map>();
     FireStoreApp fireStoreApp =
         new FireStoreApp(SHIFT_COLLECTION);
-
+    
     await (await fireStoreApp.ref
             .where(filter.keys.first, '==', filter.values.first)
             .orderBy(orderBy.keys.first, orderBy.values.first)

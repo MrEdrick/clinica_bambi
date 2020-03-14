@@ -71,10 +71,16 @@ class ShiftService {
     doc = _shiftListById[id];
 
     if (doc == null) {
-      doc = (await new ShiftDAO()
-              .getAllShiftFilter({'id': id}, {"description": "asc"}))
-          .first;
+      List<Map> _list = (await new ShiftDAO()
+          .getAllShiftFilter({'id': id}, {"description": "asc"}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyShift();
+      }
     }
+
 
     return turnMapInShift(doc);
   }

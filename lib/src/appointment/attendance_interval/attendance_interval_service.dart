@@ -41,7 +41,7 @@ class AttendanceIntervalService {
 
   Future<List<AttendanceInterval>> getAllAttendanceIntervalAcives() async {
     if ((_attendanceIntervalList != null) &&
-        (_attendanceIntervalList.length != 0)) {
+        (_attendanceIntervalList?.length != 0)) {
       return _list;
     }
 
@@ -79,9 +79,14 @@ class AttendanceIntervalService {
     doc = _attendanceIntervalListById[id];
 
     if (doc == null) {
-      doc = (await new AttendanceIntervalDAO()
-              .getAllAttendanceIntervalFilter({'id': id}, {}))
-          .first;
+      List<Map> _list = (await new AttendanceIntervalDAO()
+          .getAllAttendanceIntervalFilter({'id': id}, {}));
+
+      if (_list.isNotEmpty) {
+        doc = _list.first;
+      } else {
+        return returnEmptyAttendanceInterval();
+      }
     }
 
     return turnMapInAttendanceInterval(doc);
@@ -89,8 +94,6 @@ class AttendanceIntervalService {
 
   Future<AttendanceInterval> getAttendanceIntervalByDentistIdShiftId(
       String dentistId, String shiftId) async {
-    //Map doc;
-
     if ((dentistId.isEmpty) || (shiftId.isEmpty)) {
       return returnEmptyAttendanceInterval();
     }
@@ -99,7 +102,7 @@ class AttendanceIntervalService {
         (_attendanceIntervalList?.length == 0)) {
       await getAllAttendanceIntervalAcives();
     }
-    
+
     return _attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] ==
             null
         ? returnEmptyAttendanceInterval()
