@@ -53,21 +53,20 @@ class AvailableTimesService {
     startTime = _shift.startTimeHour.hours + _shift.startTimeMinute.minutes;
     endTime = _shift.endTimeHour.hours + _shift.endTimeMinute.minutes;
 
-    //_attendanceInterval = attendanceIntervalService.returnEmptyAttendanceInterval();
     _attendanceInterval = await attendanceIntervalService
         .getAttendanceIntervalByDentistIdShiftId(dentistId, shiftId);
-
+    print(_attendanceInterval.intervalId);
     if (_attendanceInterval.intervalId.isEmpty) {
       return _list;
     }
 
     for (startTime;
         startTime <= endTime;
-        startTime + _attendanceInterval.interval.time.minutes) {
+        startTime = startTime + _attendanceInterval.interval.time.minutes) {
       _list.add(new AvailableTimes(
-          startTime.inHours.toString() + ":" + startTime.inMinutes.toString(),
-          startTime.inHours,
-          startTime.inMinutes));
+          startTime.toString().substring(0, 5),//startTime.inHours.toString() + ":" + startTime.inMinutes.toString(),
+          int.parse(startTime.toString().substring(0, 2)),
+          int.parse(startTime.toString().substring(3, 5))));
     }
 
     _availableTimesList.forEach((availableTimes) {

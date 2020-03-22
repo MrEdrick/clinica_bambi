@@ -132,6 +132,10 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     _listAvailableTimes.addAll(await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date));
 
-    _disabled = false;
+    if (_listAvailableTimes.length > 0) {
+      disabled = false;
+    } else {
+      disabled = true;
+    }
   }
 }
