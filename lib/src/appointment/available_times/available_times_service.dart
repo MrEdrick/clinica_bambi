@@ -55,7 +55,7 @@ class AvailableTimesService {
 
     _attendanceInterval = await attendanceIntervalService
         .getAttendanceIntervalByDentistIdShiftId(dentistId, shiftId);
-    print(_attendanceInterval.intervalId);
+
     if (_attendanceInterval.intervalId.isEmpty) {
       return _list;
     }
@@ -63,10 +63,15 @@ class AvailableTimesService {
     for (startTime;
         startTime <= endTime;
         startTime = startTime + _attendanceInterval.interval.time.minutes) {
+      
+      String _startTimeFormated = startTime.toString().length == 14
+          ? '0' + startTime.toString()
+          : startTime.toString();
+
       _list.add(new AvailableTimes(
-          startTime.toString().substring(0, 5),//startTime.inHours.toString() + ":" + startTime.inMinutes.toString(),
-          int.parse(startTime.toString().substring(0, 2)),
-          int.parse(startTime.toString().substring(3, 5))));
+          _startTimeFormated.substring(0, 5),
+          int.parse(_startTimeFormated.substring(0, 2)),
+          int.parse(_startTimeFormated.substring(3, 5))));
     }
 
     _availableTimesList.forEach((availableTimes) {
@@ -83,8 +88,8 @@ class AvailableTimesService {
     }
 
     List<AvailableTimesUI> _listAvailableTimesUI = new List<AvailableTimesUI>();
-    
-    for (AvailableTimes _availableTimes in _list) { 
+
+    for (AvailableTimes _availableTimes in _list) {
       _listAvailableTimesUI.add(
           new AvailableTimesUI(_availableTimes.time, _availableTimes.time));
     }
