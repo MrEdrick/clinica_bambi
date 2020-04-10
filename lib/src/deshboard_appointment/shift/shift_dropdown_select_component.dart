@@ -48,6 +48,14 @@ class ShiftDropdownSelectComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
+  bool _showAvailableShifts = false;
+  @Input()
+  set showAvailableShifts(bool showAvailableShifts) {
+    _showAvailableShifts = showAvailableShifts;
+    if (showAvailableShifts) {
+      listShift();
+    }
+
   List<ShiftUI> _listShift;
   final ShiftService _shiftService = new ShiftService();
   final DentistProcedureByDayOfWeekByShiftService
@@ -101,6 +109,12 @@ class ShiftDropdownSelectComponent implements OnInit {
 
   void ngOnInit() async {
     _listShift = new List<ShiftUI>();
+    await listShift();
+  }
+
+  void listShift() async {
+    _listShift.clear();
+
     await _shiftService.getShiftListWithFilterFromList({}).forEach((map) {
       if (filterByDentistProcedureByDayOfWeek) {
         dentistProcedureByDayOfWeekByShiftService
