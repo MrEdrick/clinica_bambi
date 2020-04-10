@@ -457,10 +457,19 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelProcedure.selectedValues.first.id
       }))
                   .id)
-          .then((daysOfWeekOfDentist) {
+          .then((daysOfWeekOfDentistById) {
         listDaysOfWeekOfDentist.clear();
-        daysOfWeekOfDentist.reversed.forEach((dayOfWeek) {
+        daysOfWeekOfDentistById.values.toList().reversed.forEach((dayOfWeek) {
           listDaysOfWeekOfDentist.add(dayOfWeek.toUpperCase());
+        });
+
+        daysOfWeekOfDentistById.forEach((key, value) {
+          if (value ==
+              DateFormat('EEEE')
+                  .format(dateAppointmentScheduling.asUtcTime())) {
+            shiftDropdownSelectComponentRef
+                .instance.dentistProcedureByDayOfWeekId = key;
+          }
         });
 
         listDaysOfWeekOfAppointment = "";
@@ -505,7 +514,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .turnMapInPeriodByShiftByDayOfWeek(list.first)
             .description;
       }
-
     } else {
       shiftObservation = "";
     }

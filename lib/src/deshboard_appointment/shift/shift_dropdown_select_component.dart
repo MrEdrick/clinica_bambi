@@ -9,6 +9,7 @@ import 'package:angular_components/model/selection/selection_model.dart';
 import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shift_selection_options.dart';
+import '../../appointment/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
 
 @Component(
     selector: 'shift_dropdown_select_component',
@@ -25,26 +26,33 @@ import '../../appointment/shift/shift_selection_options.dart';
       MaterialDropdownSelectComponent,
       DropdownSelectValueAccessor
     ],
-    providers: [
-      windowBindings
-    ])
+    providers: [windowBindings])
 class ShiftDropdownSelectComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   @Input()
   ComponentRef componentRef;
 
+  @Input()
+  bool filterByDentistProcedureByDayOfWeek = false;
+
+  @Input()
+  String dentistProcedureByDayOfWeekId = '';
+
   bool _disabled = false;
-  bool get disabled => _disabled; 
+  bool get disabled => _disabled;
   @Input()
   set disabled(bool disabled) {
     _disabled = disabled;
 
     _changeDetectorRef.markForCheck();
   }
-  
+
   List<ShiftUI> _listShift;
   final ShiftService _shiftService = new ShiftService();
+  final DentistProcedureByDayOfWeekByShiftService
+      dentistProcedureByDayOfWeekByShiftService =
+      new DentistProcedureByDayOfWeekByShiftService();
 
   bool useItemRenderer = false;
 
@@ -52,8 +60,7 @@ class ShiftDropdownSelectComponent implements OnInit {
       (HasUIDisplayName item) => item.uiDisplayName;
 
   static ItemRenderer<ShiftUI> _itemRendererShift =
-      newCachingItemRenderer<ShiftUI>(
-          (shift) => "${shift.uiDisplayName}");
+      newCachingItemRenderer<ShiftUI>((shift) => "${shift.uiDisplayName}");
 
   ItemRenderer<ShiftUI> get itemRendererShift =>
       useItemRenderer ? _itemRendererShift : _displayNameRenderer;
@@ -71,21 +78,19 @@ class ShiftDropdownSelectComponent implements OnInit {
   }
 
   @Input()
-  SelectionModel<ShiftUI> singleSelectModelShift =
-      SelectionModel.single();
+  SelectionModel<ShiftUI> singleSelectModelShift = SelectionModel.single();
 
   @Output()
   Stream get selectionChanges {
-    return singleSelectModelShift.selectionChanges;  
+    return singleSelectModelShift.selectionChanges;
   }
 
-  String get singleSelectShiftLabel =>
-      singleSelectModelShift.selectedValues == null
-          ? '  '
-          : singleSelectModelShift.selectedValues.length > 0
-              ? itemRendererShift(
-                  singleSelectModelShift.selectedValues.first)
-              : 'Turno';
+  String get singleSelectShiftLabel => singleSelectModelShift.selectedValues ==
+          null
+      ? '  '
+      : singleSelectModelShift.selectedValues.length > 0
+          ? itemRendererShift(singleSelectModelShift.selectedValues.first)
+          : 'Turno';
 
   String get singleSelectedShift =>
       singleSelectModelShift.selectedValues.isNotEmpty
@@ -97,8 +102,25 @@ class ShiftDropdownSelectComponent implements OnInit {
   void ngOnInit() async {
     _listShift = new List<ShiftUI>();
     await _shiftService.getShiftListWithFilterFromList({}).forEach((map) {
-      _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id, 
-                                 _shiftService.turnMapInShift(map).description));
+      if (filterByDentistProcedureByDayOfWeek) {
+        dentistProcedureByDayOfWeekByShiftService
+            .clearAllDentistProcedureByDayOfWeekByShiftList();
+        dentistProcedureByDayOfWeekByShiftService
+            .getOneDentistProcedureByDayOfWeekByShiftByFilterFromDataBase({
+          "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
+          "shiftId": _shiftService.turnMapInShift(map).id
+        });
+
+        if (!dentistProcedureByDayOfWeekByShiftService
+            .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId
+            .isEmpty) {
+          _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,
+              _shiftService.turnMapInShift(map).description));
+        }
+      } else {
+        _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,
+            _shiftService.turnMapInShift(map).description));
+      }
     });
   }
 }
