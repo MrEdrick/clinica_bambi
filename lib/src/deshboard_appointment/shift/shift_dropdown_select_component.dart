@@ -6,7 +6,6 @@ import 'package:angular_components/material_select/material_dropdown_select.dart
 import 'package:angular_components/material_select/material_dropdown_select_accessor.dart';
 import 'package:angular_components/model/selection/selection_model.dart';
 
-import '../../appointment/shift/shift.dart';
 import '../../appointment/shift/shiftUI.dart';
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/shift/shift_selection_options.dart';

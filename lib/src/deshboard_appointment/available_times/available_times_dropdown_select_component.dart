@@ -128,6 +128,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     }
 
     _listAvailableTimes.clear();
+    _availableTimesService.clearAllAvailableTimesList();
 
     _listAvailableTimes.addAll(await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date));
@@ -137,5 +138,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     } else {
       disabled = true;
     }
+
+    _changeDetectorRef.markForCheck();
   }
 }
