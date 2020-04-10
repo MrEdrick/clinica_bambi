@@ -130,7 +130,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
-  Date dateAppointmentScheduling = new Date.today();
+  Date _dateAppointmentScheduling = new Date.today();
+
   Date minDate = new Date.today();
 
   bool showSuccessfullySave = false;
@@ -173,6 +174,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   @ViewChild('procedureRequirementCheckboxComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerProcedureRequirementCheckBox;
+
+  Date get dateAppointmentScheduling => _dateAppointmentScheduling;
+
+  set dateAppointmentScheduling(Date dateAppointmentScheduling) {
+    _dateAppointmentScheduling = dateAppointmentScheduling;
+    returnDaysOfWeekListByDentistProcedureIdMap();
+    shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+  }
 
   onKeydownTelephone(event) {
     if ((event.keyCode == KeyCode.BACKSPACE) ||
@@ -339,6 +348,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     shiftDropdownSelectComponentRef.instance.selectionChanges
         .listen((_) => onSelectShiftSelectDropdown());
 
+    shiftDropdownSelectComponentRef
+        .instance.filterByDentistProcedureByDayOfWeek = true;
+
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
     ComponentFactory<
@@ -440,6 +452,31 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
+  Future<Map<String, String>> returnDaysOfWeekListByDentistProcedureIdMap() async {
+    Map<String, String> _list = await dentistProcedureByDayOfWeekService
+        .returnDaysOfWeekListByDentistProcedureId((await dentistProcedureService
+                .getOneDentistProcedureByFilterFromList({
+      "dentistId": dentistDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.first.id,
+      "procedureId": procedureDropdownSelectComponentRef
+          .instance.singleSelectModelProcedure.selectedValues.first.id
+    }))
+            .id)
+        .then((daysOfWeekOfDentistById) {
+      daysOfWeekOfDentistById.forEach((key, value) {
+        if (value.toUpperCase() ==
+            DateFormat('EEEE')
+                .format(dateAppointmentScheduling.asUtcTime())
+                .toUpperCase()) {
+          shiftDropdownSelectComponentRef
+              .instance.dentistProcedureByDayOfWeekId = key;
+        }
+      });
+    });
+
+    return _list;
+  }
+
   void onSelectDentistSelectDropdown() async {
     if ((!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
@@ -447,29 +484,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
       await listAvailableTimes();
 
-      dentistProcedureByDayOfWeekService
-          .returnDaysOfWeekListByDentistProcedureId(
-              (await dentistProcedureService
-                      .getOneDentistProcedureByFilterFromList({
-        "dentistId": dentistDropdownSelectComponentRef
-            .instance.singleSelectModelDentist.selectedValues.first.id,
-        "procedureId": procedureDropdownSelectComponentRef
-            .instance.singleSelectModelProcedure.selectedValues.first.id
-      }))
-                  .id)
+      await returnDaysOfWeekListByDentistProcedureIdMap()
           .then((daysOfWeekOfDentistById) {
         listDaysOfWeekOfDentist.clear();
         daysOfWeekOfDentistById.values.toList().reversed.forEach((dayOfWeek) {
           listDaysOfWeekOfDentist.add(dayOfWeek.toUpperCase());
-        });
-
-        daysOfWeekOfDentistById.forEach((key, value) {
-          if (value ==
-              DateFormat('EEEE')
-                  .format(dateAppointmentScheduling.asUtcTime())) {
-            shiftDropdownSelectComponentRef
-                .instance.dentistProcedureByDayOfWeekId = key;
-          }
         });
 
         listDaysOfWeekOfAppointment = "";
@@ -486,6 +505,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         } else {
           querySelector("#sub-title-days-of-week").style.display = "block";
         }
+
+        shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
       });
     }
   }

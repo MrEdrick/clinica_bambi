@@ -55,6 +55,7 @@ class ShiftDropdownSelectComponent implements OnInit {
     if (showAvailableShifts) {
       listShift();
     }
+  }
 
   List<ShiftUI> _listShift;
   final ShiftService _shiftService = new ShiftService();
@@ -115,11 +116,13 @@ class ShiftDropdownSelectComponent implements OnInit {
   void listShift() async {
     _listShift.clear();
 
-    await _shiftService.getShiftListWithFilterFromList({}).forEach((map) {
+    await _shiftService.getShiftListWithFilterFromList({}).forEach((map) async {
       if (filterByDentistProcedureByDayOfWeek) {
         dentistProcedureByDayOfWeekByShiftService
             .clearAllDentistProcedureByDayOfWeekByShiftList();
-        dentistProcedureByDayOfWeekByShiftService
+        print(dentistProcedureByDayOfWeekId);
+        print(_shiftService.turnMapInShift(map).id);
+        await dentistProcedureByDayOfWeekByShiftService
             .getOneDentistProcedureByDayOfWeekByShiftByFilterFromDataBase({
           "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
           "shiftId": _shiftService.turnMapInShift(map).id
@@ -131,6 +134,8 @@ class ShiftDropdownSelectComponent implements OnInit {
           _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,
               _shiftService.turnMapInShift(map).description));
         }
+        
+        this.disabled = _listShift.isEmpty;
       } else {
         _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,
             _shiftService.turnMapInShift(map).description));
