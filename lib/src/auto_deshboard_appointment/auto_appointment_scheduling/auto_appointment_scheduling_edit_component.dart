@@ -184,7 +184,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         .then((daysOfWeekOfDentistById) {
       if (!daysOfWeekOfDentistById.isEmpty) {
         shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
-        print('t0');
       }
     });
   }

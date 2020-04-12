@@ -120,19 +120,24 @@ class ShiftDropdownSelectComponent implements OnInit {
       if (filterByDentistProcedureByDayOfWeek) {
         dentistProcedureByDayOfWeekByShiftService
             .clearAllDentistProcedureByDayOfWeekByShiftList();
-        await dentistProcedureByDayOfWeekByShiftService
-            .getOneDentistProcedureByDayOfWeekByShiftByFilterFromDataBase({
-          "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
-          "shiftId": _shiftService.turnMapInShift(map).id
-        });
 
-        if (!dentistProcedureByDayOfWeekByShiftService
-            .dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId
-            .isEmpty) {
-          _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,
-              _shiftService.turnMapInShift(map).description));
+        if ((!dentistProcedureByDayOfWeekId.isEmpty) ||
+            (_shiftService.turnMapInShift(map).id.isEmpty)) {
+          await dentistProcedureByDayOfWeekByShiftService
+            .getAllDentistProcedureByDayOfWeekByShiftAcives();
+
+          await dentistProcedureByDayOfWeekByShiftService
+              .getDentistProcedureByDayOfWeekByShiftListWithFilterFromList({
+            "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
+            "shiftId": _shiftService.turnMapInShift(map).id
+          });
+
+          if (!dentistProcedureByDayOfWeekByShiftService
+              .dentistProcedureByDayOfWeekByShiftListWithFilter.isEmpty) {
+            _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,
+                _shiftService.turnMapInShift(map).description));
+          }
         }
-        
         this.disabled = _listShift.isEmpty;
       } else {
         _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,

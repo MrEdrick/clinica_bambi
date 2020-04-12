@@ -23,6 +23,9 @@ class DentistProcedureByDayOfWeekByShiftService {
   Map get dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId =>
       _dentistProcedureByDayOfWeekByShiftListByDentistProcedureByDayOfWeekIdShiftId;
 
+  List<Map> get dentistProcedureByDayOfWeekByShiftListWithFilter =>
+    _dentistProcedureByDayOfWeekByShiftListWithFilter;
+
   void clearAllDentistProcedureByDayOfWeekByShiftList() {
     _list.clear();
     _dentistProcedureByDayOfWeekByShiftList.clear();
@@ -92,7 +95,7 @@ class DentistProcedureByDayOfWeekByShiftService {
 
     result = (await new DentistProcedureByDayOfWeekByShiftDAO()
         .getAllDentistProcedureByDayOfWeekByShiftFilter(filter, ["=="]));
-
+  
     if (result.length > 0) {
       doc = result?.first;
     } else {
@@ -143,6 +146,7 @@ class DentistProcedureByDayOfWeekByShiftService {
 
     if ((filter["shiftId"] != null) && (filter["shiftId"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
+
         if (doc["shiftId"].toString() == filter["shiftId"].toString()) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
