@@ -179,8 +179,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   set dateAppointmentScheduling(Date dateAppointmentScheduling) {
     _dateAppointmentScheduling = dateAppointmentScheduling;
-    returnDaysOfWeekListByDentistProcedureIdMap();
-    shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+
+    returnDaysOfWeekListByDentistProcedureIdMap()
+        .then((daysOfWeekOfDentistById) {
+      if (!daysOfWeekOfDentistById.isEmpty) {
+        shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+        print('t0');
+      }
+    });
   }
 
   onKeydownTelephone(event) {
@@ -452,63 +458,79 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     _changeDetectorRef.markForCheck();
   }
 
-  Future<Map<String, String>> returnDaysOfWeekListByDentistProcedureIdMap() async {
-    Map<String, String> _list = await dentistProcedureByDayOfWeekService
-        .returnDaysOfWeekListByDentistProcedureId((await dentistProcedureService
-                .getOneDentistProcedureByFilterFromList({
-      "dentistId": dentistDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.first.id,
-      "procedureId": procedureDropdownSelectComponentRef
-          .instance.singleSelectModelProcedure.selectedValues.first.id
-    }))
-            .id)
-        .then((daysOfWeekOfDentistById) {
-      daysOfWeekOfDentistById.forEach((key, value) {
-        if (value.toUpperCase() ==
-            DateFormat('EEEE')
-                .format(dateAppointmentScheduling.asUtcTime())
-                .toUpperCase()) {
-          shiftDropdownSelectComponentRef
-              .instance.dentistProcedureByDayOfWeekId = key;
-        }
+  Future<Map<String, String>>
+      returnDaysOfWeekListByDentistProcedureIdMap() async {
+    Map<String, String> _list = new Map<String, String>();
+
+    if ((dentistDropdownSelectComponentRef == null) ||
+        (procedureDropdownSelectComponentRef == null)) {
+      return _list;
+    }
+
+    if ((!dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
+        (!procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
+      await dentistProcedureByDayOfWeekService
+          .returnDaysOfWeekListByDentistProcedureId(
+              (await dentistProcedureService
+                      .getOneDentistProcedureByFilterFromList({
+        "dentistId": dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.first.id,
+        "procedureId": procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.first.id
+      }))
+                  .id)
+          .then((daysOfWeekOfDentistById) {
+        _list = daysOfWeekOfDentistById;
+        daysOfWeekOfDentistById.forEach((key, value) {
+          if (value.toUpperCase() ==
+              DateFormat('EEEE')
+                  .format(dateAppointmentScheduling.asUtcTime())
+                  .toUpperCase()) {
+            shiftDropdownSelectComponentRef
+                .instance.dentistProcedureByDayOfWeekId = key;
+          }
+        });
       });
-    });
+    }
+
+    if (_list == null) {
+      _list = new Map<String, String>();
+    }
 
     return _list;
   }
 
   void onSelectDentistSelectDropdown() async {
-    if ((!dentistDropdownSelectComponentRef
-            .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
-        (!procedureDropdownSelectComponentRef
-            .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
-      await listAvailableTimes();
+    await listAvailableTimes();
 
-      await returnDaysOfWeekListByDentistProcedureIdMap()
-          .then((daysOfWeekOfDentistById) {
-        listDaysOfWeekOfDentist.clear();
-        daysOfWeekOfDentistById.values.toList().reversed.forEach((dayOfWeek) {
-          listDaysOfWeekOfDentist.add(dayOfWeek.toUpperCase());
-        });
+    await returnDaysOfWeekListByDentistProcedureIdMap()
+        .then((daysOfWeekOfDentistById) {
+      if (daysOfWeekOfDentistById.isEmpty) {
+        return;
+      }
 
-        listDaysOfWeekOfAppointment = "";
-        if (!listDaysOfWeekOfDentist.isEmpty) {
-          querySelector("#sub-title-days-of-week").style.display = "none";
-          listDaysOfWeekOfDentist.forEach((dayOfWeek) {
-            listDaysOfWeekOfAppointment =
-                listDaysOfWeekOfAppointment + dayOfWeek;
-            if (dayOfWeek != listDaysOfWeekOfDentist.last) {
-              listDaysOfWeekOfAppointment =
-                  listDaysOfWeekOfAppointment + ' -- ';
-            }
-          });
-        } else {
-          querySelector("#sub-title-days-of-week").style.display = "block";
-        }
-
-        shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+      listDaysOfWeekOfDentist.clear();
+      daysOfWeekOfDentistById.values.toList().reversed.forEach((dayOfWeek) {
+        listDaysOfWeekOfDentist.add(dayOfWeek.toUpperCase());
       });
-    }
+
+      listDaysOfWeekOfAppointment = "";
+      if (!listDaysOfWeekOfDentist.isEmpty) {
+        querySelector("#sub-title-days-of-week").style.display = "none";
+        listDaysOfWeekOfDentist.forEach((dayOfWeek) {
+          listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + dayOfWeek;
+          if (dayOfWeek != listDaysOfWeekOfDentist.last) {
+            listDaysOfWeekOfAppointment = listDaysOfWeekOfAppointment + ' -- ';
+          }
+        });
+      } else {
+        querySelector("#sub-title-days-of-week").style.display = "block";
+      }
+
+      shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+    });
   }
 
   void onSelectShiftSelectDropdown() async {

@@ -120,8 +120,6 @@ class ShiftDropdownSelectComponent implements OnInit {
       if (filterByDentistProcedureByDayOfWeek) {
         dentistProcedureByDayOfWeekByShiftService
             .clearAllDentistProcedureByDayOfWeekByShiftList();
-        print(dentistProcedureByDayOfWeekId);
-        print(_shiftService.turnMapInShift(map).id);
         await dentistProcedureByDayOfWeekByShiftService
             .getOneDentistProcedureByDayOfWeekByShiftByFilterFromDataBase({
           "dentistProcedureByDayOfWeekId": dentistProcedureByDayOfWeekId,
