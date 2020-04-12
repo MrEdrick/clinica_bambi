@@ -83,7 +83,6 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   AvailableTimesSelectionOptions<AvailableTimesUI> availableTimesListOptions;
 
   StringSelectionOptions<AvailableTimesUI> get availableTimesOptions {
-
     if ((_listAvailableTimes == null) || (_listAvailableTimes?.length == 0)) {
       return null;
     }
@@ -130,15 +129,20 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     _listAvailableTimes.clear();
     _availableTimesService.clearAllAvailableTimesList();
 
-    _listAvailableTimes.addAll(await _availableTimesService
-        .getAllAvailableTimesUIAcives(shiftId, dentistId, date));
+    await _availableTimesService
+        .getAllAvailableTimesUIAcives(shiftId, dentistId, date)
+        .then((_list) {
+      _list.forEach((avaliableTime) {
+        _listAvailableTimes.add(avaliableTime);
+      });
 
-    if (_listAvailableTimes.length > 0) {
-      disabled = false;
-    } else {
-      disabled = true;
-    }
+      if (_listAvailableTimes.length > 0) {
+        _disabled = false;
+      } else {
+        _disabled = true;
+      }
 
-    _changeDetectorRef.markForCheck();
+      _changeDetectorRef.markForCheck();
+    });
   }
 }
