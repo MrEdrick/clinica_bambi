@@ -132,6 +132,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date)
         .then((_list) {
+
       _list.forEach((avaliableTime) {
         _listAvailableTimes.add(avaliableTime);
       });

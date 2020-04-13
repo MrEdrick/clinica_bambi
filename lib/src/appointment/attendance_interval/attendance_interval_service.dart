@@ -97,12 +97,12 @@ class AttendanceIntervalService {
     if ((dentistId.isEmpty) || (shiftId.isEmpty)) {
       return returnEmptyAttendanceInterval();
     }
-
+    print(_attendanceIntervalList);
     if ((_attendanceIntervalList == null) ||
         (_attendanceIntervalList?.length == 0)) {
       await getAllAttendanceIntervalAcives();
     }
-
+    print(_attendanceIntervalListByDentistIdShiftId);
     return _attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] ==
             null
         ? returnEmptyAttendanceInterval()
