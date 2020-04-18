@@ -50,16 +50,16 @@ class AttendanceIntervalService {
     await (_attendanceIntervalList = await new AttendanceIntervalDAO()
         .getAllAttendanceIntervalFilter({}, {}));
 
-    await _attendanceIntervalList.forEach((attendanceInterval) async {
-      _attendanceIntervalListById[attendanceInterval["documentPath"]] =
+    for (Map _attendanceInterval in _attendanceIntervalList) {
+      _attendanceIntervalListById[_attendanceInterval["documentPath"]] =
           attendanceInterval;
 
-      _attendanceIntervalListByDentistIdShiftId[
-              attendanceInterval["dentistId"] + attendanceInterval["shiftId"]] =
-          await turnMapInAttendanceInterval(attendanceInterval);
+      await (_attendanceIntervalListByDentistIdShiftId[
+              _attendanceInterval["dentistId"] + _attendanceInterval["shiftId"]] =
+          await turnMapInAttendanceInterval(_attendanceInterval));
 
-      _list.add(await turnMapInAttendanceInterval(attendanceInterval));
-    });
+      await (_list.add(await turnMapInAttendanceInterval(_attendanceInterval)));
+    };
 
     return _list;
   }
@@ -97,12 +97,12 @@ class AttendanceIntervalService {
     if ((dentistId.isEmpty) || (shiftId.isEmpty)) {
       return returnEmptyAttendanceInterval();
     }
-    print(_attendanceIntervalList);
+
     if ((_attendanceIntervalList == null) ||
         (_attendanceIntervalList?.length == 0)) {
       await getAllAttendanceIntervalAcives();
     }
-    print(_attendanceIntervalListByDentistIdShiftId);
+
     return _attendanceIntervalListByDentistIdShiftId[dentistId + shiftId] ==
             null
         ? returnEmptyAttendanceInterval()
@@ -152,18 +152,20 @@ class AttendanceIntervalService {
   }
 
   Future<AttendanceInterval> turnMapInAttendanceInterval(Map map) async {
-    return await new AttendanceInterval(
+    AttendanceInterval _attendanceInterval = await (new AttendanceInterval(
       map["documentPath"],
       map["dentistId"],
       map["shiftId"],
       map["intervalId"],
-      await new DentistService().getDentistById(
-          new GenericService().returnStringEmptyIfNull(map["dentistId"])),
-      await new ShiftService().getShiftById(
-          new GenericService().returnStringEmptyIfNull(map["shiftId"])),
-      await new IntervalService().getIntervalById(
-          new GenericService().returnStringEmptyIfNull(map["intervalId"])),
-    );
+      await (new DentistService().getDentistById(
+          new GenericService().returnStringEmptyIfNull(map["dentistId"]))),
+      await (new ShiftService().getShiftById(
+          new GenericService().returnStringEmptyIfNull(map["shiftId"]))),
+      await (new IntervalService().getIntervalById(
+          new GenericService().returnStringEmptyIfNull(map["intervalId"]))),
+    ));
+
+    return _attendanceInterval;
   }
 
   Future<bool> save() async {
