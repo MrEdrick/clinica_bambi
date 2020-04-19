@@ -41,6 +41,8 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   @Input()
   String dentistId;
 
+  String availableTimesObservation = "";
+
   bool _disabled = false;
   bool get disabled => _disabled;
   @Input()
@@ -136,6 +138,8 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date)
         .then((_list) {
+      availableTimesObservation = "Buscando...";
+      _changeDetectorRef.markForCheck();
 
       _list.forEach((avaliableTime) {
         _listAvailableTimes.add(avaliableTime);
@@ -147,6 +151,7 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
         _disabled = true;
       }
 
+      availableTimesObservation = "";
       _changeDetectorRef.markForCheck();
     });
   }

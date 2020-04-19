@@ -1,7 +1,7 @@
-<material-dropdown-select id="available-times-dropdown-select" class="list" 
-    [disabled]="disabled"
-    [buttonText]="singleSelectAvailableTimesLabel"
-    [selection]="singleSelectModelAvailableTimes"
-    [options]="availableTimesOptions"
-    [itemRenderer]="itemRendererAvailableTimes">
+<material-dropdown-select id="available-times-dropdown-select" class="list" [disabled]="disabled"
+    [buttonText]="singleSelectAvailableTimesLabel" [selection]="singleSelectModelAvailableTimes"
+    [options]="availableTimesOptions" [itemRenderer]="itemRendererAvailableTimes">
 </material-dropdown-select>
+<div class="sub-title-observation">
+    {{availableTimesObservation}}
+</div>

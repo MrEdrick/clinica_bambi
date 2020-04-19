@@ -38,14 +38,20 @@
 
             <div id="shift-select">
                 <div #shiftDropdownSelect></div>
-                <div id="sub-title-shift-observation">
+                <div id="sub-title-shift-observation ">
                     {{shiftObservation}}
                 </div>
             </div>
 
-            <div id="available-times-select">
+            <div *ngIf="autoAppointmentSchedulingService.autoAppointmentScheduling.id == ''"
+                id="available-times-select">
                 <div #availableTimesDropdownSelect></div>
             </div>
+
+            <material-input *ngIf="autoAppointmentSchedulingService.autoAppointmentScheduling.id != ''"
+                class="edit-input" id="horary" label="Horario..." 
+                [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.horary">
+            </material-input>
 
             <div class="button-search-container">
                 <material-button raised class="button-search" (click)="onVacancySearch()">
