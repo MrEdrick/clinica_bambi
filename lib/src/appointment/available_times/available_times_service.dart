@@ -36,14 +36,17 @@ class AvailableTimesService {
     Duration startTime;
     Duration endTime;
 
-    if ((_availableTimesList != null) && (_availableTimesList.length != 0)) {
+    if ((_availableTimesList != null) && (_availableTimesList?.length != 0)) {
       return _list;
     }
 
     clearAllAvailableTimesList();
     _appointmentSchedulingByDate.clear();
 
+    appointmentSchedulingService.clearAllAppointmentSchedulingByDate();
+
     await appointmentSchedulingService.getAllAppointmentSchedulingByDate(date);
+    
     _appointmentSchedulingByDate = await appointmentSchedulingService
         .getAppointmentSchedulingWithFilterFromList(
             date.toString(), {'dentistId': dentistId, 'shiftId': shiftId});
@@ -63,6 +66,10 @@ class AvailableTimesService {
 
     _attendanceInterval = await attendanceIntervalService
         .getAttendanceIntervalByDentistIdShiftId(dentistId, shiftId);
+
+    if (_attendanceInterval == null) {
+      return _list;
+    }
 
     if (_attendanceInterval.intervalId.isEmpty) {
       return _list;
@@ -91,7 +98,7 @@ class AvailableTimesService {
 
   Future<List<AvailableTimesUI>> getAllAvailableTimesUIAcives(
       String shiftId, String dentistId, Date date) async {
-    if ((_availableTimesList == null) || (_availableTimesList.length == 0)) {
+    if ((_availableTimesList == null) || (_availableTimesList?.length == 0)) {
       await getAllAvailableTimesByShiftIdDentistId(shiftId, dentistId, date);
     }
 

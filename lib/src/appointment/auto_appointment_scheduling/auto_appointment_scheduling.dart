@@ -15,6 +15,7 @@ class AutoAppointmentScheduling {
   String _telephone;
   String _dateAppointmentScheduling;
   String _patientAccountId;
+  String _horary;
   Shift _shift;
   Dentist _dentist;
   Agreement _agreement;
@@ -22,7 +23,8 @@ class AutoAppointmentScheduling {
 
   AutoAppointmentScheduling( this._id, this._dateAppointmentScheduling, 
             this._shiftId, this._dentistId, this._agreementId, this._procedureId, 
-            this._patient, this._email, this._telephone, this._patientAccountId,
+            this._patient, this._email, this._telephone, 
+            this._patientAccountId, this._horary,
             this._shift, this._dentist, this._agreement, this._procedure);
 
   String get id => _id;
@@ -59,6 +61,9 @@ class AutoAppointmentScheduling {
 
   String get patientAccountId => _patientAccountId;
   set patientAccountId(String patientAccountId) => _patientAccountId = patientAccountId;
+
+  String get horary => _horary;
+  set horary(String horary) => _horary = horary;
 
   Shift get shift => _shift;
   set shift(Shift shift) => _shift = shift;

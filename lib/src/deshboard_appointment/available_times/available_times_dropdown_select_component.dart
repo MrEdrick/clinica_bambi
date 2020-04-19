@@ -58,9 +58,13 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   @Input()
   set showAvailableTimes(bool showAvailableTimes) {
     _showAvailableTimes = showAvailableTimes;
-    if (showAvailableTimes) {
-      listAvailableTimes();
+    
+    if (!showAvailableTimes) {
+      shiftId = '';
+      dentistId = '';  
     }
+
+    listAvailableTimes();
   }
 
   final List<AvailableTimesUI> _listAvailableTimes =
@@ -122,12 +126,12 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   }
 
   void listAvailableTimes() async {
+    _listAvailableTimes.clear();
+    _availableTimesService.clearAllAvailableTimesList();
+
     if ((shiftId == null) || (dentistId == null) || (date == null)) {
       return;
     }
-
-    _listAvailableTimes.clear();
-    _availableTimesService.clearAllAvailableTimesList();
 
     await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date)

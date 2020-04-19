@@ -11,7 +11,6 @@ import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_dao.dart';
-import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration.dart';
 import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
 import '../../appointment/generic/generic_service.dart';
 
@@ -241,6 +240,7 @@ class AutoAppointmentSchedulingService {
         '',
         '',
         '',
+        '',
         shiftService.returnEmptyShift(),
         dentistService.returnEmptyDentist(),
         agreementService.returnEmptyAgreement(),
@@ -260,6 +260,7 @@ class AutoAppointmentSchedulingService {
         map["email"],
         map["tel"],
         map["patientAccountId"],
+        map["horary"],
         await new ShiftService().getShiftById(
             new GenericService().returnStringEmptyIfNull(map["shiftId"])),
         await new DentistService().getDentistById(
@@ -288,7 +289,8 @@ class AutoAppointmentSchedulingService {
       "patient": _autoAppointmentScheduling.patient,
       "email": _autoAppointmentScheduling.email,
       "tel": _autoAppointmentScheduling.telephone,
-      "patientAccountId": _autoAppointmentScheduling.patientAccountId
+      "patientAccountId": _autoAppointmentScheduling.patientAccountId,
+      "horary": _autoAppointmentScheduling.horary
     };
 
     if (_autoAppointmentScheduling.id != "") {
@@ -329,6 +331,8 @@ class AutoAppointmentSchedulingService {
           _autoAppointmentScheduling.email;
       appointmentSchedulingService.appointmentScheduling.telephone =
           _autoAppointmentScheduling.telephone;
+      appointmentSchedulingService.appointmentScheduling.horary =
+          _autoAppointmentScheduling.horary;
 
       saved = await appointmentSchedulingService.save();
     }

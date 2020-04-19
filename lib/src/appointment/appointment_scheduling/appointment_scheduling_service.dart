@@ -29,7 +29,7 @@ class AppointmentSchedulingService {
 
   Future<Map> getAllAppointmentSchedulingByDate(Date date) async {
     if ((_appointmentSchedulingByDate != null) &&
-        (_appointmentSchedulingByDate.length != 0)) {
+        (_appointmentSchedulingByDate?.length != 0)) {
       return _appointmentSchedulingByDate;
     }
 
@@ -197,18 +197,19 @@ class AppointmentSchedulingService {
 
   AppointmentScheduling returnEmptyAppointmentShceduling() {
     return new AppointmentScheduling(
-        "",
+        '',
         Date.today().toString(),
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
         new ShiftService().returnEmptyShift(),
         new DentistService().returnEmptyDentist(),
         new AgreementService().returnEmptyAgreement(),
@@ -238,6 +239,7 @@ class AppointmentSchedulingService {
         map["email"],
         new GenericService().returnStringEmptyIfNull(map["tel"]),
         map["userId"],
+        map["horary"],
         await new ShiftService().getShiftById(
             new GenericService().returnStringEmptyIfNull(map["shiftId"])),
         await new DentistService().getDentistById(
@@ -267,7 +269,8 @@ class AppointmentSchedulingService {
       "patient": _appointmentScheduling.patient,
       "email": _appointmentScheduling.email,
       "tel": _appointmentScheduling.telephone,
-      "userId": fb.auth().currentUser.uid
+      "userId": fb.auth().currentUser.uid,
+      "horary": _appointmentScheduling.horary
     };
 
     if (_appointmentScheduling.id != '') {

@@ -17,6 +17,7 @@ class AppointmentScheduling {
   String _telephone;
   String _dateAppointmentScheduling;
   String _userId;
+  String _horary;
   Shift _shift;
   Dentist _dentist;
   Agreement _agreement;
@@ -35,6 +36,7 @@ class AppointmentScheduling {
       this._email,
       this._telephone,
       this._userId,
+      this._horary,
       this._shift,
       this._dentist,
       this._agreement,
@@ -109,6 +111,9 @@ class AppointmentScheduling {
 
   String get userId => _userId;
   set userId(String userId) => _userId = userId;
+
+  String get horary => _horary;
+  set horary(String horary) => _horary = horary;
 
   Shift get shift => _shift;
   set shift(Shift shift) => _shift = shift;

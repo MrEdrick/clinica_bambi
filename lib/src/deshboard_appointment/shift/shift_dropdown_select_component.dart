@@ -121,10 +121,10 @@ class ShiftDropdownSelectComponent implements OnInit {
         dentistProcedureByDayOfWeekByShiftService
             .clearAllDentistProcedureByDayOfWeekByShiftList();
 
-        if ((!dentistProcedureByDayOfWeekId.isEmpty) ||
-            (_shiftService.turnMapInShift(map).id.isEmpty)) {
+        if ((!dentistProcedureByDayOfWeekId.isEmpty) &&
+            (!_shiftService.turnMapInShift(map).id.isEmpty)) {
           await dentistProcedureByDayOfWeekByShiftService
-            .getAllDentistProcedureByDayOfWeekByShiftAcives();
+              .getAllDentistProcedureByDayOfWeekByShiftAcives();
 
           await dentistProcedureByDayOfWeekByShiftService
               .getDentistProcedureByDayOfWeekByShiftListWithFilterFromList({
@@ -138,6 +138,7 @@ class ShiftDropdownSelectComponent implements OnInit {
                 _shiftService.turnMapInShift(map).description));
           }
         }
+
         this.disabled = _listShift.isEmpty;
       } else {
         _listShift.add(new ShiftUI(_shiftService.turnMapInShift(map).id,

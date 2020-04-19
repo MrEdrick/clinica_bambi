@@ -382,6 +382,33 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void onSelectProcedureSelectDropdown() async {
     if (!procedureDropdownSelectComponentRef
         .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
+      if (!dentistDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+        dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+            ?.deselect(dentistDropdownSelectComponentRef
+                .instance.singleSelectModelDentist?.selectedValues?.first);
+      }
+
+      if (!shiftDropdownSelectComponentRef
+          .instance.singleSelectModelShift.selectedValues.isEmpty) {
+        shiftDropdownSelectComponentRef.instance.singleSelectModelShift
+            ?.deselect(shiftDropdownSelectComponentRef
+                .instance.singleSelectModelShift?.selectedValues?.first);
+      }
+
+      if (!availableTimesDropdownSelectComponentRef
+          .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
+        availableTimesDropdownSelectComponentRef
+            .instance.singleSelectModelAvailableTimes
+            ?.deselect(availableTimesDropdownSelectComponentRef.instance
+                .singleSelectModelAvailableTimes?.selectedValues?.first);
+      }
+
+      shiftDropdownSelectComponentRef.instance.dentistProcedureByDayOfWeekId = '';
+      shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+
+      listAvailableTimes();
+
       await dentistProcedureService
           .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
               .instance.singleSelectModelProcedure.selectedValues.first.id)
@@ -577,6 +604,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       availableTimesDropdownSelectComponentRef.instance.showAvailableTimes =
           true;
       availableTimesDropdownSelectComponentRef.instance.disabled = false;
+    } else {
+      availableTimesDropdownSelectComponentRef.instance.showAvailableTimes =
+          false;
+      availableTimesDropdownSelectComponentRef.instance.disabled = true;
     }
   }
 
@@ -717,6 +748,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelProcedure.selectedValues.isEmpty) ||
         (shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
+        (availableTimesDropdownSelectComponentRef
+            .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
         ((telephoneMask.number == '') &&
@@ -770,6 +803,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     autoAppointmentSchedulingService.autoAppointmentScheduling.shiftId =
         shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.first.id;
+
+    autoAppointmentSchedulingService.autoAppointmentScheduling.horary =
+        availableTimesDropdownSelectComponentRef.instance
+            .singleSelectModelAvailableTimes.selectedValues.first.description;
 
     if (await autoAppointmentSchedulingService.save()) {
       emailSenderHTTP = await new EmailSenderService(new Email(
