@@ -207,6 +207,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void onEdit() {
     if (!autoAppointmentSchedulingService
         .autoAppointmentScheduling.id.isEmpty) {
+      procedureDropdownSelectComponentRef.instance.disabled = true;
+      
       disabledButtonSave = false;
 
       dateAppointmentScheduling = new Date.parse(
@@ -655,13 +657,13 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void listRequirementList(String procedureId) async {
-    print('0');
     querySelector("#sub-title-requirement").style.display = "block";
 
     clearListComponentRef(listComponentRefProcedureRequirement);
 
-    procedureRequirementService.getProcedureRequirementListWithFilterFromList(
-        {"procedureId": procedureId}).forEach((requirement) {
+    await procedureRequirementService
+        .getProcedureRequirementListWithFilterFromList(
+            {"procedureId": procedureId}).forEach((requirement) {
       querySelector("#sub-title-requirement").style.display = "none";
 
       requirementService.requirement = requirementService.turnMapInRequirement(
