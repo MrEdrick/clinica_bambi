@@ -208,7 +208,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     if (!autoAppointmentSchedulingService
         .autoAppointmentScheduling.id.isEmpty) {
       procedureDropdownSelectComponentRef.instance.disabled = true;
-      
+
       disabledButtonSave = false;
 
       dateAppointmentScheduling = new Date.parse(
@@ -827,6 +827,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
   void onNoSave() {
     showAssertMessageAlert = false;
+  }
+
+  Future<bool> checkDuplicity() async {
+    //autoAppointmentSchedulingService.get
+    return false;
   }
 
   void onSave() async {
