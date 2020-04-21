@@ -60,10 +60,10 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
   @Input()
   set showAvailableTimes(bool showAvailableTimes) {
     _showAvailableTimes = showAvailableTimes;
-    
+
     if (!showAvailableTimes) {
       shiftId = '';
-      dentistId = '';  
+      dentistId = '';
     }
 
     listAvailableTimes();
@@ -135,12 +135,12 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
       return;
     }
 
+    availableTimesObservation = "Buscando...";
+    _changeDetectorRef.markForCheck();
+
     await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date)
         .then((_list) {
-      availableTimesObservation = "Buscando...";
-      _changeDetectorRef.markForCheck();
-
       _list.forEach((avaliableTime) {
         _listAvailableTimes.add(avaliableTime);
       });
