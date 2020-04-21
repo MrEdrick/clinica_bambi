@@ -269,7 +269,6 @@ index.html
 main.dart.js
 manifest.json
 packages/$sdk/_internal/ddc_sdk.sum
-packages/$sdk/_internal/spec.sum
 packages/$sdk/_internal/strong.sum
 packages/$sdk/dev_compiler/amd/dart_sdk.js
 packages/$sdk/dev_compiler/amd/require.js
@@ -281,12 +280,7 @@ packages/$sdk/dev_compiler/kernel/amd/require.js
 packages/$sdk/dev_compiler/kernel/common/dart_sdk.js
 packages/$sdk/dev_compiler/kernel/common/run.js
 packages/$sdk/dev_compiler/kernel/es6/dart_sdk.js
-packages/$sdk/dev_compiler/kernel/legacy/dart_library.js
-packages/$sdk/dev_compiler/kernel/legacy/dart_sdk.js
-packages/$sdk/dev_compiler/legacy/dart_library.js
-packages/$sdk/dev_compiler/legacy/dart_sdk.js
 packages/$sdk/dev_compiler/web/dart_stack_trace_mapper.js
-packages/$sdk/dev_compiler/web/ddc_web_compiler.js
 packages/analyzer/src/summary/format.fbs
 packages/angular/src/di/README.md
 packages/angular_components/app_layout/README.md
@@ -564,8 +558,10 @@ packages/pedantic/analysis_options.1.5.0.yaml
 packages/pedantic/analysis_options.1.6.0.yaml
 packages/pedantic/analysis_options.1.7.0.yaml
 packages/pedantic/analysis_options.1.8.0.yaml
+packages/pedantic/analysis_options.1.9.0.yaml
 packages/pedantic/analysis_options.yaml
 packages/test/dart.js
+packages/test/src/runner/browser/static/default.html.tpl
 packages/test/src/runner/browser/static/favicon.ico
 packages/test/src/runner/browser/static/host.css
 packages/test/src/runner/browser/static/host.dart.js

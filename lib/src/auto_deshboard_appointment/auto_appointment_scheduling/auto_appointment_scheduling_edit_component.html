@@ -49,20 +49,20 @@
             </div>
 
             <material-input *ngIf="autoAppointmentSchedulingService.autoAppointmentScheduling.id != ''"
-                class="edit-input" id="horary" label="Horario..." 
+                class="edit-input" id="horary" label="Horario..." [disabled]="true"
                 [ngModel]="autoAppointmentSchedulingService.autoAppointmentScheduling.horary">
             </material-input>
 
-            <div class="button-search-container">
+            <!--div class="button-search-container">
                 <material-button raised class="button-search" (click)="onVacancySearch()">
                     BUSCAR VAGAS
                 </material-button>
-            </div>
+            </div-->
         </div>
         <div id="container-result-datas">
-            <div class="sub-title" id="sub-title-vacancy">
+            <!--div class="sub-title" id="sub-title-vacancy">
                 {{vacancyMessage}}
-            </div>
+            </div-->
 
             <div class="sub-title">
                 Dias da semana de atendimento do dentista

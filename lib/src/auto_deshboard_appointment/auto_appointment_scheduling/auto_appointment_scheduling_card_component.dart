@@ -74,6 +74,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
   void onEdit() {
     autoAppointmentSchedulingService.autoAppointmentScheduling =
         autoAppointmentScheduling;
+
     ComponentFactory<
             auto_appointment_scheduling_edit
                 .AutoAppointmentSchedulingEditComponent>
@@ -83,6 +84,7 @@ class AutoAppointmentSchedulingCardComponent implements OnInit {
     ComponentRef autoAppointmentSchedulingEditComponent =
         _loader.loadNextToLocation(
             autoAppointmentSchedulingEdit, materialContainerEdit);
+
     autoAppointmentSchedulingEditComponent.instance.componentRef =
         autoAppointmentSchedulingEditComponent;
   }

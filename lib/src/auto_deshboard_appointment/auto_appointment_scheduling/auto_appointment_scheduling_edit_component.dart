@@ -205,7 +205,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   AutoAppointmentSchedulingEditComponent(this._loader, this._changeDetectorRef);
 
   void onEdit() {
-    if (autoAppointmentSchedulingService.autoAppointmentScheduling.id != "") {
+    if (!autoAppointmentSchedulingService
+        .autoAppointmentScheduling.id.isEmpty) {
+      disabledButtonSave = false;
+
       dateAppointmentScheduling = new Date.parse(
           autoAppointmentSchedulingService
               .autoAppointmentScheduling.dateAppointmentScheduling,
@@ -358,21 +361,26 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
     listComponentRefDropdownSelect.add(shiftDropdownSelectComponentRef);
 
-    ComponentFactory<
-            available_times_dropdown_select_list_component
-                .AvailableTimesDropdownSelectComponent>
-        availableTimesDropdownSelectComponent =
-        available_times_dropdown_select_list_component
-            .AvailableTimesDropdownSelectComponentNgFactory;
+    if (autoAppointmentSchedulingService.autoAppointmentScheduling.id.isEmpty) {
+      ComponentFactory<
+              available_times_dropdown_select_list_component
+                  .AvailableTimesDropdownSelectComponent>
+          availableTimesDropdownSelectComponent =
+          available_times_dropdown_select_list_component
+              .AvailableTimesDropdownSelectComponentNgFactory;
 
-    availableTimesDropdownSelectComponentRef = _loader.loadNextToLocation(
-        availableTimesDropdownSelectComponent,
-        materialContainerAvailableTimesDropdownSelect);
+      availableTimesDropdownSelectComponentRef = _loader.loadNextToLocation(
+          availableTimesDropdownSelectComponent,
+          materialContainerAvailableTimesDropdownSelect);
 
-    availableTimesDropdownSelectComponentRef.instance.disabled = true;
+      availableTimesDropdownSelectComponentRef.instance.disabled = true;
 
-    listComponentRefDropdownSelect
-        .add(availableTimesDropdownSelectComponentRef);
+      availableTimesDropdownSelectComponentRef.instance.selectionChanges
+          .listen((_) => onSelectAvailableTimesSelectDropdown());
+
+      listComponentRefDropdownSelect
+          .add(availableTimesDropdownSelectComponentRef);
+    }
 
     onEdit();
 
@@ -382,49 +390,58 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void onSelectProcedureSelectDropdown() async {
     if (!procedureDropdownSelectComponentRef
         .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
-      if (!dentistDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.isEmpty) {
-        dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
-            ?.deselect(dentistDropdownSelectComponentRef
-                .instance.singleSelectModelDentist?.selectedValues?.first);
+      if (autoAppointmentSchedulingService
+          .autoAppointmentScheduling.id.isEmpty) {
+        if (!dentistDropdownSelectComponentRef
+            .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+          dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
+              ?.deselect(dentistDropdownSelectComponentRef
+                  .instance.singleSelectModelDentist?.selectedValues?.first);
+        }
+
+        if (!shiftDropdownSelectComponentRef
+            .instance.singleSelectModelShift.selectedValues.isEmpty) {
+          shiftDropdownSelectComponentRef.instance.singleSelectModelShift
+              ?.deselect(shiftDropdownSelectComponentRef
+                  .instance.singleSelectModelShift?.selectedValues?.first);
+        }
+
+        if (!availableTimesDropdownSelectComponentRef
+            .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
+          availableTimesDropdownSelectComponentRef
+              .instance.singleSelectModelAvailableTimes
+              ?.deselect(availableTimesDropdownSelectComponentRef.instance
+                  .singleSelectModelAvailableTimes?.selectedValues?.first);
+        }
+
+        shiftDropdownSelectComponentRef.instance.dentistProcedureByDayOfWeekId =
+            '';
+        shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+
+        listAvailableTimes();
       }
-
-      if (!shiftDropdownSelectComponentRef
-          .instance.singleSelectModelShift.selectedValues.isEmpty) {
-        shiftDropdownSelectComponentRef.instance.singleSelectModelShift
-            ?.deselect(shiftDropdownSelectComponentRef
-                .instance.singleSelectModelShift?.selectedValues?.first);
-      }
-
-      if (!availableTimesDropdownSelectComponentRef
-          .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
-        availableTimesDropdownSelectComponentRef
-            .instance.singleSelectModelAvailableTimes
-            ?.deselect(availableTimesDropdownSelectComponentRef.instance
-                .singleSelectModelAvailableTimes?.selectedValues?.first);
-      }
-
-      shiftDropdownSelectComponentRef.instance.dentistProcedureByDayOfWeekId = '';
-      shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
-
-      listAvailableTimes();
 
       await dentistProcedureService
           .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
               .instance.singleSelectModelProcedure.selectedValues.first.id)
           .then((listDentisitId) {
-        dentistDropdownSelectComponentRef.instance.disabled = false;
+        if (autoAppointmentSchedulingService
+            .autoAppointmentScheduling.id.isEmpty) {
+          dentistDropdownSelectComponentRef.instance.disabled = false;
+        }
+
         dentistDropdownSelectComponentRef.instance.listDentisitIdToShow =
             listDentisitId;
       });
       _changeDetectorRef.markForCheck();
+
       await listRequirementList(procedureDropdownSelectComponentRef
           .instance.singleSelectModelProcedure.selectedValues.first.id);
       _changeDetectorRef.markForCheck();
     }
   }
 
-  void onVacancySearch() async {
+  /*void onVacancySearch() async {
     if ((!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
@@ -482,11 +499,16 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       vacancyMessage = "Preencha todos os campos";
     }
     _changeDetectorRef.markForCheck();
-  }
+  }*/
 
   Future<Map<String, String>>
       returnDaysOfWeekListByDentistProcedureIdMap() async {
     Map<String, String> _list = new Map<String, String>();
+
+    if (!autoAppointmentSchedulingService
+        .autoAppointmentScheduling.id.isEmpty) {
+      return _list;
+    }
 
     if ((dentistDropdownSelectComponentRef == null) ||
         (procedureDropdownSelectComponentRef == null)) {
@@ -555,7 +577,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         querySelector("#sub-title-days-of-week").style.display = "block";
       }
 
-      shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+      if (autoAppointmentSchedulingService
+          .autoAppointmentScheduling.id.isEmpty) {
+        shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+      }
     });
   }
 
@@ -564,31 +589,49 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
       await listAvailableTimes();
 
-      List<Map> list = periodByShiftByDayOfWeekService
-          .getPeriodByShiftByDayOfWeekListWithFilterFromList({
-        "shiftId": shiftDropdownSelectComponentRef
-            .instance.singleSelectModelShift.selectedValues.first.id,
-        "dayOfWeek": DateFormat('EEEE')
-            .format(dateAppointmentScheduling.asUtcTime())
-            .toUpperCase()
-      });
+      if (autoAppointmentSchedulingService
+          .autoAppointmentScheduling.id.isEmpty) {
+        List<Map> list = periodByShiftByDayOfWeekService
+            .getPeriodByShiftByDayOfWeekListWithFilterFromList({
+          "shiftId": shiftDropdownSelectComponentRef
+              .instance.singleSelectModelShift.selectedValues.first.id,
+          "dayOfWeek": DateFormat('EEEE')
+              .format(dateAppointmentScheduling.asUtcTime())
+              .toUpperCase()
+        });
 
-      if (list.length == 0) {
-        shiftObservation = (await shiftService.getShiftById(
-                shiftDropdownSelectComponentRef
-                    .instance.singleSelectModelShift.selectedValues.first.id))
-            .observation;
-      } else {
-        shiftObservation = periodByShiftByDayOfWeekService
-            .turnMapInPeriodByShiftByDayOfWeek(list.first)
-            .description;
+        if (list.length == 0) {
+          shiftObservation = (await shiftService.getShiftById(
+                  shiftDropdownSelectComponentRef
+                      .instance.singleSelectModelShift.selectedValues.first.id))
+              .observation;
+        } else {
+          shiftObservation = periodByShiftByDayOfWeekService
+              .turnMapInPeriodByShiftByDayOfWeek(list.first)
+              .description;
+        }
       }
     } else {
       shiftObservation = "";
     }
   }
 
+  void onSelectAvailableTimesSelectDropdown() {
+    if (!autoAppointmentSchedulingService
+        .autoAppointmentScheduling.id.isEmpty) {
+      return;
+    }
+
+    disabledButtonSave = availableTimesDropdownSelectComponentRef
+        .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty;
+  }
+
   void listAvailableTimes() async {
+    if (!autoAppointmentSchedulingService
+        .autoAppointmentScheduling.id.isEmpty) {
+      return;
+    }
+
     if ((!shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
@@ -612,6 +655,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void listRequirementList(String procedureId) async {
+    print('0');
     querySelector("#sub-title-requirement").style.display = "block";
 
     clearListComponentRef(listComponentRefProcedureRequirement);
@@ -683,12 +727,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .instance.singleSelectModelShift?.selectedValues?.first);
     }
 
-    if (!availableTimesDropdownSelectComponentRef
-        .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
-      availableTimesDropdownSelectComponentRef
-          .instance.singleSelectModelAvailableTimes
-          ?.deselect(availableTimesDropdownSelectComponentRef
-              .instance.singleSelectModelAvailableTimes?.selectedValues?.first);
+    if (autoAppointmentSchedulingService.autoAppointmentScheduling.id.isEmpty) {
+      if (!availableTimesDropdownSelectComponentRef
+          .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
+        availableTimesDropdownSelectComponentRef
+            .instance.singleSelectModelAvailableTimes
+            ?.deselect(availableTimesDropdownSelectComponentRef.instance
+                .singleSelectModelAvailableTimes?.selectedValues?.first);
+      }
     }
 
     telephoneMask.number = '';
@@ -742,14 +788,24 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       return;
     }
 
+    if (autoAppointmentSchedulingService.autoAppointmentScheduling.id.isEmpty) {
+      if (availableTimesDropdownSelectComponentRef
+          .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
+        showAssertMessageSave = true;
+        _changeDetectorRef.markForCheck();
+
+        saveButtonMessage = "GRAVAR AGENDAMENTO";
+        disabledButtonSave = false;
+        return;
+      }
+    }
+
     if ((dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) ||
         (procedureDropdownSelectComponentRef
             .instance.singleSelectModelProcedure.selectedValues.isEmpty) ||
         (shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
-        (availableTimesDropdownSelectComponentRef
-            .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
         ((telephoneMask.number == '') &&
@@ -804,9 +860,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.first.id;
 
-    autoAppointmentSchedulingService.autoAppointmentScheduling.horary =
-        availableTimesDropdownSelectComponentRef.instance
-            .singleSelectModelAvailableTimes.selectedValues.first.description;
+    if (autoAppointmentSchedulingService.autoAppointmentScheduling.id.isEmpty) {
+      autoAppointmentSchedulingService.autoAppointmentScheduling.horary =
+          availableTimesDropdownSelectComponentRef.instance
+              .singleSelectModelAvailableTimes.selectedValues.first.description;
+    }
 
     if (await autoAppointmentSchedulingService.save()) {
       emailSenderHTTP = await new EmailSenderService(new Email(
