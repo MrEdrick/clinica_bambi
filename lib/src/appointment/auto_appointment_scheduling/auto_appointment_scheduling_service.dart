@@ -72,6 +72,16 @@ class AutoAppointmentSchedulingService {
     return _autoAppointmentSchedulingByPatientAccountId;
   }
 
+  Future<List<Map>> getAllAutoAppointmentSchedulingByDateByHoraryByDentistId(
+      String date, String horary, String dentistId) async {
+    return await new AutoAppointmentSchedulingDAO()
+        .getAllAutoAppointmentSchedulingFilter({
+      'dateAppointmentScheduling': date,
+      'dentistId': dentistId,
+      'horary': horary
+    });
+  }
+
   Future<Map> getAllAutoAppointmentSchedulingByPatientAccountIdDate(
       String patientAccountId) async {
     if ((_autoAppointmentSchedulingByPatientAccountIdDate != null) &&
@@ -144,13 +154,14 @@ class AutoAppointmentSchedulingService {
 
     _listDocumentSnapshotTemp.clear();
 
-    _listDocumentSnapshot.forEach((doc) {
-      if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
+    if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
         if (filter["dentistId"] == doc["dentistId"]) {
           _listDocumentSnapshotTemp.add(new Map.from(doc));
         }
-      }
-    });
+      });
+    }
+    ;
 
     if ((filter["dentistId"] != null) && (filter["dentistId"] != '')) {
       _listDocumentSnapshot.clear();
@@ -190,6 +201,20 @@ class AutoAppointmentSchedulingService {
     }
 
     if ((filter["patient"] != null) && (filter["patient"] != '')) {
+      _listDocumentSnapshot.clear();
+      ListsApplyFilter();
+    }
+
+    if ((filter["horary"] != null) && (filter["horary"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (filter["horary"] == doc["horary"]) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
+    ;
+
+    if ((filter["horary"] != null) && (filter["horary"] != '')) {
       _listDocumentSnapshot.clear();
       ListsApplyFilter();
     }
@@ -271,6 +296,15 @@ class AutoAppointmentSchedulingService {
             new GenericService().returnStringEmptyIfNull(map["procedureId"]))));
   }
 
+  Future<bool> checkDuplicity() async {
+    return ((await getAllAutoAppointmentSchedulingByDateByHoraryByDentistId(
+                autoAppointmentScheduling.dateAppointmentScheduling,
+                autoAppointmentScheduling.horary,
+                autoAppointmentScheduling.dentistId))
+            .length >
+        1);
+  }
+
   Future<bool> save() async {
     bool saved = true;
     Map<bool, String> result = new Map<bool, String>();
@@ -316,6 +350,12 @@ class AutoAppointmentSchedulingService {
             .autoAppointmentSchedulingId = result.values.first;
       }
 
+      if (await checkDuplicity()) {
+        await delete(appointmentSchedulingService
+            .appointmentScheduling.autoAppointmentSchedulingId);
+        return false;
+      }
+
       appointmentSchedulingService
               .appointmentScheduling.dateAppointmentScheduling =
           _autoAppointmentScheduling.dateAppointmentScheduling;
@@ -353,7 +393,7 @@ class AutoAppointmentSchedulingService {
           (await new AppointmentSchedulingDAO().delete(appointmentSchedulingId))
               .isEmpty;
     }
-    
+
     if (result) {
       result = (await new AutoAppointmentSchedulingDAO()
               .delete(autoAppointmentSchedulingId))

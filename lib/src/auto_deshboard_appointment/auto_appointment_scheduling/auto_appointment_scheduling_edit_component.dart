@@ -829,11 +829,6 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     showAssertMessageAlert = false;
   }
 
-  Future<bool> checkDuplicity() async {
-    //autoAppointmentSchedulingService.get
-    return false;
-  }
-
   void onSave() async {
     showAssertMessageAlert = false;
 
