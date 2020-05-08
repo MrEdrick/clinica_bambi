@@ -237,7 +237,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" class="title">Condom&iacute;nio do Edif&iacute;cio P&oacute;lo I <br> Estr. do Portela, 99 -
-                                                                706/715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>
+                                                                715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="title">
