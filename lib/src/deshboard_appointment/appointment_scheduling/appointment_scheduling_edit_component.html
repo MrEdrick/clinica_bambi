@@ -7,11 +7,15 @@
         <material-datepicker id="date" class="list-date" [(date)]="dateAppointmentScheduling" [required]="true">
         </material-datepicker>
 
-        <div #shiftDropdownSelect></div>
-
         <div #agreementDropdownSelect></div>
 
         <div #dentistDropdownSelect></div>
+
+        <div #shiftDropdownSelect></div>
+            
+        <div #procedureDropdownSelect></div>
+
+        <div #availableTimesDropdownSelect></div>
 
         <material-input class="edit-input" id="patient" label="Paciente..." [ngModel]="patient"
             (inputKeyPress)="patient = $event"></material-input>
@@ -44,7 +48,7 @@
             <h1>Opps...</h1>
         </div>
 
-        <p>A consulta foi não foi salva, houve algum problema</p>
+        <p>A consulta não foi salva, houve algum problema</p>
 
     </material-dialog>
 </modal>

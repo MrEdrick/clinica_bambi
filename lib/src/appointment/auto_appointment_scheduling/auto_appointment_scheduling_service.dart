@@ -341,11 +341,11 @@ class AutoAppointmentSchedulingService {
       if (_autoAppointmentScheduling.id != "") {
         appointmentSchedulingService.appointmentScheduling =
             await (appointmentSchedulingService
-                .getAppointmentSchedulingByFilterFromDB(
+                .getAppointmentSchedulingByFilter(
                     {'autoAppointmentSchedulingId': result.values.first}));
       } else {
         appointmentSchedulingService.appointmentScheduling =
-            appointmentSchedulingService.returnEmptyAppointmentShceduling();
+            appointmentSchedulingService.returnEmptyAppointmentScheduling();
         appointmentSchedulingService.appointmentScheduling
             .autoAppointmentSchedulingId = result.values.first;
       }
