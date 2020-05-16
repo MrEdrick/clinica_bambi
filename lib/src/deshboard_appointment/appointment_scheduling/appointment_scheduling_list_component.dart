@@ -27,7 +27,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
       ModalComponent,
     ])
 class AppointmentSchedulingListComponent implements OnInit {
-  final ChangeDetectorRef _changeDetectorRef; 
+  final ChangeDetectorRef _changeDetectorRef;
   final ComponentLoader _loader;
 
   AppointmentSchedulingListComponent(this._loader, this._changeDetectorRef);
@@ -48,25 +48,29 @@ class AppointmentSchedulingListComponent implements OnInit {
   ViewContainerRef materialContainerCard;
 
   void ngOnInit() {
-    
     if (new UserService().user == null) return;
-    
-    dateFormated = new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
-    
-    List<Map> _list = new AppointmentSchedulingService().getAppointmentSchedulingFromListWithFilterByDate(date.toString());
-    
+
+    dateFormated =
+        new DateFormat("EEEE, dd 'de' MMMM 'de' yyyy").format(date.asUtcTime());
+
+    List<Map> _list = new AppointmentSchedulingService()
+        .getAppointmentSchedulingFromListWithFilterByDate(date);
+
     _list.forEach((appointmentScheduling) {
-      ComponentFactory<appointment_scheduling_card.AppointmentSchedulingCardComponent>
-          appointmentSchedulingCard =
-          appointment_scheduling_card.AppointmentSchedulingCardComponentNgFactory;
+      ComponentFactory<
+              appointment_scheduling_card.AppointmentSchedulingCardComponent>
+          appointmentSchedulingCard = appointment_scheduling_card
+              .AppointmentSchedulingCardComponentNgFactory;
 
-      ComponentRef appointmentSchedulingCardComponent =
-        _loader.loadNextToLocation(appointmentSchedulingCard, materialContainerCard);
+      ComponentRef appointmentSchedulingCardComponent = _loader
+          .loadNextToLocation(appointmentSchedulingCard, materialContainerCard);
 
-      appointmentSchedulingCardComponent.instance.appointmentSchedulingId = appointmentScheduling["documentPath"];
-      appointmentSchedulingCardComponent.instance.componentRef = appointmentSchedulingCardComponent;
+      appointmentSchedulingCardComponent.instance.appointmentSchedulingId =
+          appointmentScheduling["documentPath"];
+      appointmentSchedulingCardComponent.instance.componentRef =
+          appointmentSchedulingCardComponent;
     });
-    
+
     _changeDetectorRef.markForCheck();
   }
 }

@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:angular_components/angular_components.dart';
 import 'appointment_scheduling.dart';
 import 'appointment_scheduling_dao.dart';
-import 'appointment_scheduling_dao.dart';
 
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
@@ -16,9 +15,8 @@ import '../../appointment/generic/generic_service.dart';
 class AppointmentSchedulingService {
   static AppointmentScheduling _appointmentScheduling;
   static Map _appointmentSchedulingById = new Map();
-  static Map _appointmentSchedulingByPatientAccountId = new Map();
-  static Map _appointmentSchedulingByPatientAccountIdDate = new Map();
-  static Map _appointmentSchedulingByPatientAccountIdDateWithFilter = new Map();
+  static Map _appointmentSchedulingByDate = new Map();
+  static Map _appointmentSchedulingByDateWithFilter = new Map();
 
   final DentistService dentistService = new DentistService();
   final ProcedureService procedureService = new ProcedureService();
@@ -32,36 +30,39 @@ class AppointmentSchedulingService {
   set appointmentScheduling(AppointmentScheduling appointmentScheduling) =>
       _appointmentScheduling = appointmentScheduling;
 
-  void clearAllappointmentScheduling() {
-    _appointmentSchedulingByPatientAccountId.clear();
-    _appointmentSchedulingByPatientAccountIdDate.clear();
-    _appointmentSchedulingByPatientAccountIdDateWithFilter.clear();
+  Map get appointmentSchedulingById => _appointmentSchedulingById;
+
+  void clearAllAppointmentSchedulingByDate() {
+    _appointmentSchedulingByDate.clear();
+    _appointmentSchedulingByDateWithFilter.clear();
     _appointmentSchedulingById.clear();
   }
 
-  Map get appointmentSchedulingByPatientAccountId =>
-      _appointmentSchedulingByPatientAccountId;
-
-  Future<Map> getAllAppointmentSchedulingByPatientAccountId(
-      String patientAccountId) async {
-    if ((_appointmentSchedulingByPatientAccountId != null) &&
-        (_appointmentSchedulingByPatientAccountId.length != 0)) {
-      return _appointmentSchedulingByPatientAccountId;
+  Future<Map> getAllAppointmentSchedulingByDate(Date date) async {
+    if ((_appointmentSchedulingByDate != null) &&
+        (_appointmentSchedulingByDate?.length != 0)) {
+      return _appointmentSchedulingByDate;
     }
 
-    clearAllappointmentScheduling();
+    await (_appointmentSchedulingByDate[date.toString()] =
+        await new AppointmentSchedulingDAO().getAllAppointmentSchedulingFilter({
+      'dateAppointmentScheduling':
+          new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
+    }));
 
-    await (_appointmentSchedulingByPatientAccountId[patientAccountId] =
-        await new AppointmentSchedulingDAO()
-            .getAllAppointmentSchedulingFilter({}));
-
-    _appointmentSchedulingByPatientAccountId[patientAccountId]
+    _appointmentSchedulingByDate[date.toString()]
         .forEach((appointmentScheduling) {
       _appointmentSchedulingById[appointmentScheduling["documentPath"]] =
           appointmentScheduling;
     });
 
-    return _appointmentSchedulingByPatientAccountId;
+    return _appointmentSchedulingByDate;
+  }
+
+  Future<List<Map>> getAllAppointmentSchedulingByDateMap(Date date) async {
+    await getAllAppointmentSchedulingByDate(date);
+
+    return _appointmentSchedulingByDate[date.toString()];
   }
 
   Future<List<Map>> getAllAppointmentSchedulingByDateByHoraryByDentistId(
@@ -74,40 +75,8 @@ class AppointmentSchedulingService {
     });
   }
 
-  Future<Map> getAllAppointmentSchedulingByPatientAccountIdDate(
-      String patientAccountId) async {
-    if ((_appointmentSchedulingByPatientAccountIdDate != null) &&
-        (_appointmentSchedulingByPatientAccountIdDate.length != 0)) {
-      return _appointmentSchedulingByPatientAccountIdDate;
-    }
-    await getAllAppointmentSchedulingByPatientAccountId(patientAccountId);
-    _appointmentSchedulingByPatientAccountId[patientAccountId]
-        .forEach((appointmentScheduling) {
-      if (_appointmentSchedulingByPatientAccountIdDate[patientAccountId +
-              appointmentScheduling["dateAppointmentScheduling"]] ==
-          null) {
-        _appointmentSchedulingByPatientAccountIdDate[patientAccountId +
-                appointmentScheduling["dateAppointmentScheduling"]] =
-            new List<Map>();
-      }
-      _appointmentSchedulingByPatientAccountIdDate[patientAccountId +
-              appointmentScheduling["dateAppointmentScheduling"]]
-          .add(appointmentScheduling);
-    });
-
-    return _appointmentSchedulingByPatientAccountIdDate;
-  }
-
-  Future<List<Map>> getAllAppointmentSchedulingByPatientAccountIdDateMap(
-      String patientAccountId, Date date) async {
-    await getAllAppointmentSchedulingByPatientAccountIdDate(patientAccountId);
-
-    return _appointmentSchedulingByPatientAccountIdDate[
-        patientAccountId + date.toString()];
-  }
-
   Future<Map> getAllAppointmentSchedulingListMap() async {
-    return _appointmentSchedulingByPatientAccountIdDate;
+    return _appointmentSchedulingByDate;
   }
 
   Map getAppointmentSchedulingByIdFromList(String id) {
@@ -118,8 +87,7 @@ class AppointmentSchedulingService {
     return _appointmentSchedulingById;
   }
 
-  List<Map> getAppointmentSchedulingWithFilterFromList(
-      String patientAccountId, Date date, Map filter) {
+  List<Map> getAppointmentSchedulingWithFilterFromList(Date date, Map filter) {
     List<Map> _listDocumentSnapshot = new List<Map>();
 
     List<Map> _listDocumentSnapshotTemp = new List<Map>();
@@ -136,10 +104,10 @@ class AppointmentSchedulingService {
 
     _listDocumentSnapshot.clear();
 
-    _appointmentSchedulingByPatientAccountIdDate[patientAccountId +
+    _appointmentSchedulingByDate[
             (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))]
-        ?.forEach((appointmentSchedulingByPatientAccountIdDate) {
-      _listDocumentSnapshot.add(appointmentSchedulingByPatientAccountIdDate);
+        ?.forEach((appointmentSchedulingByDate) {
+      _listDocumentSnapshot.add(appointmentSchedulingByDate);
     });
 
     _listDocumentSnapshotTemp.clear();
@@ -209,16 +177,14 @@ class AppointmentSchedulingService {
       ListsApplyFilter();
     }
 
-    _appointmentSchedulingByPatientAccountIdDateWithFilter[
-        patientAccountId + date.toString()] = _listDocumentSnapshot;
+    _appointmentSchedulingByDateWithFilter[date.toString()] =
+        _listDocumentSnapshot;
 
-    return _appointmentSchedulingByPatientAccountIdDateWithFilter[date];
+    return _appointmentSchedulingByDateWithFilter[date];
   }
 
-  List<Map> getAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(
-      String patientAccountId, Date date) {
-    return _appointmentSchedulingByPatientAccountIdDateWithFilter[
-        patientAccountId + date.toString()];
+  List<Map> getAppointmentSchedulingFromListWithFilterByDate(Date date) {
+    return _appointmentSchedulingByDateWithFilter[date.toString()];
   }
 
   Future<AppointmentScheduling> getAppointmentSchedulingById(String id) async {

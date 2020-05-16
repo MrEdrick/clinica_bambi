@@ -49,7 +49,7 @@ class AvailableTimesService {
     
     _appointmentSchedulingByDate = await appointmentSchedulingService
         .getAppointmentSchedulingWithFilterFromList(
-            date.toString(), {'dentistId': dentistId, 'shiftId': shiftId});
+            date, {'dentistId': dentistId, 'shiftId': shiftId});
 
     if (_appointmentSchedulingByDate == null) {
       return _list;

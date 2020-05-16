@@ -17,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:angular_router/angular_router.dart';
 
 import '../../appointment/mask/telephone_mask.dart';
+import '../../appointment/mask/telephone_mask_constants.dart';
 import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
@@ -34,6 +35,7 @@ import '../../appointment/procedure_requirement/procedure_requirement_service.da
 import '../../appointment/period_by_shift_by_day_of_week/period_by_shift_by_day_of_week_service.dart';
 import '../../appointment/appointment_scheduling/appointment_scheduling_service.dart';
 import '../../appointment/available_times/available_times_service.dart';
+import '../../appointment/configuration/auto_appointment_scheduling_configuration/auto_appointment_scheduling_configuration_service.dart';
 
 import '../../appointment/user/user_service.dart';
 
@@ -107,8 +109,6 @@ class AppointmentSchedulingEditComponent implements OnInit {
   final ProcedureRequirementService procedureRequirementService =
       new ProcedureRequirementService();
   final RequirementService requirementService = new RequirementService();
-  final PatientAccountService patientAccountService =
-      new PatientAccountService();
   final DentistProcedureByDayOfWeekService dentistProcedureByDayOfWeekService =
       new DentistProcedureByDayOfWeekService();
   final DentistQuantityPerShiftByDayOfWeekService
@@ -120,6 +120,9 @@ class AppointmentSchedulingEditComponent implements OnInit {
       new PeriodByShiftByDayOfWeekService();
   final AvailableTimesService availableTimesService =
       new AvailableTimesService();
+  final AutoAppointmentSchedulingConfigurationService
+      autoAppointmentSchedulingConfigurationService =
+      new AutoAppointmentSchedulingConfigurationService();
 
   final TelephoneMask telephoneMask = new TelephoneMask("");
 
@@ -139,6 +142,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
   List<String> listDaysOfWeekOfDentist = new List<String>();
   List<Map> listQuantityPerShiftByDayOfWeek = new List<Map>();
 
+  String patient = "";
+  String email = "";
   String listDaysOfWeekOfAppointment = "";
   String listInvalidDatesByMonth = "";
   String vacancyMessage = "Informe todos os dados para a consulta da vaga";
@@ -146,6 +151,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
   String saveButtonMessage = "GRAVAR AGENDAMENTO";
 
   String shiftObservation = "";
+
+  int maxLength = MAX_LENGTH;
 
   @Input()
   ComponentRef componentRef;
@@ -198,11 +205,13 @@ class AppointmentSchedulingEditComponent implements OnInit {
   AppointmentSchedulingEditComponent(this._loader, this._changeDetectorRef);
 
   void onEdit() {
-    if (!appointmentSchedulingService
-        .appointmentScheduling.id.isEmpty) {
+    if (!appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
       procedureDropdownSelectComponentRef.instance.disabled = true;
 
       disabledButtonSave = false;
+
+      patient = appointmentSchedulingService.appointmentScheduling.patient;
+      email = appointmentSchedulingService.appointmentScheduling.email;
 
       dateAppointmentScheduling = new Date.parse(
           appointmentSchedulingService
@@ -212,50 +221,40 @@ class AppointmentSchedulingEditComponent implements OnInit {
       telephoneMask.number =
           appointmentSchedulingService.appointmentScheduling.telephone;
 
-      if (appointmentSchedulingService.appointmentScheduling.dentist !=
-          null) {
+      if (appointmentSchedulingService.appointmentScheduling.dentist != null) {
         dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
             .select(new DentistUI(
-                appointmentSchedulingService
-                    .appointmentScheduling.dentist.id,
+                appointmentSchedulingService.appointmentScheduling.dentist.id,
                 appointmentSchedulingService
                     .appointmentScheduling.dentist.name));
       }
 
-      if (appointmentSchedulingService
-              .appointmentScheduling.agreement !=
+      if (appointmentSchedulingService.appointmentScheduling.agreement !=
           null) {
         agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
             .select(new AgreementUI(
-                appointmentSchedulingService
-                    .appointmentScheduling.agreement.id,
+                appointmentSchedulingService.appointmentScheduling.agreement.id,
                 appointmentSchedulingService
                     .appointmentScheduling.agreement.description));
       }
 
-      if (appointmentSchedulingService.appointmentScheduling.shift !=
-          null) {
+      if (appointmentSchedulingService.appointmentScheduling.shift != null) {
         shiftDropdownSelectComponentRef.instance.singleSelectModelShift.select(
             new ShiftUI(
-                appointmentSchedulingService
-                    .appointmentScheduling.shift.id,
+                appointmentSchedulingService.appointmentScheduling.shift.id,
                 appointmentSchedulingService
                     .appointmentScheduling.shift.description));
       }
 
-      if (appointmentSchedulingService
-              .appointmentScheduling.procedure !=
+      if (appointmentSchedulingService.appointmentScheduling.procedure !=
           null) {
         procedureDropdownSelectComponentRef.instance.singleSelectModelProcedure
             .select(new ProcedureUI(
-                appointmentSchedulingService
-                    .appointmentScheduling.procedure.id,
+                appointmentSchedulingService.appointmentScheduling.procedure.id,
                 appointmentSchedulingService
                     .appointmentScheduling.procedure.description));
       }
     } else {
-      appointmentSchedulingService.appointmentScheduling.email =
-          patientAccountService.patientAccount.email;
       dateAppointmentScheduling = new Date.today();
     }
   }
@@ -269,8 +268,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void ngOnInit() async {
-    if ((new UserService().user == null) ||
-        (patientAccountService.patientAccount == null)) return;
+    if (new UserService().user == null) return;
 
     await dentistService.getAllDentistAcives();
     await procedureService.getAllProcedureAcives();
@@ -280,12 +278,12 @@ class AppointmentSchedulingEditComponent implements OnInit {
     await procedureRequirementService.getAllProcedureRequirementAcives();
     await periodByShiftByDayOfWeekService
         .getAllPeriodByShiftByDayOfWeekAcives();
-    await appointmentSchedulingConfigurationService.getAllConfiguration();
+    await autoAppointmentSchedulingConfigurationService.getAllConfiguration();
 
     clearListComponentRef(listComponentRefDropdownSelect);
 
-    listInvalidDatesByMonth = appointmentSchedulingConfigurationService
-        .appointmentSchedulingConfiguration.invalidDates
+    listInvalidDatesByMonth = autoAppointmentSchedulingConfigurationService
+        .autoAppointmentSchedulingConfiguration.invalidDates
         .where((date) =>
             date.substring(0, 8) ==
             new DateFormat('yyyy-MM-dd')
@@ -385,8 +383,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   void onSelectProcedureSelectDropdown() async {
     if (!procedureDropdownSelectComponentRef
         .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
-      if (appointmentSchedulingService
-          .appointmentScheduling.id.isEmpty) {
+      if (appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
         if (!dentistDropdownSelectComponentRef
             .instance.singleSelectModelDentist.selectedValues.isEmpty) {
           dentistDropdownSelectComponentRef.instance.singleSelectModelDentist
@@ -420,8 +417,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
           .returnDentistIdListByProcedureId(procedureDropdownSelectComponentRef
               .instance.singleSelectModelProcedure.selectedValues.first.id)
           .then((listDentisitId) {
-        if (appointmentSchedulingService
-            .appointmentScheduling.id.isEmpty) {
+        if (appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
           dentistDropdownSelectComponentRef.instance.disabled = false;
         }
 
@@ -500,8 +496,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
       returnDaysOfWeekListByDentistProcedureIdMap() async {
     Map<String, String> _list = new Map<String, String>();
 
-    if (!appointmentSchedulingService
-        .appointmentScheduling.id.isEmpty) {
+    if (!appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
       return _list;
     }
 
@@ -572,8 +567,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
         querySelector("#sub-title-days-of-week").style.display = "block";
       }
 
-      if (appointmentSchedulingService
-          .appointmentScheduling.id.isEmpty) {
+      if (appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
         shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
       }
     });
@@ -584,8 +578,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
         .instance.singleSelectModelShift.selectedValues.isEmpty) {
       await listAvailableTimes();
 
-      if (appointmentSchedulingService
-          .appointmentScheduling.id.isEmpty) {
+      if (appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
         List<Map> list = periodByShiftByDayOfWeekService
             .getPeriodByShiftByDayOfWeekListWithFilterFromList({
           "shiftId": shiftDropdownSelectComponentRef
@@ -612,8 +605,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onSelectAvailableTimesSelectDropdown() {
-    if (!appointmentSchedulingService
-        .appointmentScheduling.id.isEmpty) {
+    if (!appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
       return;
     }
 
@@ -622,8 +614,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void listAvailableTimes() async {
-    if (!appointmentSchedulingService
-        .appointmentScheduling.id.isEmpty) {
+    if (!appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
       return;
     }
 
@@ -770,7 +761,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
     saveButtonMessage = "GRAVANDO...";
     _changeDetectorRef.markForCheck();
 
-    if ((await appointmentSchedulingConfigurationService
+    if ((await appointmentSchedulingService
+            .appointmentSchedulingConfigurationService
             .getAllConfiguration())
         .invalidDates
         .contains(new DateFormat("yyyy-MM-dd")
@@ -803,9 +795,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
-        ((telephoneMask.number == '') &&
-            (appointmentSchedulingService
-                .appointmentScheduling.email.isEmpty)) ||
+        (patient == '') ||
+        ((email == '') && (telephoneMask.number == '')) ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
       _changeDetectorRef.markForCheck();
@@ -845,9 +836,19 @@ class AppointmentSchedulingEditComponent implements OnInit {
         agreementDropdownSelectComponentRef
             .instance.singleSelectModelAgreement.selectedValues.first.id;
 
+    appointmentSchedulingService.appointmentScheduling.procedureId =
+        procedureDropdownSelectComponentRef
+            .instance.singleSelectModelProcedure.selectedValues.first.id;
+
     appointmentSchedulingService.appointmentScheduling.shiftId =
         shiftDropdownSelectComponentRef
             .instance.singleSelectModelShift.selectedValues.first.id;
+
+    if (appointmentSchedulingService.appointmentScheduling.id.isEmpty) {
+      appointmentSchedulingService.appointmentScheduling.horary =
+          availableTimesDropdownSelectComponentRef.instance
+              .singleSelectModelAvailableTimes.selectedValues.first.description;
+    }
 
     if (await appointmentSchedulingService.save()) {
       showSuccessfullySave = true;

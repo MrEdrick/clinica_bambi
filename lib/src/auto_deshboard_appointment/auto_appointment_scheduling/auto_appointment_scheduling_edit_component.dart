@@ -830,6 +830,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onSave() async {
+    Map<bool, String> result = new Map<bool, String>();
+
     showAssertMessageAlert = false;
 
     autoAppointmentSchedulingService
@@ -868,7 +870,8 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
               .singleSelectModelAvailableTimes.selectedValues.first.description;
     }
 
-    if (await autoAppointmentSchedulingService.save()) {
+    result = (await autoAppointmentSchedulingService.save());
+    if (result.keys.first) {
       emailSenderHTTP = await new EmailSenderService(new Email(
               CLINIC_EMAIL,
               autoAppointmentSchedulingService.autoAppointmentScheduling.email,
@@ -937,7 +940,11 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
 
       showSuccessfullySave = true;
     } else {
-      showNotSuccessfullySave = true;
+      if (result.values.first == "duplicidade") {
+        showAssertMessageSaveIvalidDate = true;
+      } else {
+        showNotSuccessfullySave = true;
+      }
     }
 
     _changeDetectorRef.markForCheck();

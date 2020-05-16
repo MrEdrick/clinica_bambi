@@ -1,45 +1,105 @@
 <div class="container-add-appointment-scheduling">
     <div class="container-register">
         <div class="title">
-            Dados para o cadastro
+            Agendamento
         </div>
+        <div id="container-search-datas">
+            <material-input class="edit-input" id="patient" label="Paciente..." [ngModel]="patient"
+                (inputKeyPress)="patient = $event"></material-input>
 
-        <material-datepicker id="date" class="list-date" [(date)]="dateAppointmentScheduling" [required]="true">
-        </material-datepicker>
+            <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email"
+                (inputKeyPress)="email = $event"></material-input>
 
-        <div #agreementDropdownSelect></div>
+            <material-input class="edit-input" type="number" id="telephone" label="Telefone..."
+                [ngModel]="telephoneMask.number" [maxlength]="maxLength" (inputKeyPress)="telephoneMask.number = $event"
+                (keydown)="onKeydownTelephone($event)">
+            </material-input>
 
-        <div #dentistDropdownSelect></div>
+            <div id="agreement-select">
+                <div #agreementDropdownSelect></div>
+            </div>
 
-        <div #shiftDropdownSelect></div>
-            
-        <div #procedureDropdownSelect></div>
+            <div class="sub-title">
+                Dados para consulta
+            </div>
 
-        <div #availableTimesDropdownSelect></div>
+            <div id="procedure-select">
+                <div #procedureDropdownSelect></div>
+            </div>
 
-        <material-input class="edit-input" id="patient" label="Paciente..." [ngModel]="patient"
-            (inputKeyPress)="patient = $event"></material-input>
+            <div id="dentist-select">
+                <div #dentistDropdownSelect></div>
+            </div>
 
-        <material-input class="edit-input" type="email" id="email" label="E-mail..." [ngModel]="email"
-            (inputKeyPress)="email = $event"></material-input>
+            <div id="date-select">
+                <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" [required]="true"
+                    [disabled]="!appointmentSchedulingService
+                .appointmentScheduling.id.isEmpty">
+                </material-datepicker>
+            </div>
 
-        <material-input class="edit-input" type="number" id="telephone" label="Telefone..."
-            [ngModel]="telephoneMask.number" [maxlength]="maxLength" (inputKeyPress)="telephoneMask.number = $event"
-            (keydown)="onKeydownTelephone($event)">
-        </material-input>
+            <div id="shift-select">
+                <div #shiftDropdownSelect></div>
+                <div id="sub-title-shift-observation ">
+                    {{shiftObservation}}
+                </div>
+            </div>
 
+            <div *ngIf="appointmentSchedulingService.appointmentScheduling.id == ''"
+                id="available-times-select">
+                <div #availableTimesDropdownSelect></div>
+            </div>
+
+            <material-input *ngIf="appointmentSchedulingService.appointmentScheduling.id != ''"
+                class="edit-input" id="horary" label="Horario..." [disabled]="true"
+                [ngModel]="appointmentSchedulingService.appointmentScheduling.horary">
+            </material-input>
+        </div>
+        <div id="container-result-datas">
+            <div class="sub-title">
+                Dias da semana de atendimento do dentista
+            </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-days-of-week">
+                    Não foi selecionado o dentista
+                </div>
+                <div>
+                    {{listDaysOfWeekOfAppointment}}
+                </div>
+            </div>
+
+            <div class="sub-title">
+                Confirme os seguintes requisitos para a consulta
+            </div>
+            <div id="container-requirement-checkbox">
+                <div class="sub-title-information" id="sub-title-requirement">
+                    Não existem requisitos para este procedimento
+                </div>
+                <div #procedureRequirementCheckboxComponent></div>
+            </div>
+
+            <div class="sub-title">
+                Datas inválidas para agendamento neste mes
+            </div>
+            <div id="container-days-of-week">
+                <div class="sub-title-information" id="sub-title-invalid-dates-by-month">
+                    {{listInvalidDatesByMonth}}
+                </div>
+            </div>
+
+            <div class="button-save-container">
+                <material-button raised class="button-save" (click)="onAssertsSave()" [disabled]="disabledButtonSave">
+                    {{saveButtonMessage}}
+                </material-button>
+            </div>
+        </div>
     </div>
 
     <material-button class="button-close" (click)="onClose()">
         <material-icon icon="close"></material-icon>
     </material-button>
-
-    <div class="button-container">
-        <material-button raised class="button-save" (click)="onAssertsSave()">
-            GRAVAR
-        </material-button>
-    </div>
 </div>
+
 <modal [(visible)]="showNotSuccessfullySave">
     <material-dialog info class="info-dialog" [autoDismissable]="showNotSuccessfullySave"
         (dismiss)="onDismissNotSuccessfullySave">

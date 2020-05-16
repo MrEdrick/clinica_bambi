@@ -243,12 +243,11 @@ class AppointmentSchedulingFilterComponent implements OnInit {
           .getAllAppointmentSchedulingByDateMap(date)
           .then((onValue) {
         total_aux = (new AppointmentSchedulingService()
-                .getAppointmentSchedulingWithFilterFromList(date.toString(), {
+            .getAppointmentSchedulingWithFilterFromList(date, {
           "dentistId": dentistId,
           "shiftId": shiftId,
           "patient": patientName
-        }))
-            ?.length;
+        }))?.length;
 
         total += total_aux == null ? 0 : total_aux;
 
@@ -266,7 +265,7 @@ class AppointmentSchedulingFilterComponent implements OnInit {
 
   void onAdd() {
     appointmentSchedulingService.appointmentScheduling =
-        appointmentSchedulingService.returnEmptyAppointmentShceduling();
+        appointmentSchedulingService.returnEmptyAppointmentScheduling();
 
     ComponentFactory<
             appointment_scheduling_edit.AppointmentSchedulingEditComponent>

@@ -305,12 +305,12 @@ class AutoAppointmentSchedulingService {
         1);
   }
 
-  Future<bool> save() async {
-    bool saved = true;
+  Future<Map<bool, String>> save() async {
     Map<bool, String> result = new Map<bool, String>();
 
     if (_autoAppointmentScheduling == null) {
-      return saved;
+      result[false] = 'erro';
+      return result;
     }
 
     Map<String, dynamic> datas = {
@@ -335,9 +335,7 @@ class AutoAppointmentSchedulingService {
       result = await new AutoAppointmentSchedulingDAO().save(datas);
     }
 
-    saved = result.keys.first;
-
-    if (saved) {
+    if (result.keys.first) {
       if (_autoAppointmentScheduling.id != "") {
         appointmentSchedulingService.appointmentScheduling =
             await (appointmentSchedulingService
@@ -353,7 +351,9 @@ class AutoAppointmentSchedulingService {
       if (await checkDuplicity()) {
         await delete(appointmentSchedulingService
             .appointmentScheduling.autoAppointmentSchedulingId);
-        return false;
+        
+        result[false] = 'duplicidade';
+        return result;
       }
 
       appointmentSchedulingService
@@ -374,10 +374,14 @@ class AutoAppointmentSchedulingService {
       appointmentSchedulingService.appointmentScheduling.horary =
           _autoAppointmentScheduling.horary;
 
-      saved = await appointmentSchedulingService.save();
+      if (await appointmentSchedulingService.save()) {
+        result[true] = 'sucesso';
+      } else {
+        result[false] = 'erro';
+      }
     }
 
-    return saved;
+    return result;
   }
 
   Future<bool> delete(String autoAppointmentSchedulingId) async {
