@@ -44,13 +44,15 @@ class AppointmentSchedulingService {
       return _appointmentSchedulingByDate;
     }
 
-    await (_appointmentSchedulingByDate[date.toString()] =
+    await (_appointmentSchedulingByDate[
+            new DateFormat('yyyy-MM-dd').format(date.asUtcTime())] =
         await new AppointmentSchedulingDAO().getAllAppointmentSchedulingFilter({
       'dateAppointmentScheduling':
           new DateFormat('yyyy-MM-dd').format(date.asUtcTime())
     }));
 
-    _appointmentSchedulingByDate[date.toString()]
+    _appointmentSchedulingByDate[
+            new DateFormat('yyyy-MM-dd').format(date.asUtcTime())]
         .forEach((appointmentScheduling) {
       _appointmentSchedulingById[appointmentScheduling["documentPath"]] =
           appointmentScheduling;
@@ -62,7 +64,8 @@ class AppointmentSchedulingService {
   Future<List<Map>> getAllAppointmentSchedulingByDateMap(Date date) async {
     await getAllAppointmentSchedulingByDate(date);
 
-    return _appointmentSchedulingByDate[date.toString()];
+    return _appointmentSchedulingByDate[
+        new DateFormat('yyyy-MM-dd').format(date.asUtcTime())];
   }
 
   Future<List<Map>> getAllAppointmentSchedulingByDateByHoraryByDentistId(
