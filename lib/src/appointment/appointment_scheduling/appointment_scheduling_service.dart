@@ -5,6 +5,7 @@ import 'package:angular_components/angular_components.dart';
 import 'appointment_scheduling.dart';
 import 'appointment_scheduling_dao.dart';
 
+import 'package:firebase/firebase.dart' as fb;
 import '../../appointment/shift/shift_service.dart';
 import '../../appointment/agreement/agreement_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
@@ -213,24 +214,30 @@ class AppointmentSchedulingService {
   Future<AppointmentScheduling>
       getAppointmentSchedulingByAutoAppointmentSchedulingId(
           String autoAppointmentSchedulingId) async {
-    Map doc;
+    List<Map> _list;
+    Map _doc;
 
     if (autoAppointmentSchedulingId.isEmpty) {
       return returnEmptyAppointmentScheduling();
     }
 
     if (_appointmentSchedulingById.isNotEmpty) {
-      doc = _appointmentSchedulingById[autoAppointmentSchedulingId];
+      _doc = _appointmentSchedulingById[autoAppointmentSchedulingId];
     }
 
-    if (doc == null) {
-      doc = (await new AppointmentSchedulingDAO()
-              .getAllAppointmentSchedulingFilter(
-                  {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}))
-          .first;
+    if (_doc == null) {
+      _list = (await new AppointmentSchedulingDAO()
+          .getAllAppointmentSchedulingFilter(
+              {'autoAppointmentSchedulingId': autoAppointmentSchedulingId}));
     }
 
-    return await turnMapInAppointmentScheduling(doc);
+    if (_list.length == 0) {
+      return returnEmptyAppointmentScheduling();
+    }
+
+    _doc = _list.first;
+
+    return await turnMapInAppointmentScheduling(_doc);
   }
 
   Future<AppointmentScheduling> getAppointmentSchedulingByFilter(
@@ -319,7 +326,10 @@ class AppointmentSchedulingService {
       "patient": _appointmentScheduling.patient,
       "email": _appointmentScheduling.email,
       "tel": _appointmentScheduling.telephone,
-      "horary": _appointmentScheduling.horary
+      "horary": _appointmentScheduling.horary,
+      "autoAppointmentSchedulingId":
+          _appointmentScheduling.autoAppointmentSchedulingId,
+      "userId": fb.auth().currentUser.uid
     };
 
     if (_appointmentScheduling.id != "") {

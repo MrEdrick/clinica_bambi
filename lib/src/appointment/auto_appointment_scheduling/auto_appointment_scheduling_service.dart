@@ -351,7 +351,7 @@ class AutoAppointmentSchedulingService {
       if (await checkDuplicity()) {
         await delete(appointmentSchedulingService
             .appointmentScheduling.autoAppointmentSchedulingId);
-        
+
         result[false] = 'duplicidade';
         return result;
       }
@@ -363,6 +363,8 @@ class AutoAppointmentSchedulingService {
           _autoAppointmentScheduling.shiftId;
       appointmentSchedulingService.appointmentScheduling.dentistId =
           _autoAppointmentScheduling.dentistId;
+      appointmentSchedulingService.appointmentScheduling.procedureId =
+          _autoAppointmentScheduling.procedureId;
       appointmentSchedulingService.appointmentScheduling.agreementId =
           _autoAppointmentScheduling.agreementId;
       appointmentSchedulingService.appointmentScheduling.patient =
@@ -373,6 +375,10 @@ class AutoAppointmentSchedulingService {
           _autoAppointmentScheduling.telephone;
       appointmentSchedulingService.appointmentScheduling.horary =
           _autoAppointmentScheduling.horary;
+      appointmentSchedulingService
+              .appointmentScheduling.autoAppointmentSchedulingId =
+          appointmentSchedulingService
+              .appointmentScheduling.autoAppointmentSchedulingId;
 
       if (await appointmentSchedulingService.save()) {
         result[true] = 'sucesso';

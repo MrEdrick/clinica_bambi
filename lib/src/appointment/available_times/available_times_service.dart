@@ -30,26 +30,27 @@ class AvailableTimesService {
 
   Future<List<AvailableTimes>> getAllAvailableTimesByShiftIdDentistId(
       String shiftId, String dentistId, Date date) async {
-    //List<Map> _appointmentSchedulingByDate = new List<Map>();
+    List<Map> _appointmentSchedulingByDate = new List<Map>();
     Shift _shift;
     AttendanceInterval _attendanceInterval;
     Duration startTime;
     Duration endTime;
+    bool unavailable;
 
     if ((_availableTimesList != null) && (_availableTimesList?.length != 0)) {
       return _list;
     }
 
     clearAllAvailableTimesList();
-    //_appointmentSchedulingByDate.clear();
+    _appointmentSchedulingByDate.clear();
 
     appointmentSchedulingService.clearAllAppointmentSchedulingByDate();
 
     await appointmentSchedulingService.getAllAppointmentSchedulingByDate(date);
-    
-    //_appointmentSchedulingByDate = await appointmentSchedulingService
-    //    .getAppointmentSchedulingWithFilterFromList(
-    //        date, {'dentistId': dentistId, 'shiftId': shiftId});
+
+    _appointmentSchedulingByDate = await appointmentSchedulingService
+        .getAppointmentSchedulingWithFilterFromList(
+            date, {"dentistId": dentistId, "shiftId": shiftId});
 
     //if (_appointmentSchedulingByDate == null) {
     //  return _list;
@@ -78,10 +79,22 @@ class AvailableTimesService {
     for (startTime;
         startTime <= endTime;
         startTime = startTime + _attendanceInterval.interval.time.minutes) {
-      
       String _startTimeFormated = startTime.toString().length == 14
           ? '0' + startTime.toString()
           : startTime.toString();
+
+      unavailable = false;
+      if (_appointmentSchedulingByDate != null) {
+        _appointmentSchedulingByDate.forEach((appointmentScheduling) {
+          if (appointmentScheduling["horary"] == _startTimeFormated) {
+            unavailable = true;
+          }
+        });
+      }
+
+      if (unavailable) {
+        continue;
+      }
 
       _list.add(new AvailableTimes(
           _startTimeFormated.substring(0, 5),

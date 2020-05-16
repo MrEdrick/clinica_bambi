@@ -178,12 +178,18 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   Date get dateAppointmentScheduling => _dateAppointmentScheduling;
 
   set dateAppointmentScheduling(Date dateAppointmentScheduling) {
+    bool changed = (_dateAppointmentScheduling != dateAppointmentScheduling); 
+
     _dateAppointmentScheduling = dateAppointmentScheduling;
 
     returnDaysOfWeekListByDentistProcedureIdMap()
         .then((daysOfWeekOfDentistById) {
       if (!daysOfWeekOfDentistById.isEmpty) {
         shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+      }
+
+      if (changed) {
+        listAvailableTimes();
       }
     });
   }
@@ -420,7 +426,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             '';
         shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
 
-        listAvailableTimes();
+        await listAvailableTimes();
       }
 
       await dentistProcedureService
