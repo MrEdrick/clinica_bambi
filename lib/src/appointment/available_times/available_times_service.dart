@@ -35,7 +35,6 @@ class AvailableTimesService {
     AttendanceInterval _attendanceInterval;
     Duration startTime;
     Duration endTime;
-    bool unavailable;
 
     if ((_availableTimesList != null) && (_availableTimesList?.length != 0)) {
       return _list;
@@ -47,14 +46,6 @@ class AvailableTimesService {
     appointmentSchedulingService.clearAllAppointmentSchedulingByDate();
 
     await appointmentSchedulingService.getAllAppointmentSchedulingByDate(date);
-
-    _appointmentSchedulingByDate = await appointmentSchedulingService
-        .getAppointmentSchedulingWithFilterFromList(
-            date, {"dentistId": dentistId, "shiftId": shiftId});
-
-    //if (_appointmentSchedulingByDate == null) {
-    //  return _list;
-    //}
 
     _shift = await shiftService.getShiftById(shiftId);
 
@@ -83,23 +74,19 @@ class AvailableTimesService {
           ? '0' + startTime.toString()
           : startTime.toString();
 
-      unavailable = false;
-      if (_appointmentSchedulingByDate != null) {
-        _appointmentSchedulingByDate.forEach((appointmentScheduling) {
-          if (appointmentScheduling["horary"] == _startTimeFormated) {
-            unavailable = true;
-          }
-        });
-      }
+      _appointmentSchedulingByDate = await appointmentSchedulingService
+          .getAppointmentSchedulingWithFilterFromList(date, {
+        "dentistId": dentistId,
+        "shiftId": shiftId,
+        "horary": _startTimeFormated.substring(0, 5)
+      });
 
-      if (unavailable) {
-        continue;
+      if ((_appointmentSchedulingByDate?.length == 0)) {
+        _list.add(new AvailableTimes(
+            _startTimeFormated.substring(0, 5),
+            int.parse(_startTimeFormated.substring(0, 2)),
+            int.parse(_startTimeFormated.substring(3, 5))));
       }
-
-      _list.add(new AvailableTimes(
-          _startTimeFormated.substring(0, 5),
-          int.parse(_startTimeFormated.substring(0, 2)),
-          int.parse(_startTimeFormated.substring(3, 5))));
     }
 
     _availableTimesList.forEach((availableTimes) {

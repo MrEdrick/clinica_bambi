@@ -174,21 +174,22 @@ class AppointmentSchedulingService {
         }
       });
     }
-    ;
 
     if ((filter["horary"] != null) && (filter["horary"] != '')) {
       _listDocumentSnapshot.clear();
       ListsApplyFilter();
     }
 
-    _appointmentSchedulingByDateWithFilter[date.toString()] =
-        _listDocumentSnapshot;
+    _appointmentSchedulingByDateWithFilter[(new DateFormat('yyyy-MM-dd')
+        .format(date.asUtcTime()))] = _listDocumentSnapshot;
 
-    return _appointmentSchedulingByDateWithFilter[date];
+    return _appointmentSchedulingByDateWithFilter[
+        (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))];
   }
 
   List<Map> getAppointmentSchedulingFromListWithFilterByDate(Date date) {
-    return _appointmentSchedulingByDateWithFilter[date.toString()];
+    return _appointmentSchedulingByDateWithFilter[
+        (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))];
   }
 
   Future<AppointmentScheduling> getAppointmentSchedulingById(String id) async {
@@ -308,12 +309,12 @@ class AppointmentSchedulingService {
             .length >
         1);
   }
-
-  Future<bool> save() async {
+  Future<Map<bool, String>> save() async {
     Map<bool, String> result = new Map<bool, String>();
 
     if (_appointmentScheduling == null) {
-      return false;
+      result[false] = 'erro';
+      return result;
     }
 
     Map<String, dynamic> datas = {
@@ -333,14 +334,27 @@ class AppointmentSchedulingService {
     };
 
     if (_appointmentScheduling.id != "") {
+      result.clear();
       result[await new AppointmentSchedulingDAO()
               .update(_appointmentScheduling.id, datas) ==
           ""] = _appointmentScheduling.id;
     } else {
+      result.clear();
       result = await new AppointmentSchedulingDAO().save(datas);
+      appointmentScheduling.autoAppointmentSchedulingId = result.values.first;
     }
 
-    return result.keys.first;
+    if (await checkDuplicity()) {
+      await delete(appointmentScheduling.autoAppointmentSchedulingId);
+
+      result.clear();
+      result[false] = 'duplicidade';
+      return result;
+    }
+
+    result.clear();
+    result[true] = 'sucesso'; 
+    return result;
   }
 
   Future<bool> delete(String appointmentSchedulingId) async {

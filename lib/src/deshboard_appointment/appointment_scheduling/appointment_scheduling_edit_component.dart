@@ -178,7 +178,7 @@ class AppointmentSchedulingEditComponent implements OnInit {
   Date get dateAppointmentScheduling => _dateAppointmentScheduling;
 
   set dateAppointmentScheduling(Date dateAppointmentScheduling) {
-    bool changed = (_dateAppointmentScheduling != dateAppointmentScheduling); 
+    bool changed = (_dateAppointmentScheduling != dateAppointmentScheduling);
 
     _dateAppointmentScheduling = dateAppointmentScheduling;
 
@@ -820,6 +820,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
   }
 
   void onSave() async {
+    Map<bool, String> result = new Map<bool, String>();
+
     showAssertMessageAlert = false;
 
     appointmentSchedulingService.appointmentScheduling.patient = patient;
@@ -856,13 +858,18 @@ class AppointmentSchedulingEditComponent implements OnInit {
               .singleSelectModelAvailableTimes.selectedValues.first.description;
     }
 
-    if (await appointmentSchedulingService.save()) {
+    result = (await appointmentSchedulingService.save());
+
+    if (result.keys.first) {
       showSuccessfullySave = true;
       await querySelector('#bt-refresh').click();
     } else {
-      showNotSuccessfullySave = true;
+      if (result.values.first == "duplicidade") {
+        showAssertMessageSaveIvalidDate = true;
+      } else {
+        showNotSuccessfullySave = true;
+      }
     }
-
     _changeDetectorRef.markForCheck();
   }
 }

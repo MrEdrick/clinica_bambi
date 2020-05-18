@@ -112,7 +112,7 @@ class AutoAppointmentSchedulingService {
         patientAccountId);
 
     return _autoAppointmentSchedulingByPatientAccountIdDate[
-        patientAccountId + date.toString()];
+        patientAccountId + (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))];
   }
 
   Future<Map> getAllAutoAppointmentSchedulingListMap() async {
@@ -220,7 +220,7 @@ class AutoAppointmentSchedulingService {
     }
 
     _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[
-        patientAccountId + date.toString()] = _listDocumentSnapshot;
+        patientAccountId + (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))] = _listDocumentSnapshot;
 
     return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[date];
   }
@@ -229,7 +229,7 @@ class AutoAppointmentSchedulingService {
       getAutoAppointmentSchedulingFromListWithFilterByPatientAccountIdDate(
           String patientAccountId, Date date) {
     return _autoAppointmentSchedulingByPatientAccountIdDateWithFilter[
-        patientAccountId + date.toString()];
+        patientAccountId + (new DateFormat('yyyy-MM-dd').format(date.asUtcTime()))];
   }
 
   Future<AutoAppointmentScheduling> getAutoAppointmentSchedulingById(
@@ -256,7 +256,7 @@ class AutoAppointmentSchedulingService {
   AutoAppointmentScheduling returnEmptyAutoAppointmentScheduling() {
     return new AutoAppointmentScheduling(
         '',
-        Date.today().toString(),
+        (new DateFormat('yyyy-MM-dd').format(Date.today().asUtcTime())),
         '',
         '',
         '',
@@ -328,10 +328,12 @@ class AutoAppointmentSchedulingService {
     };
 
     if (_autoAppointmentScheduling.id != "") {
+      result.clear();
       result[await new AutoAppointmentSchedulingDAO()
               .update(_autoAppointmentScheduling.id, datas) ==
           ""] = _autoAppointmentScheduling.id;
     } else {
+      result.clear();
       result = await new AutoAppointmentSchedulingDAO().save(datas);
     }
 
@@ -352,7 +354,9 @@ class AutoAppointmentSchedulingService {
         await delete(appointmentSchedulingService
             .appointmentScheduling.autoAppointmentSchedulingId);
 
+        result.clear();
         result[false] = 'duplicidade';
+
         return result;
       }
 
@@ -380,11 +384,8 @@ class AutoAppointmentSchedulingService {
           appointmentSchedulingService
               .appointmentScheduling.autoAppointmentSchedulingId;
 
-      if (await appointmentSchedulingService.save()) {
-        result[true] = 'sucesso';
-      } else {
-        result[false] = 'erro';
-      }
+      result.clear();
+      result = (await appointmentSchedulingService.save());
     }
 
     return result;
