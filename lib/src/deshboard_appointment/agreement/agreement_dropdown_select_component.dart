@@ -52,7 +52,6 @@ class AgreementDropdownSelectComponent implements OnInit {
     });
   }
 
-  List<AgreementUI> _listAgreement;
   final AgreementService _agreementService = new AgreementService();
 
   bool useItemRenderer = false;
@@ -70,12 +69,12 @@ class AgreementDropdownSelectComponent implements OnInit {
   AgreementSelectionOptions<AgreementUI> agreementListOptions;
 
   StringSelectionOptions<AgreementUI> get agreementOptions {
-    if (_listAgreement == null) {
+    if (listAgreement == null) {
       return null;
     }
 
     agreementListOptions =
-        AgreementSelectionOptions<AgreementUI>(_listAgreement);
+        AgreementSelectionOptions<AgreementUI>(listAgreement);
 
     return agreementListOptions;
   }
@@ -100,7 +99,7 @@ class AgreementDropdownSelectComponent implements OnInit {
   AgreementDropdownSelectComponent(this._changeDetectorRef);
 
   void ngOnInit() async {
-    _listAgreement = new List<AgreementUI>();
+    listAgreement.clear();
     toListAgreementList({});
   }
 
