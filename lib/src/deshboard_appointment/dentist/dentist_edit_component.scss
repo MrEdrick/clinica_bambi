@@ -21,12 +21,11 @@
   transition: all 0.5s linear;
   overflow-y: scroll;
   overflow-x: hidden;
-
 }
 
-#container-edit-dentist::-webkit-scrollbar {
-  display: none;
-}
+//#container-edit-dentist::-webkit-scrollbar {
+//  display: none;
+//}
 
 .button-close {
   position: absolute;
@@ -105,6 +104,11 @@ material-dialog {
 }
 
 #container-dentist-procedure {
+  display: inline-block;
+  position: relative;
+}
+
+#container-dentist-agreement {
   display: inline-block;
   position: relative;
 }

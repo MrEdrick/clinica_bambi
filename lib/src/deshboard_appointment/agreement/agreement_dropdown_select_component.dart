@@ -25,24 +25,33 @@ import '../../appointment/agreement/agreement_selection_options.dart';
       MaterialDropdownSelectComponent,
       DropdownSelectValueAccessor
     ],
-    providers: [
-      windowBindings
-    ])
+    providers: [windowBindings])
 class AgreementDropdownSelectComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
+  final List<AgreementUI> listAgreement = new List<AgreementUI>();
 
   @Input()
   ComponentRef componentRef;
 
   bool _disabled = false;
-  bool get disabled => _disabled; 
+  bool get disabled => _disabled;
   @Input()
   set disabled(bool disabled) {
     _disabled = disabled;
 
     _changeDetectorRef.markForCheck();
   }
-  
+
+  List<String> _listAgreementIdToShow;
+  @Input()
+  set listAgreementIdToShow(List<String> listAgreementIdToShow) {
+    _listAgreementIdToShow = listAgreementIdToShow;
+    listAgreement.clear();
+    _listAgreementIdToShow.forEach((agreementId) {
+      toListAgreementList({"agreementId": agreementId});
+    });
+  }
+
   List<AgreementUI> _listAgreement;
   final AgreementService _agreementService = new AgreementService();
 
@@ -65,7 +74,8 @@ class AgreementDropdownSelectComponent implements OnInit {
       return null;
     }
 
-    agreementListOptions = AgreementSelectionOptions<AgreementUI>(_listAgreement);
+    agreementListOptions =
+        AgreementSelectionOptions<AgreementUI>(_listAgreement);
 
     return agreementListOptions;
   }
@@ -91,10 +101,16 @@ class AgreementDropdownSelectComponent implements OnInit {
 
   void ngOnInit() async {
     _listAgreement = new List<AgreementUI>();
-    await _agreementService.getAgreementListWithFilterFromList({}).forEach((map) {
-      _listAgreement.add(new AgreementUI(_agreementService.turnMapInAgreement(map).id,
-                                         _agreementService.turnMapInAgreement(map).description));
-    });
+    toListAgreementList({});
   }
 
+  void toListAgreementList(Map filter) async {
+    await _agreementService
+        .getAgreementListWithFilterFromList(filter)
+        .forEach((map) {
+      listAgreement.add(new AgreementUI(
+          _agreementService.turnMapInAgreement(map).id,
+          _agreementService.turnMapInAgreement(map).description));
+    });
+  }
 }

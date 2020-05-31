@@ -1,6 +1,3 @@
-import '../dentist/dentist.dart';
-import '../procedure/procedure.dart';
-
 class DentistProcedure {
   String _id;
   String _dentistId;

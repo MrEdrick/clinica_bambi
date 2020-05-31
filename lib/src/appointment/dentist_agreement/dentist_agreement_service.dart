@@ -136,7 +136,7 @@ class DentistAgreementService {
     return _dentistAgreementListWithFilter;
   }
 
-  Future<List<String>> returnDentistIdListByAgreementId(
+  Future<List<String>> returnAgreementIdListByDentistId(
       String procedureId) async {
     if (_dentistAgreementList.isEmpty) {
       await getAllDentistAgreementAcives();

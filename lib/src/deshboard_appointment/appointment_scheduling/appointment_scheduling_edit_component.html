@@ -15,10 +15,6 @@
                 (keydown)="onKeydownTelephone($event)">
             </material-input>
 
-            <div id="agreement-select">
-                <div #agreementDropdownSelect></div>
-            </div>
-
             <div class="sub-title">
                 Dados para consulta
             </div>
@@ -31,6 +27,10 @@
                 <div #dentistDropdownSelect></div>
             </div>
 
+            <div id="agreement-select">
+                <div #agreementDropdownSelect></div>
+            </div>
+            
             <div id="date-select">
                 <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" [required]="true"
                     [disabled]="!appointmentSchedulingService

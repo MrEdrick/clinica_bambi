@@ -22,6 +22,7 @@ import '../../appointment/patient_account/patient_account_service.dart';
 import '../../appointment/dentist/dentist_service.dart';
 import '../../appointment/dentist/dentistUI.dart';
 import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
+import '../../appointment/dentist_agreement/dentist_agreement_service.dart';
 import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
 import '../../appointment/procedure/procedure_service.dart';
@@ -103,6 +104,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
   final DentistService dentistService = new DentistService();
   final DentistProcedureService dentistProcedureService =
       new DentistProcedureService();
+  final DentistAgreementService dentistAgreementService =
+      new DentistAgreementService();
   final ProcedureService procedureService = new ProcedureService();
   final AgreementService agreementService = new AgreementService();
   final ShiftService shiftService = new ShiftService();
@@ -367,6 +370,8 @@ class AppointmentSchedulingEditComponent implements OnInit {
         agreementDropdownSelectComponent,
         materialContainerAgreementDropdownSelect);
 
+    agreementDropdownSelectComponentRef.instance.disabled = true;
+
     listComponentRefDropdownSelect.add(agreementDropdownSelectComponentRef);
 
     ComponentFactory<
@@ -577,6 +582,30 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSelectDentistSelectDropdown() async {
     await listAvailableTimes();
+
+      if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
+      if (!agreementDropdownSelectComponentRef
+          .instance.singleSelectModelDentist.selectedValues.isEmpty) {
+        agreementDropdownSelectComponentRef.instance.singleSelectModelDentist
+            ?.deselect(agreementDropdownSelectComponentRef
+                .instance.singleSelectModelDentist?.selectedValues?.first);
+      }
+
+      await dentistAgreementService
+          .returnAgreementIdListByDentistId(dentistDropdownSelectComponentRef
+              .instance.singleSelectModelProcedure.selectedValues.first.id)
+          .then((lisAgreementId) {
+        if (appointmentSchedulingService
+            .appointmentScheduling.id.isEmpty) {
+          agreementDropdownSelectComponentRef.instance.disabled = false;
+        }
+
+        agreementDropdownSelectComponentRef.instance.listAgreementIdToShow =
+            lisAgreementId;
+      });
+      _changeDetectorRef.markForCheck();
+    }
 
     await returnDaysOfWeekListByDentistProcedureIdMap()
         .then((daysOfWeekOfDentistById) {

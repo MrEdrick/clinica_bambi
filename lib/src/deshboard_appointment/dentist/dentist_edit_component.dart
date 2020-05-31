@@ -99,10 +99,10 @@ class DentistEditComponent implements OnInit {
 
   ComponentRef agreementCheckboxComponent;
 
-  @ViewChild('dentistProcedureCheckboxComponent', read: ViewContainerRef)
+  @ViewChild('dentistProcedureGroupCheckboxComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerDentistProcedureGroup;
 
- @ViewChild('dentistAgreementGroupCheckboxComponent', read: ViewContainerRef)
+ @ViewChild('dentistAgreementCheckboxComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerDentistAgreement;
 
   @ViewChild('attendanceIntervalEditComponent', read: ViewContainerRef)
@@ -195,32 +195,31 @@ class DentistEditComponent implements OnInit {
     _listProcedure.forEach((procedure) {
       ComponentFactory<
               dentist_procedure_group_checkbox_component
-                  .DentistProcedureGroupCheckboxComponent> shiftComponent =
+                  .DentistProcedureGroupCheckboxComponent> dentistProcedureGroupComponent =
           dentist_procedure_group_checkbox_component
               .DentistProcedureGroupCheckboxComponentNgFactory;
 
       procedureCheckboxGroupComponent = _loader.loadNextToLocation(
-          shiftComponent, materialContainerDentistProcedureGroup);
+          dentistProcedureGroupComponent, materialContainerDentistProcedureGroup);
 
       procedureCheckboxGroupComponent.instance.dentistId =
           dentistService.dentist.id;
-      procedureCheckboxGroupComponent.instance.agreementId = procedure.id;
+      procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
       procedureCheckboxGroupComponent.instance.procedure =
           procedure.description;
 
       listComponentRefProcedure.add(procedureCheckboxGroupComponent);
     });
 
-
     _listAgreement.forEach((agreement) {
       ComponentFactory<
               dentist_agreement_checkbox_component
-                  .DentistAgreementCheckboxComponent> agreementComponent =
+                  .DentistAgreementCheckboxComponent> dentistAgreementComponent =
           dentist_agreement_checkbox_component
               .DentistAgreementCheckboxComponentNgFactory;
 
       agreementCheckboxComponent = _loader.loadNextToLocation(
-          agreementComponent, materialContainerDentistProcedureGroup);
+          dentistAgreementComponent, materialContainerDentistAgreement);
 
       agreementCheckboxComponent.instance.dentistId =
           dentistService.dentist.id;
