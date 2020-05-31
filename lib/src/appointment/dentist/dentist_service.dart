@@ -6,6 +6,9 @@ import 'dentistUI.dart';
 import '../dentist_procedure/dentist_procedure.dart';
 import '../dentist_procedure/dentist_procedure_service.dart';
 
+import '../dentist_agreement/dentist_agreement.dart';
+import '../dentist_agreement/dentist_agreement_service.dart';
+
 import '../attendance_interval/attendance_interval.dart';
 import '../attendance_interval/attendance_interval_service.dart';
 
@@ -181,6 +184,9 @@ class DentistService {
     DentistProcedureService _dentistProcedureService =
         new DentistProcedureService();
 
+    DentistAgreementService _dentistAgreementService =
+        new DentistAgreementService();
+
     AttendanceIntervalService _attendanceIntervalService =
         new AttendanceIntervalService();
 
@@ -203,6 +209,18 @@ class DentistService {
       return saved;
     } else {
       _dentistProcedureService.clearAllDentistProcedureList();
+    }
+  
+    for (DentistAgreement dentistAgreement in _dentistAgreementService
+        .dentistAgreementListByDentistIdAgreementId.values) {
+      _dentistAgreementService.dentistAgreement = dentistAgreement;
+      saved = await (_dentistAgreementService.save(_dentist.id));
+    }
+
+    if (!saved) {
+      return saved;
+    } else {
+      _dentistAgreementService.clearAllDentistAgreementList();
     }
 
     for (AttendanceInterval attendanceInterval in _attendanceIntervalService

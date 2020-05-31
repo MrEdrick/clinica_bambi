@@ -178,9 +178,34 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   Date get dateAppointmentScheduling => _dateAppointmentScheduling;
 
   set dateAppointmentScheduling(Date dateAppointmentScheduling) {
-    bool changed = (_dateAppointmentScheduling != dateAppointmentScheduling); 
+    bool changed = (_dateAppointmentScheduling != dateAppointmentScheduling);
+
+    if (shiftDropdownSelectComponentRef != null) {
+      if (!shiftDropdownSelectComponentRef
+          .instance.singleSelectModelShift.selectedValues.isEmpty) {
+        shiftDropdownSelectComponentRef.instance.singleSelectModelShift
+            ?.deselect(shiftDropdownSelectComponentRef
+                .instance.singleSelectModelShift?.selectedValues?.first);
+      }
+    }
+
+    if (availableTimesDropdownSelectComponentRef != null) {
+      if (!availableTimesDropdownSelectComponentRef
+          .instance.singleSelectModelAvailableTimes.selectedValues.isEmpty) {
+        availableTimesDropdownSelectComponentRef
+            .instance.singleSelectModelAvailableTimes
+            ?.deselect(availableTimesDropdownSelectComponentRef.instance
+                .singleSelectModelAvailableTimes?.selectedValues?.first);
+      }
+    }
 
     _dateAppointmentScheduling = dateAppointmentScheduling;
+
+    if (changed) {
+      shiftDropdownSelectComponentRef.instance.dentistProcedureByDayOfWeekId =
+          '';
+      shiftDropdownSelectComponentRef.instance.showAvailableShifts = true;
+    }
 
     returnDaysOfWeekListByDentistProcedureIdMap()
         .then((daysOfWeekOfDentistById) {
@@ -527,6 +552,10 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelDentist.selectedValues.isEmpty) &&
         (!procedureDropdownSelectComponentRef
             .instance.singleSelectModelProcedure.selectedValues.isEmpty)) {
+      dentistProcedureByDayOfWeekService
+          .clearAllDentistProcedureByDayOfWeekList();
+      await dentistProcedureByDayOfWeekService
+          .getAllDentistProcedureByDayOfWeekAcives();
       await dentistProcedureByDayOfWeekService
           .returnDaysOfWeekListByDentistProcedureId(
               (await dentistProcedureService

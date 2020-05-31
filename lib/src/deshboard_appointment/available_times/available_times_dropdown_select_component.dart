@@ -134,10 +134,11 @@ class AvailableTimesDropdownSelectComponent implements OnInit {
     if ((shiftId == null) || (dentistId == null) || (date == null)) {
       return;
     }
-
+    
     availableTimesObservation = "Buscando...";
     _changeDetectorRef.markForCheck();
 
+    _availableTimesService.clearAllAvailableTimesList();
     await _availableTimesService
         .getAllAvailableTimesUIAcives(shiftId, dentistId, date)
         .then((_list) {

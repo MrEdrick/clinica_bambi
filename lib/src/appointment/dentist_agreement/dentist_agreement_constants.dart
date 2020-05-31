@@ -1,0 +1,1 @@
+final DENTIST_AGREEMENT_COLLECTION = 'dentistAgreement';

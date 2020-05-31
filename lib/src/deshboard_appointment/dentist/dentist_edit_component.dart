@@ -18,8 +18,11 @@ import '../../appointment/user/user_service.dart';
 import '../../appointment/shift/shift.dart';
 import '../../appointment/procedure/procedure.dart';
 import '../../appointment/procedure/procedure_service.dart';
+import '../../appointment/agreement/agreement.dart';
+import '../../appointment/agreement/agreement_service.dart';
 
 import '../../appointment/dentist_procedure/dentist_procedure_service.dart';
+import '../../appointment/dentist_agreement/dentist_agreement_service.dart';
 import '../../appointment/dentist_procedure_by_day_of_week/dentist_procedure_by_day_of_week_service.dart';
 import '../../appointment/dentist_procedure_by_day_of_week_by_shift/dentist_procedure_by_day_of_week_by_shift_service.dart';
 import '../../appointment/dentist_quantity_per_shift_by_day_of_week/dentist_quantity_per_shift_by_day_of_week_service.dart';
@@ -29,6 +32,8 @@ import '../../appointment/attendance_interval/attendance_interval_service.dart';
 
 import 'package:ClinicaBambi/src/deshboard_appointment/dentist_procedure/dentist_procedure_group_checkbox_component.template.dart'
     as dentist_procedure_group_checkbox_component;
+import 'package:ClinicaBambi/src/deshboard_appointment/dentist_agreement/dentist_agreement_checkbox_component.template.dart'
+    as dentist_agreement_checkbox_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/attendance_interval/attendance_interval_edit_component.template.dart'
     as attendance_interval_edit_component;
 import 'package:ClinicaBambi/src/deshboard_appointment/shift_by_day_group/shift_by_day_group_component.template.dart'
@@ -61,10 +66,14 @@ class DentistEditComponent implements OnInit {
   final ChangeDetectorRef _changeDetectorRef;
 
   final List<ComponentRef> listComponentRefProcedure = new List<ComponentRef>();
+  final List<ComponentRef> listComponentRefAgreement = new List<ComponentRef>();
   final List<ComponentRef> listComponentRefAttendanceInterval =
       new List<ComponentRef>();
   final List<ComponentRef> listComponentRefQuantityPerShiftByDayOfWeek =
       new List<ComponentRef>();
+
+  final DentistAgreementService dentistAgreementService =
+      new DentistAgreementService();
 
   final DentistProcedureService dentistProcedureService =
       new DentistProcedureService();
@@ -88,8 +97,13 @@ class DentistEditComponent implements OnInit {
 
   ComponentRef procedureCheckboxGroupComponent;
 
-  @ViewChild('dentistProcedureGroupCheckboxComponent', read: ViewContainerRef)
+  ComponentRef agreementCheckboxComponent;
+
+  @ViewChild('dentistProcedureCheckboxComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerDentistProcedureGroup;
+
+ @ViewChild('dentistAgreementGroupCheckboxComponent', read: ViewContainerRef)
+  ViewContainerRef materialContainerDentistAgreement;
 
   @ViewChild('attendanceIntervalEditComponent', read: ViewContainerRef)
   ViewContainerRef materialContainerAttendanceInterval;
@@ -118,6 +132,12 @@ class DentistEditComponent implements OnInit {
     });
 
     listComponentRefProcedure.clear();
+
+    listComponentRefAgreement.forEach((componentRef) {
+      componentRef.destroy();
+    });
+
+    listComponentRefAgreement.clear();
 
     listComponentRefAttendanceInterval.forEach((componentRef) {
       componentRef.destroy();
@@ -162,11 +182,15 @@ class DentistEditComponent implements OnInit {
     await shiftService.getAllShiftAcives();
     await intervalService.getAllIntervalAcives();
     await attendanceIntervalService.getAllAttendanceIntervalAcives();
+    await dentistAgreementService.getAllDentistAgreementAcives();
 
     List<Procedure> _listProcedure =
         await new ProcedureService().getAllProcedureAcives();
 
     List<Shift> _listShift = await new ShiftService().getAllShiftAcives();
+
+    List<Agreement> _listAgreement =
+        await new AgreementService().getAllAgreementAcives();
 
     _listProcedure.forEach((procedure) {
       ComponentFactory<
@@ -180,11 +204,31 @@ class DentistEditComponent implements OnInit {
 
       procedureCheckboxGroupComponent.instance.dentistId =
           dentistService.dentist.id;
-      procedureCheckboxGroupComponent.instance.procedureId = procedure.id;
+      procedureCheckboxGroupComponent.instance.agreementId = procedure.id;
       procedureCheckboxGroupComponent.instance.procedure =
           procedure.description;
 
       listComponentRefProcedure.add(procedureCheckboxGroupComponent);
+    });
+
+
+    _listAgreement.forEach((agreement) {
+      ComponentFactory<
+              dentist_agreement_checkbox_component
+                  .DentistAgreementCheckboxComponent> agreementComponent =
+          dentist_agreement_checkbox_component
+              .DentistAgreementCheckboxComponentNgFactory;
+
+      agreementCheckboxComponent = _loader.loadNextToLocation(
+          agreementComponent, materialContainerDentistProcedureGroup);
+
+      agreementCheckboxComponent.instance.dentistId =
+          dentistService.dentist.id;
+      agreementCheckboxComponent.instance.agreementId = agreement.id;
+      agreementCheckboxComponent.instance.agreement =
+          agreement.description;
+
+      listComponentRefAgreement.add(agreementCheckboxComponent);
     });
 
     _listShift.forEach((shift) {
