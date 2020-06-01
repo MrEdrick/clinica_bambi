@@ -595,17 +595,17 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   void onSelectDentistSelectDropdown() async {
     await listAvailableTimes();
     if (!dentistDropdownSelectComponentRef
-        .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
       if (!agreementDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.isEmpty) {
-        agreementDropdownSelectComponentRef.instance.singleSelectModelDentist
+          .instance.singleSelectModelAgreement.selectedValues.isEmpty) {
+        agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
             ?.deselect(agreementDropdownSelectComponentRef
-                .instance.singleSelectModelDentist?.selectedValues?.first);
+                .instance.singleSelectModelAgreement?.selectedValues?.first);
       }
 
       await dentistAgreementService
           .returnAgreementIdListByDentistId(dentistDropdownSelectComponentRef
-              .instance.singleSelectModelProcedure.selectedValues.first.id)
+              .instance.singleSelectModelDentist.selectedValues.first.id)
           .then((lisAgreementId) {
         if (autoAppointmentSchedulingService
             .autoAppointmentScheduling.id.isEmpty) {
@@ -615,6 +615,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         agreementDropdownSelectComponentRef.instance.listAgreementIdToShow =
             lisAgreementId;
       });
+      
       _changeDetectorRef.markForCheck();
     }
 

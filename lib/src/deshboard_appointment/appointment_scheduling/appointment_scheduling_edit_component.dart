@@ -582,19 +582,18 @@ class AppointmentSchedulingEditComponent implements OnInit {
 
   void onSelectDentistSelectDropdown() async {
     await listAvailableTimes();
-
-      if (!dentistDropdownSelectComponentRef
-        .instance.singleSelectModelProcedure.selectedValues.isEmpty) {
+    if (!dentistDropdownSelectComponentRef
+        .instance.singleSelectModelDentist.selectedValues.isEmpty) {
       if (!agreementDropdownSelectComponentRef
-          .instance.singleSelectModelDentist.selectedValues.isEmpty) {
-        agreementDropdownSelectComponentRef.instance.singleSelectModelDentist
+          .instance.singleSelectModelAgreement.selectedValues.isEmpty) {
+        agreementDropdownSelectComponentRef.instance.singleSelectModelAgreement
             ?.deselect(agreementDropdownSelectComponentRef
-                .instance.singleSelectModelDentist?.selectedValues?.first);
+                .instance.singleSelectModelAgreement?.selectedValues?.first);
       }
 
       await dentistAgreementService
           .returnAgreementIdListByDentistId(dentistDropdownSelectComponentRef
-              .instance.singleSelectModelProcedure.selectedValues.first.id)
+              .instance.singleSelectModelDentist.selectedValues.first.id)
           .then((lisAgreementId) {
         if (appointmentSchedulingService
             .appointmentScheduling.id.isEmpty) {
