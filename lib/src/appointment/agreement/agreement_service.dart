@@ -107,6 +107,20 @@ class AgreementService {
 
     _listDocumentSnapshotTemp.clear();
 
+    if ((filter["agreementId"] != null) && (filter["agreementId"] != '')) {
+      _listDocumentSnapshot.forEach((doc) {
+        if (doc["documentPath"].toString() == filter["agreementId"].toString()) {
+          _listDocumentSnapshotTemp.add(new Map.from(doc));
+        }
+      });
+    }
+
+    if ((filter["agreementId"] != null) && (filter["agreementId"] != '')) {
+      _listDocumentSnapshot.clear();
+      ListsApplyFilter();
+    }
+
+
     if ((filter["description"] != null) && (filter["description"] != '')) {
       _listDocumentSnapshot.forEach((doc) {
         if (doc["description"].toString().indexOf(filter["description"]) > -1) {

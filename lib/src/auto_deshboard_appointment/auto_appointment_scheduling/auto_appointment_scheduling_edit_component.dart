@@ -615,7 +615,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
         agreementDropdownSelectComponentRef.instance.listAgreementIdToShow =
             lisAgreementId;
       });
-      
+
       _changeDetectorRef.markForCheck();
     }
 
@@ -874,9 +874,9 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
             .instance.singleSelectModelShift.selectedValues.isEmpty) ||
         (agreementDropdownSelectComponentRef
             .instance.singleSelectModelAgreement.selectedValues.isEmpty) ||
-        ((telephoneMask.number == '') &&
-            (autoAppointmentSchedulingService
-                .autoAppointmentScheduling.email.isEmpty)) ||
+        (telephoneMask.number == '') ||
+        (autoAppointmentSchedulingService
+            .autoAppointmentScheduling.email.isEmpty) ||
         (dateAppointmentScheduling == null)) {
       showAssertMessageSave = true;
       _changeDetectorRef.markForCheck();

@@ -137,17 +137,17 @@ class DentistAgreementService {
   }
 
   Future<List<String>> returnAgreementIdListByDentistId(
-      String procedureId) async {
+      String dentistId) async {
     if (_dentistAgreementList.isEmpty) {
       await getAllDentistAgreementAcives();
     }
 
     List<String> listId = new List<String>();
     listId.clear();
-    getDentistAgreementListWithFilterFromList({"agreementId": procedureId})
+    getDentistAgreementListWithFilterFromList({"dentistId": dentistId})
         .forEach((map) {
-      if (!listId.contains(map["dentistId"])) {
-        listId.add(map["dentistId"]);
+      if (!listId.contains(map["agreementId"])) {
+        listId.add(map["agreementId"]);
       }
     });
 
