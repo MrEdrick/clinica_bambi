@@ -32,7 +32,7 @@
             </div>
 
             <div id="date-select">
-                <material-datepicker [minDate]="minDate" [(date)]="dateAppointmentScheduling" [required]="true"
+                <material-datepicker [minDate]="minDate" [maxDate]="maxDate"  [(date)]="dateAppointmentScheduling" [required]="true"
                     [disabled]="!autoAppointmentSchedulingService
                 .autoAppointmentScheduling.id.isEmpty">
                 </material-datepicker>

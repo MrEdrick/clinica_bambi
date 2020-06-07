@@ -2,3 +2,4 @@ final AUTO_APPOINTMENT_SCHEDULING_CONFIGURARION_COLLECTION = 'autoAppointmentSch
 
 final HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD = 'hourLimitToClientRemoveAutoAppointmentScheduling';
 final INVALID_DATES = 'invalidDates';
+final MAXIMUM_DAYS_TO_SCHEDULE = 'maximumDaysToSchedule';

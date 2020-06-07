@@ -102,7 +102,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             NAME,
                             EMAIL,
                             doc.data().email,
-                            "Aviso sobre cancelamento de consulta marcada na Clinica Odontologica Bambi",
+                            "Lembrete sobre consulta marcada na Clinica Odontologica Bambi",
                             `<div 
                                 style=" font-family:Arial, Helvetica, sans-serif; 
                                 font-size: 22px; 
@@ -115,8 +115,10 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                 font-size: 16px; 
                                 font-weight: 600;
                                 color:#888888;">
-                               <p>Informamos que foi cancelada, por motivos cívicos, sua consulta de hoje na Cl&iacute;nica Odontol&oacute;gica Bambi.</p>
-                               <p>Acompanhe nossas redes sociais para mais notícias.</p>
+                               <p>Passando para lembrar da sua consulta hoje na Cl&iacute;nica Odontol&oacute;gica Bambi.</p>
+                               <p>Ser&aacute; um prazer receb&ecirc;-lo!</p>
+                               <p>Caso n&atilde;o comparece, favor avisar com 12 horas de anteced&ecirc;ncia para que a vaga possa ser preenchida,</p>
+                               <p>Assim n&atilde;o cobraremos a sua falta. A uni&atilde;o faz a for&ccedil;a!</p>
                             </div>
                             
                             <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">

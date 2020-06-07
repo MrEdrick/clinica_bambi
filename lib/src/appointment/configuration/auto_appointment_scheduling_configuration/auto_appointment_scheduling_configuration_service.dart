@@ -34,6 +34,7 @@ class AutoAppointmentSchedulingConfigurationService {
         map["documentPath"],
         int.parse(
             map[HOUR_LIMIT_TO_CLIENT_REMOVE_AUTO_APPOINTMENT_SCHEDULING_FIELD]),
-        map[INVALID_DATES]);
+        map[INVALID_DATES],
+        int.parse(map[MAXIMUM_DAYS_TO_SCHEDULE]));
   }
 }

@@ -136,6 +136,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
   Date _dateAppointmentScheduling = new Date.today();
 
   Date minDate = new Date.today();
+  Date maxDate = new Date.today().add(days: 30);
 
   bool showSuccessfullySave = false;
   bool showNotSuccessfullySave = false;
@@ -324,6 +325,14 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
     await autoAppointmentSchedulingConfigurationService.getAllConfiguration();
 
     clearListComponentRef(listComponentRefDropdownSelect);
+
+    if (autoAppointmentSchedulingConfigurationService
+            .autoAppointmentSchedulingConfiguration.maximumDaysToSchedule !=
+        0) {
+      maxDate = new Date.today().add(
+          days: autoAppointmentSchedulingConfigurationService
+              .autoAppointmentSchedulingConfiguration.maximumDaysToSchedule);
+    }
 
     listInvalidDatesByMonth = autoAppointmentSchedulingConfigurationService
         .autoAppointmentSchedulingConfiguration.invalidDates
