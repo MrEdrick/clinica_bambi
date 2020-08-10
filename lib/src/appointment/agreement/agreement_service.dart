@@ -35,6 +35,7 @@ class AgreementService {
     await (_agreementList = await new AgreementDAO()
         .getAllAgreementFilter({"state": "A"}, {"description": "asc"}));
 
+    _list.clear();
     _agreementList.forEach((agreement) {
       _agreementListById[agreement["documentPath"]] = agreement;
       _list.add(turnMapInAgreement(agreement));
