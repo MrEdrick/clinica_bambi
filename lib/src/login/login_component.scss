@@ -24,7 +24,7 @@
 .title-login {
   width: 100%;
   font-family: 'Montserrat';
-  color: #DB3813;
+  color: #330099;
   font-size: 4vh;
   text-align: center;
   position: relative;
@@ -34,31 +34,31 @@
 }
 
 material-input, material-button {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
   width: 90%;
   margin-left: 5% !important;
   padding-bottom: 0% !important;
 }
 
 .div-login ::ng-deep .label-text {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .div-login ::ng-deep .focused.label-text {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .div-login ::ng-deep .focused-underline, .cursor {
-  background-color: #00B0FF !important;
+  background-color: #FF3399 !important;
 }
 
 .div-login ::ng-deep .disabled-underline {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .div-login ::ng-deep .unfocused-underline {
-  background: #00B0FF !important;
-  border-bottom-color: #00B0FF !important;
+  background: #FF3399 !important;
+  border-bottom-color: #FF3399 !important;
 }
 
 #password-icon:hover {

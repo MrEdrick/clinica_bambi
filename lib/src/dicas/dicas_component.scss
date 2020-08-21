@@ -19,7 +19,7 @@
 
 .container-left {
     flex: 1;
-    background-color: #0288D1;
+    background-color: #FF3399;
     height: 100%;  
     padding-left: 1%;
     padding-right: 1%;
@@ -52,7 +52,7 @@
 .container-rigth {
     flex: 1;
     height: 100%;
-    background-color: #0288D1;
+    background-color: #FF3399;
     padding-left: 1%;
     padding-right: 1%;
 }
@@ -86,7 +86,7 @@
     font-weight: 500;
     text-align: center;
     font-size: 1.80em;
-    color: #0288D1;
+    color: #FF3399;
     z-index: 1;
     transition: all 0.5s linear;
 }

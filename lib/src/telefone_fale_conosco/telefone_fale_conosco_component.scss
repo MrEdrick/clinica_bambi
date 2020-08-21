@@ -36,7 +36,7 @@
 
 .button-send {
     @include shadow-elevation(2);  
-    background-color: #0288D1;
+    background-color: #FF3399;
     color: #ffffff !important;
     position: absolute;
     bottom: 4%;
@@ -52,7 +52,7 @@
     font-family: 'Montserrat';
     flex: 1;
     width: 99%;
-    color: #0288D1;
+    color: #FF3399;
     font-size: 4vh;
     text-align: center;
     font-weight: 700;

@@ -72,7 +72,7 @@ material-input {
 
 .button-save {
   @include shadow-elevation(2);  
-  background-color: #0288D1;
+  background-color: #FF3399;
   color: #ffffff !important;
   position: absolute;
   bottom: 10px;
@@ -89,7 +89,7 @@ material-input {
   flex: 1;
   width: 100%;
   max-height: 48px;
-  color: #DB3813;
+  color: #330099;
   font-size: 5.0vh;
   text-align: center;
   font-weight: 500;
@@ -113,7 +113,7 @@ material-dialog {
   flex: 1;
   width: 100%;
   max-height: 48px;
-  color: #DB3813;
+  color: #330099;
   font-size: 3.0vh;
   text-align: left;
   font-weight: 500;

@@ -129,7 +129,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                     align-items: center;
                                     justify-content: center;
                                     height: 100vh;
-                                    background-color: #4c96b8;
+                                    background-color: #CC99FF;
                                 }
                             
                                 .presentational-container {
@@ -142,7 +142,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                     padding: 10px 10px 0;
                                     border-width: 3px 0 0 0;
                                     border-style: solid;
-                                    border-color: #4c96b8;
+                                    border-color: #FF3399;
                                 }
                             
                                 tr.outer-row td.headshot-cell {
@@ -155,7 +155,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             
                                 td.headshot-cell img {
                                     vertical-align: middle;
-                                    width: 250px;
+                                    width: 230;
                                 }
                             
                                 td.description-cell {
@@ -171,7 +171,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             
                                 td.full-name {
                                     font-weight: bold;
-                                    color: #4c96b8;
+                                    color: #330099;
                                     font-size: 22px;
                                     font-family: 'Quicksand', sans-serif;
                                     font-weight: 600;
@@ -186,7 +186,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                 }
                             
                                 a.website {
-                                    color: #4c96b8;
+                                    color: #330099;
                                     text-decoration: none;
                                     font-weight: 600;
                                     font-size: 14px;
@@ -222,7 +222,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                         <tr class="outer-row">
                                             <td class="headshot-cell">
                                                 <a href="https://clinicabambi.com.br">
-                                                    <img src="https://firebasestorage.googleapis.com/v0/b/bambi-210400.appspot.com/o/logo_w250.png?alt=media&token=9e1801f0-69e3-4e1d-b310-62c248402f7d"
+                                                    <img src="https://firebasestorage.googleapis.com/v0/b/bambi-210400.appspot.com/o/logo_OdontoSol.png?alt=media&token=7d81a6d7-a243-4dc9-a054-104baa57e506"
                                                         name="preview-image-url" alt="" />
                                                 </a>
                                             </td>
@@ -230,15 +230,15 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                                 <table role="presentation">
                                                     <tbody>
                                                         <tr>
-                                                            <td colspan="2" class="full-name">Cl&iacute;nica Odontol&oacute;gica Bambi</td>
+                                                            <td colspan="2" class="full-name">Clínica Odonto Sol</td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" class="title">
-                                                                (21) 3350-1883 / (21) 3251-4180 / (21) 98037-4396<br>
-                                                                clinicaodontologicabambi@gmail.com</td>
+                                                                (21) 3350-1883 / (21) 98037-4396<br>
+                                                                solangeagoncalves@gmail.com</td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" class="title">Condom&iacute;nio do Edif&iacute;cio P&oacute;lo I <br> Estr. do Portela, 99 -
+                                                            <td colspan="2" class="title">Condomínio do Edifício Pólo I <br> Estr. do Portela, 99 -
                                                                 715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>
                                                         </tr>
                                                         <tr>

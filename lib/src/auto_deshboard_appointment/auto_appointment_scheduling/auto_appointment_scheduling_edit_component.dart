@@ -762,7 +762,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       procedureRequirementCheckboxComponentRef.instance.requirement =
           requirementService.requirement.description;
       procedureRequirementCheckboxComponentRef.instance.checkedColor =
-          "#DB3813";
+          "#330099";
       procedureRequirementCheckboxComponentRef.instance.loadCheckedById = false;
       procedureRequirementCheckboxComponentRef.instance.checked = false;
 

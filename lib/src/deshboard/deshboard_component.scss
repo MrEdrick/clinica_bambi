@@ -46,7 +46,7 @@ header {
 
 .material-header {
   background: rgba(#ffffff, 1);
-  color: #00B0FF;
+  color: #FF3399;
   z-index: 1 !important;
 }
 
@@ -60,7 +60,7 @@ header {
 .material-header, .material-header-row {
   min-height: 48px !important;
   height: 48px !important;
-  color: #00B0FF;
+  color: #FF3399;
 }
 
 .material-header * {
@@ -81,11 +81,11 @@ i {
 }
 
 .group-list-menu-item ::ng-deep material-list-item {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .group-list-menu-item ::ng-deep material-icon {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 ::ng-deep .drawer-content *{
@@ -101,28 +101,28 @@ i {
 }
 
 .group-list-menu-item ::ng-deep material-button :hover {
-  background-color: rgba(#0288D1, 0.1);
+  background-color: rgba(#FF3399, 0.1);
 }
 
 .group-list-menu-item ::ng-deep .label-text {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .group-list-menu-item ::ng-deep .focused.label-text {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .group-list-menu-item ::ng-deep .focused-underline, .cursor {
-  background-color: #00B0FF !important;
+  background-color: #FF3399 !important;
 }
 
 .group-list-menu-item ::ng-deep .disabled-underline {
-  color: #00B0FF !important;
+  color: #FF3399 !important;
 }
 
 .group-list-menu-item ::ng-deep .unfocused-underline {
-  background: #00B0FF !important;
-  border-bottom-color: #00B0FF !important;
+  background: #FF3399 !important;
+  border-bottom-color: #FF3399 !important;
 }
 
 .background-navigation {
@@ -141,7 +141,7 @@ i {
   :host {
     background-size: 100% 610px;
     background-position-y: 80px;
-    background-image: url(assets/background/background1.png);
+    background-image: url(assets/background/background.png);
     background-position-y: 48px;
     background-attachment: local;
     background-repeat: no-repeat;
@@ -185,17 +185,17 @@ i {
     padding: 0 0.5% 0 0.5%;
     text-align: center;
     color: #ffffff !important;
-    background-color: #00B0FF !important;
+    background-color: #FF3399 !important;
     transition: all 0.5s linear;
   }
 
   .background-navigation-featured:hover {
-    background-color: rgba($color: #0288D1, $alpha: 1) !important;
+    background-color: rgba($color: #FF3399, $alpha: 1) !important;
     cursor: pointer;
   } 
 
   .background-navigation:hover {
-    background-color: rgba($color: #0288D1, $alpha: 0.2);
+    background-color: rgba($color: #FF3399, $alpha: 0.2);
     cursor: pointer;
   } 
 

@@ -225,7 +225,7 @@ class CadastroLoginAutoAgendamentoComponent {
                     font-weight: 600;
                     color:#888888;">
                     <p>Este &eacute; o c&oacute;digo que voc&ecirc; deve utilizar para a confirma&ccedil;&atilde;o: </p>
-                    <p color:#DB3813;">''' + sha1.convert(utf8.encode(email)).toString() + '''</p>
+                    <p color:#330099;">''' + sha1.convert(utf8.encode(email)).toString() + '''</p>
                   </div>
                   ''',
                   null, null)

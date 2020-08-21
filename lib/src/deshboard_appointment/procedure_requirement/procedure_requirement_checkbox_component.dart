@@ -45,7 +45,7 @@ class ProcedureRequirementCheckboxComponent implements OnInit {
   bool loadCheckedById = true;
   
   @Input()
-  String checkedColor = "#0288D1";
+  String checkedColor = "#FF3399";
 
   bool _checked = false;
 

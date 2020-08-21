@@ -43,7 +43,7 @@
 .contact-icon-head {
     flex: 1;
     text-align: center;
-    color: #00b0ff;
+    color: #FF3399;
     font-size: 1.2rem;
 }
 
@@ -59,7 +59,7 @@ i {
     font-weight: 600;
     text-align: center;
     font-size: 2rem;
-    color: #DB3813;
+    color: #330099;
     margin-top: 5%;
     margin-bottom: 3%;
 }
@@ -75,7 +75,7 @@ i {
 
 .alert {
     margin-top: 2%;
-    color: #DB3813 !important;
+    color: #330099 !important;
     text-align: left;
 }
 
@@ -138,7 +138,7 @@ i {
         font-weight: 600;
         text-align: center;
         //font-size: 4vw;
-        color: #DB3813;
+        color: #330099;
         margin-bottom: 1%;
     }
 
@@ -195,7 +195,7 @@ i {
 
     .contact:hover {
         cursor: pointer;
-        background-color:rgba(#0288D1, 0.14);
+        background-color:rgba(#FF3399, 0.14);
         @include shadow-elevation(8);   
     }
 
@@ -221,7 +221,7 @@ i {
     .contact-icon {
         flex: 1;
         text-align: center;
-        color: #00b0ff;
+        color: #FF3399;
     }
 
     i {
@@ -240,7 +240,7 @@ i {
         flex: 2;
         font-weight: 700;
         //font-size: 1.5vw;
-        color: #00B0FF;
+        color: #FF3399;
         padding: 0px 0px 5px 5px;
     }
 
@@ -264,18 +264,18 @@ i {
     }
 
     .contact-credit-card {
-        color: #DB3813 !important;
+        color: #330099 !important;
     }
     
     .contact-credit-card:hover {
         cursor: pointer;
-        background-color: rgba(#DB3813, 0.14);
+        background-color: rgba(#330099, 0.14);
         @include shadow-elevation(8);   
     }
 
     .credit-card {
-        color: #DB3813 !important;
-        border-color: #DB3813 !important;
+        color: #330099 !important;
+        border-color: #330099 !important;
     }
  
     email-fale-conosco-app {
@@ -317,6 +317,6 @@ i {
     }
 
     .contact-icon {
-        border-right: #00b0ff 2px solid;
+        border-right: #FF3399 2px solid;
     }
 }
