@@ -63,7 +63,7 @@ class TelefoneFaleConoscoComponent {
     emailSenderHTTP = await new EmailSenderService(
       new Email(CLINIC_EMAIL, 
                 CLINIC_EMAIL, 'Entre em contato: ' + telephone , 
-                'Este número deseja que a clínica entre em conta: ' + telephone + '\r\n'
+                'Este número deseja que a Odonto Sol entre em conta: ' + telephone + '\r\n'
                 'Deixou a seguinte mensagem: ' + '\r\n' +  mensage, 
                 null, null)
     ).emailSenderAmazon();

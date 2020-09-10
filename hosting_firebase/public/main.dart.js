@@ -14895,7 +14895,9 @@ b9.h(a4)
 a5=T.aD(s,a4)
 b9.k(a5,d2)
 b9.t(a5)
-T.h(a5,"Est. do Portela n\xba 99 Salas 715 Polo 1 Madureira ")
+T.h(a5,"Est. do Portela n\xba 99 Salas 715 Polo 1 ")
+b9.t(T.x(s,a5,d3))
+T.h(a5,"Madureira ")
 b9.t(T.x(s,a5,d3))
 T.h(a5,"Rio de Janeiro/RJ")
 a6=T.d(s,a)
@@ -14942,9 +14944,9 @@ b9.h(b6)
 b7=T.aD(s,b6)
 b9.k(b7,d2)
 b9.t(b7)
-T.h(b7,"clinicaodontologicabambi ")
+T.h(b7,"sac ")
 b9.t(T.x(s,b7,d3))
-T.h(b7,"@gmail ")
+T.h(b7,"@odontosol ")
 b9.t(T.x(s,b7,d3))
 T.h(b7,".com")
 T.h(a," ")
@@ -17924,7 +17926,7 @@ a2:function(a,b){return this.By(a,b)},
 By:function(a,b){var s=0,r=P.q(t.A),q,p,o
 var $async$a2=P.m(function(c,d){if(c===1)return P.n(d,r)
 while(true)switch(s){case 0:s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$a2)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$a2)
 case 3:p=new D.av()
 p.aE("patientAccount")
 s=4
@@ -17940,7 +17942,7 @@ as:function(a,b,c){return this.Ps(a,b,c)},
 Ps:function(a,b,c){var s=0,r=P.q(t.X),q,p,o
 var $async$as=P.m(function(d,e){if(d===1)return P.n(e,r)
 while(true)switch(s){case 0:s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$as)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$as)
 case 3:p=new D.av()
 p.aE("patientAccount")
 o=t.z
@@ -17959,7 +17961,7 @@ Bg:function(a,b){var s=0,r=P.q(t.nX),q,p,o
 var $async$ip=P.m(function(c,d){if(c===1)return P.n(d,r)
 while(true)switch(s){case 0:o={}
 s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$ip)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$ip)
 case 3:p=new D.av()
 p.aE("patientAccount")
 o.a=null
@@ -17975,7 +17977,7 @@ Mp:function(a){var s=0,r=P.q(t.nX),q,p,o
 var $async$hQ=P.m(function(b,c){if(b===1)return P.n(c,r)
 while(true)switch(s){case 0:o={}
 s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$hQ)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$hQ)
 case 3:p=new D.av()
 p.aE("patientAccount")
 o.a=null
@@ -18125,7 +18127,7 @@ a2:function(a,b){return this.Bz(a,b)},
 Bz:function(a,b){var s=0,r=P.q(t.A),q,p,o
 var $async$a2=P.m(function(c,d){if(c===1)return P.n(d,r)
 while(true)switch(s){case 0:s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$a2)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$a2)
 case 3:p=new D.av()
 p.aE("procedure")
 s=4
@@ -18141,7 +18143,7 @@ as:function(a,b,c){return this.Pt(a,b,c)},
 Pt:function(a,b,c){var s=0,r=P.q(t.X),q,p,o
 var $async$as=P.m(function(d,e){if(d===1)return P.n(e,r)
 while(true)switch(s){case 0:s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$as)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$as)
 case 3:p=new D.av()
 p.aE("procedure")
 o=t.z
@@ -18563,7 +18565,7 @@ a2:function(a,b){return this.BC(a,b)},
 BC:function(a,b){var s=0,r=P.q(t.A),q,p,o
 var $async$a2=P.m(function(c,d){if(c===1)return P.n(d,r)
 while(true)switch(s){case 0:s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$a2)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$a2)
 case 3:p=new D.av()
 p.aE("requirement")
 s=4
@@ -18579,7 +18581,7 @@ as:function(a,b,c){return this.Pv(a,b,c)},
 Pv:function(a,b,c){var s=0,r=P.q(t.X),q,p,o
 var $async$as=P.m(function(d,e){if(d===1)return P.n(e,r)
 while(true)switch(s){case 0:s=3
-return P.e(new O.eS().dD("clinicaodontologicabambi@gmail.com","clinicaodontologicabambiadm2019_"),$async$as)
+return P.e(new O.eS().dD("sac@odontosol.com","clinicaodontologicabambiadm2019_"),$async$as)
 case 3:p=new D.av()
 p.aE("requirement")
 o=t.z
@@ -19188,7 +19190,7 @@ e6.t(d9)
 T.h(d9,"Infelizmente n\xe3o \xe9 mais poss\xedvel :(")
 e0=f6.createElement("p")
 e6.t(e0)
-T.h(e0,"J\xe1 passou do hor\xe1rio limite para desmarcar. Entra em contato com a cl\xednica para desmarcar, por favor.")
+T.h(e0,"J\xe1 passou do hor\xe1rio limite para desmarcar. Entra em contato com a Odonto Sol para desmarcar, por favor.")
 e6.P.u(e6.Z,H.a([H.a([d8],c9),H.a([e0],c9),C.e],d0))
 e6.y1.u(e6.y2,H.a([H.a([e6.a1],c9)],d0));(f7&&C.u).a3(f7,"dblclick",e6.J(f4.geG(),t.L))
 j=e6.fy.r
@@ -19690,7 +19692,7 @@ m=new T.ag()
 m.b=T.aj(null,T.ap(),T.an())
 m.aq("dd/MM/yyyy")
 s=6
-return P.e(new Q.hn(new T.hm("clinicaodontologicabambi@gmail.com",o,"Consulta marcada na Cl&iacute;nica Odontol&oacute;gica Bambi",C.b.aL(C.b.aL(C.b.aL(C.b.aL(p+m.aV(q.rx.a)+"</p>\n                  <p>Turno: ",C.a.gC(q.x.c.gb0().d).gcC())+"</p>\n                    <p>Dentista: ",C.a.gC(q.e.c.gbj().d).gcC())+"</p>\n                    <p>Procedimento: ",C.a.gC(q.f.c.gbP().d).gcC())+"</p>\n                    <p>Conv&ecirc;nio: ",C.a.gC(q.r.c.gcm().d).gcC())+"</p>\n                  </div>\n              ")).iU(),$async$aR)
+return P.e(new Q.hn(new T.hm("sac@odontosol.com",o,"Consulta marcada na Odonto Sol",C.b.aL(C.b.aL(C.b.aL(C.b.aL(p+m.aV(q.rx.a)+"</p>\n                  <p>Turno: ",C.a.gC(q.x.c.gb0().d).gcC())+"</p>\n                    <p>Dentista: ",C.a.gC(q.e.c.gbj().d).gcC())+"</p>\n                    <p>Procedimento: ",C.a.gC(q.f.c.gbP().d).gcC())+"</p>\n                    <p>Conv&ecirc;nio: ",C.a.gC(q.r.c.gcm().d).gcC())+"</p>\n                  </div>\n              ")).iU(),$async$aR)
 case 6:m=b
 q.Q=m
 m.eh()
@@ -21771,7 +21773,7 @@ a7.y.u(a7.Q,H.a([H.a([k],t.O)],b5))
 j=T.aD(r,o)
 a7.k(j,"material-header-title")
 a7.t(j)
-T.h(j,"Cl\xednica Odonto Sol")
+T.h(j,"Odonto Sol")
 i=T.d(r,o)
 a7.k(i,"material-spacer")
 a7.h(i)
@@ -21781,7 +21783,7 @@ a7.h(h)
 g=T.d(r,h)
 a7.k(g,b0)
 a7.h(g)
-T.h(g,"A CLINICA")
+T.h(g,"ODONTO SOL")
 f=T.d(r,o)
 a7.k(f,"background-navigation-featured")
 a7.h(f)
@@ -22069,7 +22071,7 @@ a5.e=b0
 n=r.createElement("i")
 a5.k(n,"fas fa-door-open")
 a5.t(n)
-m=T.ar("A CL\xddNICA")
+m=T.ar("ODONTO SOL")
 b0=t.x
 l=t.M
 a5.d.u(a5.e,H.a([H.a([n,m],b0)],l))
@@ -29923,7 +29925,7 @@ T.h(r,"Nossas dicas para sua sa\xfade.")
 q=T.d(e7,s)
 c7.k(q,c9)
 c7.h(q)
-T.h(q,"N\xf3s da cl\xednica Bambi nos preocupamos muito com nossos pacientes. Por isso reservamos este espa\xe7o para algumas dicas, artigos e passo-a-passos important\xedssimos para sua s\xe1ude.")
+T.h(q,"N\xf3s da Odonto Sol nos preocupamos muito com nossos pacientes. Por isso reservamos este espa\xe7o para algumas dicas, artigos e passo-a-passos important\xedssimos para sua s\xe1ude.")
 c7.t(T.x(e7,s,"br"))
 p=T.d(e7,s)
 c7.k(p,c9)
@@ -30293,7 +30295,7 @@ p.Q="Enviando..."
 o=p.a
 o.V()
 s=3
-return P.e(new Q.hn(new T.hm("clinicaodontologicabambi@gmail.com","clinicaodontologicabambi@gmail.com",C.b.aL(C.b.aL(J.a2(p.y," - De Nome: "),p.x)+" Email: ",p.r),p.z)).iU(),$async$da)
+return P.e(new Q.hn(new T.hm("sac@odontosol.com","sac@odontosol.com",C.b.aL(C.b.aL(J.a2(p.y," - De Nome: "),p.x)+" Email: ",p.r),p.z)).iU(),$async$da)
 case 3:n=b
 p.cx=n
 s=4
@@ -30302,7 +30304,7 @@ case 4:n=p.ch=b
 s=n.b===200?5:6
 break
 case 5:s=7
-return P.e(new Q.hn(new T.hm("clinicaodontologicabambi@gmail.com",p.r,p.y,C.b.aL('                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Ol&aacute;, recebemos seu e-mail!\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Esta &eacute; apenas uma mensagem autom&aacute;tica, por favor n&atilde;o responda.</p>\n                    </p>\n                  </div>\n              \r\n',p.z))).iU(),$async$da)
+return P.e(new Q.hn(new T.hm("sac@odontosol.com",p.r,p.y,C.b.aL('                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Ol&aacute;, recebemos seu e-mail!\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Esta &eacute; apenas uma mensagem autom&aacute;tica, por favor n&atilde;o responda.</p>\n                    </p>\n                  </div>\n              \r\n',p.z))).iU(),$async$da)
 case 7:n=b
 p.cx=n
 s=8
@@ -31049,7 +31051,7 @@ a1.h(b4)
 s=T.d(b3,b4)
 a1.k(s,"titulo-galeria")
 a1.h(s)
-T.h(s,"Conhe\xe7a nossa cl\xednica!")
+T.h(s,"Conhe\xe7a a Odonto Sol!")
 r=T.d(b3,b4)
 a1.k(r,"lista-galeria")
 a1.h(r)
@@ -31407,7 +31409,7 @@ s=p.dy==="VERIFICAR E-MAIL"?3:4
 break
 case 3:o=p.ch
 s=5
-return P.e(new Q.hn(new T.hm("clinicaodontologicabambi@gmail.com",o,"Verifica\xe7\xe3o de e-mail",C.b.aL('                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Seja bem vindo!\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Este &eacute; o c&oacute;digo que voc&ecirc; deve utilizar para a confirma&ccedil;&atilde;o: </p>\n                    <p color:#330099;">',J.K($.pr().bg(C.a0.gcM().bg(o))))+"</p>\n                  </div>\n                  ")).iT(),$async$aR)
+return P.e(new Q.hn(new T.hm("sac@odontosol.com",o,"Verifica\xe7\xe3o de e-mail",C.b.aL('                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Seja bem vindo!\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Este &eacute; o c&oacute;digo que voc&ecirc; deve utilizar para a confirma&ccedil;&atilde;o: </p>\n                    <p color:#330099;">',J.K($.pr().bg(C.a0.gcM().bg(o))))+"</p>\n                  </div>\n                  ")).iT(),$async$aR)
 case 5:o=b
 p.go=o
 s=6
@@ -32631,7 +32633,7 @@ case 3:o=p.Q
 n=$.pr()
 m=p.fy.d
 s=5
-return P.e(new Q.hn(new T.hm("clinicaodontologicabambi@gmail.com",o,"Verifica\xe7\xe3o de e-mail",C.b.aL(' <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Ol&aacute;, tudo bem?\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Este \xe9 o c\xf3digo que voc\xea deve utilizar para a confirma\xe7\xe3o: </p>\n                    <p style="color:#330099;"> ',J.K(n.bg(C.a0.gcM().bg(m))))+' </p>\n                  </div> \n <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">\n                            <style>\n                                body {\n                                    display: flex;\n                                    margin: 0;\n                                    align-items: center;\n                                    justify-content: center;\n                                    height: 100vh;\n                                    background-color: #CC99FF;\n                                }\n                            \n                                .presentational-container {\n                                    background-color: #fff;\n                                }\n                            \n                                table {\n                                    background: none;\n                                    margin: 0;\n                                    padding: 10px 10px 0;\n                                    border-width: 3px 0 0 0;\n                                    border-style: solid;\n                                    border-color: #FF3399;\n                                }\n                            \n                                tr.outer-row td.headshot-cell {\n                                    padding: 0 12px 0 0;\n                                }\n                            \n                                td.headshot-cell a {\n                                    text-decoration: none;\n                                }\n                            \n                                td.headshot-cell img {\n                                    vertical-align: middle;\n                                    width: 230;\n                                }\n                            \n                                td.description-cell {\n                                    padding: 0 0 0 12px;\n                                }\n                            \n                                td.description-cell>table {\n                                    background: none;\n                                    border: 0px;\n                                    margin: 0;\n                                    padding: 0;\n                                }\n                            \n                                td.full-name {\n                                    font-weight: bold;\n                                    color: #330099;\n                                    font-size: 22px;\n                                    font-family: \'Quicksand\', sans-serif;\n                                    font-weight: 600;\n                                }\n                            \n                                td.title {\n                                    padding-bottom: 10px;\n                                    color: #555555;\n                                    font-size: 14px;\n                                    font-family: \'Quicksand\', sans-serif;\n                                    font-weight: 600;\n                                }\n                            \n                                a.website {\n                                    color: #330099;\n                                    text-decoration: none;\n                                    font-weight: 600;\n                                    font-size: 14px;\n                                }\n                            \n                                td.social-icons {\n                                    padding-top: 5px;\n                                }\n                            \n                                td.social-icons ul {\n                                    list-style: none;\n                                    padding: 0;\n                                    margin: 0;\n                                    height: 25px;\n                                }\n                            \n                                td.social-icons li {\n                                    display: inline-block;\n                                }\n                            \n                                td.social-icons a {\n                                    text-decoration: none;\n                                }\n                            \n                                td.social-icons img {\n                                    width: 30px;\n                                    height: 25px;\n                                }\n                            </style>\n                            <div class="presentational-container">\n                                <table role="presentation">\n                                    <tbody>\n                                        <tr class="outer-row">\n                                            <td class="headshot-cell">\n                                                <a href="https://clinicabambi.com.br">\n                                                    <img src="https://firebasestorage.googleapis.com/v0/b/bambi-210400.appspot.com/o/logo_OdontoSol.png?alt=media&token=7d81a6d7-a243-4dc9-a054-104baa57e506"\n                                                        name="preview-image-url" alt="" />\n                                                </a>\n                                            </td>\n                                            <td class="description-cell">\n                                                <table role="presentation">\n                                                    <tbody>\n                                                        <tr>\n                                                            <td colspan="2" class="full-name">Clinica Odonto Sol</td>\n                                                        </tr>\n                                                        <tr>\n                                                            <td colspan="2" class="title">\n                                                                (21) 3350-1883 / (21) 98037-4396<br>\n                                                                solangeagoncalves@gmail.com</td>\n                                                        </tr>\n                                                        <tr>\n                                                            <td colspan="2" class="title">Condominio do Edificio Polo I <br> Estr. do Portela, 99 -\n                                                                715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>\n                                                        </tr>\n                                                        <tr>\n                                                            <td class="title">\n                                                                Agende sua consulta on-line:\n                                                                <a class="website" href="https://clinicabambi.com.br">www.clinicabambi.com.br</a>\n                                                            </td>\n                                                        </tr>\n                                                    </tbody>\n                                                </table>\n                                            </td>\n                                        </tr>\n                                    </tbody>\n                                </table>\n                            </div>\n                  ')).iT(),$async$aR)
+return P.e(new Q.hn(new T.hm("sac@odontosol.com",o,"Verifica\xe7\xe3o de e-mail",C.b.aL(' <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 22px; \n                    font-weight: 600;\n                    color:#666666;">\n                    Ol&aacute;, tudo bem?\n                  </div>\n                  <div \n                    style=" font-family:Arial, Helvetica, sans-serif; \n                    font-size: 16px; \n                    font-weight: 600;\n                    color:#888888;">\n                    <p>Este \xe9 o c\xf3digo que voc\xea deve utilizar para a confirma\xe7\xe3o: </p>\n                    <p style="color:#330099;"> ',J.K(n.bg(C.a0.gcM().bg(m))))+' </p>\n                  </div> \n <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">\n                            <style>\n                                body {\n                                    display: flex;\n                                    margin: 0;\n                                    align-items: center;\n                                    justify-content: center;\n                                    height: 100vh;\n                                    background-color: #CC99FF;\n                                }\n                            \n                                .presentational-container {\n                                    background-color: #fff;\n                                }\n                            \n                                table {\n                                    background: none;\n                                    margin: 0;\n                                    padding: 10px 10px 0;\n                                    border-width: 3px 0 0 0;\n                                    border-style: solid;\n                                    border-color: #FF3399;\n                                }\n                            \n                                tr.outer-row td.headshot-cell {\n                                    padding: 0 12px 0 0;\n                                }\n                            \n                                td.headshot-cell a {\n                                    text-decoration: none;\n                                }\n                            \n                                td.headshot-cell img {\n                                    vertical-align: middle;\n                                    width: 230;\n                                }\n                            \n                                td.description-cell {\n                                    padding: 0 0 0 12px;\n                                }\n                            \n                                td.description-cell>table {\n                                    background: none;\n                                    border: 0px;\n                                    margin: 0;\n                                    padding: 0;\n                                }\n                            \n                                td.full-name {\n                                    font-weight: bold;\n                                    color: #330099;\n                                    font-size: 22px;\n                                    font-family: \'Quicksand\', sans-serif;\n                                    font-weight: 600;\n                                }\n                            \n                                td.title {\n                                    padding-bottom: 10px;\n                                    color: #555555;\n                                    font-size: 14px;\n                                    font-family: \'Quicksand\', sans-serif;\n                                    font-weight: 600;\n                                }\n                            \n                                a.website {\n                                    color: #330099;\n                                    text-decoration: none;\n                                    font-weight: 600;\n                                    font-size: 14px;\n                                }\n                            \n                                td.social-icons {\n                                    padding-top: 5px;\n                                }\n                            \n                                td.social-icons ul {\n                                    list-style: none;\n                                    padding: 0;\n                                    margin: 0;\n                                    height: 25px;\n                                }\n                            \n                                td.social-icons li {\n                                    display: inline-block;\n                                }\n                            \n                                td.social-icons a {\n                                    text-decoration: none;\n                                }\n                            \n                                td.social-icons img {\n                                    width: 30px;\n                                    height: 25px;\n                                }\n                            </style>\n                            <div class="presentational-container">\n                                <table role="presentation">\n                                    <tbody>\n                                        <tr class="outer-row">\n                                            <td class="headshot-cell">\n                                                <a href="https://clinicabambi.com.br">\n                                                    <img src="https://firebasestorage.googleapis.com/v0/b/bambi-210400.appspot.com/o/logo_OdontoSol.png?alt=media&token=7d81a6d7-a243-4dc9-a054-104baa57e506"\n                                                        name="preview-image-url" alt="" />\n                                                </a>\n                                            </td>\n                                            <td class="description-cell">\n                                                <table role="presentation">\n                                                    <tbody>\n                                                        <tr>\n                                                            <td colspan="2" class="full-name">Clinica Odonto Sol</td>\n                                                        </tr>\n                                                        <tr>\n                                                            <td colspan="2" class="title">\n                                                                (21) 3350-1883 / (21) 98037-4396<br>\n                                                                solangeagoncalves@gmail.com</td>\n                                                        </tr>\n                                                        <tr>\n                                                            <td colspan="2" class="title">Condominio do Edificio Polo I <br> Estr. do Portela, 99 -\n                                                                715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>\n                                                        </tr>\n                                                        <tr>\n                                                            <td class="title">\n                                                                Agende sua consulta on-line:\n                                                                <a class="website" href="https://clinicabambi.com.br">www.clinicabambi.com.br</a>\n                                                            </td>\n                                                        </tr>\n                                                    </tbody>\n                                                </table>\n                                            </td>\n                                        </tr>\n                                    </tbody>\n                                </table>\n                            </div>\n                  ')).iT(),$async$aR)
 case 5:m=b
 p.fx=m
 s=6
@@ -33438,7 +33440,7 @@ cA:function(){this.b=this.a=!1},
 da:function(){var s=0,r=P.q(t.z),q=this,p
 var $async$da=P.m(function(a,b){if(a===1)return P.n(b,r)
 while(true)switch(s){case 0:s=2
-return P.e(new Q.hn(new T.hm("clinicaodontologicabambi@gmail.com","clinicaodontologicabambi@gmail.com",C.b.aL("Entre em contato: ",q.d),C.b.aL(C.b.aL("Este n\xfamero deseja que a cl\xednica entre em conta: ",q.d)+"\r\nDeixou a seguinte mensagem: \r\n",q.e))).iT(),$async$da)
+return P.e(new Q.hn(new T.hm("sac@odontosol.com","sac@odontosol.com",C.b.aL("Entre em contato: ",q.d),C.b.aL(C.b.aL("Este n\xfamero deseja que a Odonto Sol entre em conta: ",q.d)+"\r\nDeixou a seguinte mensagem: \r\n",q.e))).iT(),$async$da)
 case 2:p=b
 q.r=p
 s=3

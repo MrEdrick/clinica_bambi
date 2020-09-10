@@ -948,7 +948,7 @@ class AutoAppointmentSchedulingEditComponent implements OnInit {
       emailSenderHTTP = await new EmailSenderService(new Email(
               CLINIC_EMAIL,
               autoAppointmentSchedulingService.autoAppointmentScheduling.email,
-              "Consulta marcada na Cl&iacute;nica Odontol&oacute;gica Bambi",
+              "Consulta marcada na Odonto Sol",
               '''
                   <div 
                     style=" font-family:Arial, Helvetica, sans-serif; 

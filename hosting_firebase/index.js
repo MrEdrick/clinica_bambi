@@ -5,8 +5,8 @@ const nodemailer = require('nodemailer');
 const cors = require('cors')({ origin: true });
 const AWS = require('aws-sdk');
 
-const NAME = 'Clinica Bambi';
-const EMAIL = 'clinicaodontologicabambi@gmail.com';
+const NAME = 'Odonto Sol';
+const EMAIL = 'sac@odontosol.com';
 const PASSWORD = 'B715706**';
 //const AMAZON_API_ENDPONT_SEND_EMAIL = 'https://mz8uki4o3l.execute-api.us-east-1.amazonaws.com/default/sendEmail';
 //const GMAIL_API_ENDPONT_SEND_EMAIL = 'https://us-central1-bambi-210400.cloudfunctions.net/sendMail';
@@ -43,7 +43,7 @@ const transporter = nodemailer.createTransport({
 function sendSMS(phoneNumber) {
     var params = {
         Message: `Ola, tudo bem?
-        Passando para lembrar da sua consulta hoje na Clinica Odontologica Bambi. 
+        Passando para lembrar da sua consulta hoje na Odonto Sol. 
         Sera um prazer recebe-lo!`,
         PhoneNumber: phoneNumber,
     };
@@ -102,7 +102,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                             NAME,
                             EMAIL,
                             doc.data().email,
-                            "Lembrete sobre consulta marcada na Clinica Odontologica Bambi",
+                            "Lembrete sobre consulta marcada na Odonto Sol",
                             `<div 
                                 style=" font-family:Arial, Helvetica, sans-serif; 
                                 font-size: 22px; 
@@ -115,7 +115,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                 font-size: 16px; 
                                 font-weight: 600;
                                 color:#888888;">
-                               <p>Passando para lembrar da sua consulta hoje na Cl&iacute;nica Odontol&oacute;gica Bambi.</p>
+                               <p>Passando para lembrar da sua consulta hoje na Odonto Sol.</p>
                                <p>Ser&aacute; um prazer receb&ecirc;-lo!</p>
                             </div>
                             
