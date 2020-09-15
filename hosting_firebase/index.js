@@ -5,8 +5,8 @@ const nodemailer = require('nodemailer');
 const cors = require('cors')({ origin: true });
 const AWS = require('aws-sdk');
 
-const NAME = 'Odonto Sol';
-const EMAIL = 'sac@odontosol.com';
+const NAME = 'OdontoSol';
+const EMAIL = 'clinicaodontologicabambi@gmail.com';
 const PASSWORD = 'B715706**';
 //const AMAZON_API_ENDPONT_SEND_EMAIL = 'https://mz8uki4o3l.execute-api.us-east-1.amazonaws.com/default/sendEmail';
 //const GMAIL_API_ENDPONT_SEND_EMAIL = 'https://us-central1-bambi-210400.cloudfunctions.net/sendMail';
@@ -228,7 +228,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                                 <table role="presentation">
                                                     <tbody>
                                                         <tr>
-                                                            <td colspan="2" class="full-name">Clínica Odonto Sol</td>
+                                                            <td colspan="2" class="full-name">Clï¿½nica Odonto Sol</td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" class="title">
@@ -236,7 +236,7 @@ exports.scheduledFunctionRemember = functions.pubsub.schedule('0 8 * * *')
                                                                 solangeagoncalves@gmail.com</td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2" class="title">Condomínio do Edifício Pólo I <br> Estr. do Portela, 99 -
+                                                            <td colspan="2" class="title">Condomï¿½nio do Edifï¿½cio Pï¿½lo I <br> Estr. do Portela, 99 -
                                                                 715 - Madureira <br> Rio de Janeiro - RJ, 21351-050</td>
                                                         </tr>
                                                         <tr>
