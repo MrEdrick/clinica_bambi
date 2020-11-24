@@ -19013,12 +19013,12 @@ m.k4.B(j)
 m.rx.B(j)
 o=k.r
 i=m.a0
-if(i!=o){m.a6.autoDismissable=o
+if(i!=o){m.a6.disabled=o
 m.a0=o}m.x1.B(j)
 m.y1.B(j)
 n=k.x
 i=m.W
-if(i!=n){m.a1.autoDismissable=n
+if(i!=n){m.a1.disabled=n
 m.W=n}m.P.B(j)
 m.fx.p()
 m.go.p()

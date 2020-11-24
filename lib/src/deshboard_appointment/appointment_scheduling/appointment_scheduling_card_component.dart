@@ -31,6 +31,7 @@ import 'package:ClinicaBambi/src/deshboard_appointment/appointment_scheduling/ap
       MaterialIconComponent,
       MaterialDialogComponent,
       ModalComponent,
+      AutoDismissDirective,
     ])
 class AppointmentSchedulingCardComponent implements OnInit {
   final ComponentLoader _loader;

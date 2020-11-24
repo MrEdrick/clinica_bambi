@@ -31,6 +31,7 @@ import 'package:ClinicaBambi/src/auto_deshboard_appointment/auto_appointment_sch
       MaterialIconComponent,
       MaterialButtonComponent,
       MaterialDialogComponent,
+      AutoDismissDirective,
     ])
 class AutoAppointmentSchedulingCardComponent implements OnInit {
   final ComponentLoader _loader;
