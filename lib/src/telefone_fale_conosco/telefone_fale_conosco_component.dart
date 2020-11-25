@@ -51,7 +51,7 @@ class TelefoneFaleConoscoComponent {
   void clickClose() {
     onDismissAssertMessage();
     querySelector('telefone-fale-conosco-app').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'block';
+    //querySelector('#wh-widget-send-button').style.display = 'block';
   }
 
   void onDismissAssertMessage() {

@@ -88,7 +88,7 @@ class DeshboardAppointmentComponent implements OnActivate, OnInit {
       if (new UserService().user == null) {
         _router.navigate(paths.login.toUrl());
       } else {
-        querySelector('#wh-widget-send-button').style.display = 'none';
+        //querySelector('#wh-widget-send-button').style.display = 'none';
         loadAppointmentSchedulingFilter();
         _changeDetectorRef.markForCheck();
       }

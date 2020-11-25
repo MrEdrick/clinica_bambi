@@ -59,7 +59,7 @@ class EmailFaleConoscoComponent {
   void clickClose() {
     onDismissAssertMessage();
     querySelector('email-fale-conosco-app').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'block';
+    //querySelector('#wh-widget-send-button').style.display = 'block';
   }
 
   void onDismissAssertMessage() {

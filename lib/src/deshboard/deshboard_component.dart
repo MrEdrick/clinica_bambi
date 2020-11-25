@@ -52,7 +52,7 @@ class DeshboardComponent implements OnInit {
 
   @override
   ngOnInit() async {
-    querySelector('#wh-widget-send-button').style.display = 'block';
+  //  querySelector('#wh-widget-send-button').style.display = 'block';
   }
 
   void clickAClinica() {

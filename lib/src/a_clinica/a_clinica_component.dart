@@ -27,7 +27,7 @@ import 'package:google_maps/google_maps.dart';
 class AClinicaCmponent {
 
   void clickMapa() {
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
     querySelector('map-app').style.display = 'block';
     
     final mapOptions = new MapOptions()
@@ -43,12 +43,12 @@ class AClinicaCmponent {
   }
 
   void clickTelefoneFaleConosco() {
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
     querySelector('telefone-fale-conosco-app').style.display = 'block';
   }
 
   void clickEmailFaleConosco() {
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
     querySelector('email-fale-conosco-app').style.display = 'block';
   }
 }

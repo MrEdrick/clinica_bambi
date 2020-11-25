@@ -28,6 +28,6 @@ class MapComponent {
 
   void clickClose() {
     querySelector('map-app').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'block';
+    //querySelector('#wh-widget-send-button').style.display = 'block';
   }
 }

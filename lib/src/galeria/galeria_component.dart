@@ -17,14 +17,14 @@ import 'package:angular_components/angular_components.dart';
 class GaleriaComponent {
 
   void clickImg(String href) {
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
     querySelector('#galeria-img-large').style.display = 'inline-block';
     querySelector('#img-large').style.backgroundImage = 'url('+ href + ')';
   }
 
   void clickClose() {
     querySelector('#galeria-img-large').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'block';
+    //querySelector('#wh-widget-send-button').style.display = 'block';
   }
 
 }

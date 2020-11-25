@@ -6,5 +6,6 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#FF3399",
-  "description":"Agência digital para hotéis"
+  "description":"Agência digital para hotéis",
+  "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com https://*.firebaseio-demo.com; object-src 'self'"
 }

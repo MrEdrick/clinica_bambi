@@ -43,7 +43,7 @@ class DicasComponent {
     querySelector('#button-close').style.zIndex = '3';
 
     querySelector('#title-decorator-dicas').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
 
     querySelector('#button-close').style.display = 'inline-block';
   }
@@ -65,7 +65,7 @@ class DicasComponent {
     querySelector('#button-close').style.zIndex = '3';
 
     querySelector('#title-decorator-artigos').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
 
     querySelector('#button-close').style.display = 'inline-block';
   }
@@ -87,7 +87,7 @@ class DicasComponent {
     querySelector('#button-close').style.zIndex = '3';
 
     querySelector('#title-decorator-cuidados').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
 
     querySelector('#button-close').style.display = 'inline-block';
   }
@@ -109,7 +109,7 @@ class DicasComponent {
     querySelector('.button-close').style.zIndex = '3';
 
     querySelector('#title-decorator-saude').style.display = 'none';
-    querySelector('#wh-widget-send-button').style.display = 'none';
+    //querySelector('#wh-widget-send-button').style.display = 'none';
 
     querySelector('#button-close').style.display = 'inline-block';
   }
@@ -138,7 +138,7 @@ class DicasComponent {
     querySelector('#title-decorator-saude').style.display = 'block';
     querySelector('#title-decorator-cuidados').style.display = 'block';
     querySelector('#title-decorator-artigos').style.display = 'block';
-    querySelector('#wh-widget-send-button').style.display = 'block';
+    //querySelector('#wh-widget-send-button').style.display = 'block';
     
     if (window.innerWidth >= 1100) {
       content = querySelector('#dicas-content');
